@@ -7,6 +7,9 @@ var currentFunction;
 var datarowSlide = false;
 var dashRow = false;
 var currentPage = 1;
+var permissions={
+
+};
 $.getJSON("/getsessionstatus", function (result) {
     if (!result["isactive"]) {
         eraseCookie("projectSessionId");
@@ -17,6 +20,7 @@ $(document).ready(function () {
     $.getJSON("/getpermissions", function (result) {
         for (var key in result) {
             var permission = result[key];
+            permissions[permission.code]=permission;
             switch (permission.code) {
                 case "users":
                     navigation.append('<li id="loadUsersButton" class="k">' +
@@ -34,6 +38,20 @@ $(document).ready(function () {
                     break;
                 case "payments":
 
+                    break;
+                case "categories":
+                    navigation.append('<li id="loadCategoriesButton" class="k">' +
+                        '<a href="#"><i class="icon-picture"></i><span data-translate="კატეგორიები">კატეგორიები</span></a></li>');
+                    $("#loadCategoriesButton").click(function () {
+                        $(".k").attr("class", "k");
+                        $(this).attr("class", "k nav-active active");
+                        if (datarowSlide) {
+                            $("#dataRow").slideDown("slow");
+                            $("#dashRow").slideUp("slow");
+                            datarowSlide = true;
+                        }
+                        loadCategoriesData(0, "");
+                    });
                     break;
                 case "dashboard":
                     navigation.append('<li id="loadDashboardButton" class="k">' +

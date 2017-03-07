@@ -111,12 +111,6 @@ public class UsersController {
         }
     }
 
-    @ResponseBody
-    @RequestMapping("/usersbymostwon")
-    public List<User> usersbymostwon(){
-        return userDao.findByMostWon();
-    }
-
 
     @RequestMapping("/edituser")
     @ResponseBody

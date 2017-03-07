@@ -9,12 +9,32 @@ import com.technonet.model.User;
  * Created by kakha on 3/2/2017.
  */
 public class PermisionChecks {
-    static public boolean isAdmin(User user){
-        return user.getPermissions().stream().filter(permission->permission.getCode().equals(PERMISSIONS.admin.name())).count()>0;
+    static public boolean isAdmin(User user) {
+        return user.getPermissions().stream().filter(permission -> permission.getCode().equals(PERMISSIONS.admin.name())).count() > 0;
     }
+
     static public boolean FileManagement(Session session) {
 
         return session.isIsactive() && session.getUser().getPermissions().stream().filter(permission -> permission.getCode().equals(PERMISSIONS.fileManagement.name())).count() > 0;
 
+    }
+
+    static public boolean isAdmin(Session session) {
+        return session.isIsactive() && session.getUser()
+                .getPermissions().stream()
+                .filter(permission -> permission.getCode().equals(PERMISSIONS.admin.name()))
+                .count() > 0;
+    }
+    static public boolean categoriesManagement(Session session){
+        return session.isIsactive() && session.getUser()
+                .getPermissions().stream()
+                .filter(permission -> permission.getCode().equals(PERMISSIONS.categories.name()))
+                .count() > 0;
+    }
+    static public boolean documentTypes(Session session){
+        return session.isIsactive() && session.getUser()
+                .getPermissions().stream()
+                .filter(permission -> permission.getCode().equals(PERMISSIONS.docTypes.name()))
+                .count() > 0;
     }
 }

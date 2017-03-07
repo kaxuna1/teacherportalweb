@@ -21,7 +21,7 @@ function loadUsersData(index, search) {
             var currentElement = dataArray[i];
 
             $("#dataGridBody").append(
-                "<tr value='"+i+"' class='gridRow'><td>" + currentElement["name"] + "</td><td>"
+                "<tr value='" + i + "' class='gridRow'><td>" + currentElement["name"] + "</td><td>"
                 + currentElement["surname"] + "</td><td>"
                 + currentElement["username"] + "</td><td>"
                 + currentElement["personalNumber"] + "</td>" +
@@ -43,128 +43,123 @@ function loadUsersData(index, search) {
         gridRow.click(function () {
             var currentElement = dataArray[$(this).attr("value")];
             console.log(currentElement);
-                showModalWithTableInside(function (head, body, modal,rand) {
-                    body.html(clientProfileTemplate);
-                    var documents = $("#tab5_1");
-                    var permissions = $("#tab5_2");
-                    var lessons = $("#tab5_3");
-                    var payments = $("#tab5_4")
-                    var actions = $("#tab6_1");
-                    var infoDiv = $("#tab6_2");
-                    var DOMElements={
-                        documents:documents,
-                        permissions:permissions,
-                        lessons:lessons,
-                        payments:payments,
-                        actions:actions,
-                        infoDiv:infoDiv,
-                        modal:modal,
-                        rand:rand
-                    };
+            showModalWithTableInside(function (head, body, modal, rand) {
+                body.html(clientProfileTemplate);
+                var documents = $("#tab5_1");
+                var permissions = $("#tab5_2");
+                var lessons = $("#tab5_3");
+                var payments = $("#tab5_4")
+                var actions = $("#tab6_1");
+                var infoDiv = $("#tab6_2");
+                var DOMElements = {
+                    documents: documents,
+                    permissions: permissions,
+                    lessons: lessons,
+                    payments: payments,
+                    actions: actions,
+                    infoDiv: infoDiv,
+                    modal: modal,
+                    rand: rand,
+                    currentElement:currentElement
+                };
 
 
-                    payments.append('<div class="row">' +
-                        '<div class="col-md-3">' +
-                        '<label>' +
-                        '<input id="checkBoxPayments1" type="checkbox" data-checkbox="icheckbox_square-blue">გამოყენებული' +
-                        '</label>' +
-                        '</div><div class="col-md-3">' +
-                        '<label>' +
-                        '<input id="checkBoxPayments2" type="checkbox" data-checkbox="icheckbox_square-blue">გადარიცხული' +
-                        '</label></div><div class="col-md-4"><div class="input-group">            ' +
-                        '<div class="icheck-list"><label>' +
-                        '<input id="checkBoxPayments3" type="checkbox" data-checkbox="icheckbox_square-blue">გაუქმებული' +
-                        '</label></div></div></div>' +
-                        '</div>');
-                    payments.append(PaymentsTemplate);
-                    openDocuments(DOMElements,documents,currentElement);
+                payments.append('<div class="row">' +
+                    '<div class="col-md-3">' +
+                    '<label>' +
+                    '<input id="checkBoxPayments1" type="checkbox" data-checkbox="icheckbox_square-blue">გამოყენებული' +
+                    '</label>' +
+                    '</div><div class="col-md-3">' +
+                    '<label>' +
+                    '<input id="checkBoxPayments2" type="checkbox" data-checkbox="icheckbox_square-blue">გადარიცხული' +
+                    '</label></div><div class="col-md-4"><div class="input-group">            ' +
+                    '<div class="icheck-list"><label>' +
+                    '<input id="checkBoxPayments3" type="checkbox" data-checkbox="icheckbox_square-blue">გაუქმებული' +
+                    '</label></div></div></div>' +
+                    '</div>');
+                payments.append(PaymentsTemplate);
+                openDocuments(DOMElements, documents, currentElement);
 
 
-
-
-
-
-
-
-                    permissions.append('<div style="display:inline-flex;width: 100%">' +
-                        '    <div style="width: 45%">' +
-                        '        <table class="table">' +
-                        '            <thead>' +
-                        '            <tr>' +
-                        '                <th class="text-left">მომხმარებლის უფლებები</th>' +
-                        '            </tr>' +
-                        '            </thead>' +
-                        '            <tbody id="userpermissions">' +
-                        '            </tbody>' +
-                        '        </table>' +
-                        '    </div>' +
-                        '    <div style="width:10%">' +
-                        '        <button style="width: 100%" id="removePermission">-></button>' +
-                        '        <br>' +
-                        '        <button style="width: 100%" id="addPermissions"><-</button>' +
-                        '    </div>' +
-                        '    <div style="width: 45%">' +
-                        '        <table class="table">' +
-                        '            <thead>' +
-                        '            <tr>' +
-                        '                <th class="text-left">დასამატებელი უფლებები</th>' +
-                        '            </tr>' +
-                        '            </thead>' +
-                        '            <tbody id="notuserspermissions">' +
-                        '            </tbody>' +
-                        '        </table>' +
-                        '    </div>' +
-                        '</div>');
+                permissions.append('<div style="display:inline-flex;width: 100%">' +
+                    '    <div style="width: 45%">' +
+                    '        <table class="table">' +
+                    '            <thead>' +
+                    '            <tr>' +
+                    '                <th class="text-left">მომხმარებლის უფლებები</th>' +
+                    '            </tr>' +
+                    '            </thead>' +
+                    '            <tbody id="userpermissions">' +
+                    '            </tbody>' +
+                    '        </table>' +
+                    '    </div>' +
+                    '    <div style="width:10%">' +
+                    '        <button style="width: 100%" id="removePermission">-></button>' +
+                    '        <br>' +
+                    '        <button style="width: 100%" id="addPermissions"><-</button>' +
+                    '    </div>' +
+                    '    <div style="width: 45%">' +
+                    '        <table class="table">' +
+                    '            <thead>' +
+                    '            <tr>' +
+                    '                <th class="text-left">დასამატებელი უფლებები</th>' +
+                    '            </tr>' +
+                    '            </thead>' +
+                    '            <tbody id="notuserspermissions">' +
+                    '            </tbody>' +
+                    '        </table>' +
+                    '    </div>' +
+                    '</div>');
 
                 drawPermsForAdding(currentElement.id);
 
-                var addPerms=$("#addPermissions");
+                var addPerms = $("#addPermissions");
                 addPerms.unbind();
                 addPerms.click(function () {
-                    var checkboxPerm=$(".checkboxPerm");
-                    var productIds=[];
+                    var checkboxPerm = $(".checkboxPerm");
+                    var productIds = [];
                     checkboxPerm.each(function () {
-                        if(this.checked){
+                        if (this.checked) {
                             productIds.push(this.value);
-                            this.checked=false;
+                            this.checked = false;
                         }
                     });
                     $.ajax({
-                        url:"/giveuserpermission",
-                        data:{
-                            id:currentElement["id"],
-                            ids:productIds.toString()
+                        url: "/giveuserpermission",
+                        data: {
+                            id: currentElement["id"],
+                            ids: productIds.toString()
                         }
-                    }).done(function(result){
+                    }).done(function (result) {
                         drawPermsForAdding(currentElement["id"]);
                     })
                 });
 
-                var removePerms=$("#removePermission");
+                var removePerms = $("#removePermission");
                 removePerms.unbind();
                 removePerms.click(function () {
-                    var checkboxPerm=$(".checkboxUserPerm");
-                    var productIds=[];
+                    var checkboxPerm = $(".checkboxUserPerm");
+                    var productIds = [];
                     checkboxPerm.each(function () {
-                        if(this.checked){
+                        if (this.checked) {
                             productIds.push(this.value);
-                            this.checked=false;
+                            this.checked = false;
                         }
                     });
                     $.ajax({
-                        url:"/removeuserpermission",
-                        data:{
-                            id:currentElement["id"],
-                            ids:productIds.toString()
+                        url: "/removeuserpermission",
+                        data: {
+                            id: currentElement["id"],
+                            ids: productIds.toString()
                         }
-                    }).done(function(result){
+                    }).done(function (result) {
                         drawPermsForAdding(currentElement["id"]);
                     })
                 })
             }, {
                 "დამატებითი ღილაკი": function () {
                 }
-            },1024);
+            }, 1024);
 
         });
 
@@ -218,26 +213,27 @@ function loadUsersData(index, search) {
             })
         })
     });
-    function drawPermsForAdding(id){
-        $.getJSON("/getuserpermissions/"+id, function (result) {
-            var userPermTable=$("#userpermissions");
+    function drawPermsForAdding(id) {
+        $.getJSON("/getuserpermissions/" + id, function (result) {
+            var userPermTable = $("#userpermissions");
             userPermTable.html("");
-            for(var key in result){
-                userPermTable.append("<tr><td><input class='checkboxUserPerm' value='"+result[key].id+"' type='checkbox'> "+result[key].name+"</td></tr>")
+            for (var key in result) {
+                userPermTable.append("<tr><td><input class='checkboxUserPerm' value='" + result[key].id + "' type='checkbox'> " + result[key].name + "</td></tr>")
             }
         });
-        $.getJSON("/getnotuserpermissions/"+id, function (result) {
-            var notUserPermTable=$("#notuserspermissions");
+        $.getJSON("/getnotuserpermissions/" + id, function (result) {
+            var notUserPermTable = $("#notuserspermissions");
             notUserPermTable.html("");
-            for(var key in result){
-                notUserPermTable.append("<tr><td><input class='checkboxPerm' value='"+result[key].id+"' type='checkbox'> "+result[key].name+"</td></tr>")
+            for (var key in result) {
+                notUserPermTable.append("<tr><td><input class='checkboxPerm' value='" + result[key].id + "' type='checkbox'> " + result[key].name + "</td></tr>")
             }
         });
     }
-    function openDocuments(DOMElements,documents,currentElement){
+
+    function openDocuments(DOMElements, documents, currentElement) {
         documents.append('<div class="row">' +
-            '<section class="dropbox" id="dropbox">'+
-            '<h4>Drop files here to upload</h4>'+
+            '<section class="dropbox" id="dropbox">' +
+            '<h4>Drop files here to upload</h4>' +
             '</section>' +
             '</div>' +
             '<div class="row">' +
@@ -255,71 +251,16 @@ function loadUsersData(index, search) {
             '</div>');
         documents.append(DocumentsTemplate);
 
-        DOMElements.DocumentsDataTableBody=$("#DocumentsDataTableBody");
-        function init() {
-            // Global variables
-            var dropbox = document.getElementById('promptModal'+DOMElements.rand);
-            var uploadDest = 'upload/'+currentElement.id;
-            var maxFiles = 2;
-            //var allowedFiles = /(.*?)\.(jpeg|jpg|gif|png|pdf)$/;
-            //TODO Create maxFiles var
+        DOMElements.DocumentsDataTableBody = $("#DocumentsDataTableBody");
 
-            //TODO Limit file extensions
 
-            //TODO create a function that displays uploded files in our html!!!
-            function displayFiles() {
-
-            }
-
-            // AJAX function for file uploads
-            function uploadFiles(files) {
-                //FormData supports IE 10+ TODO falback
-                var formData = new FormData();
-                var xhr = new XMLHttpRequest();
-
-                for (var i = 0; i < files.length; i++) {
-                    //TODO Append in php files array
-                    formData.append('file', files[i]);
-                    console.log('Looping trough passed data', files[i]);
-                }
-
-                //On successful upload response, parse JSON data
-                //TODO handle response from php server script
-                xhr.onload = function() {
-                    var data = JSON.parse(this.responseText);
-                    loadDocumentsForUser(DOMElements,currentElement.id,0)
-                };
-
-                //Open an AJAX post request
-                xhr.open('post', uploadDest);
-                xhr.send(formData);
-            }
-
-            //Style dropbox on this event
-            dropbox.ondragover = function() {
-                //this.className = 'dropbox dragover';
-                return false;
-            }
-            //Style dropbox on this event
-            dropbox.ondragleave = function() {
-                //this.className = 'dropbox';
-                return false;
-            }
-
-            // Call uploadFiles function with arguments
-            dropbox.ondrop = function(e) {
-                //Prevent default browser behaviour
-                e.preventDefault();
-
-                //this.className = 'dropbox';
-                console.log(e.dataTransfer.files);
-                uploadFiles(e.dataTransfer.files);
-            }
-        }
-        init();
-        loadDocumentsForUser(DOMElements,currentElement.id,0);
+        dropBoxFunc('promptModal' + DOMElements.rand,'upload/' + currentElement.id,function(){
+            loadDocumentsForUser(DOMElements, currentElement.id, 0)
+        });
+        loadDocumentsForUser(DOMElements, currentElement.id, 0);
     }
-    function loadDocumentsForUser(DOMElements,id,page){
+
+    function loadDocumentsForUser(DOMElements, id, page) {
         $("#checkBoxDocuments1").unbind();
         $("#checkBoxDocuments1").on('ifChanged', function () {
             loadDocumentsForUser(DOMElements, id, 0);
@@ -352,7 +293,7 @@ function loadUsersData(index, search) {
                     "<td style='font-family: font1;' value='" + i + "' class='gridRowDoc'>" +
 
                     moment(new Date(currentElement["date"])).locale("ka").format("L") + "</td>" +
-                    "<td><a href='doc/"+currentElement.id+"'><i class='fa fa-bars' aria-hidden='true'></i></a></td>" +
+                    "<td><a href='doc/" + currentElement.id + "'><i class='fa fa-bars' aria-hidden='true'></i></a></td>" +
                     "</tr>");
             }
             var gridRow = $('.gridRowDoc');

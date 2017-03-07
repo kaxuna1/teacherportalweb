@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,6 +25,18 @@ public class Category {
     @Column
     private String uuid;
 
+    @Column
+    private boolean active;
+
+    @Column
+    private Date date;
+
+    @Column
+    private boolean visible;
+
+    @Column
+    private String logo;
+
     @ManyToMany
     @JsonIgnore
     @JoinTable(name = "CATEGORY_DOCTYPE")
@@ -34,6 +47,9 @@ public class Category {
         this.name = name;
         uuid= UUID.randomUUID().toString();
         docTypes=new ArrayList<>();
+        this.active=true;
+        this.date=new Date();
+        this.visible=false;
     }
     public Category(){}
 
@@ -67,5 +83,37 @@ public class Category {
 
     public void setDocTypes(List<DocType> docTypes) {
         this.docTypes = docTypes;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 }

@@ -7,5 +7,6 @@ public enum PERMISSIONS {
     users,payments,
     dashboard,test,
     teacher,student,
-    admin,fileManagement
+    admin,fileManagement,
+    categories,docTypes
 }

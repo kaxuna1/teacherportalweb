@@ -1,6 +1,8 @@
 package com.technonet.Repository;
 
 import com.technonet.model.Category;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,4 +11,5 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 public interface CategoryRepo extends JpaRepository<Category,Long> {
+    Page<Category> findByActiveOrderByNameAsc(boolean active, Pageable pageable);
 }
