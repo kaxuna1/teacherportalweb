@@ -54,6 +54,9 @@ public class User {
     @JsonIgnore
     @JoinTable(name = "USER_PERMISSION")
     private List<Permission> permissions;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Document> documents;
 
     @ManyToOne
     @JoinColumn(name = "cityId")
@@ -90,6 +93,7 @@ public class User {
         this.sessions = new ArrayList<>();
         this.permissions = new ArrayList<>();
         this.city = city;
+        this.documents=new ArrayList<>();
     }
 
 
@@ -200,5 +204,13 @@ public class User {
 
     public void setCity(City city) {
         this.city = city;
+    }
+
+    public List<Document> getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(List<Document> documents) {
+        this.documents = documents;
     }
 }

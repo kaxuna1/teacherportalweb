@@ -32,7 +32,7 @@ function showModalWithTableInside(callback,callbacks,width) {
         $("#promptModal"+random).remove();
     }).on('shown.bs.modal', function () {
 
-        callback($(this).find("#modalWithTableHeader"+random),$(this).find("#modalWithTableBody"+random),thisModal);
+        callback($(this).find("#modalWithTableHeader"+random),$(this).find("#modalWithTableBody"+random),thisModal,random);
 
         for (var key in callbacks) {
             var random2=Math.floor((Math.random() * 10000) + 1);

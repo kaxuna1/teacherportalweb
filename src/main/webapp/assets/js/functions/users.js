@@ -43,14 +43,26 @@ function loadUsersData(index, search) {
         gridRow.click(function () {
             var currentElement = dataArray[$(this).attr("value")];
             console.log(currentElement);
-                showModalWithTableInside(function (head, body, modal) {
+                showModalWithTableInside(function (head, body, modal,rand) {
                     body.html(clientProfileTemplate);
                     var documents = $("#tab5_1");
-                    var permisions = $("#tab5_2");
+                    var permissions = $("#tab5_2");
                     var lessons = $("#tab5_3");
                     var payments = $("#tab5_4")
                     var actions = $("#tab6_1");
                     var infoDiv = $("#tab6_2");
+                    var DOMElements={
+                        documents:documents,
+                        permissions:permissions,
+                        lessons:lessons,
+                        payments:payments,
+                        actions:actions,
+                        infoDiv:infoDiv,
+                        modal:modal,
+                        rand:rand
+                    };
+
+
                     payments.append('<div class="row">' +
                         '<div class="col-md-3">' +
                         '<label>' +
@@ -65,20 +77,7 @@ function loadUsersData(index, search) {
                         '</label></div></div></div>' +
                         '</div>');
                     payments.append(PaymentsTemplate);
-                    documents.append('<div class="row">' +
-                        '<div class="col-md-3">' +
-                        '<label>' +
-                        '<input id="checkBoxPayments1" type="checkbox" data-checkbox="icheckbox_square-blue">დიპლომები' +
-                        '</label>' +
-                        '</div><div class="col-md-3">' +
-                        '<label>' +
-                        '<input id="checkBoxPayments2" type="checkbox" data-checkbox="icheckbox_square-blue">პირადობის' +
-                        '</label></div><div class="col-md-4"><div class="input-group">            ' +
-                        '<div class="icheck-list"><label>' +
-                        '<input id="checkBoxPayments3" type="checkbox" data-checkbox="icheckbox_square-blue">შიდა' +
-                        '</label></div></div></div>' +
-                        '</div>');
-                    documents.append(DocumentsTemplate);
+                    openDocuments(DOMElements,documents,currentElement);
 
 
 
@@ -87,9 +86,7 @@ function loadUsersData(index, search) {
 
 
 
-
-
-                    permisions.append('<div style="display:inline-flex;width: 100%">' +
+                    permissions.append('<div style="display:inline-flex;width: 100%">' +
                         '    <div style="width: 45%">' +
                         '        <table class="table">' +
                         '            <thead>' +
@@ -236,5 +233,139 @@ function loadUsersData(index, search) {
                 notUserPermTable.append("<tr><td><input class='checkboxPerm' value='"+result[key].id+"' type='checkbox'> "+result[key].name+"</td></tr>")
             }
         });
+    }
+    function openDocuments(DOMElements,documents,currentElement){
+        documents.append('<div class="row">' +
+            '<section class="dropbox" id="dropbox">'+
+            '<h4>Drop files here to upload</h4>'+
+            '</section>' +
+            '</div>' +
+            '<div class="row">' +
+            '<div class="col-md-3">' +
+            '<label>' +
+            '<input id="checkBoxDocuments1" type="checkbox" data-checkbox="icheckbox_square-blue">დიპლომები' +
+            '</label>' +
+            '</div><div class="col-md-3">' +
+            '<label>' +
+            '<input id="checkBoxDocuments2" type="checkbox" data-checkbox="icheckbox_square-blue">პირადობის' +
+            '</label></div><div class="col-md-4"><div class="input-group">            ' +
+            '<div class="icheck-list"><label>' +
+            '<input id="checkBoxDocuments3" type="checkbox" data-checkbox="icheckbox_square-blue">შიდა' +
+            '</label></div></div></div>' +
+            '</div>');
+        documents.append(DocumentsTemplate);
+
+        DOMElements.DocumentsDataTableBody=$("#DocumentsDataTableBody");
+        function init() {
+            // Global variables
+            var dropbox = document.getElementById('promptModal'+DOMElements.rand);
+            var uploadDest = 'upload/'+currentElement.id;
+            var maxFiles = 2;
+            //var allowedFiles = /(.*?)\.(jpeg|jpg|gif|png|pdf)$/;
+            //TODO Create maxFiles var
+
+            //TODO Limit file extensions
+
+            //TODO create a function that displays uploded files in our html!!!
+            function displayFiles() {
+
+            }
+
+            // AJAX function for file uploads
+            function uploadFiles(files) {
+                //FormData supports IE 10+ TODO falback
+                var formData = new FormData();
+                var xhr = new XMLHttpRequest();
+
+                for (var i = 0; i < files.length; i++) {
+                    //TODO Append in php files array
+                    formData.append('file', files[i]);
+                    console.log('Looping trough passed data', files[i]);
+                }
+
+                //On successful upload response, parse JSON data
+                //TODO handle response from php server script
+                xhr.onload = function() {
+                    var data = JSON.parse(this.responseText);
+                    loadDocumentsForUser(DOMElements,currentElement.id,0)
+                };
+
+                //Open an AJAX post request
+                xhr.open('post', uploadDest);
+                xhr.send(formData);
+            }
+
+            //Style dropbox on this event
+            dropbox.ondragover = function() {
+                //this.className = 'dropbox dragover';
+                return false;
+            }
+            //Style dropbox on this event
+            dropbox.ondragleave = function() {
+                //this.className = 'dropbox';
+                return false;
+            }
+
+            // Call uploadFiles function with arguments
+            dropbox.ondrop = function(e) {
+                //Prevent default browser behaviour
+                e.preventDefault();
+
+                //this.className = 'dropbox';
+                console.log(e.dataTransfer.files);
+                uploadFiles(e.dataTransfer.files);
+            }
+        }
+        init();
+        loadDocumentsForUser(DOMElements,currentElement.id,0);
+    }
+    function loadDocumentsForUser(DOMElements,id,page){
+        $("#checkBoxDocuments1").unbind();
+        $("#checkBoxDocuments1").on('ifChanged', function () {
+            loadDocumentsForUser(DOMElements, id, 0);
+        });
+        $("#checkBoxDocuments2").unbind();
+        $("#checkBoxDocuments2").on('ifChanged', function () {
+            loadDocumentsForUser(DOMElements, id, 0);
+        });
+        $("#checkBoxDocuments3").unbind();
+        $("#checkBoxDocuments3").on('ifChanged', function () {
+            loadDocumentsForUser(DOMElements, id, 0);
+        });
+        $.getJSON("listdocs/" + id + "?page=" + page + "&closed=" +
+            ($("#checkBoxDocuments1").is(":checked") ? "true" : "false") +
+            "&opened=" +
+            ($("#checkBoxDocuments2").is(":checked") ? "true" : "false") +
+            "&late=" +
+            ($("#checkBoxDocuments3").is(":checked") ? "true" : "false"), function (result) {
+            DOMElements.DocumentsDataTableBody.html("");
+            var dataArray = result["content"];
+            var totalPages = result["totalPages"];
+            var totalElements = result["totalElements"];
+            for (var i = 0; i < dataArray.length; i++) {
+                var currentElement = dataArray[i];
+                var itemLogos = "";
+
+                DOMElements.DocumentsDataTableBody.append("<tr>" +
+                    "<td style='font-family: font1;' value='" + i + "' class='gridRowDoc'>" + itemLogos + "</td>" +
+                    "<td style='font-family: font1;' value='" + i + "' class='gridRowDoc'>" + currentElement["name"] + "</td>" +
+                    "<td style='font-family: font1;' value='" + i + "' class='gridRowDoc'>" +
+
+                    moment(new Date(currentElement["date"])).locale("ka").format("L") + "</td>" +
+                    "<td><a href='doc/"+currentElement.id+"'><i class='fa fa-bars' aria-hidden='true'></i></a></td>" +
+                    "</tr>");
+            }
+            var gridRow = $('.gridRowDoc');
+            gridRow.css('cursor', 'pointer');
+            gridRow.unbind();
+            gridRow.click(function () {
+                var currentElement = dataArray[$(this).attr("value")];
+                console.log($(this).attr("value"));
+
+                //openLoanGlobal(currentElement);
+                //DOMElements.modal.modal("hide");
+            });
+
+        })
     }
 }
