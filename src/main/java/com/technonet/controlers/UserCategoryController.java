@@ -69,7 +69,12 @@ public class UserCategoryController {
     @ResponseBody
     public List<Document> getUserCategoryDocs(@CookieValue("projectSessionId") long sessionId,
                                               @PathVariable("id") long id){
-        Session session
+        Session session = sessionRepository.findOne(sessionId);
+        if(PermisionChecks.isAdmin(session)){
+            return userCategoryJoinRepo.findOne(id).getDocuments();
+        }else{
+            return null;
+        }
     }
 
 

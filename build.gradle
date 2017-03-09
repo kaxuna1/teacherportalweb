@@ -44,5 +44,8 @@ dependencies {
 	compile('mysql:mysql-connector-java:5.1.36')
 	// https://mvnrepository.com/artifact/org.apache.tika/tika-core
 	compile group: 'org.apache.tika', name: 'tika-core', version: '1.14'
+	// https://mvnrepository.com/artifact/org.imgscalr/imgscalr-lib
+	compile group: 'org.imgscalr', name: 'imgscalr-lib', version: '4.2'
+
 
 }

@@ -62,6 +62,7 @@ function loadUsersData(index, search) {
                     rand: rand,
                     currentElement: currentElement
                 };
+                drawInfoForUser(DOMElements);
 
                 drawCategories(DOMElements, currentElement);
 
@@ -267,9 +268,46 @@ function loadUsersData(index, search) {
                 var currentCategory = result[$(this).attr("value")];
                 showModalWithTableInside(function (head, body, modal, rand) {
                     body.html(clientCategoryPageTemplate);
+                    DOMElements.categoryPageDom={
+                        docs:$("#tab10_1"),
+                        lessons:$("#tab10_2"),
+                        actions:$("#tab10_3"),
+                        currentCategory:currentCategory
+                    };
+                    loadCategoryDocs(DOMElements);
+
+
+
+
+
                 }, {}, 800)
             })
         })
+    }
+
+    function loadCategoryDocs(DOMElements){
+        createTable(DOMElements.categoryPageDom.docs,
+            {
+                name:{
+                    name:"სახელი"
+                },
+                date:{
+                    name:"თარიღი"
+                },
+                actions:{
+                    name:"#"
+                }
+            },function (tableBody) {
+            
+        });
+
+
+        $.getJSON("getusercatdocs/"+DOMElements.categoryPageDom.currentCategory.id,function (result) {
+
+           for(var key in result){
+
+           }
+        });
     }
 
     function drawPermsForAdding(id) {
@@ -458,5 +496,47 @@ function loadUsersData(index, search) {
 
             },{},400)
         }
+    }
+
+    function drawInfoForUser(DOMElements) {
+        DOMElements.infoDiv.html("");
+        DOMElements.infoDiv.append(
+            "<div id='categoryLogoDiv' class='row'>" +
+            "<div class='col-md-2'></div>" +
+            "<div class='col-md-2'>"+
+            "<img id='profilePicBtn' style='width: 150px;cursor: pointer' src='profilePic/"+DOMElements.currentElement.id+"?"+ new Date().getTime()+"'/>" +
+            '<input type="file" id="profilePick" style="display:none">'+
+            "</div>" +
+            "</div>");
+        $("#profilePicBtn").click(function () {
+            $("#profilePick").click();
+        });
+        $("#profilePick").change(function (e) {
+            console.log(this.files);
+            var formData = new FormData();
+            var xhr = new XMLHttpRequest();
+
+            for (var i = 0; i < this.files.length; i++) {
+                //TODO Append in php files array
+                formData.append('file', this.files[i]);
+                console.log('Looping trough passed data', this.files[i]);
+            }
+
+            //On successful upload response, parse JSON data
+            //TODO handle response from php server script
+            xhr.onload = function () {
+                var data = JSON.parse(this.responseText);
+                drawInfoForUser(DOMElements);
+            };
+
+            //Open an AJAX post request
+            xhr.open('post', "uploadProfilePic/"+DOMElements.currentElement.id);
+            xhr.send(formData);
+        })
+        DOMElements.infoDiv.append(
+            "<div class='row'>" +
+            "<div>" +
+            "</div>"
+        )
     }
 }

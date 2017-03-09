@@ -165,8 +165,6 @@ public class UsersController {
         } catch (Exception e) {
             return "წაშლის დროს მოხდა შეცდომა";
         }
-
-
     }
 
     private Pageable constructPageSpecification(int pageIndex) {

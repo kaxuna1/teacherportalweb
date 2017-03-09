@@ -43,6 +43,8 @@ public class User {
     @NotNull
     private String personalNumber;
     @Column
+    private String profilePic;
+    @Column
     @NotNull
     private int type;
 
@@ -226,5 +228,13 @@ public class User {
 
     public void setUserCategoryJoins(List<UserCategoryJoin> userCategoryJoins) {
         this.userCategoryJoins = userCategoryJoins;
+    }
+
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
     }
 }
