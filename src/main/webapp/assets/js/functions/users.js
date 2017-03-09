@@ -266,8 +266,8 @@ function loadUsersData(index, search) {
             categoryItem.click(function () {
                 var currentCategory = result[$(this).attr("value")];
                 showModalWithTableInside(function (head, body, modal, rand) {
-
-                }, {}, 600)
+                    body.html(clientCategoryPageTemplate);
+                }, {}, 800)
             })
         })
     }
@@ -350,9 +350,10 @@ function loadUsersData(index, search) {
                     "<td style='font-family: font1;' value='" + i + "' class='gridRowDoc'>" + itemLogos + "</td>" +
                     "<td style='font-family: font1;' value='" + i + "' class='gridRowDoc'>" + currentElement["name"] + "</td>" +
                     "<td style='font-family: font1;' value='" + i + "' class='gridRowDoc'>" +
-
                     moment(new Date(currentElement["date"])).locale("ka").format("L") + "</td>" +
-                    "<td><a href='doc/" + currentElement.id + "'><i class='fa fa-bars' aria-hidden='true'></i></a></td>" +
+                    "<td style='font-family: font1;' value='" + i + "' class='gridRowDoc'>" + currentElement["category"] + "</td>" +
+                    "<td style='font-family: font1;' value='" + i + "' class='gridRowDoc'>" + currentElement["type"] + "</td>" +
+                    "<td><a href='doc/" + currentElement.id + "'><i class='fa fa-cloud-download' aria-hidden='true'></i></a></td>" +
                     "</tr>");
             }
             var gridRow = $('.gridRowDoc');
@@ -385,7 +386,7 @@ function loadUsersData(index, search) {
         }
 
         // AJAX function for file uploads
-        function uploadFiles(files,cat) {
+        function uploadFiles(files,data) {
             //FormData supports IE 10+ TODO falback
             var formData = new FormData();
             var xhr = new XMLHttpRequest();
@@ -404,7 +405,7 @@ function loadUsersData(index, search) {
             };
 
             //Open an AJAX post request
-            xhr.open('post', uploadDest+"?category="+cat);
+            xhr.open('post', uploadDest+"?category="+data.category+"&docType="+data.docType);
             xhr.send(formData);
         }
 
@@ -423,7 +424,7 @@ function loadUsersData(index, search) {
         dropbox.ondrop = function (e) {
             //Prevent default browser behaviour
             e.preventDefault();
-
+            var g=e.dataTransfer.files;
             //this.className = 'dropbox';
             console.log(e.dataTransfer.files);
             var sendData=[];
@@ -436,10 +437,19 @@ function loadUsersData(index, search) {
                         valueField: "id",
                         nameField: "name",
                         url: "/usercategoriescats/"+userId
-                    }
+                    },
+                    docType: {
+                        name: "კატეგორია",
+                        type: "comboBox",
+                        valueField: "id",
+                        nameField: "name",
+                        url: "/doctypes/"
+                    },
                 }, function () {
                     console.log(sendData);
-                    uploadFiles(e.dataTransfer.files,sendData.category);
+                    console.log(g);
+                    uploadFiles(g,sendData[0]);
+                    modal.modal("hide");
                 }, function () {
 
                 }, function () {

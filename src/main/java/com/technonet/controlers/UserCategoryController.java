@@ -58,12 +58,18 @@ public class UserCategoryController {
     @ResponseBody
     public List<Category> getCategotiesForUserAdding(@CookieValue("projectSessionId") long sessionId,
                                                      @PathVariable("id") long id){
-
         Session session = sessionRepository.findOne(sessionId);
         List<Category> categories=categoryRepo.findByActive(true);
         User user = userRepository.findOne(id);
         user.getUserCategoryJoins().stream().forEach(userCategoryJoin -> categories.remove(userCategoryJoin.getCategory()));
         return categories;
+    }
+
+    @RequestMapping("/getusercatdocs/{id}")
+    @ResponseBody
+    public List<Document> getUserCategoryDocs(@CookieValue("projectSessionId") long sessionId,
+                                              @PathVariable("id") long id){
+        Session session
     }
 
 

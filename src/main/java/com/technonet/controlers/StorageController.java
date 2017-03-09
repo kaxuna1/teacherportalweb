@@ -1,14 +1,10 @@
 package com.technonet.controlers;
 
-import com.technonet.Repository.DocumentsRepo;
-import com.technonet.Repository.SessionRepository;
-import com.technonet.Repository.UserCategoryJoinRepo;
-import com.technonet.Repository.UserRepository;
+import com.technonet.Repository.*;
 import com.technonet.model.Document;
 import com.technonet.model.Session;
 import com.technonet.model.User;
 import com.technonet.model.UserCategoryJoin;
-import com.technonet.staticData.MimeTypes;
 import com.technonet.staticData.PermisionChecks;
 import com.technonet.staticData.Variables;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +33,8 @@ public class StorageController {
     public boolean uploadFile(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                               @PathVariable("id") long id,
                               @RequestParam("file") MultipartFile file,
-                              @RequestParam("category") long category) {
+                              @RequestParam("category") long category,
+                              @RequestParam("docType") long docType) {
 
         Session session=sessionRepository.findOne(sessionId);
         if(!PermisionChecks.FileManagement(session))
@@ -56,7 +53,7 @@ public class StorageController {
                 UUID uuid=UUID.randomUUID();
                 Files.copy(file.getInputStream(), Paths.get(Variables.appDir+"/docs",uuid.toString()));
 
-                Document doc=new Document(originalName,user,uuid.toString(), file.getContentType(),userCategoryJoin);
+                Document doc=new Document(originalName,user,uuid.toString(), file.getContentType(),userCategoryJoin,docTypeRepo.findOne(docType));
                 documentsRepo.save(doc);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -67,7 +64,8 @@ public class StorageController {
     @RequestMapping("upload")
     @ResponseBody
     public boolean uploadFileForMe(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
-                              @RequestParam("file") MultipartFile file,@RequestParam("category") long category) {
+                                   @RequestParam("file") MultipartFile file,@RequestParam("category") long category,
+                                   @RequestParam("docType") long docType) {
 
         Session session=sessionRepository.findOne(sessionId);
         if(!session.isIsactive())
@@ -84,7 +82,7 @@ public class StorageController {
                 String originalName=file.getOriginalFilename();
                 UUID uuid=UUID.randomUUID();
                 Files.copy(file.getInputStream(), Paths.get(Variables.appDir+"/docs",uuid.toString()));
-                Document doc=new Document(originalName,user,uuid.toString(), file.getContentType(),userCategoryJoin);
+                Document doc=new Document(originalName,user,uuid.toString(), file.getContentType(),userCategoryJoin,docTypeRepo.findOne(docType));
                 documentsRepo.save(doc);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -98,7 +96,7 @@ public class StorageController {
                                   @PathVariable("id") long id,@RequestParam("page") int page){
         Session session=sessionRepository.findOne(sessionId);
         if(session.isIsactive()&&PermisionChecks.isAdmin(session.getUser())){
-            return documentsRepo.findByUserOrderByDateDesc(userRepository.findOne(id),constructPageSpecification(page));
+            return documentsRepo.findByUserAndActiveOrderByDateDesc(userRepository.findOne(id),true,constructPageSpecification(page));
         }else{
             return null;
         }
@@ -142,4 +140,6 @@ public class StorageController {
     private UserRepository userRepository;
     @Autowired
     private DocumentsRepo documentsRepo;
+    @Autowired
+    private DocTypeRepo docTypeRepo;
 }

@@ -12,5 +12,5 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 public interface DocumentsRepo extends JpaRepository<Document,Long> {
-    Page<Document> findByUserOrderByDateDesc(User user, Pageable pageable);
+    Page<Document> findByUserAndActiveOrderByDateDesc(User user, boolean active, Pageable pageable);
 }

@@ -25,20 +25,28 @@ public class Document {
     @JoinColumn(name = "joinId")
     @JsonIgnore
     private UserCategoryJoin userCategoryJoin;
+    @ManyToOne
+    @JoinColumn(name = "docTypeId")
+    @JsonIgnore
+    private DocType docType;
     @Column
     private String fileName;
     @Column
     private String extension;
     @Column
     private Date date;
+    @Column
+    private boolean active;
 
-    public Document(String name, User user, String fileName, String extension,UserCategoryJoin userCategoryJoin) {
+    public Document(String name, User user, String fileName, String extension,UserCategoryJoin userCategoryJoin,DocType docType) {
         this.name = name;
         this.user = user;
         this.fileName = fileName;
         this.extension = extension;
         this.date=new Date();
         this.userCategoryJoin=userCategoryJoin;
+        this.docType=docType;
+        this.active=true;
     }
     public Document(){
 
@@ -98,5 +106,27 @@ public class Document {
 
     public void setUserCategoryJoin(UserCategoryJoin userCategoryJoin) {
         this.userCategoryJoin = userCategoryJoin;
+    }
+
+    public DocType getDocType() {
+        return docType;
+    }
+
+    public void setDocType(DocType docType) {
+        this.docType = docType;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+    public String getType(){
+        return docType.getName();
+    }
+    public String getCategory(){
+        return userCategoryJoin.getCategory().getName();
     }
 }

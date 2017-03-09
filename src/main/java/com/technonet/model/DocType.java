@@ -35,12 +35,17 @@ public class DocType {
     @JoinTable(name = "CATEGORY_DOCTYPE")
     private List<Category> categories;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "docType", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Document> documents;
+
     public DocType(String name) {
         this.name = name;
         this.uuid = UUID.randomUUID().toString();
         this.categories = new ArrayList<>();
         this.active = true;
         this.date = new Date();
+        this.documents=new ArrayList<>();
 
     }
     public DocType(){}
@@ -91,5 +96,13 @@ public class DocType {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public List<Document> getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(List<Document> documents) {
+        this.documents = documents;
     }
 }
