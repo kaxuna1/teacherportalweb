@@ -37,6 +37,10 @@ public class Category {
     @Column
     private String logo;
 
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<UserCategoryJoin> userCategoryJoins;
+
     @ManyToMany
     @JsonIgnore
     @JoinTable(name = "CATEGORY_DOCTYPE")

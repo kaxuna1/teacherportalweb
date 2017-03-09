@@ -21,6 +21,10 @@ public class Document {
     @JoinColumn(name = "countryId")
     @JsonIgnore
     private User user;
+    @ManyToOne
+    @JoinColumn(name = "joinId")
+    @JsonIgnore
+    private UserCategoryJoin userCategoryJoin;
     @Column
     private String fileName;
     @Column
@@ -28,12 +32,13 @@ public class Document {
     @Column
     private Date date;
 
-    public Document(String name, User user, String fileName, String extension) {
+    public Document(String name, User user, String fileName, String extension,UserCategoryJoin userCategoryJoin) {
         this.name = name;
         this.user = user;
         this.fileName = fileName;
         this.extension = extension;
         this.date=new Date();
+        this.userCategoryJoin=userCategoryJoin;
     }
     public Document(){
 
@@ -85,5 +90,13 @@ public class Document {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public UserCategoryJoin getUserCategoryJoin() {
+        return userCategoryJoin;
+    }
+
+    public void setUserCategoryJoin(UserCategoryJoin userCategoryJoin) {
+        this.userCategoryJoin = userCategoryJoin;
     }
 }

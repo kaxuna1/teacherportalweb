@@ -48,36 +48,23 @@ function loadUsersData(index, search) {
                 var documents = $("#tab5_1");
                 var permissions = $("#tab5_2");
                 var lessons = $("#tab5_3");
-                var payments = $("#tab5_4")
+                var categories = $("#tab5_4")
                 var actions = $("#tab6_1");
                 var infoDiv = $("#tab6_2");
                 var DOMElements = {
                     documents: documents,
                     permissions: permissions,
                     lessons: lessons,
-                    payments: payments,
+                    categories: categories,
                     actions: actions,
                     infoDiv: infoDiv,
                     modal: modal,
                     rand: rand,
-                    currentElement:currentElement
+                    currentElement: currentElement
                 };
 
+                drawCategories(DOMElements, currentElement);
 
-                payments.append('<div class="row">' +
-                    '<div class="col-md-3">' +
-                    '<label>' +
-                    '<input id="checkBoxPayments1" type="checkbox" data-checkbox="icheckbox_square-blue">გამოყენებული' +
-                    '</label>' +
-                    '</div><div class="col-md-3">' +
-                    '<label>' +
-                    '<input id="checkBoxPayments2" type="checkbox" data-checkbox="icheckbox_square-blue">გადარიცხული' +
-                    '</label></div><div class="col-md-4"><div class="input-group">            ' +
-                    '<div class="icheck-list"><label>' +
-                    '<input id="checkBoxPayments3" type="checkbox" data-checkbox="icheckbox_square-blue">გაუქმებული' +
-                    '</label></div></div></div>' +
-                    '</div>');
-                payments.append(PaymentsTemplate);
                 openDocuments(DOMElements, documents, currentElement);
 
 
@@ -208,11 +195,83 @@ function loadUsersData(index, search) {
                         type: "text"
                     }
                 }, function () {
-                    modal.modal("hide")
+                    modal.modal("hide");
+                    loadUsersData(index, search);
                 })
             })
         })
     });
+    function drawCategories(DOMElements, currentElement) {
+
+        DOMElements.categories.append('<div id="categoryPageActions" class="row">' +
+            '</div>' +
+            '<div class="row">' +
+            '<div class="col-md-3">' +
+            '<label>' +
+            '<input id="checkBoxPayments1" type="checkbox" data-checkbox="icheckbox_square-blue">ფილტრი 1' +
+            '</label>' +
+            '</div><div class="col-md-3">' +
+            '<label>' +
+            '<input id="checkBoxPayments2" type="checkbox" data-checkbox="icheckbox_square-blue">ფილტრი 2' +
+            '</label></div><div class="col-md-4"><div class="input-group">            ' +
+            '<div class="icheck-list"><label>' +
+            '<input id="checkBoxPayments3" type="checkbox" data-checkbox="icheckbox_square-blue">ფილტრი 3' +
+            '</label></div></div></div>' +
+            '</div>');
+        DOMElements.categories.append(UserCategories);
+        DOMElements.CategoriesDataTableBody = $("#CategoriesDataTableBody");
+        loadCategiries(DOMElements,currentElement);
+        createButtonWithHandlerr($("#categoryPageActions"), "კატეგორიის დამატება", function () {
+            showModalWithTableInside(function (head, body, modal, rand) {
+                dynamicCreateForm(body, "/addcategorytouser", {
+                    category: {
+                        name: "კატეგორია",
+                        type: "comboBox",
+                        valueField: "id",
+                        nameField: "name",
+                        url: "/getcategoriesforuseradding/" + currentElement.id
+                    },
+                    user: {
+                        type: "hidden",
+                        value: "" + currentElement.id
+                    }
+                }, function () {
+                    loadCategiries(DOMElements,currentElement);
+                    modal.modal("hide")
+                })
+            }, {}, 600)
+        })
+    }
+
+    function loadCategiries(DOMElements, currentElement) {
+        DOMElements.CategoriesDataTableBody.html("");
+        $.getJSON("usercategories/" + currentElement.id, function (result) {
+            for (var key in result) {
+                var item = result[key];
+                DOMElements.CategoriesDataTableBody.append("<tr value='"+key+"' class='categoryItem " + (item.accepted ? "" : "danger") + "'>" +
+                    "<td>" +
+                    item.category.name +
+                    "</td>" +
+                    "<td>" +
+                    "</td>" +
+                    "<td>" +
+                    "</td>" +
+                    "<td>" +
+                    "</td>" +
+                    "</tr>")
+            }
+            var categoryItem = $('.categoryItem');
+            categoryItem.css('cursor', 'pointer');
+            categoryItem.unbind();
+            categoryItem.click(function () {
+                var currentCategory = result[$(this).attr("value")];
+                showModalWithTableInside(function (head, body, modal, rand) {
+
+                }, {}, 600)
+            })
+        })
+    }
+
     function drawPermsForAdding(id) {
         $.getJSON("/getuserpermissions/" + id, function (result) {
             var userPermTable = $("#userpermissions");
@@ -254,9 +313,9 @@ function loadUsersData(index, search) {
         DOMElements.DocumentsDataTableBody = $("#DocumentsDataTableBody");
 
 
-        dropBoxFunc('promptModal' + DOMElements.rand,'upload/' + currentElement.id,function(){
+        dropBoxFuncUserDocs('promptModal' + DOMElements.rand, 'upload/' + currentElement.id, function () {
             loadDocumentsForUser(DOMElements, currentElement.id, 0)
-        });
+        },currentElement.id);
         loadDocumentsForUser(DOMElements, currentElement.id, 0);
     }
 
@@ -308,5 +367,86 @@ function loadUsersData(index, search) {
             });
 
         })
+    }
+
+    function dropBoxFuncUserDocs(id,url,callback,userId) {
+        // Global variables
+        var dropbox = document.getElementById(id);
+        var uploadDest = url;
+        var maxFiles = 2;
+        //var allowedFiles = /(.*?)\.(jpeg|jpg|gif|png|pdf)$/;
+        //TODO Create maxFiles var
+
+        //TODO Limit file extensions
+
+        //TODO create a function that displays uploded files in our html!!!
+        function displayFiles() {
+
+        }
+
+        // AJAX function for file uploads
+        function uploadFiles(files,cat) {
+            //FormData supports IE 10+ TODO falback
+            var formData = new FormData();
+            var xhr = new XMLHttpRequest();
+
+            for (var i = 0; i < files.length; i++) {
+                //TODO Append in php files array
+                formData.append('file', files[i]);
+                console.log('Looping trough passed data', files[i]);
+            }
+
+            //On successful upload response, parse JSON data
+            //TODO handle response from php server script
+            xhr.onload = function () {
+                var data = JSON.parse(this.responseText);
+                callback();
+            };
+
+            //Open an AJAX post request
+            xhr.open('post', uploadDest+"?category="+cat);
+            xhr.send(formData);
+        }
+
+        //Style dropbox on this event
+        dropbox.ondragover = function () {
+            //this.className = 'dropbox dragover';
+            return false;
+        }
+        //Style dropbox on this event
+        dropbox.ondragleave = function () {
+            //this.className = 'dropbox';
+            return false;
+        }
+
+        // Call uploadFiles function with arguments
+        dropbox.ondrop = function (e) {
+            //Prevent default browser behaviour
+            e.preventDefault();
+
+            //this.className = 'dropbox';
+            console.log(e.dataTransfer.files);
+            var sendData=[];
+            showModalWithTableInside(function (head, body, modal, rand) {
+                dynamicCreateToArray(body, sendData, {
+
+                    category: {
+                        name: "კატეგორია",
+                        type: "comboBox",
+                        valueField: "id",
+                        nameField: "name",
+                        url: "/usercategoriescats/"+userId
+                    }
+                }, function () {
+                    console.log(sendData);
+                    uploadFiles(e.dataTransfer.files,sendData.category);
+                }, function () {
+
+                }, function () {
+
+                });
+
+            },{},400)
+        }
     }
 }

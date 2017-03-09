@@ -194,6 +194,7 @@ function loadCategoriesData(index, search) {
                         "</table>" +
                         "</div>");
                     createButtonWithHandlerr($("#buttonsDivForDocTypes"),"ახალი დოკ ტიპი", function () {
+                        $("#addFormDiv").html("");
                         dynamicCreateForm($("#addFormDiv"), "/createdoctype", {
                             name: {
                                 name: "სახელი",
@@ -237,10 +238,19 @@ function loadCategoriesData(index, search) {
         })
     }
     function drawInfoPage(DOMElements){
+        DOMElements.infoDiv.html("");
         DOMElements.infoDiv.append(
             "<div id='categoryLogoDiv' class='row'>" +
-            "<img style='width: 150px' src='categorylogo/"+DOMElements.currentElement.id+"'/>" +
+            "<div class='col-md-2'></div>" +
+            "<div class='col-md-2'>"+
+            "<img style='width: 150px' src='categorylogo/"+DOMElements.currentElement.id+"?"+ new Date().getTime()+"'/>"+
+            "</div>" +
             "</div>");
+        DOMElements.infoDiv.append(
+            "<div class='row'>" +
+            "<div>" +
+            "</div>"
+        )
         dropBoxFunc('promptModal' + DOMElements.rand,"uploadcategorylogo/"+DOMElements.currentElement.id, function () {
             drawInfoPage(DOMElements);
         });

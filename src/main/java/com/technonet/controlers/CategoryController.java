@@ -6,6 +6,7 @@ import com.technonet.Repository.DocTypeRepo;
 import com.technonet.Repository.SessionRepository;
 import com.technonet.model.*;
 import com.technonet.staticData.PermisionChecks;
+import com.technonet.staticData.Variables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -90,9 +91,10 @@ public class CategoryController {
 
                 Category category = categoryRepo.findOne(id);
                 UUID uuid = UUID.randomUUID();
-                Files.copy(file.getInputStream(), Paths.get("D:/app/" +
-                        "", uuid.toString()));
+                Files.copy(file.getInputStream(), Paths.get(Variables.appDir +
+                        "/images/categoryLogos", uuid.toString()));
                 category.setLogo(uuid.toString());
+                categoryRepo.save(category);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -102,28 +104,29 @@ public class CategoryController {
 
     @RequestMapping("categorylogo/{id}")
     @ResponseBody
-    public void doc(HttpServletResponse response, @CookieValue("projectSessionId") long sessionId, @PathVariable("id") long id) {
+    public byte[] doc(HttpServletResponse response, @CookieValue("projectSessionId") long sessionId, @PathVariable("id") long id) {
         Session session = sessionRepository.findOne(sessionId);
         Category category = categoryRepo.findOne(id);
         Path path;
 
         if(category.getLogo()==null){
-            path = Paths.get("D:/app/images/categoryLogos/nologo.png");
+            path = Paths.get(Variables.appDir+"/images/categoryLogos/nologo.png");
         }else{
-            path = Paths.get("D:/app/images/categoryLogos/" + category.getLogo());
+            path = Paths.get(Variables.appDir+"/images/categoryLogos/" + category.getLogo());
         }
 
         try {
             byte[] data = Files.readAllBytes(path);
-            response.setContentType("image/png");
-            response.setHeader("filename", (category.getName().replace(" ", "")) + ".png");
-            response.setHeader("Content-disposition", "attachment; filename=" + (category.getName().replace(" ", "")) + ".png");
-            response.getOutputStream().write(data);
-            response.flushBuffer();
+            //response.setContentType("image/png");
+            //response.setHeader("filename", (category.getName().replace(" ", "")) + ".png");
+            //response.setHeader("Content-disposition", "attachment; filename=" + (category.getName().replace(" ", "")) + ".png");
+            //response.getOutputStream().write(data);
+            //response.flushBuffer();
             //return data;
+            return data;
         } catch (IOException e) {
             e.printStackTrace();
-            // return null;
+            return null;
         }
     }
 
@@ -175,6 +178,7 @@ public class CategoryController {
     public List<DocType> getDocTypes(@CookieValue("projectSessionId") String sessionId) {
         return docTypeRepo.findAll();
     }
+
 
 
     private Pageable constructPageSpecification(int pageIndex) {

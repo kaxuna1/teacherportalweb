@@ -2,12 +2,15 @@ package com.technonet.controlers;
 
 import com.technonet.Repository.DocumentsRepo;
 import com.technonet.Repository.SessionRepository;
+import com.technonet.Repository.UserCategoryJoinRepo;
 import com.technonet.Repository.UserRepository;
 import com.technonet.model.Document;
 import com.technonet.model.Session;
 import com.technonet.model.User;
+import com.technonet.model.UserCategoryJoin;
 import com.technonet.staticData.MimeTypes;
 import com.technonet.staticData.PermisionChecks;
+import com.technonet.staticData.Variables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -33,7 +36,8 @@ public class StorageController {
     @ResponseBody
     public boolean uploadFile(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                               @PathVariable("id") long id,
-                              @RequestParam("file") MultipartFile file) {
+                              @RequestParam("file") MultipartFile file,
+                              @RequestParam("category") long category) {
 
         Session session=sessionRepository.findOne(sessionId);
         if(!PermisionChecks.FileManagement(session))
@@ -42,12 +46,17 @@ public class StorageController {
             return false;
         }else{
             try {
+
                 User user = userRepository.findOne(id);
+                UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(category);
+                if(!user.getUserCategoryJoins().contains(userCategoryJoin)){
+                    return false;
+                }
                 String originalName=file.getOriginalFilename();
                 UUID uuid=UUID.randomUUID();
-                Files.copy(file.getInputStream(), Paths.get("D:/app/docs",uuid.toString()));
+                Files.copy(file.getInputStream(), Paths.get(Variables.appDir+"/docs",uuid.toString()));
 
-                Document doc=new Document(originalName,user,uuid.toString(), file.getContentType());
+                Document doc=new Document(originalName,user,uuid.toString(), file.getContentType(),userCategoryJoin);
                 documentsRepo.save(doc);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -58,7 +67,7 @@ public class StorageController {
     @RequestMapping("upload")
     @ResponseBody
     public boolean uploadFileForMe(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
-                              @RequestParam("file") MultipartFile file) {
+                              @RequestParam("file") MultipartFile file,@RequestParam("category") long category) {
 
         Session session=sessionRepository.findOne(sessionId);
         if(!session.isIsactive())
@@ -68,11 +77,14 @@ public class StorageController {
         }else{
             try {
                 User user = session.getUser();
+                UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(category);
+                if(!user.getUserCategoryJoins().contains(userCategoryJoin)){
+                   return false;
+                }
                 String originalName=file.getOriginalFilename();
                 UUID uuid=UUID.randomUUID();
-                Files.copy(file.getInputStream(), Paths.get("D:/app/docs",uuid.toString()));
-
-                Document doc=new Document(originalName,user,uuid.toString(), file.getContentType());
+                Files.copy(file.getInputStream(), Paths.get(Variables.appDir+"/docs",uuid.toString()));
+                Document doc=new Document(originalName,user,uuid.toString(), file.getContentType(),userCategoryJoin);
                 documentsRepo.save(doc);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -97,8 +109,8 @@ public class StorageController {
         Session session=sessionRepository.findOne(sessionId);
         Document doc=documentsRepo.findOne(id);
         if(session.isIsactive()&&(PermisionChecks.isAdmin(session.getUser())||doc.getUser().getId()==session.getUser().getId())){
-            File file=new File("D:/app/docs/"+doc.getFileName());
-            Path path = Paths.get("D:/app/docs/"+doc.getFileName());
+            File file=new File(Variables.appDir+"/docs/"+doc.getFileName());
+            Path path = Paths.get(Variables.appDir+"/docs/"+doc.getFileName());
             try {
                 byte[] data = Files.readAllBytes(path);
                 response.setContentType(doc.getExtension());
@@ -122,7 +134,8 @@ public class StorageController {
 
 
 
-
+    @Autowired
+    private UserCategoryJoinRepo userCategoryJoinRepo;
     @Autowired
     private SessionRepository sessionRepository;
     @Autowired

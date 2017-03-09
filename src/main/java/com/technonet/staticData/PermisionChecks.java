@@ -37,4 +37,10 @@ public class PermisionChecks {
                 .filter(permission -> permission.getCode().equals(PERMISSIONS.docTypes.name()))
                 .count() > 0;
     }
+    static public boolean userManagement(Session session){
+        return session.isIsactive() && session.getUser()
+                .getPermissions().stream()
+                .filter(permission -> permission.getCode().equals(PERMISSIONS.users.name()))
+                .count() > 0;
+    }
 }

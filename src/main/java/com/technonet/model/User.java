@@ -15,17 +15,17 @@ public class User {
 
     public static boolean jsonIgnoreBids;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "userId")
-	private long id;
+    private long id;
     @NotNull
     @Column
-	private String username;
+    private String username;
     @Column
     @NotNull
     @JsonIgnore
-	private String password;
+    private String password;
     @Column
     @NotNull
     private String email;
@@ -46,16 +46,20 @@ public class User {
     @NotNull
     private int type;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Session> sessions;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<UserCategoryJoin> userCategoryJoins;
 
     @ManyToMany
     @JsonIgnore
     @JoinTable(name = "USER_PERMISSION")
     private List<Permission> permissions;
     @JsonIgnore
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Document> documents;
 
     @ManyToOne
@@ -63,11 +67,11 @@ public class User {
     private City city;
 
 
-
-    public User(long id){
-        this.id=id;
+    public User(long id) {
+        this.id = id;
     }
-    public User(){
+
+    public User() {
     }
 
 
@@ -80,7 +84,7 @@ public class User {
                 String mobile,
                 String personalNumber,
                 int type,
-                City city){
+                City city) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -93,31 +97,34 @@ public class User {
         this.sessions = new ArrayList<>();
         this.permissions = new ArrayList<>();
         this.city = city;
-        this.documents=new ArrayList<>();
+        this.documents = new ArrayList<>();
+        this.userCategoryJoins = new ArrayList<>();
     }
 
 
-	public String getUsername() {
-		return username;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public long getId() {
         return id;
     }
 
-    public void setId() { this.id=id;}
+    public void setId() {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;
@@ -160,7 +167,6 @@ public class User {
     }
 
 
-
     public String getMobile() {
         return mobile;
     }
@@ -186,8 +192,8 @@ public class User {
     }
 
 
-    public String getNameSurname(){
-        return this.name+" "+this.surname;
+    public String getNameSurname() {
+        return this.name + " " + this.surname;
     }
 
     public List<Permission> getPermissions() {
@@ -212,5 +218,13 @@ public class User {
 
     public void setDocuments(List<Document> documents) {
         this.documents = documents;
+    }
+
+    public List<UserCategoryJoin> getUserCategoryJoins() {
+        return userCategoryJoins;
+    }
+
+    public void setUserCategoryJoins(List<UserCategoryJoin> userCategoryJoins) {
+        this.userCategoryJoins = userCategoryJoins;
     }
 }
