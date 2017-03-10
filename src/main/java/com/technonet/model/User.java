@@ -12,9 +12,6 @@ import java.util.List;
 @Table(name = "users")
 public class User {
 
-
-    public static boolean jsonIgnoreBids;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "userId")
@@ -63,6 +60,9 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Document> documents;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<GalleryPicture> galleryPictures;
 
     @ManyToOne
     @JoinColumn(name = "cityId")
@@ -101,6 +101,7 @@ public class User {
         this.city = city;
         this.documents = new ArrayList<>();
         this.userCategoryJoins = new ArrayList<>();
+        this.galleryPictures = new ArrayList<>();
     }
 
 
@@ -236,5 +237,13 @@ public class User {
 
     public void setProfilePic(String profilePic) {
         this.profilePic = profilePic;
+    }
+
+    public List<GalleryPicture> getGalleryPictures() {
+        return galleryPictures;
+    }
+
+    public void setGalleryPictures(List<GalleryPicture> galleryPictures) {
+        this.galleryPictures = galleryPictures;
     }
 }

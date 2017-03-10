@@ -221,7 +221,7 @@ function loadUsersData(index, search) {
             '</div>');
         DOMElements.categories.append(UserCategories);
         DOMElements.CategoriesDataTableBody = $("#CategoriesDataTableBody");
-        loadCategiries(DOMElements,currentElement);
+        loadCategiries(DOMElements, currentElement);
         createButtonWithHandlerr($("#categoryPageActions"), "კატეგორიის დამატება", function () {
             showModalWithTableInside(function (head, body, modal, rand) {
                 dynamicCreateForm(body, "/addcategorytouser", {
@@ -237,7 +237,7 @@ function loadUsersData(index, search) {
                         value: "" + currentElement.id
                     }
                 }, function () {
-                    loadCategiries(DOMElements,currentElement);
+                    loadCategiries(DOMElements, currentElement);
                     modal.modal("hide")
                 })
             }, {}, 600)
@@ -249,7 +249,7 @@ function loadUsersData(index, search) {
         $.getJSON("usercategories/" + currentElement.id, function (result) {
             for (var key in result) {
                 var item = result[key];
-                DOMElements.CategoriesDataTableBody.append("<tr value='"+key+"' class='categoryItem " + (item.accepted ? "" : "danger") + "'>" +
+                DOMElements.CategoriesDataTableBody.append("<tr value='" + key + "' class='categoryItem " + (item.accepted ? "" : "danger") + "'>" +
                     "<td>" +
                     item.category.name +
                     "</td>" +
@@ -268,16 +268,13 @@ function loadUsersData(index, search) {
                 var currentCategory = result[$(this).attr("value")];
                 showModalWithTableInside(function (head, body, modal, rand) {
                     body.html(clientCategoryPageTemplate);
-                    DOMElements.categoryPageDom={
-                        docs:$("#tab10_1"),
-                        lessons:$("#tab10_2"),
-                        actions:$("#tab10_3"),
-                        currentCategory:currentCategory
+                    DOMElements.categoryPageDom = {
+                        docs: $("#tab10_1"),
+                        lessons: $("#tab10_2"),
+                        actions: $("#tab10_3"),
+                        currentCategory: currentCategory
                     };
                     loadCategoryDocs(DOMElements);
-
-
-
 
 
                 }, {}, 800)
@@ -285,28 +282,28 @@ function loadUsersData(index, search) {
         })
     }
 
-    function loadCategoryDocs(DOMElements){
+    function loadCategoryDocs(DOMElements) {
         createTable(DOMElements.categoryPageDom.docs,
             {
-                name:{
-                    name:"სახელი"
+                name: {
+                    name: "სახელი"
                 },
-                date:{
-                    name:"თარიღი"
+                date: {
+                    name: "თარიღი"
                 },
-                actions:{
-                    name:"#"
+                actions: {
+                    name: "#"
                 }
-            },function (tableBody) {
-            
-        });
+            }, function (tableBody) {
+
+            });
 
 
-        $.getJSON("getusercatdocs/"+DOMElements.categoryPageDom.currentCategory.id,function (result) {
+        $.getJSON("getusercatdocs/" + DOMElements.categoryPageDom.currentCategory.id, function (result) {
 
-           for(var key in result){
+            for (var key in result) {
 
-           }
+            }
         });
     }
 
@@ -328,87 +325,246 @@ function loadUsersData(index, search) {
     }
 
     function openDocuments(DOMElements, documents, currentElement) {
-        documents.append('<div class="row">' +
-            '<section class="dropbox" id="dropbox">' +
-            '<h4>Drop files here to upload</h4>' +
-            '</section>' +
-            '</div>' +
-            '<div class="row">' +
-            '<div class="col-md-3">' +
-            '<label>' +
-            '<input id="checkBoxDocuments1" type="checkbox" data-checkbox="icheckbox_square-blue">დიპლომები' +
-            '</label>' +
-            '</div><div class="col-md-3">' +
-            '<label>' +
-            '<input id="checkBoxDocuments2" type="checkbox" data-checkbox="icheckbox_square-blue">პირადობის' +
-            '</label></div><div class="col-md-4"><div class="input-group">            ' +
-            '<div class="icheck-list"><label>' +
-            '<input id="checkBoxDocuments3" type="checkbox" data-checkbox="icheckbox_square-blue">შიდა' +
-            '</label></div></div></div>' +
-            '</div>');
-        documents.append(DocumentsTemplate);
+        documents.append(
+            '<input type="file" id="docFile" style="display:none">');
+        documents.append(filemanager);
 
-        DOMElements.DocumentsDataTableBody = $("#DocumentsDataTableBody");
+        function maximizeWindow() {
+            var newWid = $(document).width();
+            var newHit = $(document).height();
+            $('.doc-browser').css('margin-top', '0px');
+            $('.doc-browser').animate({
+                width: newWid,
+                height: newHit,
+                top: 0,
+                left: 0
+            });
+            $('.sidebar-folder-list').animate({
+                height: (newHit - 35) + 'px'
+            })
+            $('.main-content-view').animate({
+                width: newWid - $('.sidebar-folder-list').width(),
+                height: (newHit - 25) + 'px'
+            })
+        }
+
+        function minimizeWindow() {
+            var newWid = 900;
+            var newHit = 900;
+            var center = $(document).width() / 2 - newWid / 2;
+            $('.doc-browser').animate({
+                width: 900,
+                height: 900,
+                top: '10%',
+                left: center
+            });
+            $('.sidebar-folder-list').animate({
+                height: newHit - 35
+            });
+            $('.main-content-view').animate({
+                width: newWid - $('.sidebar-folder-list').width(),
+                height: newHit - 25
+            });
+        }
+
+        function centerElementAbsolute(elem) {
+            var center = $(document).width() / 2 - $(elem).width() / 2;
+            $(elem).css('left', center);
+        }
 
 
+        $(document).ready(function () {
+
+            centerElementAbsolute('.doc-browser')
+
+            // Color variables for sidebar list items
+            var listNorm = '#CACDD1';
+            var listSel = '#ADB0B2';
+
+            // Give the "Documents" item an initial selected color
+            $('#docs').css({'background-color': listSel});
+
+            /* List Item Click
+             *
+             * Change all list items back to the normal color, then
+             * give the clicked list item the selected color.
+             *
+             * Hide the currently shown content, then show
+             * the content for the selected item
+             */
+            $('.folder-list-item').click(function () {
+
+                // Iterate items, give all normal color
+                $('.folder-list-item').each(function () {
+                    $(this).css({'background-color': listNorm});
+                });
+                // Then give the selected item the selected color
+                $(this).css({'background-color': listSel});
+
+                // Iterate all content and hide each
+                $('.main-content-view').each(function () {
+                    $(this).hide();
+                });
+
+                // Figure out which content to display and display it
+                if ($(this).attr('id') == 'docs') {
+                    $('#docs-content').fadeIn(500);
+                } else if ($(this).attr('id') == 'projects') {
+                    $('#projects-content').fadeIn(500);
+                } else if ($(this).attr('id') == 'samples') {
+                    $('#samples-content').fadeIn(500);
+                } else if ($(this).attr('id') == 'about-me') {
+                    $('#about-content').fadeIn(500);
+                }
+            });
+
+
+        });
+
+        DOMElements.fileManager = {};
+        DOMElements.fileManager.docs = $("#docs-content");
+        DOMElements.fileManager.categories = $("#projects-content");
+        DOMElements.fileManager.galery = $("#about-content");
+
+
+        $("#uploadDoc").click(function () {
+            $("#docFile").click();
+        });
+        $("#docFile").change(function () {
+            var obj = this;
+            var sendData = [];
+            showModalWithTableInside(function (head, body, modal, rand) {
+                dynamicCreateToArray(body, sendData, {
+
+                    category: {
+                        name: "კატეგორია",
+                        type: "comboBox",
+                        valueField: "id",
+                        nameField: "name",
+                        url: "/usercategoriescats/" + currentElement.id
+                    },
+                    docType: {
+                        name: "კატეგორია",
+                        type: "comboBox",
+                        valueField: "id",
+                        nameField: "name",
+                        url: "/doctypes/"
+                    },
+                }, function () {
+                    console.log(sendData);
+                    var formData = new FormData();
+                    var xhr = new XMLHttpRequest();
+
+                    for (var i = 0; i < obj.files.length; i++) {
+                        //TODO Append in php files array
+                        formData.append('file', obj.files[i]);
+                        console.log('Looping trough passed data', obj.files[i]);
+                    }
+
+                    //On successful upload response, parse JSON data
+                    //TODO handle response from php server script
+                    xhr.onload = function () {
+                        var data = JSON.parse(this.responseText);
+                        loadDocumentsForUser(DOMElements, currentElement.id, 0)
+                    };
+
+                    //Open an AJAX post request
+                    xhr.open('post', 'upload/' + currentElement.id + "?category=" + sendData[0].category + "&docType=" + sendData[0].docType);
+                    xhr.send(formData);
+
+
+                    modal.modal("hide");
+                }, function () {
+
+                }, function () {
+
+                });
+
+            }, {}, 400)
+        });
         dropBoxFuncUserDocs('promptModal' + DOMElements.rand, 'upload/' + currentElement.id, function () {
             loadDocumentsForUser(DOMElements, currentElement.id, 0)
-        },currentElement.id);
+        }, currentElement.id);
+
+
         loadDocumentsForUser(DOMElements, currentElement.id, 0);
     }
 
     function loadDocumentsForUser(DOMElements, id, page) {
-        $("#checkBoxDocuments1").unbind();
-        $("#checkBoxDocuments1").on('ifChanged', function () {
-            loadDocumentsForUser(DOMElements, id, 0);
-        });
-        $("#checkBoxDocuments2").unbind();
-        $("#checkBoxDocuments2").on('ifChanged', function () {
-            loadDocumentsForUser(DOMElements, id, 0);
-        });
-        $("#checkBoxDocuments3").unbind();
-        $("#checkBoxDocuments3").on('ifChanged', function () {
-            loadDocumentsForUser(DOMElements, id, 0);
-        });
-        $.getJSON("listdocs/" + id + "?page=" + page + "&closed=" +
-            ($("#checkBoxDocuments1").is(":checked") ? "true" : "false") +
-            "&opened=" +
-            ($("#checkBoxDocuments2").is(":checked") ? "true" : "false") +
-            "&late=" +
-            ($("#checkBoxDocuments3").is(":checked") ? "true" : "false"), function (result) {
-            DOMElements.DocumentsDataTableBody.html("");
+
+        $.getJSON("listdocs/" + id + "?page=" + page, function (result) {
+            DOMElements.fileManager.docs.html("");
             var dataArray = result["content"];
             var totalPages = result["totalPages"];
             var totalElements = result["totalElements"];
             for (var i = 0; i < dataArray.length; i++) {
                 var currentElement = dataArray[i];
                 var itemLogos = "";
+                var showName = currentElement.name;
+                if (currentElement.name.length > 11) {
+                    showName = currentElement.name.substring(0, 11);
+                }
+                var logo = 'fa-file';
+                switch (currentElement.extension) {
+                    case 'image/jpeg':
+                        logo = 'fa-file-image-o';
+                        break;
+                    case 'application/pdf':
+                        logo = 'fa-file-pdf-o';
+                        break;
+                    case 'application/vnd.ms-excel':
+                    case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
+                        logo = 'fa-file-excel-o';
+                        break;
+                    case 'application/zip':
+                    case 'application/x-zip-compressed':
+                        logo = 'fa-file-archive-o';
+                        break;
+                    case 'text/plain':
+                        logo = 'fa-file-text-o';
+                        break;
+                    case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+                    case 'application/msword':
+                        logo = 'fa-file-word-o';
+                        break;
+                    case 'application/vnd.ms-powerpoint':
+                        logo = 'fa-file-text-o';
+                        break;
+                    case 'video/quicktime':
+                    case 'video/mpeg':
+                    case 'video/x-ms-wmv':
+                    case 'video/mp4':
+                        logo = 'fa-file-video-o';
+                        break;
 
-                DOMElements.DocumentsDataTableBody.append("<tr>" +
-                    "<td style='font-family: font1;' value='" + i + "' class='gridRowDoc'>" + itemLogos + "</td>" +
-                    "<td style='font-family: font1;' value='" + i + "' class='gridRowDoc'>" + currentElement["name"] + "</td>" +
-                    "<td style='font-family: font1;' value='" + i + "' class='gridRowDoc'>" +
-                    moment(new Date(currentElement["date"])).locale("ka").format("L") + "</td>" +
-                    "<td style='font-family: font1;' value='" + i + "' class='gridRowDoc'>" + currentElement["category"] + "</td>" +
-                    "<td style='font-family: font1;' value='" + i + "' class='gridRowDoc'>" + currentElement["type"] + "</td>" +
-                    "<td><a href='doc/" + currentElement.id + "'><i class='fa fa-cloud-download' aria-hidden='true'></i></a></td>" +
-                    "</tr>");
+                }
+
+
+                DOMElements.fileManager.docs.append('<div value="'+currentElement.id+'" class="content-item">' +
+                    '<div class="content-icon">' +
+                    '   <i class="fa ' + logo + ' fa-3x"></i>' +
+                    '   </div>' +
+                    '   <div title="' + currentElement.name + '" class="content-description">' +
+                    showName +
+                    '   </div>' +
+                    '   </div>');
             }
-            var gridRow = $('.gridRowDoc');
-            gridRow.css('cursor', 'pointer');
-            gridRow.unbind();
-            gridRow.click(function () {
-                var currentElement = dataArray[$(this).attr("value")];
-                console.log($(this).attr("value"));
-
-                //openLoanGlobal(currentElement);
-                //DOMElements.modal.modal("hide");
+            $('.content-item').dblclick(function () {
+                var ifrm = document.getElementById("frame1");
+                ifrm.src = "doc/"+$(this).attr("value");
             });
+            $('.content-item').draggable({
+                handle: '.content-icon',
+                opacity: 0.9,
+                revert: true, helper: "clone",
+                containment: 'document'
+            });
+
 
         })
     }
 
-    function dropBoxFuncUserDocs(id,url,callback,userId) {
+    function dropBoxFuncUserDocs(id, url, callback, userId) {
         // Global variables
         var dropbox = document.getElementById(id);
         var uploadDest = url;
@@ -424,7 +580,7 @@ function loadUsersData(index, search) {
         }
 
         // AJAX function for file uploads
-        function uploadFiles(files,data) {
+        function uploadFiles(files, data) {
             //FormData supports IE 10+ TODO falback
             var formData = new FormData();
             var xhr = new XMLHttpRequest();
@@ -443,7 +599,7 @@ function loadUsersData(index, search) {
             };
 
             //Open an AJAX post request
-            xhr.open('post', uploadDest+"?category="+data.category+"&docType="+data.docType);
+            xhr.open('post', uploadDest + "?category=" + data.category + "&docType=" + data.docType);
             xhr.send(formData);
         }
 
@@ -462,10 +618,10 @@ function loadUsersData(index, search) {
         dropbox.ondrop = function (e) {
             //Prevent default browser behaviour
             e.preventDefault();
-            var g=e.dataTransfer.files;
+            var g = e.dataTransfer.files;
             //this.className = 'dropbox';
             console.log(e.dataTransfer.files);
-            var sendData=[];
+            var sendData = [];
             showModalWithTableInside(function (head, body, modal, rand) {
                 dynamicCreateToArray(body, sendData, {
 
@@ -474,7 +630,7 @@ function loadUsersData(index, search) {
                         type: "comboBox",
                         valueField: "id",
                         nameField: "name",
-                        url: "/usercategoriescats/"+userId
+                        url: "/usercategoriescats/" + userId
                     },
                     docType: {
                         name: "კატეგორია",
@@ -486,7 +642,7 @@ function loadUsersData(index, search) {
                 }, function () {
                     console.log(sendData);
                     console.log(g);
-                    uploadFiles(g,sendData[0]);
+                    uploadFiles(g, sendData[0]);
                     modal.modal("hide");
                 }, function () {
 
@@ -494,7 +650,7 @@ function loadUsersData(index, search) {
 
                 });
 
-            },{},400)
+            }, {}, 400)
         }
     }
 
@@ -503,9 +659,9 @@ function loadUsersData(index, search) {
         DOMElements.infoDiv.append(
             "<div id='categoryLogoDiv' class='row'>" +
             "<div class='col-md-2'></div>" +
-            "<div class='col-md-2'>"+
-            "<img id='profilePicBtn' style='width: 150px;cursor: pointer' src='profilePic/"+DOMElements.currentElement.id+"?"+ new Date().getTime()+"'/>" +
-            '<input type="file" id="profilePick" style="display:none">'+
+            "<div class='col-md-2'>" +
+            "<img id='profilePicBtn' style='width: 150px;cursor: pointer' src='profilePic/" + DOMElements.currentElement.id + "?" + new Date().getTime() + "'/>" +
+            '<input type="file" id="profilePick" style="display:none">' +
             "</div>" +
             "</div>");
         $("#profilePicBtn").click(function () {
@@ -530,7 +686,7 @@ function loadUsersData(index, search) {
             };
 
             //Open an AJAX post request
-            xhr.open('post', "uploadProfilePic/"+DOMElements.currentElement.id);
+            xhr.open('post', "uploadProfilePic/" + DOMElements.currentElement.id);
             xhr.send(formData);
         })
         DOMElements.infoDiv.append(

@@ -6,14 +6,14 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Created by kakha on 3/5/2017.
+ * Created by kakha on 3/10/2017.
  */
 @Entity
-@Table(name = "documents")
-public class Document {
+@Table(name = "GalleryPicture")
+public class GalleryPicture {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "documentId")
+    @Column(name = "galleryPictureId")
     private long id;
     @Column
     private String name;
@@ -21,16 +21,6 @@ public class Document {
     @JoinColumn(name = "userId")
     @JsonIgnore
     private User user;
-    @ManyToOne
-    @JoinColumn(name = "joinId")
-    @JsonIgnore
-    private UserCategoryJoin userCategoryJoin;
-    @ManyToOne
-    @JoinColumn(name = "docTypeId")
-    @JsonIgnore
-    private DocType docType;
-    @Column
-    private String fileName;
     @Column
     private String extension;
     @Column
@@ -38,19 +28,15 @@ public class Document {
     @Column
     private boolean active;
 
-    public Document(String name, User user, String fileName, String extension,UserCategoryJoin userCategoryJoin,DocType docType) {
+    public GalleryPicture(String name, User user, String extension) {
         this.name = name;
         this.user = user;
-        this.fileName = fileName;
         this.extension = extension;
         this.date=new Date();
-        this.userCategoryJoin=userCategoryJoin;
-        this.docType=docType;
         this.active=true;
     }
-    public Document(){
 
-    }
+    public GalleryPicture(){}
 
     public long getId() {
         return id;
@@ -76,14 +62,6 @@ public class Document {
         this.user = user;
     }
 
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
     public String getExtension() {
         return extension;
     }
@@ -100,33 +78,11 @@ public class Document {
         this.date = date;
     }
 
-    public UserCategoryJoin getUserCategoryJoin() {
-        return userCategoryJoin;
-    }
-
-    public void setUserCategoryJoin(UserCategoryJoin userCategoryJoin) {
-        this.userCategoryJoin = userCategoryJoin;
-    }
-
-    public DocType getDocType() {
-        return docType;
-    }
-
-    public void setDocType(DocType docType) {
-        this.docType = docType;
-    }
-
     public boolean isActive() {
         return active;
     }
 
     public void setActive(boolean active) {
         this.active = active;
-    }
-    public String getType(){
-        return docType.getName();
-    }
-    public String getCategory(){
-        return userCategoryJoin.getCategory().getName();
     }
 }

@@ -81,9 +81,17 @@ public class StorageController {
                 String originalName = file.getOriginalFilename();
                 UUID uuid = UUID.randomUUID();
                 BufferedImage bufferedImage = ImageIO.read(file.getInputStream());
-                bufferedImage=Variables.getScaledInstance(bufferedImage,500,500,new RenderingHints(
-                        RenderingHints.KEY_TEXT_ANTIALIASING,
-                        RenderingHints.VALUE_TEXT_ANTIALIAS_ON),false);
+                //bufferedImage=Variables.getScaledInstance(bufferedImage,500,500,new RenderingHints(),false);
+                int w = bufferedImage.getWidth();
+                int h = bufferedImage.getHeight();
+                if(w>500){
+                    int newWidth=500;
+                    float scale=((float)w/(float)newWidth);
+                    float newHeight=  (h/scale);
+                    bufferedImage=Variables.resize(bufferedImage,newWidth,(int)newHeight);
+                }
+
+
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 ImageIO.write(bufferedImage, "png", baos);
                 InputStream is = new ByteArrayInputStream(baos.toByteArray());
@@ -191,7 +199,7 @@ public class StorageController {
     }
 
     private Pageable constructPageSpecification(int pageIndex) {
-        return new PageRequest(pageIndex, 10);
+        return new PageRequest(pageIndex, 40);
     }
 
 

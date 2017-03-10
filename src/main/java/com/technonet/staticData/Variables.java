@@ -7,7 +7,8 @@ import java.awt.image.BufferedImage;
  * Created by kaxa on 3/8/17.
  */
 public class Variables {
-    public static String appDir="/Users/kaxa/Documents/Code/teacherportalweb/build/app";
+    //public static String appDir="/Users/kaxa/Documents/Code/teacherportalweb/build/app";
+    public static String appDir="D:/app";
     public static BufferedImage getScaledInstance(BufferedImage img, int targetWidth, int targetHeight, Object hint,
                                                    boolean higherQuality) {
         int type = (img.getTransparency() == Transparency.OPAQUE) ? BufferedImage.TYPE_INT_RGB
@@ -55,6 +56,16 @@ public class Variables {
         } while (w != targetWidth || h != targetHeight);
 
         return ret;
+    }
+    public static BufferedImage resize(BufferedImage img, int newW, int newH) {
+        Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
+        BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D g2d = dimg.createGraphics();
+        g2d.drawImage(tmp, 0, 0, null);
+        g2d.dispose();
+
+        return dimg;
     }
 
 }
