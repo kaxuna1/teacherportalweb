@@ -7,8 +7,8 @@ import java.awt.image.BufferedImage;
  * Created by kaxa on 3/8/17.
  */
 public class Variables {
-    //public static String appDir="/Users/kaxa/Documents/Code/teacherportalweb/build/app";
-    public static String appDir="D:/app";
+    public static String appDir="/Users/kaxa/Documents/Code/teacherportalweb/build/app";
+    //public static String appDir="D:/app";
     public static BufferedImage getScaledInstance(BufferedImage img, int targetWidth, int targetHeight, Object hint,
                                                    boolean higherQuality) {
         int type = (img.getTransparency() == Transparency.OPAQUE) ? BufferedImage.TYPE_INT_RGB

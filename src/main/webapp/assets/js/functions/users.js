@@ -2,6 +2,9 @@
  * Created by kakha on 11/12/2015.
  */
 var cities = {};
+var currentUploadUrl = '';
+var currentRefreshFunction = null;
+var currentFileType = 0;
 function loadUsersData(index, search) {
     $.getJSON("getusers?index=" + index + "&search=" + search, function (result) {
         $("#dataGridHeader").html("");
@@ -202,6 +205,7 @@ function loadUsersData(index, search) {
             })
         })
     });
+
     function drawCategories(DOMElements, currentElement) {
 
         DOMElements.categories.append('<div id="categoryPageActions" class="row">' +
@@ -325,6 +329,7 @@ function loadUsersData(index, search) {
     }
 
     function openDocuments(DOMElements, documents, currentElement) {
+        currentFileType = 1;
         documents.append(
             '<input type="file" id="docFile" style="display:none">');
         documents.append(filemanager);
@@ -409,12 +414,14 @@ function loadUsersData(index, search) {
                 // Figure out which content to display and display it
                 if ($(this).attr('id') == 'docs') {
                     $('#docs-content').fadeIn(500);
+                    currentFileType = 1;
                 } else if ($(this).attr('id') == 'projects') {
                     $('#projects-content').fadeIn(500);
                 } else if ($(this).attr('id') == 'samples') {
                     $('#samples-content').fadeIn(500);
                 } else if ($(this).attr('id') == 'about-me') {
                     $('#about-content').fadeIn(500);
+                    currentFileType = 3;
                 }
             });
 
@@ -433,61 +440,120 @@ function loadUsersData(index, search) {
         $("#docFile").change(function () {
             var obj = this;
             var sendData = [];
-            showModalWithTableInside(function (head, body, modal, rand) {
-                dynamicCreateToArray(body, sendData, {
+            if (currentFileType === 1) {
+                showModalWithTableInside(function (head, body, modal, rand) {
 
-                    category: {
-                        name: "კატეგორია",
-                        type: "comboBox",
-                        valueField: "id",
-                        nameField: "name",
-                        url: "/usercategoriescats/" + currentElement.id
-                    },
-                    docType: {
-                        name: "კატეგორია",
-                        type: "comboBox",
-                        valueField: "id",
-                        nameField: "name",
-                        url: "/doctypes/"
-                    },
-                }, function () {
-                    console.log(sendData);
-                    var formData = new FormData();
-                    var xhr = new XMLHttpRequest();
+                    dynamicCreateToArray(body, sendData, {
 
-                    for (var i = 0; i < obj.files.length; i++) {
-                        //TODO Append in php files array
-                        formData.append('file', obj.files[i]);
-                        console.log('Looping trough passed data', obj.files[i]);
-                    }
+                        category: {
+                            name: "კატეგორია",
+                            type: "comboBox",
+                            valueField: "id",
+                            nameField: "name",
+                            url: "/usercategoriescats/" + currentElement.id
+                        },
+                        docType: {
+                            name: "კატეგორია",
+                            type: "comboBox",
+                            valueField: "id",
+                            nameField: "name",
+                            url: "/doctypes/"
+                        },
+                    }, function () {
+                        console.log(sendData);
 
-                    //On successful upload response, parse JSON data
-                    //TODO handle response from php server script
-                    xhr.onload = function () {
-                        var data = JSON.parse(this.responseText);
-                        loadDocumentsForUser(DOMElements, currentElement.id, 0)
-                    };
+                        uploadFileToUrl(obj,
+                            'upload/' + currentElement.id + "?category=" + sendData[0].category + "&docType=" + sendData[0].docType,
+                        function () {
+                            loadDocumentsForUser(DOMElements, currentElement.id, 0)
+                        })
 
-                    //Open an AJAX post request
-                    xhr.open('post', 'upload/' + currentElement.id + "?category=" + sendData[0].category + "&docType=" + sendData[0].docType);
-                    xhr.send(formData);
+                        modal.modal("hide");
+                    }, function () {
+
+                    }, function () {
+
+                    });
+
+                }, {}, 400)
+            }
 
 
-                    modal.modal("hide");
-                }, function () {
-
-                }, function () {
-
+            if (currentFileType === 3) {
+                uploadFileToUrl(obj, 'uploadGalleryPic/' + currentElement.id,function () {
+                    loadGalleryForUser(DOMElements, currentElement.id, 0);
                 });
+            }
+            function uploadFileToUrl(obj, url,callback) {
+                var formData = new FormData();
+                var xhr = new XMLHttpRequest();
 
-            }, {}, 400)
+                for (var i = 0; i < obj.files.length; i++) {
+                    //TODO Append in php files array
+                    formData.append('file', obj.files[i]);
+                    console.log('Looping trough passed data', obj.files[i]);
+                }
+
+                //On successful upload response, parse JSON data
+                //TODO handle response from php server script
+                xhr.onload = function () {
+                    var data = JSON.parse(this.responseText);
+                    callback();
+                };
+
+                //Open an AJAX post request
+                xhr.open('post', url);
+                xhr.send(formData);
+            }
         });
         dropBoxFuncUserDocs('promptModal' + DOMElements.rand, 'upload/' + currentElement.id, function () {
             loadDocumentsForUser(DOMElements, currentElement.id, 0)
         }, currentElement.id);
-
-
         loadDocumentsForUser(DOMElements, currentElement.id, 0);
+        loadGalleryForUser(DOMElements, currentElement.id, 0);
+
+    }
+
+    function loadGalleryForUser(DOMElements, id, page) {
+        $.getJSON("listgallery/" + id + "?page=" + page, function (result) {
+            DOMElements.fileManager.galery.html("");
+            var dataArray = result["content"];
+            var totalPages = result["totalPages"];
+            var totalElements = result["totalElements"];
+            for (var i = 0; i < dataArray.length; i++) {
+                var currentElement = dataArray[i];
+                var itemLogos = "";
+                var showName = currentElement.name;
+                if (currentElement.name.length > 11) {
+                    showName = currentElement.name.substring(0, 11);
+                }
+                var logo = 'fa-file';
+
+
+                DOMElements.fileManager.galery.append(
+                    '<div style="background-image: url(userpicturelogo/' + currentElement.name + '?'+new Date().getTime()+ ');' +
+                    'background-size:     cover;' +
+                    'background-repeat:   no-repeat;' +
+                    'background-position: center center;' +
+                    '" value="' + currentElement.id + '" class="content-item gallery-item">' +
+                    '<div  class="content-icon">' +
+                    '  ' +
+                    '   </div>' +
+                    '   </div>');
+            }
+            $('gallery-item').dblclick(function () {
+
+            });
+            $('.gallery-item').draggable({
+                handle: '.content-icon',
+                opacity: 0.9,
+                revert: true, helper: "clone",
+                containment: 'document'
+            });
+
+
+        })
+
     }
 
     function loadDocumentsForUser(DOMElements, id, page) {
@@ -540,7 +606,7 @@ function loadUsersData(index, search) {
                 }
 
 
-                DOMElements.fileManager.docs.append('<div value="'+currentElement.id+'" class="content-item">' +
+                DOMElements.fileManager.docs.append('<div value="' + currentElement.id + '" class="content-item">' +
                     '<div class="content-icon">' +
                     '   <i class="fa ' + logo + ' fa-3x"></i>' +
                     '   </div>' +
@@ -551,7 +617,7 @@ function loadUsersData(index, search) {
             }
             $('.content-item').dblclick(function () {
                 var ifrm = document.getElementById("frame1");
-                ifrm.src = "doc/"+$(this).attr("value");
+                ifrm.src = "doc/" + $(this).attr("value");
             });
             $('.content-item').draggable({
                 handle: '.content-icon',
@@ -695,4 +761,6 @@ function loadUsersData(index, search) {
             "</div>"
         )
     }
+
+
 }

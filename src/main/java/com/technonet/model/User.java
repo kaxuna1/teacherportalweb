@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -44,10 +45,23 @@ public class User {
     @Column
     @NotNull
     private int type;
+    @Column
+    private int sex;
+    @Column
+    private Date birthDate;
+    @Column
+    private boolean confirmedEmail;
+    @Column
+    private boolean confirmedSMS;
+
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Session> sessions;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Schedule> schedules;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
@@ -60,6 +74,9 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Document> documents;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ConfirmationToken> confirmationTokens;
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<GalleryPicture> galleryPictures;
@@ -102,6 +119,10 @@ public class User {
         this.documents = new ArrayList<>();
         this.userCategoryJoins = new ArrayList<>();
         this.galleryPictures = new ArrayList<>();
+        this.confirmedEmail=false;
+        this.confirmedSMS=false;
+        this.confirmationTokens=new ArrayList<>();
+        this.schedules=new ArrayList<>();
     }
 
 
@@ -245,5 +266,53 @@ public class User {
 
     public void setGalleryPictures(List<GalleryPicture> galleryPictures) {
         this.galleryPictures = galleryPictures;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public boolean isConfirmedEmail() {
+        return confirmedEmail;
+    }
+
+    public void setConfirmedEmail(boolean confirmedEmail) {
+        this.confirmedEmail = confirmedEmail;
+    }
+
+    public boolean isConfirmedSMS() {
+        return confirmedSMS;
+    }
+
+    public void setConfirmedSMS(boolean confirmedSMS) {
+        this.confirmedSMS = confirmedSMS;
+    }
+
+    public List<ConfirmationToken> getConfirmationTokens() {
+        return confirmationTokens;
+    }
+
+    public void setConfirmationTokens(List<ConfirmationToken> confirmationTokens) {
+        this.confirmationTokens = confirmationTokens;
+    }
+
+    public List<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<Schedule> schedules) {
+        this.schedules = schedules;
     }
 }

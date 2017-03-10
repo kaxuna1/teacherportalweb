@@ -63,9 +63,10 @@ public class StorageController {
         }
         return true;
     }
+
     @RequestMapping("uploadProfilePic/{id}")
     @ResponseBody
-    public boolean uploadFile(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
+    public boolean uploadProfilePic(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                               @PathVariable("id") long id,
                               @RequestParam("file") MultipartFile file) {
 
@@ -99,11 +100,44 @@ public class StorageController {
                 Files.copy(is, Paths.get(Variables.appDir + "/images/profilePics", uuid.toString()));
                 user.setProfilePic(uuid.toString());
                 userRepository.save(user);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
+    }
+    @RequestMapping("uploadProfilePic")
+    @ResponseBody
+    public boolean uploadProfilePic(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
+                              @RequestParam("file") MultipartFile file) {
 
+        Session session = sessionRepository.findOne(sessionId);
+        if (!session.isIsactive())
+            return false;
+        if (file.isEmpty()) {
+            return false;
+        } else {
+            try {
 
+                User user = session.getUser();
 
+                UUID uuid = UUID.randomUUID();
+                BufferedImage bufferedImage = ImageIO.read(file.getInputStream());
+                int w = bufferedImage.getWidth();
+                int h = bufferedImage.getHeight();
+                if(w>500){
+                    int newWidth=500;
+                    float scale=((float)w/(float)newWidth);
+                    float newHeight=  (h/scale);
+                    bufferedImage=Variables.resize(bufferedImage,newWidth,(int)newHeight);
+                }
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ImageIO.write(bufferedImage, "png", baos);
+                InputStream is = new ByteArrayInputStream(baos.toByteArray());
 
-
+                Files.copy(is, Paths.get(Variables.appDir + "/images/profilePics", uuid.toString()));
+                user.setProfilePic(uuid.toString());
+                userRepository.save(user);
             } catch (IOException e) {
                 e.printStackTrace();
             }

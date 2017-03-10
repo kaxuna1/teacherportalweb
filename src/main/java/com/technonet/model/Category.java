@@ -41,6 +41,10 @@ public class Category {
     @JsonIgnore
     private List<UserCategoryJoin> userCategoryJoins;
 
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Schedule> schedules;
+
     @ManyToMany
     @JsonIgnore
     @JoinTable(name = "CATEGORY_DOCTYPE")
@@ -54,6 +58,7 @@ public class Category {
         this.active=true;
         this.date=new Date();
         this.visible=false;
+        this.schedules=new ArrayList<>();
     }
     public Category(){}
 
@@ -119,5 +124,13 @@ public class Category {
 
     public void setLogo(String logo) {
         this.logo = logo;
+    }
+
+    public List<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<Schedule> schedules) {
+        this.schedules = schedules;
     }
 }

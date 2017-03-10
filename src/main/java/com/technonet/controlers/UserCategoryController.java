@@ -38,6 +38,22 @@ public class UserCategoryController {
             return new JsonMessage(JsonReturnCodes.DONTHAVEPERMISSION);
         }
     }
+    @RequestMapping("/requestcategory")
+    @ResponseBody
+    public JsonMessage addCategoryToUser(@CookieValue("projectSessionId") long sessionId,
+                                         @RequestParam(value = "category", required = true, defaultValue = "0") long category){
+
+        Session session= sessionRepository.findOne(sessionId);
+        if(session.isIsactive()){
+            User user1=session.getUser();
+            Category category1=categoryRepo.findOne(category);
+            UserCategoryJoin userCategoryJoin=new UserCategoryJoin(user1,category1);
+            userCategoryJoinRepo.save(userCategoryJoin);
+            return new JsonMessage(JsonReturnCodes.Ok);
+        }else{
+            return new JsonMessage(JsonReturnCodes.DONTHAVEPERMISSION);
+        }
+    }
     @RequestMapping("/usercategories/{id}")
     @ResponseBody
     public List<UserCategoryJoin> getUserCategories(@CookieValue("projectSessionId") long sessionId,

@@ -37,10 +37,11 @@ public class UsersController {
                               @RequestParam(value = "address", required = false, defaultValue = "") String address,
                               @RequestParam(value = "mobile", required = false, defaultValue = "") String mobile,
                               @RequestParam(value = "personalNumber", required = false, defaultValue = "") String personalNumber,
-                              @RequestParam(value = "city", required = false, defaultValue = "0") long city) {
+                              @RequestParam(value = "city", required = false, defaultValue = "0") long city,
+                              @RequestParam(value = "sex", required = false, defaultValue = "0") int sex) {
 
 
-        User user  = new UserBuilder().setAddress(address)
+        User user = new UserBuilder().setAddress(address)
                 .setUsername(username)
                 .setPassword(password)
                 .setEmail(email)
@@ -53,6 +54,7 @@ public class UsersController {
                 .setSessions(new ArrayList<Session>())
                 .setCity(cityRepo.findOne(city))
                 .createUser();
+        user.setSex(sex);
         try {
             userDao.save(user);
         } catch (Exception ex) {
@@ -71,9 +73,9 @@ public class UsersController {
 
     @RequestMapping("/giveuserpermission")
     @ResponseBody
-    public JsonMessage giveUserPermissions(long id,@RequestParam(value = "ids")ArrayList<Long> ids){
+    public JsonMessage giveUserPermissions(long id, @RequestParam(value = "ids") ArrayList<Long> ids) {
 
-        User user=userDao.findOne(id);
+        User user = userDao.findOne(id);
         for (Long id1 : ids) {
             user.getPermissions().add(permissionRepo.findOne(id1));
         }
@@ -81,11 +83,12 @@ public class UsersController {
         return new JsonMessage(JsonReturnCodes.Ok.getCODE(), "წარმატებით");
 
     }
+
     @RequestMapping("/removeuserpermission")
     @ResponseBody
-    public JsonMessage removeUserPermissions(long id,@RequestParam(value = "ids")ArrayList<Long> ids){
+    public JsonMessage removeUserPermissions(long id, @RequestParam(value = "ids") ArrayList<Long> ids) {
 
-        User user=userDao.findOne(id);
+        User user = userDao.findOne(id);
         for (Long id1 : ids) {
             user.getPermissions().remove(permissionRepo.findOne(id1));
         }
@@ -95,17 +98,17 @@ public class UsersController {
     }
 
     @RequestMapping("/changepassword")
-    public boolean changePassword(@CookieValue("projectSessionId") long sessionId, String password){
+    public boolean changePassword(@CookieValue("projectSessionId") long sessionId, String password) {
         try {
-            Session session=sessionDao.findOne(sessionId);
+            Session session = sessionDao.findOne(sessionId);
 
-            User user =session.getUser();
-            if(!password.isEmpty()){
+            User user = session.getUser();
+            if (!password.isEmpty()) {
                 user.setPassword(password);
                 userDao.save(user);
             }
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -116,9 +119,9 @@ public class UsersController {
     @ResponseBody
     public boolean editUser(@CookieValue("projectSessionId") long sessionId, User k) {
 
-        Session session=sessionDao.findOne(sessionId);
+        Session session = sessionDao.findOne(sessionId);
 
-        User user =session.getUser();
+        User user = session.getUser();
 
         if (k.getAddress() != null) {
             user.setAddress(k.getAddress());

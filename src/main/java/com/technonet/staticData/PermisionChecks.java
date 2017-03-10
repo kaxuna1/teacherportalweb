@@ -43,4 +43,10 @@ public class PermisionChecks {
                 .filter(permission -> permission.getCode().equals(PERMISSIONS.users.name()))
                 .count() > 0;
     }
+    static public boolean galleryManagement(Session session){
+        return session.isIsactive() && session.getUser()
+                .getPermissions().stream()
+                .filter(permission -> permission.getCode().equals(PERMISSIONS.gallery.name()))
+                .count() > 0;
+    }
 }

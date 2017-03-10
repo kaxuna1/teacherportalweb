@@ -8,5 +8,6 @@ public enum PERMISSIONS {
     dashboard,test,
     teacher,student,
     admin,fileManagement,
-    categories,docTypes
+    categories,docTypes,
+    gallery
 }
