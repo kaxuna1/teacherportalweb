@@ -179,6 +179,7 @@ public class GalleryPicturesController {
 
 
 
+
     private Pageable constructPageSpecification(int pageIndex) {
         return new PageRequest(pageIndex, 40);
     }

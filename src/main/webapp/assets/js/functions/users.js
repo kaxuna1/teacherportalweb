@@ -511,8 +511,65 @@ function loadUsersData(index, search) {
         }, currentElement.id);
         loadDocumentsForUser(DOMElements, currentElement.id, 0);
         loadGalleryForUser(DOMElements, currentElement.id, 0);
+        loadCategoriesForDocs(DOMElements, currentElement.id);
 
     }
+
+    function loadCategoriesForDocs(DOMElements, id) {
+        $.getJSON("usercategories/" + id, function (result) {
+            DOMElements.fileManager.categories.html("");
+            var dataArray = result;
+            for (var i = 0; i < dataArray.length; i++) {
+                var currentElement = dataArray[i];
+                var itemLogos = "";
+                var logo = 'fa-folder';
+
+
+                DOMElements.fileManager.categories.append('<div value="' + currentElement.id + '" class="cat-item content-item">' +
+                    '<div class="content-icon">' +
+                    '   <i class="fa ' + logo + ' fa-3x"></i>' +
+                    '   </div>' +
+                    '   <div title="' + currentElement.category.name + '" class="content-description">' +
+                    currentElement.category.name +
+                    '   </div>' +
+                    '   </div>');
+            }
+            $('.cat-item').dblclick(function () {
+                loadCategoryDocsInFileManager(DOMElements,$(this).attr("value"));
+            });
+            $('.cat-item').draggable({
+                handle: '.content-icon',
+                opacity: 0.9,
+                revert: true, helper: "clone",
+                containment: 'document'
+            });
+
+
+        })
+    }
+    
+    function loadCategoryDocsInFileManager(DOMElements, id) {
+        $.getJSON("listusercatdocs/"+id,function (result) {
+            DOMElements.fileManager.categories.html("");
+            var dataArray = result;
+            for (var i = 0; i < dataArray.length; i++) {
+                var currentElement = dataArray[i];
+                var itemLogos = "";
+                var logo = 'fa-folder';
+
+
+                DOMElements.fileManager.categories.append('<div value="' + currentElement.id + '" class="cat-item content-item">' +
+                    '<div class="content-icon">' +
+                    '   <i class="fa ' + logo + ' fa-3x"></i>' +
+                    '   </div>' +
+                    '   <div title="' + currentElement.name + '" class="content-description">' +
+                    currentElement.name +
+                    '   </div>' +
+                    '   </div>');
+            }
+        })
+    }
+
 
     function loadGalleryForUser(DOMElements, id, page) {
         $.getJSON("listgallery/" + id + "?page=" + page, function (result) {
@@ -535,14 +592,18 @@ function loadUsersData(index, search) {
                     'background-size:     cover;' +
                     'background-repeat:   no-repeat;' +
                     'background-position: center center;' +
-                    '" value="' + currentElement.id + '" class="content-item gallery-item">' +
+                    '" value="' + i + '" class="content-item gallery-item">' +
                     '<div  class="content-icon">' +
                     '  ' +
                     '   </div>' +
                     '   </div>');
             }
-            $('gallery-item').dblclick(function () {
-
+            $('.gallery-item').dblclick(function () {
+                var currentPic=dataArray[$(this).attr("value")];
+                showModalWithTableInside(function (head, body, modal, rand) {
+                    head.html("<h2>ფოტო გალერეა</h2>")
+                    body.html("<img style='width: 100%' src='userpicture/"+currentPic.name+"?"+new Date().getTime()+"'/>")
+                },{},600);
             });
             $('.gallery-item').draggable({
                 handle: '.content-icon',
@@ -606,7 +667,7 @@ function loadUsersData(index, search) {
                 }
 
 
-                DOMElements.fileManager.docs.append('<div value="' + currentElement.id + '" class="content-item">' +
+                DOMElements.fileManager.docs.append('<div value="' + currentElement.id + '" class="doc-item content-item">' +
                     '<div class="content-icon">' +
                     '   <i class="fa ' + logo + ' fa-3x"></i>' +
                     '   </div>' +
@@ -615,11 +676,11 @@ function loadUsersData(index, search) {
                     '   </div>' +
                     '   </div>');
             }
-            $('.content-item').dblclick(function () {
+            $('.doc-item').dblclick(function () {
                 var ifrm = document.getElementById("frame1");
                 ifrm.src = "doc/" + $(this).attr("value");
             });
-            $('.content-item').draggable({
+            $('.doc-item').draggable({
                 handle: '.content-icon',
                 opacity: 0.9,
                 revert: true, helper: "clone",

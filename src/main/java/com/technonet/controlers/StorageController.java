@@ -17,12 +17,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -182,6 +182,17 @@ public class StorageController {
         Session session = sessionRepository.findOne(sessionId);
         if (session.isIsactive() && PermisionChecks.isAdmin(session.getUser())) {
             return documentsRepo.findByUserAndActiveOrderByDateDesc(userRepository.findOne(id), true, constructPageSpecification(page));
+        } else {
+            return null;
+        }
+    }
+    @RequestMapping("listusercatdocs/{id}")
+    @ResponseBody
+    public List<Document> getUsrCatDocs(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
+                                        @PathVariable("id") long id) {
+        Session session = sessionRepository.findOne(sessionId);
+        if (session.isIsactive() && PermisionChecks.isAdmin(session.getUser())) {
+            return userCategoryJoinRepo.findOne(id).getDocuments();
         } else {
             return null;
         }
