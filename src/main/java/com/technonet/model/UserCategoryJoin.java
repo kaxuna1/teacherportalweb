@@ -32,6 +32,9 @@ public class UserCategoryJoin {
     @Column
     private boolean declined;
 
+    @Column
+    private boolean active;
+
     @JsonIgnore
     @OneToMany(mappedBy = "userCategoryJoin", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Document> documents;
@@ -51,6 +54,7 @@ public class UserCategoryJoin {
         this.declined = false;
         this.date = new Date();
         this.lastModifyDate = new Date();
+        this.active=true;
     }
 
     public UserCategoryJoin() {
@@ -129,5 +133,13 @@ public class UserCategoryJoin {
         this.declined = true;
         this.accepted = false;
         this.lastModifyDate = new Date();
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

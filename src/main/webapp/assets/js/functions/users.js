@@ -375,7 +375,8 @@ function loadUsersData(index, search) {
                     name: "#"
                 }
             }, function (tableBody) {
-                $.getJSON("getusercategoryscheduledays/" + DOMElements.currentElement.id + "/" + DOMElements.categoryPageDom.currentCategory.id, function (result) {
+                $.getJSON("getusercategoryscheduledays/" + DOMElements.currentElement.id + "/"
+                    + DOMElements.categoryPageDom.currentCategory.id, function (result) {
                     for (var key in result) {
                         var item = result[key];
                         /** @namespace item.workHours */
@@ -392,11 +393,33 @@ function loadUsersData(index, search) {
                     row.css('cursor', 'pointer');
                     row.unbind();
                     row.click(function () {
-                        showModalWithTableInside(function (head, body, modal, rand) {
-                        }, {}, 600)
+                        var scheduleDayId=$(this).attr("value");
+                        DOMElements.categories.schedule={};
+                        DOMElements.categories.schedule.id=scheduleDayId;
+                        loadCategoryDayHours(DOMElements)
                     });
                 })
             });
+    }
+    function loadCategoryDayHours(DOMElements) {
+
+        showModalWithTableInside(function (head, body, modal, rand) {
+            createButtonWithHandlerr(body,"დამატება",function () {
+
+            });
+            $.getJSON("/scheduledtimes/"+DOMElements.categories.schedule.id,function (result) {
+                createTable(body,{
+                    start:{
+                        name:"დასაწყისი"
+                    },
+                    end:{
+                        name:"დასასრული"
+                    }
+                },function (table) {
+
+                })
+            });
+        },{},600)
     }
 
     function drawPermsForAdding(id) {

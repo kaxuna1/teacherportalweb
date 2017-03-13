@@ -1,10 +1,7 @@
 package com.technonet.controlers;
 
 import com.technonet.Repository.*;
-import com.technonet.model.Document;
-import com.technonet.model.Session;
-import com.technonet.model.User;
-import com.technonet.model.UserCategoryJoin;
+import com.technonet.model.*;
 import com.technonet.staticData.PermisionChecks;
 import com.technonet.staticData.Variables;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,14 +44,15 @@ public class StorageController {
             try {
 
                 User user = userRepository.findOne(id);
-                UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(category);
-                if (!user.getUserCategoryJoins().contains(userCategoryJoin)) {
+                Category category1=categoryRepo.findOne(category);
+                List<UserCategoryJoin> userCategoryJoins = userCategoryJoinRepo.findByUserAndCategoryAndActive(user,category1,true);
+                if(userCategoryJoins.size()==0){
                     return false;
                 }
+                UserCategoryJoin userCategoryJoin = userCategoryJoins.get(0);
                 String originalName = file.getOriginalFilename();
                 UUID uuid = UUID.randomUUID();
                 Files.copy(file.getInputStream(), Paths.get(Variables.appDir + "/docs", uuid.toString()));
-
                 Document doc = new Document(originalName, user, uuid.toString(), file.getContentType(), userCategoryJoin, docTypeRepo.findOne(docType));
                 documentsRepo.save(doc);
             } catch (IOException e) {
@@ -258,4 +256,6 @@ public class StorageController {
     private DocumentsRepo documentsRepo;
     @Autowired
     private DocTypeRepo docTypeRepo;
+    @Autowired
+    private CategoryRepo categoryRepo;
 }

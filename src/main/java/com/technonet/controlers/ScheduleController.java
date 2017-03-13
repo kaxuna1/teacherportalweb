@@ -73,6 +73,20 @@ public class ScheduleController {
                                                       @PathVariable(value = "category", required = true) long category){
         return scheduleRepo.findByCategoryAndUserAndActive(categoryRepo.findOne(category),userDao.findOne(user),true);
     }
+
+
+    @RequestMapping("/scheduledtimes/{id}")
+    @ResponseBody
+    public List<ScheduleTime> getScheduledTimes(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
+                                                @PathVariable(value = "id", required = true) long id){
+        Session session=sessionRepository.findOne(sessionId);
+        if(PermisionChecks.isAdmin(session)){
+            Schedule schedule=scheduleRepo.findOne(id);
+            return scheduleTimeRepo.findByScheduleAndActiveOrderByStartTimeAsc(schedule,true);
+        }else{
+            return null;
+        }
+    }
     @Autowired
     private PermissionRepo permissionRepo;
     @Autowired
