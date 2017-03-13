@@ -92,6 +92,26 @@ public class UserCategoryController {
             return null;
         }
     }
+    @RequestMapping("/usercategoryconfirm/{id}/{action}")
+    @ResponseBody
+    public JsonMessage userCategoryJoinConfirm(@CookieValue("projectSessionId") long sessionId,
+                                               @PathVariable("id") long id,@PathVariable("action") int action){
+        Session session=sessionRepository.findOne(sessionId);
+        if(PermisionChecks.categoryConfirmation(session)){
+
+            UserCategoryJoin join = userCategoryJoinRepo.findOne(id);
+            if(action==1){
+                join.confirm();
+            }
+            if(action==2){
+                join.decline();
+            }
+            userCategoryJoinRepo.save(join);
+            return new JsonMessage(JsonReturnCodes.Ok);
+        }else{
+            return new JsonMessage(JsonReturnCodes.DONTHAVEPERMISSION);
+        }
+    }
 
 
 

@@ -49,4 +49,15 @@ public class PermisionChecks {
                 .filter(permission -> permission.getCode().equals(PERMISSIONS.gallery.name()))
                 .count() > 0;
     }
+    static public boolean scheduleManagement(Session session){
+        return session.isIsactive() && session.getUser()
+                .getPermissions().stream()
+                .filter(permission -> permission.getCode().equals(PERMISSIONS.scheduling.name()))
+                .count() > 0;
+    }static public boolean categoryConfirmation(Session session){
+        return session.isIsactive() && session.getUser()
+                .getPermissions().stream()
+                .filter(permission -> permission.getCode().equals(PERMISSIONS.categoryConfirmation.name()))
+                .count() > 0;
+    }
 }

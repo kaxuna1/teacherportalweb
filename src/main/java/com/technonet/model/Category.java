@@ -59,6 +59,7 @@ public class Category {
         this.date=new Date();
         this.visible=false;
         this.schedules=new ArrayList<>();
+        this.userCategoryJoins=new ArrayList<>();
     }
     public Category(){}
 
@@ -132,5 +133,13 @@ public class Category {
 
     public void setSchedules(List<Schedule> schedules) {
         this.schedules = schedules;
+    }
+
+    public List<UserCategoryJoin> getUserCategoryJoins() {
+        return userCategoryJoins;
+    }
+
+    public void setUserCategoryJoins(List<UserCategoryJoin> userCategoryJoins) {
+        this.userCategoryJoins = userCategoryJoins;
     }
 }

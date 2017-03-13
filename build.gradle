@@ -46,6 +46,9 @@ dependencies {
 	compile group: 'org.apache.tika', name: 'tika-core', version: '1.14'
 	// https://mvnrepository.com/artifact/org.imgscalr/imgscalr-lib
 	compile group: 'org.imgscalr', name: 'imgscalr-lib', version: '4.2'
+	// https://mvnrepository.com/artifact/com.drewnoakes/metadata-extractor
+	compile group: 'com.drewnoakes', name: 'metadata-extractor', version: '2.10.1'
+
 
 
 }

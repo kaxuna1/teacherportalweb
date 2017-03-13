@@ -5,7 +5,7 @@ function createTable(div,data,callback){
     var random=Math.floor((Math.random() * 10000) + 1);
 
 
-    div.html('<table id="DataTable'+random+'" class="table table-hover table-dynamic">' +
+    div.append('<table id="DataTable'+random+'" class="table table-hover table-dynamic">' +
         '<thead>' +
         '<tr id="head'+random+'"></tr>' +
         '</thead>' +

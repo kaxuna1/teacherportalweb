@@ -250,6 +250,7 @@ function loadUsersData(index, search) {
 
     function loadCategiries(DOMElements, currentElement) {
         DOMElements.CategoriesDataTableBody.html("");
+        console.log(currentElement);
         $.getJSON("usercategories/" + currentElement.id, function (result) {
             for (var key in result) {
                 var item = result[key];
@@ -270,15 +271,21 @@ function loadUsersData(index, search) {
             categoryItem.unbind();
             categoryItem.click(function () {
                 var currentCategory = result[$(this).attr("value")];
+                console.log(currentCategory);
                 showModalWithTableInside(function (head, body, modal, rand) {
                     body.html(clientCategoryPageTemplate);
                     DOMElements.categoryPageDom = {
-                        docs: $("#tab10_1"),
+                        schedules: $("#tab10_1"),
                         lessons: $("#tab10_2"),
                         actions: $("#tab10_3"),
-                        currentCategory: currentCategory
+                        currentCategory: currentCategory,
+                        modal: modal
                     };
-                    loadCategoryDocs(DOMElements);
+                    /** @namespace currentCategory.accepted */
+                    if (!currentCategory.accepted) {
+                        showTeacherAcceptMenu(DOMElements)
+                    }
+                    loadCategorySchedules(DOMElements);
 
 
                 }, {}, 800)
@@ -286,29 +293,110 @@ function loadUsersData(index, search) {
         })
     }
 
-    function loadCategoryDocs(DOMElements) {
-        createTable(DOMElements.categoryPageDom.docs,
+    function showTeacherAcceptMenu(DOMElements) {
+        DOMElements.categoryPageDom.actions.html("");
+
+
+        var decline = createButtonWithHandlerr(DOMElements.categoryPageDom.actions, "უარყოფა", function () {
+            $.getJSON("usercategoryconfirm/" + DOMElements.categoryPageDom.currentCategory.id + "/2", function (result) {
+                DOMElements.categoryPageDom.modal.modal("hide")
+                loadCategiries(DOMElements, DOMElements.currentElement)
+            })
+        });
+        var agree = createButtonWithHandlerr(DOMElements.categoryPageDom.actions, "დადასტურება", function () {
+            $.getJSON("usercategoryconfirm/" + DOMElements.categoryPageDom.currentCategory.id + "/1", function (result) {
+                DOMElements.categoryPageDom.modal.modal("hide")
+                loadCategiries(DOMElements, DOMElements.currentElement)
+            })
+        });
+        decline.obj.addClass("btn-danger");
+        agree.obj.addClass("btn-success");
+
+
+        $.getJSON("listusercatdocs/" + DOMElements.categoryPageDom.currentCategory.id, function (result) {
+            console.log(result);
+            createTable(DOMElements.categoryPageDom.actions,
+                {
+                    name: {
+                        name: "დოკუმენტი"
+                    },
+                    action: {
+                        name: "#"
+                    }
+                }, function (tableBody) {
+
+                    for (var key in result) {
+                        var currentDoc = result[key];
+                        tableBody.append("<tr>" +
+                            "<td>" + currentDoc.type + "</td>" +
+                            "<td><a href='doc/" + currentDoc.id + "'><i class='fa fa-download'></i></a></td>" +
+                            "</tr>")
+                    }
+                });
+
+        })
+    }
+
+    function loadCategorySchedules(DOMElements) {
+        DOMElements.categoryPageDom.schedules.html("");
+        var btn = createButtonWithHandlerr(DOMElements.categoryPageDom.schedules, "დამატება", function () {
+            $("#addDayFormDiv").remove();
+            $("<div id='addDayFormDiv'></div>").insertAfter(btn.obj);
+            dynamicCreateForm($("#addDayFormDiv"), "/createscheduleday", {
+
+                day: {
+                    name: "კვირის დღე",
+                    type: "comboBox",
+                    valueField: "day",
+                    nameField: "name",
+                    url: "/getweekdaysforcategorytoadd?user=" + DOMElements.currentElement.id + "&category=" + DOMElements.categoryPageDom.currentCategory.id
+                },
+                user: {
+                    type: "hidden",
+                    value: "" + DOMElements.currentElement.id
+                },
+                category: {
+                    type: "hidden",
+                    value: "" + DOMElements.categoryPageDom.currentCategory.id
+                }
+            }, function () {
+                loadCategorySchedules(DOMElements)
+            })
+        });
+        createTable(DOMElements.categoryPageDom.schedules,
             {
                 name: {
-                    name: "სახელი"
+                    name: "დღე"
                 },
-                date: {
-                    name: "თარიღი"
+                workTime: {
+                    name: "სამუშაო საათები"
                 },
                 actions: {
                     name: "#"
                 }
             }, function (tableBody) {
-
+                $.getJSON("getusercategoryscheduledays/" + DOMElements.currentElement.id + "/" + DOMElements.categoryPageDom.currentCategory.id, function (result) {
+                    for (var key in result) {
+                        var item = result[key];
+                        /** @namespace item.workHours */
+                        tableBody.append("<tr value='" + item.id + "' class='schedule-row'>" +
+                            "<td>" +
+                            item.name +
+                            "</td>" +
+                            "<td>" +
+                            item.workHours +
+                            "</td>" +
+                            "</tr>")
+                    }
+                    var row = $('.schedule-row');
+                    row.css('cursor', 'pointer');
+                    row.unbind();
+                    row.click(function () {
+                        showModalWithTableInside(function (head, body, modal, rand) {
+                        }, {}, 600)
+                    });
+                })
             });
-
-
-        $.getJSON("getusercatdocs/" + DOMElements.categoryPageDom.currentCategory.id, function (result) {
-
-            for (var key in result) {
-
-            }
-        });
     }
 
     function drawPermsForAdding(id) {
@@ -415,13 +503,17 @@ function loadUsersData(index, search) {
                 if ($(this).attr('id') == 'docs') {
                     $('#docs-content').fadeIn(500);
                     currentFileType = 1;
+                    loadDocumentsForUser(DOMElements, currentElement.id, 0);
                 } else if ($(this).attr('id') == 'projects') {
                     $('#projects-content').fadeIn(500);
+                    loadCategoriesForDocs(DOMElements, currentElement.id);
                 } else if ($(this).attr('id') == 'samples') {
                     $('#samples-content').fadeIn(500);
+
                 } else if ($(this).attr('id') == 'about-me') {
                     $('#about-content').fadeIn(500);
                     currentFileType = 3;
+                    loadGalleryForUser(DOMElements, currentElement.id, 0);
                 }
             });
 
@@ -464,9 +556,9 @@ function loadUsersData(index, search) {
 
                         uploadFileToUrl(obj,
                             'upload/' + currentElement.id + "?category=" + sendData[0].category + "&docType=" + sendData[0].docType,
-                        function () {
-                            loadDocumentsForUser(DOMElements, currentElement.id, 0)
-                        })
+                            function () {
+                                loadDocumentsForUser(DOMElements, currentElement.id, 0)
+                            })
 
                         modal.modal("hide");
                     }, function () {
@@ -480,11 +572,11 @@ function loadUsersData(index, search) {
 
 
             if (currentFileType === 3) {
-                uploadFileToUrl(obj, 'uploadGalleryPic/' + currentElement.id,function () {
+                uploadFileToUrl(obj, 'uploadGalleryPic/' + currentElement.id, function () {
                     loadGalleryForUser(DOMElements, currentElement.id, 0);
                 });
             }
-            function uploadFileToUrl(obj, url,callback) {
+            function uploadFileToUrl(obj, url, callback) {
                 var formData = new FormData();
                 var xhr = new XMLHttpRequest();
 
@@ -516,6 +608,7 @@ function loadUsersData(index, search) {
     }
 
     function loadCategoriesForDocs(DOMElements, id) {
+        $("#goBackBtn").remove();
         $.getJSON("usercategories/" + id, function (result) {
             DOMElements.fileManager.categories.html("");
             var dataArray = result;
@@ -535,7 +628,7 @@ function loadUsersData(index, search) {
                     '   </div>');
             }
             $('.cat-item').dblclick(function () {
-                loadCategoryDocsInFileManager(DOMElements,$(this).attr("value"));
+                loadCategoryDocsInFileManager(DOMElements, $(this).attr("value"), id);
             });
             $('.cat-item').draggable({
                 handle: '.content-icon',
@@ -547,31 +640,79 @@ function loadUsersData(index, search) {
 
         })
     }
-    
-    function loadCategoryDocsInFileManager(DOMElements, id) {
-        $.getJSON("listusercatdocs/"+id,function (result) {
+
+    function loadCategoryDocsInFileManager(DOMElements, id, parentId) {
+        $.getJSON("listusercatdocs/" + id, function (result) {
             DOMElements.fileManager.categories.html("");
             var dataArray = result;
+            $(".window-bar").append('<div id="goBackBtn" style="background-color: grey" class="w-max w-btn"><</div>');
+            $("#goBackBtn").unbind().click(function () {
+                loadCategoriesForDocs(DOMElements, parentId)
+            });
             for (var i = 0; i < dataArray.length; i++) {
                 var currentElement = dataArray[i];
-                var itemLogos = "";
-                var logo = 'fa-folder';
+
+                var logo = 'fa-file';
+                switch (currentElement.extension) {
+                    case 'image/jpeg':
+                        logo = 'fa-file-image-o';
+                        break;
+                    case 'application/pdf':
+                        logo = 'fa-file-pdf-o';
+                        break;
+                    case 'application/vnd.ms-excel':
+                    case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
+                        logo = 'fa-file-excel-o';
+                        break;
+                    case 'application/zip':
+                    case 'application/x-zip-compressed':
+                        logo = 'fa-file-archive-o';
+                        break;
+                    case 'text/plain':
+                        logo = 'fa-file-text-o';
+                        break;
+                    case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+                    case 'application/msword':
+                        logo = 'fa-file-word-o';
+                        break;
+                    case 'application/vnd.ms-powerpoint':
+                        logo = 'fa-file-text-o';
+                        break;
+                    case 'video/quicktime':
+                    case 'video/mpeg':
+                    case 'video/x-ms-wmv':
+                    case 'video/mp4':
+                        logo = 'fa-file-video-o';
+                        break;
+
+                }
 
 
-                DOMElements.fileManager.categories.append('<div value="' + currentElement.id + '" class="cat-item content-item">' +
+                DOMElements.fileManager.categories.append('<div value="' + currentElement.id + '" class="cat-doc-item content-item">' +
                     '<div class="content-icon">' +
                     '   <i class="fa ' + logo + ' fa-3x"></i>' +
                     '   </div>' +
                     '   <div title="' + currentElement.name + '" class="content-description">' +
-                    currentElement.name +
+                    currentElement.type +
                     '   </div>' +
                     '   </div>');
+                $('.cat-doc-item').dblclick(function () {
+                    var ifrm = document.getElementById("frame1");
+                    ifrm.src = "doc/" + $(this).attr("value");
+                });
+                $('.cat-doc-item').draggable({
+                    handle: '.content-icon',
+                    opacity: 0.9,
+                    revert: true, helper: "clone",
+                    containment: 'document'
+                });
             }
         })
     }
 
 
     function loadGalleryForUser(DOMElements, id, page) {
+        $("#goBackBtn").remove();
         $.getJSON("listgallery/" + id + "?page=" + page, function (result) {
             DOMElements.fileManager.galery.html("");
             var dataArray = result["content"];
@@ -588,7 +729,7 @@ function loadUsersData(index, search) {
 
 
                 DOMElements.fileManager.galery.append(
-                    '<div style="background-image: url(userpicturelogo/' + currentElement.name + '?'+new Date().getTime()+ ');' +
+                    '<div style="background-image: url(userpicturelogo/' + currentElement.name + '?' + new Date().getTime() + ');' +
                     'background-size:     cover;' +
                     'background-repeat:   no-repeat;' +
                     'background-position: center center;' +
@@ -599,11 +740,11 @@ function loadUsersData(index, search) {
                     '   </div>');
             }
             $('.gallery-item').dblclick(function () {
-                var currentPic=dataArray[$(this).attr("value")];
+                var currentPic = dataArray[$(this).attr("value")];
                 showModalWithTableInside(function (head, body, modal, rand) {
                     head.html("<h2>ფოტო გალერეა</h2>")
-                    body.html("<img style='width: 100%' src='userpicture/"+currentPic.name+"?"+new Date().getTime()+"'/>")
-                },{},600);
+                    body.html("<img style='width: 100%' src='userpicture/" + currentPic.name + "?" + new Date().getTime() + "'/>")
+                }, {}, 600);
             });
             $('.gallery-item').draggable({
                 handle: '.content-icon',
@@ -618,7 +759,7 @@ function loadUsersData(index, search) {
     }
 
     function loadDocumentsForUser(DOMElements, id, page) {
-
+        $("#goBackBtn").remove();
         $.getJSON("listdocs/" + id + "?page=" + page, function (result) {
             DOMElements.fileManager.docs.html("");
             var dataArray = result["content"];
@@ -626,7 +767,6 @@ function loadUsersData(index, search) {
             var totalElements = result["totalElements"];
             for (var i = 0; i < dataArray.length; i++) {
                 var currentElement = dataArray[i];
-                var itemLogos = "";
                 var showName = currentElement.name;
                 if (currentElement.name.length > 11) {
                     showName = currentElement.name.substring(0, 11);

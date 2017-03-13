@@ -1,14 +1,18 @@
 package com.technonet.staticData;
 
+import com.technonet.model.WeekDay;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 
 /**
  * Created by kaxa on 3/8/17.
  */
 public class Variables {
-    public static String appDir="/Users/kaxa/Documents/Code/teacherportalweb/build/app";
-    //public static String appDir="D:/app";
+    //public static String appDir="/Users/kaxa/Documents/Code/teacherportalweb/build/app";
+    public static String appDir="D:/app";
+
     public static BufferedImage getScaledInstance(BufferedImage img, int targetWidth, int targetHeight, Object hint,
                                                    boolean higherQuality) {
         int type = (img.getTransparency() == Transparency.OPAQUE) ? BufferedImage.TYPE_INT_RGB
@@ -66,6 +70,19 @@ public class Variables {
         g2d.dispose();
 
         return dimg;
+    }
+
+    public static HashMap<Integer,WeekDay> getWeekDays(){
+        HashMap<Integer,WeekDay> hashMap=new HashMap<>();
+        hashMap.put(0,new WeekDay(0,"ორშაბათი"));
+        hashMap.put(1,new WeekDay(1,"სამშაბათი"));
+        hashMap.put(2,new WeekDay(2,"ოთხშაბათი"));
+        hashMap.put(3,new WeekDay(3,"ხუთშაბათი"));
+        hashMap.put(4,new WeekDay(4,"პარასკევი"));
+        hashMap.put(5,new WeekDay(5,"შაბათი"));
+        hashMap.put(6,new WeekDay(6,"კვირა"));
+
+        return hashMap;
     }
 
 }

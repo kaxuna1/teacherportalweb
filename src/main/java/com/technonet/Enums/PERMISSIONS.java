@@ -9,5 +9,6 @@ public enum PERMISSIONS {
     teacher,student,
     admin,fileManagement,
     categories,docTypes,
-    gallery
+    gallery,scheduling,
+    categoryConfirmation
 }
