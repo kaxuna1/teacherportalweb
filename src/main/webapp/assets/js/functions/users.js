@@ -294,22 +294,27 @@ function loadUsersData(index, search) {
             })
         })
     }
+
     function loadFreeSchedule(DOMElements) {
         DOMElements.categoryPageDom.freeSchedule.html("");
-        $.getJSON("schedulefordays/"+DOMElements.currentElement.id+"/7",function (result) {
-            createTable(DOMElements.categoryPageDom.freeSchedule,{
-                start:{
-                    name:"start"
+        $.getJSON("schedulefordays/" + DOMElements.currentElement.id + "/7", function (result) {
+
+            DOMElements.categoryPageDom.freeSchedule.append("<div id='timeChart'></div>")
+
+
+            createTable(DOMElements.categoryPageDom.freeSchedule, {
+                start: {
+                    name: "start"
                 },
-                end:{
-                    name:"end"
+                end: {
+                    name: "end"
                 }
-            },function (table) {
-                for(var key in result){
-                    var item=result[key];
+            }, function (table) {
+                for (var key in result) {
+                    var item = result[key];
                     table.append("<tr>" +
-                        "<td>"+moment(item.start).locale("ka").format("LLLL")+"</td>" +
-                        "<td>"+moment(item.end).locale("ka").format("LLLL")+"</td>" +
+                        "<td>" + moment(item.starting_time).locale("ka").format("LLLL") + "</td>" +
+                        "<td>" + moment(item.ending_time).locale("ka").format("LLLL") + "</td>" +
                         "</tr>")
                 }
 
@@ -463,7 +468,7 @@ function loadUsersData(index, search) {
 
                         dTo.setHours(timeTo[0]);
                         dTo.setMinutes(timeTo[1]);
-                        if(moment(dFrom).valueOf()>moment(dTo).valueOf()){
+                        if (moment(dFrom).valueOf() > moment(dTo).valueOf()) {
                             alert("Wrong Values");
                             return;
                         }
@@ -474,9 +479,9 @@ function loadUsersData(index, search) {
 
                         $.ajax({
                             url: "createscheduletime/" + DOMElements.categories.schedule.id,
-                            data:{
-                                from:moment(dFrom).valueOf(),
-                                to:moment(dTo).valueOf()
+                            data: {
+                                from: moment(dFrom).valueOf(),
+                                to: moment(dTo).valueOf()
                             }
                         }).done(function () {
                             modal.modal("hide");

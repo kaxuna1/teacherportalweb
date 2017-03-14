@@ -1,9 +1,11 @@
 package com.technonet.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.joda.time.DateTime;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by vakhtanggelashvili on 3/15/17.
@@ -11,7 +13,6 @@ import java.util.Date;
 public class FreeInterval {
     private DateTime start;
     private DateTime end;
-
 
     public FreeInterval(Time start, Time end,Date date) {
         this.start = new DateTime(date).withHourOfDay(start.getHours()).withMinuteOfHour(start.getMinutes());
@@ -21,7 +22,7 @@ public class FreeInterval {
 
     }
 
-    public Date getStart() {
+    public Date getStarting_time() {
         return start.toDate();
     }
 
@@ -29,11 +30,12 @@ public class FreeInterval {
         this.start = start;
     }
 
-    public Date getEnd() {
+    public Date getEnding_time() {
         return end.toDate();
     }
 
     public void setEnd(DateTime end) {
         this.end = end;
     }
+
 }

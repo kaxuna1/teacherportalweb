@@ -11,12 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.function.Consumer;
 
 /**
  * Created by kakha on 3/11/2017.
@@ -125,8 +123,7 @@ public class ScheduleController {
         Date date = new Date();
 
         for (int i = 0; i < days; i++) {
-            DateTime dateTime = new DateTime();
-            dateTime = dateTime.plusDays(i);
+            DateTime dateTime = new DateTime().plusDays(i);
             int dayOfWeek = (dateTime.getDayOfWeek() - 1);
             List<Schedule> schedules = scheduleRepo.findByUserCategoryJoinAndActiveAndDayOfWeek(userCategoryJoin, true, dayOfWeek);
             if (schedules.size() == 0) {
@@ -138,17 +135,27 @@ public class ScheduleController {
                     scheduledTimes) {
                 FreeInterval freeInterval = new FreeInterval(scheduleTime.startTime(), scheduleTime.endTime(), dateTime.toDate());
                 List<BookedTime> bookedInFreeInterval = bookedTimeRepo
-                        .findInsideInterval(freeInterval.getStart(), freeInterval.getEnd(), userCategoryJoin);
+                        .findInsideInterval(freeInterval.getStarting_time(), freeInterval.getEnding_time(), userCategoryJoin);
+                if (bookedInFreeInterval.size() > 0) {
+                    final Date[] lastFreeTime = {freeInterval.getStarting_time()};
 
-                for (BookedTime bookedTime :
-                        bookedInFreeInterval) {
+                    bookedInFreeInterval.forEach(bookedTime -> {
 
+                        FreeInterval freeIntervalInsideInterval = new FreeInterval(new Time(lastFreeTime[0].getTime()),
+                                new Time(bookedTime.getStartDate().getTime()),
+                                dateTime.toDate());
+                        lastFreeTime[0] = bookedTime.getEndDate();
+                        list.add(freeIntervalInsideInterval);
+                    });
+                    if (lastFreeTime[0].getTime() < freeInterval.getEnding_time().getTime()) {
+                        FreeInterval freeIntervalLast = new FreeInterval(new Time(lastFreeTime[0].getTime()),
+                                new Time(freeInterval.getEnding_time().getTime()), dateTime.toDate());
+                        list.add(freeIntervalLast);
+                    }
+                } else {
+                    list.add(freeInterval);
                 }
-
-
-                list.add(freeInterval);
             }
-            //List<BookedTime> bookedTimes = bookedTimeRepo.findByUserCategoryAndDate(userCategoryJoin)
 
 
         }
