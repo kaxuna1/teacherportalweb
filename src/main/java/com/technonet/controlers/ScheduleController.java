@@ -5,12 +5,15 @@ import com.technonet.Repository.*;
 import com.technonet.model.*;
 import com.technonet.staticData.PermisionChecks;
 import com.technonet.staticData.Variables;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
@@ -23,20 +26,18 @@ public class ScheduleController {
     @RequestMapping("/createscheduleday")
     @ResponseBody
     public JsonMessage createCategory(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
-                                      @RequestParam(value = "user", required = true, defaultValue = "") long user,
                                       @RequestParam(value = "category", required = true, defaultValue = "") long category,
                                       @RequestParam(value = "day", required = true, defaultValue = "") int day
     ) {
         Session session = sessionRepository.findOne(sessionId);
         if (PermisionChecks.categoriesManagement(session)) {
             try {
-                User user1 = userDao.findOne(user);
-                Category category1 = categoryRepo.findOne(category);
-                List<Schedule> scheduleCheck = scheduleRepo.findByCategoryAndUserAndActiveAndDayOfWeek(category1, user1, true, day);
+                UserCategoryJoin category1 = userCategoryJoinRepo.findOne(category);
+                List<Schedule> scheduleCheck = scheduleRepo.findByUserCategoryJoinAndActiveAndDayOfWeek(category1, true, day);
                 if (scheduleCheck.size() > 0) {
                     return new JsonMessage(JsonReturnCodes.ERROR);
                 }
-                Schedule schedule = new Schedule(user1, category1, day);
+                Schedule schedule = new Schedule(category1, day);
                 scheduleRepo.save(schedule);
                 return new JsonMessage(JsonReturnCodes.Ok);
             } catch (Exception e) {
@@ -55,14 +56,9 @@ public class ScheduleController {
         HashMap<Integer, WeekDay> weekdays = Variables.getWeekDays();
         Session session = sessionRepository.findOne(sessionId);
         User user1 = userDao.findOne(user);
-        Category category1 = categoryRepo.findOne(category);
-        List<Schedule> schedules = scheduleRepo.findByCategoryAndUserAndActive(category1, user1, true);
-        schedules.stream().forEach(new Consumer<Schedule>() {
-            @Override
-            public void accept(Schedule schedule) {
-                weekdays.remove(schedule.getDayOfWeek());
-            }
-        });
+        UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(category);
+        List<Schedule> schedules = scheduleRepo.findByUserCategoryJoinAndActive(userCategoryJoin, true);
+        schedules.stream().forEach(schedule -> weekdays.remove(schedule.getDayOfWeek()));
 
         return new ArrayList<>(weekdays.values());
     }
@@ -71,9 +67,8 @@ public class ScheduleController {
     @RequestMapping("/getusercategoryscheduledays/{user}/{category}")
     @ResponseBody
     public List<Schedule> getUserCategoryScheduleDays(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
-                                                      @PathVariable(value = "user", required = true) long user,
                                                       @PathVariable(value = "category", required = true) long category) {
-        return scheduleRepo.findByCategoryAndUserAndActive(categoryRepo.findOne(category), userDao.findOne(user), true);
+        return scheduleRepo.findByUserCategoryJoinAndActive(userCategoryJoinRepo.findOne(category), true);
     }
 
 
@@ -100,8 +95,12 @@ public class ScheduleController {
 
             Time fromTime = new Time(from);
             Time toTime = new Time(to);
-            List<ScheduleTime> betweenTimes1 = scheduleTimeRepo.findByStartTimeAfterAndEndTimeBeforeAndActive(fromTime, fromTime, true);
-            List<ScheduleTime> betweenTimes2 = scheduleTimeRepo.findByStartTimeAfterAndEndTimeBeforeAndActive(toTime, toTime, true);
+            if (from > to) {
+                return false;
+            }
+
+            List<ScheduleTime> betweenTimes1 = scheduleTimeRepo.findBetweenSchedule((fromTime), (fromTime),schedule);
+            List<ScheduleTime> betweenTimes2 = scheduleTimeRepo.findBetweenSchedule((toTime), (toTime),schedule);
 
             if (betweenTimes1.size() > 0 || betweenTimes2.size() > 0) {
                 return false;
@@ -115,6 +114,38 @@ public class ScheduleController {
             return false;
         }
 
+    }
+
+    @RequestMapping("/schedulefordays/{id}/{days}")
+    @ResponseBody
+    public List<FreeInterval> nextWeekScheduleForUser(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
+                                                @PathVariable(value = "id") long id,@PathVariable(value = "days") int days) {
+        List<FreeInterval> list = new ArrayList<>();
+        UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(id);
+        Date date = new Date();
+
+        for (int i = 0; i < days; i++) {
+            DateTime dateTime=new DateTime();
+            dateTime=dateTime.plusDays(i);
+            int dayOfWeek = (dateTime.getDayOfWeek()-1);
+            List<Schedule> schedules=scheduleRepo.findByUserCategoryJoinAndActiveAndDayOfWeek(userCategoryJoin,true,dayOfWeek);
+            if(schedules.size()==0){
+                continue;
+            }
+            Schedule schedule=schedules.get(0);
+            List<ScheduleTime> scheduledTimes=schedule.getScheduleTimes();
+            for (ScheduleTime scheduleTime :
+                    scheduledTimes) {
+                FreeInterval freeInterval=new FreeInterval(scheduleTime.startTime(),scheduleTime.endTime(),dateTime.toDate());
+                list.add(freeInterval);
+            }
+            //List<BookedTime> bookedTimes = bookedTimeRepo.findByUserCategoryAndDate(userCategoryJoin)
+
+
+        }
+
+
+        return list;
     }
 
     @Autowired
@@ -133,4 +164,8 @@ public class ScheduleController {
     private ScheduleRepo scheduleRepo;
     @Autowired
     private ScheduleTimeRepo scheduleTimeRepo;
+    @Autowired
+    private UserCategoryJoinRepo userCategoryJoinRepo;
+    @Autowired
+    private BookedTimeRepo bookedTimeRepo;
 }

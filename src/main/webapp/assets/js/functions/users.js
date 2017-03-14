@@ -278,6 +278,7 @@ function loadUsersData(index, search) {
                         schedules: $("#tab10_1"),
                         lessons: $("#tab10_2"),
                         actions: $("#tab10_3"),
+                        freeSchedule: $("#tab10_4"),
                         currentCategory: currentCategory,
                         modal: modal
                     };
@@ -286,10 +287,33 @@ function loadUsersData(index, search) {
                         showTeacherAcceptMenu(DOMElements)
                     }
                     loadCategorySchedules(DOMElements);
+                    loadFreeSchedule(DOMElements);
 
 
                 }, {}, 800)
             })
+        })
+    }
+    function loadFreeSchedule(DOMElements) {
+        DOMElements.categoryPageDom.freeSchedule.html("");
+        $.getJSON("schedulefordays/"+DOMElements.currentElement.id+"/7",function (result) {
+            createTable(DOMElements.categoryPageDom.freeSchedule,{
+                start:{
+                    name:"start"
+                },
+                end:{
+                    name:"end"
+                }
+            },function (table) {
+                for(var key in result){
+                    var item=result[key];
+                    table.append("<tr>" +
+                        "<td>"+moment(item.start).locale("ka").format("LLLL")+"</td>" +
+                        "<td>"+moment(item.end).locale("ka").format("LLLL")+"</td>" +
+                        "</tr>")
+                }
+
+            });
         })
     }
 
@@ -439,6 +463,10 @@ function loadUsersData(index, search) {
 
                         dTo.setHours(timeTo[0]);
                         dTo.setMinutes(timeTo[1]);
+                        if(moment(dFrom).valueOf()>moment(dTo).valueOf()){
+                            alert("Wrong Values");
+                            return;
+                        }
 
                         console.log(moment(dTo).locale("ka").format("LLLL"));
                         console.log(moment(dFrom).locale("ka").format("LLLL"));

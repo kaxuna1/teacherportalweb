@@ -48,6 +48,9 @@ dependencies {
 	compile group: 'org.imgscalr', name: 'imgscalr-lib', version: '4.2'
 	// https://mvnrepository.com/artifact/com.drewnoakes/metadata-extractor
 	compile group: 'com.drewnoakes', name: 'metadata-extractor', version: '2.10.1'
+	// https://mvnrepository.com/artifact/joda-time/joda-time
+	compile group: 'joda-time', name: 'joda-time', version: '2.9.7'
+
 
 
 

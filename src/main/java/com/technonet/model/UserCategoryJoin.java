@@ -45,6 +45,10 @@ public class UserCategoryJoin {
     @Column
     private Date lastModifyDate;
 
+    @OneToMany(mappedBy = "userCategoryJoin", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Schedule> schedules;
+
 
     public UserCategoryJoin(User user, Category categoryId) {
         this.user = user;
@@ -55,6 +59,7 @@ public class UserCategoryJoin {
         this.date = new Date();
         this.lastModifyDate = new Date();
         this.active=true;
+        this.schedules=new ArrayList<>();
     }
 
     public UserCategoryJoin() {
@@ -141,5 +146,13 @@ public class UserCategoryJoin {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public List<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<Schedule> schedules) {
+        this.schedules = schedules;
     }
 }

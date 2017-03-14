@@ -18,12 +18,8 @@ public class Schedule {
     @Column(name = "scheduleId")
     private long id;
     @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "userId")
-    private User user;
-    @ManyToOne
-    @JoinColumn(name = "categoryId")
-    private Category category;
+    @JoinColumn(name = "userCategoryJoinId")
+    private UserCategoryJoin userCategoryJoin;
     @Column
     private boolean active;
     @Column
@@ -32,9 +28,8 @@ public class Schedule {
     @JsonIgnore
     private List<ScheduleTime> scheduleTimes;
 
-    public Schedule(User user, Category category, int dayOfWeek) {
-        this.user = user;
-        this.category = category;
+    public Schedule( UserCategoryJoin userCategoryJoin, int dayOfWeek) {
+        this.userCategoryJoin = userCategoryJoin;
         this.dayOfWeek = dayOfWeek;
         this.active=true;
         this.scheduleTimes=new ArrayList<>();
@@ -50,20 +45,12 @@ public class Schedule {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public UserCategoryJoin getCategory() {
+        return userCategoryJoin;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategory(UserCategoryJoin userCategoryJoin) {
+        this.userCategoryJoin = userCategoryJoin;
     }
 
     public boolean isActive() {

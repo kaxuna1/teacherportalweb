@@ -59,9 +59,6 @@ public class User {
     @JsonIgnore
     private List<Session> sessions;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Schedule> schedules;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
@@ -71,15 +68,23 @@ public class User {
     @JsonIgnore
     @JoinTable(name = "USER_PERMISSION")
     private List<Permission> permissions;
+
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Document> documents;
+
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ConfirmationToken> confirmationTokens;
+
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<GalleryPicture> galleryPictures;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<BookedTime> bookedTimesStudent;
+
 
     @ManyToOne
     @JoinColumn(name = "cityId")
@@ -119,10 +124,10 @@ public class User {
         this.documents = new ArrayList<>();
         this.userCategoryJoins = new ArrayList<>();
         this.galleryPictures = new ArrayList<>();
-        this.confirmedEmail=false;
-        this.confirmedSMS=false;
-        this.confirmationTokens=new ArrayList<>();
-        this.schedules=new ArrayList<>();
+        this.confirmedEmail = false;
+        this.confirmedSMS = false;
+        this.confirmationTokens = new ArrayList<>();
+        this.bookedTimesStudent=new ArrayList<>();
     }
 
 
@@ -308,11 +313,11 @@ public class User {
         this.confirmationTokens = confirmationTokens;
     }
 
-    public List<Schedule> getSchedules() {
-        return schedules;
+    public List<BookedTime> getBookedTimesStudent() {
+        return bookedTimesStudent;
     }
 
-    public void setSchedules(List<Schedule> schedules) {
-        this.schedules = schedules;
+    public void setBookedTimesStudent(List<BookedTime> bookedTimesStudent) {
+        this.bookedTimesStudent = bookedTimesStudent;
     }
 }

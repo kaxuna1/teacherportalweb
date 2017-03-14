@@ -1,8 +1,11 @@
 package com.technonet.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
@@ -36,8 +39,15 @@ public class ScheduleTime {
 
     public String getStartTime() {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-
         return sdf.format(startTime);
+    }
+    @JsonIgnore
+    public Time startTime(){
+        return startTime;
+    }
+    @JsonIgnore
+    public Time endTime(){
+        return endTime;
     }
 
     public void setStartTime(Time startTime) {
