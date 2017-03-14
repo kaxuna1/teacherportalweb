@@ -99,8 +99,8 @@ public class ScheduleController {
                 return false;
             }
 
-            List<ScheduleTime> betweenTimes1 = scheduleTimeRepo.findBetweenSchedule((fromTime), (fromTime),schedule);
-            List<ScheduleTime> betweenTimes2 = scheduleTimeRepo.findBetweenSchedule((toTime), (toTime),schedule);
+            List<ScheduleTime> betweenTimes1 = scheduleTimeRepo.findBetweenSchedule((fromTime), (fromTime), schedule);
+            List<ScheduleTime> betweenTimes2 = scheduleTimeRepo.findBetweenSchedule((toTime), (toTime), schedule);
 
             if (betweenTimes1.size() > 0 || betweenTimes2.size() > 0) {
                 return false;
@@ -119,24 +119,33 @@ public class ScheduleController {
     @RequestMapping("/schedulefordays/{id}/{days}")
     @ResponseBody
     public List<FreeInterval> nextWeekScheduleForUser(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
-                                                @PathVariable(value = "id") long id,@PathVariable(value = "days") int days) {
+                                                      @PathVariable(value = "id") long id, @PathVariable(value = "days") int days) {
         List<FreeInterval> list = new ArrayList<>();
         UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(id);
         Date date = new Date();
 
         for (int i = 0; i < days; i++) {
-            DateTime dateTime=new DateTime();
-            dateTime=dateTime.plusDays(i);
-            int dayOfWeek = (dateTime.getDayOfWeek()-1);
-            List<Schedule> schedules=scheduleRepo.findByUserCategoryJoinAndActiveAndDayOfWeek(userCategoryJoin,true,dayOfWeek);
-            if(schedules.size()==0){
+            DateTime dateTime = new DateTime();
+            dateTime = dateTime.plusDays(i);
+            int dayOfWeek = (dateTime.getDayOfWeek() - 1);
+            List<Schedule> schedules = scheduleRepo.findByUserCategoryJoinAndActiveAndDayOfWeek(userCategoryJoin, true, dayOfWeek);
+            if (schedules.size() == 0) {
                 continue;
             }
-            Schedule schedule=schedules.get(0);
-            List<ScheduleTime> scheduledTimes=schedule.getScheduleTimes();
+            Schedule schedule = schedules.get(0);
+            List<ScheduleTime> scheduledTimes = schedule.getScheduleTimes();
             for (ScheduleTime scheduleTime :
                     scheduledTimes) {
-                FreeInterval freeInterval=new FreeInterval(scheduleTime.startTime(),scheduleTime.endTime(),dateTime.toDate());
+                FreeInterval freeInterval = new FreeInterval(scheduleTime.startTime(), scheduleTime.endTime(), dateTime.toDate());
+                List<BookedTime> bookedInFreeInterval = bookedTimeRepo
+                        .findInsideInterval(freeInterval.getStart(), freeInterval.getEnd(), userCategoryJoin);
+
+                for (BookedTime bookedTime :
+                        bookedInFreeInterval) {
+
+                }
+
+
                 list.add(freeInterval);
             }
             //List<BookedTime> bookedTimes = bookedTimeRepo.findByUserCategoryAndDate(userCategoryJoin)
