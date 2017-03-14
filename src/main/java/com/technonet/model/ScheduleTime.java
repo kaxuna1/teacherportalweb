@@ -2,6 +2,8 @@ package com.technonet.model;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
+
 
 /**
  * Created by kakha on 3/11/2017.
@@ -30,16 +32,21 @@ public class ScheduleTime {
         this.active = true;
     }
 
-    public Time getStartTime() {
-        return startTime;
+    public ScheduleTime(){}
+
+    public String getStartTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+
+        return sdf.format(startTime);
     }
 
     public void setStartTime(Time startTime) {
         this.startTime = startTime;
     }
 
-    public Time getEndTime() {
-        return endTime;
+    public String getEndTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        return sdf.format(endTime);
     }
 
     public void setEndTime(Time endTime) {

@@ -393,33 +393,88 @@ function loadUsersData(index, search) {
                     row.css('cursor', 'pointer');
                     row.unbind();
                     row.click(function () {
-                        var scheduleDayId=$(this).attr("value");
-                        DOMElements.categories.schedule={};
-                        DOMElements.categories.schedule.id=scheduleDayId;
+                        var scheduleDayId = $(this).attr("value");
+                        DOMElements.categories.schedule = {};
+                        DOMElements.categories.schedule.id = scheduleDayId;
                         loadCategoryDayHours(DOMElements)
                     });
                 })
             });
     }
+
     function loadCategoryDayHours(DOMElements) {
 
         showModalWithTableInside(function (head, body, modal, rand) {
-            createButtonWithHandlerr(body,"დამატება",function () {
+            var createScheduleIntervalBtn = createButtonWithHandlerr(body, "დამატება", function () {
+                $("#timeIntervalChooserDiv").remove();
+                $("<div id='timeIntervalChooserDiv'>" +
+                    '<input style="" type="time" id="fromTime" class=" floating-label" placeholder="Time"/>' +
+                    '<input style="" type="time" id="toTime" class=" floating-label" placeholder="Time"/>' +
+                    '<button id="addTimeToSchedule" class="btn btn-primary">დამატება</button>' +
+                    "</div>").insertAfter(createScheduleIntervalBtn.obj);
+                var fromTime = $('#fromTime').bootstrapMaterialDatePicker
+                ({
+                    date: false,
+                    shortTime: false,
+                    format: 'HH:mm'
+                });
+                var toTime = $('#toTime').bootstrapMaterialDatePicker
+                ({
+                    date: false,
+                    shortTime: false,
+                    format: 'HH:mm'
+                });
+                $("#addTimeToSchedule").unbind().click(function () {
 
-            });
-            $.getJSON("/scheduledtimes/"+DOMElements.categories.schedule.id,function (result) {
-                createTable(body,{
-                    start:{
-                        name:"დასაწყისი"
-                    },
-                    end:{
-                        name:"დასასრული"
+                    if (toTime.val() && fromTime.val()) {
+
+                        var timeFrom = fromTime.val().split(':');
+                        var timeTo = toTime.val().split(':');
+
+                        var dFrom = new Date();
+                        var dTo = new Date();
+
+                        dFrom.setHours(timeFrom[0]);
+                        dFrom.setMinutes(timeFrom[1]);
+
+                        dTo.setHours(timeTo[0]);
+                        dTo.setMinutes(timeTo[1]);
+
+                        console.log(moment(dTo).locale("ka").format("LLLL"));
+                        console.log(moment(dFrom).locale("ka").format("LLLL"));
+
+
+                        $.ajax({
+                            url: "createscheduletime/" + DOMElements.categories.schedule.id,
+                            data:{
+                                from:moment(dFrom).valueOf(),
+                                to:moment(dTo).valueOf()
+                            }
+                        }).done(function () {
+                            modal.modal("hide");
+                            loadCategoryDayHours(DOMElements);
+                        })
                     }
-                },function (table) {
 
                 })
+
             });
-        },{},600)
+            $.getJSON("/scheduledtimes/" + DOMElements.categories.schedule.id, function (result) {
+                createTable(body, {
+                    start: {
+                        name: "დასაწყისი"
+                    },
+                    end: {
+                        name: "დასასრული"
+                    }
+                }, function (table) {
+                    for (var key in result) {
+                        var currentTime = result[key];
+                        table.append("<tr><td>" + currentTime.startTime + "</td><td>" + currentTime.endTime + "</td></tr>")
+                    }
+                })
+            });
+        }, {}, 600)
     }
 
     function drawPermsForAdding(id) {
