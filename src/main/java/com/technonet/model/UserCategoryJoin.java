@@ -39,6 +39,10 @@ public class UserCategoryJoin {
     @OneToMany(mappedBy = "userCategoryJoin", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Document> documents;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "userCategoryJoin", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<BookedTime> bookedTimes;
+
     @Column
     private Date date;
 
@@ -49,8 +53,11 @@ public class UserCategoryJoin {
     @JsonIgnore
     private List<Schedule> schedules;
 
+    @Column
+    private float price;
 
-    public UserCategoryJoin(User user, Category categoryId) {
+
+    public UserCategoryJoin(User user, Category categoryId,float price) {
         this.user = user;
         this.category = categoryId;
         this.accepted = false;
@@ -60,6 +67,8 @@ public class UserCategoryJoin {
         this.lastModifyDate = new Date();
         this.active=true;
         this.schedules=new ArrayList<>();
+        this.price=price;
+        this.bookedTimes =new ArrayList<>();
     }
 
     public UserCategoryJoin() {
@@ -154,5 +163,21 @@ public class UserCategoryJoin {
 
     public void setSchedules(List<Schedule> schedules) {
         this.schedules = schedules;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public List<BookedTime> getBookedTimes() {
+        return bookedTimes;
+    }
+
+    public void setBookedTimes(List<BookedTime> bookedTimes) {
+        this.bookedTimes = bookedTimes;
     }
 }

@@ -29,23 +29,29 @@ public class BookedTime {
     private User student;
 
     @ManyToOne
+    @JoinColumn(name = "orderId")
+    @JsonIgnore
+    private Order order;
+
+    @ManyToOne
     @JoinColumn(name = "userCategoryJoinId")
     @JsonIgnore
     private UserCategoryJoin userCategoryJoin;
-
 
 
     @Column
     private boolean active;
 
 
-    public BookedTime(Date startDate, Date endDate, User student, UserCategoryJoin userCategoryJoin) {
+    public BookedTime(Date startDate, Date endDate, User student, UserCategoryJoin userCategoryJoin, Order order) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.student = student;
-        this.userCategoryJoin=userCategoryJoin;
+        this.userCategoryJoin = userCategoryJoin;
+        this.order = order;
     }
-    public BookedTime(){
+
+    public BookedTime() {
 
     }
 
@@ -95,5 +101,21 @@ public class BookedTime {
 
     public void setUserCategoryJoin(UserCategoryJoin userCategoryJoin) {
         this.userCategoryJoin = userCategoryJoin;
+    }
+
+    public String getCategoryName() {
+        return this.userCategoryJoin.getCategory().getName();
+    }
+
+    public long getStudentId() {
+        return this.student.getId();
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

@@ -135,7 +135,7 @@ public class ScheduleController {
                     scheduledTimes) {
                 FreeInterval freeInterval = new FreeInterval(scheduleTime.startTime(), scheduleTime.endTime(), dateTime.toDate());
                 List<BookedTime> bookedInFreeInterval = bookedTimeRepo
-                        .findInsideInterval(freeInterval.getStarting_time(), freeInterval.getEnding_time(), userCategoryJoin);
+                        .findInsideInterval(freeInterval.getStarting_time(), freeInterval.getEnding_time());
                 if (bookedInFreeInterval.size() > 0) {
                     final Date[] lastFreeTime = {freeInterval.getStarting_time()};
 
@@ -162,6 +162,20 @@ public class ScheduleController {
 
 
         return list;
+    }
+
+    @RequestMapping("/getscheduledtimeforlesson/{id}/{cat}/{days}")
+    @ResponseBody
+    public List<BookedTime> getScheduledLessons(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
+                                                @PathVariable(value = "id") long id,
+                                                @PathVariable(value = "cat") long cat,
+                                                @PathVariable(value = "days") int days) {
+        Session session = sessionRepository.findOne(sessionId);
+        if (PermisionChecks.isAdmin(session)) {
+            return bookedTimeRepo.findInsideIntervalWithCat(new DateTime().minusDays(days).toDate(), new DateTime().plusDays(days).toDate(), userCategoryJoinRepo.findOne(cat));
+        } else {
+            return null;
+        }
     }
 
     @Autowired

@@ -15,12 +15,19 @@ import java.util.List;
  */
 @Transactional
 public interface BookedTimeRepo extends JpaRepository<BookedTime, Long> {
+    @Query("select bt from BookedTime bt where " +
+            "bt.startDate < :end " +
+            "and bt.startDate > :start " +
+            "and bt.active = true " +
+            "order by bt.startDate")
+    List<BookedTime> findInsideInterval(@Param("start") Date start,
+                                        @Param("end") Date end);
     @Query("select bt from BookedTime bt where bt.userCategoryJoin=:userCategoryJoin " +
             "and bt.startDate < :end " +
             "and bt.startDate > :start " +
             "and bt.active = true " +
             "order by bt.startDate")
-    List<BookedTime> findInsideInterval(@Param("start") Date start,
+    List<BookedTime> findInsideIntervalWithCat(@Param("start") Date start,
                                         @Param("end") Date end,
                                         @Param("userCategoryJoin") UserCategoryJoin userCategoryJoin);
 }

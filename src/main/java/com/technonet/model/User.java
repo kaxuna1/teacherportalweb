@@ -82,6 +82,10 @@ public class User {
     private List<GalleryPicture> galleryPictures;
 
     @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Order> orders;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BookedTime> bookedTimesStudent;
 
@@ -128,6 +132,7 @@ public class User {
         this.confirmedSMS = false;
         this.confirmationTokens = new ArrayList<>();
         this.bookedTimesStudent=new ArrayList<>();
+        this.orders=new ArrayList<>();
     }
 
 
@@ -319,5 +324,13 @@ public class User {
 
     public void setBookedTimesStudent(List<BookedTime> bookedTimesStudent) {
         this.bookedTimesStudent = bookedTimesStudent;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

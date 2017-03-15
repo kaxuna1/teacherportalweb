@@ -236,10 +236,15 @@ function loadUsersData(index, search) {
                         nameField: "name",
                         url: "/getcategoriesforuseradding/" + currentElement.id
                     },
+                    price:{
+                        name: "ფასი",
+                        type:"number"
+                    },
                     user: {
                         type: "hidden",
                         value: "" + currentElement.id
                     }
+
                 }, function () {
                     loadCategiries(DOMElements, currentElement);
                     modal.modal("hide")
@@ -288,10 +293,46 @@ function loadUsersData(index, search) {
                     }
                     loadCategorySchedules(DOMElements);
                     loadFreeSchedule(DOMElements);
+                    loadScheduledLessons(DOMElements);
 
 
                 }, {}, 800)
             })
+        })
+    }
+
+    function loadScheduledLessons(DOMElements) {
+        DOMElements.categoryPageDom.lessons.html("");
+        DOMElements.categoryPageDom.lessons.append("<div id='bookedCall'></div>");
+        $.getJSON("getscheduledtimeforlesson/" + DOMElements.currentElement.id + "/" +
+            DOMElements.categoryPageDom.currentCategory.id + "/30", function (result) {
+            var callData=[];
+            for(var key in result){
+                var item=result[key];
+                callData.push({
+                    start: moment(item.startDate),
+                    end: moment(item.endDate).toDate(),
+                    title: item.categoryName
+                })
+            }
+            $('#bookedCall').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'agendaWeek,agendaDay,listMonth'
+                },
+                defaultView: "agendaWeek",
+                height: 650,
+                editable: false,
+                eventLimit: false, // allow "more" link when too many events
+                events: callData
+            });
+            $("#tab10_2link").click(function () {
+                setTimeout(function () {
+                    $('#bookedCall').fullCalendar('render');
+                }, 400);
+
+            });
         })
     }
 
@@ -319,7 +360,7 @@ function loadUsersData(index, search) {
                     name: "duration"
                 }
             }, function (table) {
-                var callData=[];
+                var callData = [];
                 for (var key in result) {
                     var item = result[key];
                     table.append("<tr>" +
@@ -329,8 +370,8 @@ function loadUsersData(index, search) {
                         "<td>" + item.durationString + "</td>" +
                         "</tr>");
                     callData.push({
-                        start:moment(item.starting_time),
-                        end:moment(item.ending_time).toDate()
+                        start: moment(item.starting_time),
+                        end: moment(item.ending_time).toDate()
                     })
                 }
                 $('#call').fullCalendar({
@@ -339,7 +380,7 @@ function loadUsersData(index, search) {
                         center: 'title',
                         right: 'agendaWeek,agendaDay,listMonth'
                     },
-                    defaultView:"agendaWeek",
+                    defaultView: "agendaWeek",
                     height: 650,
                     editable: false,
                     eventLimit: false, // allow "more" link when too many events
@@ -348,7 +389,7 @@ function loadUsersData(index, search) {
                 $("#tab10_4link").click(function () {
                     setTimeout(function () {
                         $('#call').fullCalendar('render');
-                    },400);
+                    }, 400);
 
                 });
 
