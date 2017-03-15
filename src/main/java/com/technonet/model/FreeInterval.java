@@ -2,6 +2,8 @@ package com.technonet.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.joda.time.DateTime;
+import org.joda.time.Duration;
+import org.joda.time.Interval;
 
 import java.sql.Time;
 import java.util.Date;
@@ -36,6 +38,16 @@ public class FreeInterval {
 
     public void setEnd(DateTime end) {
         this.end = end;
+    }
+
+    public Duration getDuration(){
+        return new Duration(this.getStarting_time().getTime(),this.getEnding_time().getTime());
+    }
+    public String getDurationString(){
+        String durationString="";
+        long hours=getDuration().getStandardHours();
+        long minutes=(getDuration().getStandardMinutes()-(60*hours));
+        return (hours>0?hours+" სთ. ":"")+minutes+" წთ";
     }
 
 }

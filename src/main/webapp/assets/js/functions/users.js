@@ -297,26 +297,60 @@ function loadUsersData(index, search) {
 
     function loadFreeSchedule(DOMElements) {
         DOMElements.categoryPageDom.freeSchedule.html("");
-        $.getJSON("schedulefordays/" + DOMElements.currentElement.id + "/7", function (result) {
+        DOMElements.categoryPageDom.freeSchedule.append("<div id='call'></div>");
+
+
+        $.getJSON("schedulefordays/" + DOMElements.categoryPageDom.currentCategory.id + "/30", function (result) {
 
             DOMElements.categoryPageDom.freeSchedule.append("<div id='timeChart'></div>")
 
 
             createTable(DOMElements.categoryPageDom.freeSchedule, {
+                date: {
+                    name: "date"
+                },
                 start: {
                     name: "start"
                 },
                 end: {
                     name: "end"
+                },
+                duration: {
+                    name: "duration"
                 }
             }, function (table) {
+                var callData=[];
                 for (var key in result) {
                     var item = result[key];
                     table.append("<tr>" +
-                        "<td>" + moment(item.starting_time).locale("ka").format("LLLL") + "</td>" +
-                        "<td>" + moment(item.ending_time).locale("ka").format("LLLL") + "</td>" +
-                        "</tr>")
+                        "<td>" + moment(item.starting_time).locale("ka").format("dddd LL") + "</td>" +
+                        "<td>" + moment(item.starting_time).locale("ka").format("HH:mm") + "</td>" +
+                        "<td>" + moment(item.ending_time).locale("ka").format("HH:mm") + "</td>" +
+                        "<td>" + item.durationString + "</td>" +
+                        "</tr>");
+                    callData.push({
+                        start:moment(item.starting_time),
+                        end:moment(item.ending_time).toDate()
+                    })
                 }
+                $('#call').fullCalendar({
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'agendaWeek,agendaDay,listMonth'
+                    },
+                    defaultView:"agendaWeek",
+                    height: 650,
+                    editable: false,
+                    eventLimit: false, // allow "more" link when too many events
+                    events: callData
+                });
+                $("#tab10_4link").click(function () {
+                    setTimeout(function () {
+                        $('#call').fullCalendar('render');
+                    },400);
+
+                });
 
             });
         })
@@ -486,6 +520,8 @@ function loadUsersData(index, search) {
                         }).done(function () {
                             modal.modal("hide");
                             loadCategoryDayHours(DOMElements);
+                            loadCategorySchedules(DOMElements);
+                            loadFreeSchedule(DOMElements);
                         })
                     }
 
