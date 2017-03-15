@@ -1,6 +1,7 @@
 package com.technonet.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.joda.time.Duration;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -117,5 +118,13 @@ public class BookedTime {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public long getDurationInMinutes(){
+        return this.getDuration().getStandardMinutes();
+    }
+    @JsonIgnore
+    public Duration getDuration(){
+        return new Duration(this.startDate.getTime(),this.endDate.getTime());
     }
 }

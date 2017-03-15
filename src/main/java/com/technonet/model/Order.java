@@ -7,12 +7,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.ToDoubleFunction;
+import java.util.stream.DoubleStream;
 
 /**
  * Created by kakha on 3/15/2017.
  */
 @Entity
-@Table(name = "Order")
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,6 +53,10 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BookedTime> bookedTimes;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Payment> payments;
+
 
     public Order(User user) {
         this.user = user;
@@ -58,10 +66,13 @@ public class Order {
         this.bookedTimes = new ArrayList<>();
         this.createDate = new Date();
         this.lastModifyDate = new Date();
-        this.uuid= UUID.randomUUID().toString();
+        this.uuid = UUID.randomUUID().toString();
+        this.payments = new ArrayList<>();
     }
 
-    public Order() {}
+    public Order() {
+
+    }
 
     public long getId() {
         return id;
@@ -141,5 +152,30 @@ public class Order {
 
     public void setBookedTimes(List<BookedTime> bookedTimes) {
         this.bookedTimes = bookedTimes;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
+    }
+    public float getOrderPrice(){
+        return (float)this.bookedTimes.stream()
+                .mapToDouble(bookedTime ->
+                        (bookedTime.getUserCategoryJoin().getPrice()/60)
+                                *bookedTime.getDurationInMinutes()).sum();
+    }
+    public float getPayementsMade(){
+        return (float)this.payments.stream()
+                .filter(payment -> payment.isActive()&&payment
+                        .isConfirmed()).mapToDouble(value ->
+                        (double)value.getPrice()).sum();
+    }
+
+    public void confirm() {
+        this.confirmDate=new Date();
+        this.confirmed=true;
     }
 }

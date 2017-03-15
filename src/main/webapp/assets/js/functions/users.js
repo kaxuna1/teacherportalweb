@@ -236,9 +236,9 @@ function loadUsersData(index, search) {
                         nameField: "name",
                         url: "/getcategoriesforuseradding/" + currentElement.id
                     },
-                    price:{
+                    price: {
                         name: "ფასი",
-                        type:"number"
+                        type: "number"
                     },
                     user: {
                         type: "hidden",
@@ -303,12 +303,47 @@ function loadUsersData(index, search) {
 
     function loadScheduledLessons(DOMElements) {
         DOMElements.categoryPageDom.lessons.html("");
+        createButtonWithHandlerr(DOMElements.categoryPageDom.lessons, "გაკვეთილის დანიშვნა", function () {
+            showModalWithTableInside(function (head, body, modal, rand) {
+                body.append("<div id='callForBooking'></div>");
+                $.getJSON("schedulefordays/" + DOMElements.categoryPageDom.currentCategory.id + "/30", function (result) {
+
+
+
+                    var callData = [];
+                    for (var key in result) {
+                        var item = result[key];
+                        callData.push({
+                            start: moment(item.starting_time),
+                            end: moment(item.ending_time).toDate()
+                        })
+                    }
+                    $('#callForBooking').fullCalendar({
+                        header: {
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'agendaWeek,month'
+                        },
+                        height: 500,
+                        editable: false,
+                        eventLimit: false, // allow "more" link when too many events
+                        events: callData,
+                        eventClick: function(calEvent, jsEvent, view) {
+                            console.log(calEvent);
+
+                        }
+                    });
+                    $('#callForBooking').fullCalendar('render');
+
+                })
+            }, {}, 1024);
+        });
         DOMElements.categoryPageDom.lessons.append("<div id='bookedCall'></div>");
         $.getJSON("getscheduledtimeforlesson/" + DOMElements.currentElement.id + "/" +
             DOMElements.categoryPageDom.currentCategory.id + "/30", function (result) {
-            var callData=[];
-            for(var key in result){
-                var item=result[key];
+            var callData = [];
+            for (var key in result) {
+                var item = result[key];
                 callData.push({
                     start: moment(item.startDate),
                     end: moment(item.endDate).toDate(),
@@ -324,7 +359,7 @@ function loadUsersData(index, search) {
                 defaultView: "agendaWeek",
                 height: 650,
                 editable: false,
-                eventLimit: false, // allow "more" link when too many events
+                eventLimit: true, // allow "more" link when too many events
                 events: callData
             });
             $("#tab10_2link").click(function () {
