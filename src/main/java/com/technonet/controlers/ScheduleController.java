@@ -6,6 +6,7 @@ import com.technonet.model.*;
 import com.technonet.staticData.PermisionChecks;
 import com.technonet.staticData.Variables;
 import org.joda.time.DateTime;
+import org.joda.time.Duration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Created by kakha on 3/11/2017.
@@ -103,6 +105,9 @@ public class ScheduleController {
             if (betweenTimes1.size() > 0 || betweenTimes2.size() > 0) {
                 return false;
             }
+            if (new Duration(from,to).getStandardMinutes()<schedule.getCategory().getDuration()){
+                return false;
+            }
             ScheduleTime scheduleTime = new ScheduleTime(fromTime, toTime, schedule);
             scheduleTimeRepo.save(scheduleTime);
 
@@ -119,6 +124,7 @@ public class ScheduleController {
     public List<FreeInterval> nextWeekScheduleForUser(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                                                       @PathVariable(value = "id") long id, @PathVariable(value = "days") int days) {
         List<FreeInterval> list = new ArrayList<>();
+        List<FreeInterval> returnList = new ArrayList<>();
         UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(id);
         Date date = new Date();
 
@@ -159,9 +165,20 @@ public class ScheduleController {
 
 
         }
+        list.forEach(freeInterval -> {
+            while (freeInterval.getDuration().getStandardMinutes()>=userCategoryJoin.getDuration()){
+                FreeInterval freeIntervalToAdd=new FreeInterval();
+                freeIntervalToAdd.setStart(freeInterval.getStarting_time());
+                Date intervalEndDate=new DateTime(freeInterval.getStarting_time()).plusMinutes(userCategoryJoin.getDuration()).toDate();
+                freeIntervalToAdd.setEnd(intervalEndDate);
+                returnList.add(freeIntervalToAdd);
+                freeInterval.setStart(intervalEndDate);
+            }
+
+        });
 
 
-        return list;
+        return returnList;
     }
 
     @RequestMapping("/getscheduledtimeforlesson/{id}/{cat}/{days}")

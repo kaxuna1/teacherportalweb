@@ -56,10 +56,14 @@ public class UserCategoryJoin {
     @Column
     private float price;
 
+    @Column
+    private int duration;
 
-    public UserCategoryJoin(User user, Category categoryId,float price) {
+
+    public UserCategoryJoin(User user, Category categoryId, float price, int duration) {
         this.user = user;
         this.category = categoryId;
+        this.duration = duration;
         this.accepted = false;
         this.documents = new ArrayList<>();
         this.declined = false;
@@ -179,5 +183,13 @@ public class UserCategoryJoin {
 
     public void setBookedTimes(List<BookedTime> bookedTimes) {
         this.bookedTimes = bookedTimes;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 }

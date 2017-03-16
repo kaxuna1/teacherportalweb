@@ -240,6 +240,10 @@ function loadUsersData(index, search) {
                         name: "ფასი",
                         type: "number"
                     },
+                    duration: {
+                        name: "ხანგრძლივობა (წუთებში)",
+                        type: "number"
+                    },
                     user: {
                         type: "hidden",
                         value: "" + currentElement.id
@@ -263,6 +267,9 @@ function loadUsersData(index, search) {
                     "<td>" +
                     item.category.name +
                     "</td>" +
+                    "<td>" +
+                    item.duration +
+                    " წთ.</td>" +
                     "<td>" +
                     "</td>" +
                     "<td>" +
@@ -305,10 +312,18 @@ function loadUsersData(index, search) {
         DOMElements.categoryPageDom.lessons.html("");
         createButtonWithHandlerr(DOMElements.categoryPageDom.lessons, "გაკვეთილის დანიშვნა", function () {
             showModalWithTableInside(function (head, body, modal, rand) {
-                body.append("<div id='callForBooking'></div>");
+                body.append("<div id='callForBooking'></div>" +
+                    "<div id='chosenDatesTable' class='row'></div>");
                 $.getJSON("schedulefordays/" + DOMElements.categoryPageDom.currentCategory.id + "/30", function (result) {
 
 
+                    DOMElements.booking = {
+                        bookData: {
+                            dates: {}
+                        },
+                        chosenDiv: $("#chosenDatesTable"),
+                        modal:modal
+                    };
 
                     var callData = [];
                     for (var key in result) {
@@ -324,23 +339,35 @@ function loadUsersData(index, search) {
                             center: 'title',
                             right: 'agendaWeek,month'
                         },
-                        height: 500,
+                        minTime: "08:00:00",
+                        defaultView: "agendaWeek",
+                        height: 600,
                         editable: false,
                         eventLimit: false, // allow "more" link when too many events
                         events: callData,
-                        eventClick: function(calEvent, jsEvent, view) {
+                        eventClick: function (calEvent, jsEvent, view) {
                             console.log(calEvent);
+                            if (DOMElements.booking.bookData.dates[calEvent.start._i])
+                                this.clicked = true;
+                            var item = this;
+                            DOMElements.booking.bookData.dates[calEvent.start._i] = {
+                                item: item,
+                                start: calEvent.start._i,
+                                end: calEvent.end._i
+                            };
+                            console.log(DOMElements);
+                            drawChosenDatesTable(DOMElements);
 
                         }
                     });
                     $('#callForBooking').fullCalendar('render');
-
+                    drawChosenDatesTable(DOMElements);
                 })
             }, {}, 1024);
         });
         DOMElements.categoryPageDom.lessons.append("<div id='bookedCall'></div>");
         $.getJSON("getscheduledtimeforlesson/" + DOMElements.currentElement.id + "/" +
-            DOMElements.categoryPageDom.currentCategory.id + "/30", function (result) {
+            DOMElements.categoryPageDom.currentCategory.id + "/60", function (result) {
             var callData = [];
             for (var key in result) {
                 var item = result[key];
@@ -358,6 +385,7 @@ function loadUsersData(index, search) {
                 },
                 defaultView: "agendaWeek",
                 height: 650,
+                minTime: "08:00:00",
                 editable: false,
                 eventLimit: true, // allow "more" link when too many events
                 events: callData
@@ -371,6 +399,71 @@ function loadUsersData(index, search) {
         })
     }
 
+    function drawChosenDatesTable(DOMElements) {
+        DOMElements.booking.chosenDiv.html("");
+        createTable(DOMElements.booking.chosenDiv, {
+            date: {
+                name: "თარიღი"
+            },
+            start: {
+                name: "დასაყისი"
+            },
+            end: {
+                name: "დასასრული"
+            },
+            price: {
+                name: "ფასი"
+            },
+            buttons: {
+                name: "#"
+            }
+        }, function (table) {
+            var times=[];
+            var keys = Object.keys(DOMElements.booking.bookData.dates),
+                i, len = keys.length;
+
+            keys.sort();
+
+            for (i = 0; i < len; i++) {
+                var k = keys[i];
+                var item = DOMElements.booking.bookData.dates[k];
+                times.push(item.start);
+                table.append("<tr>" +
+                    "<td>" + moment(item.start).locale("ka").format("dddd LL") + "</td>" +
+                    "<td>" + moment(item.start).locale("ka").format("HH:mm") + "</td>" +
+                    "<td>" + moment(item.end).locale("ka").format("HH:mm") + "</td>" +
+                    "<td>" + DOMElements.categoryPageDom.currentCategory.price + " ₾</td>" +
+                    "<td><a value='" + k + "' class='removeDateFromBooking' href='#'><i class='fa fa-remove'></i></a></td>" +
+                    "</tr>")
+            }
+            table.append("<tr>" +
+                "<td></td>" +
+                "<td></td>" +
+                "<td>ჯამი:</td>" +
+                "<td>" + (parseFloat(DOMElements.categoryPageDom.currentCategory.price) * parseFloat(len)) + " ₾</td>" +
+                "<td><button id='bookBtn' class='btn btn-primary'>დაჯავშნა</button></td>" +
+                "</tr>")
+            $(".removeDateFromBooking").click(function () {
+                delete DOMElements.booking.bookData.dates[$(this).attr("value")]
+                drawChosenDatesTable(DOMElements);
+            })
+            $("#bookBtn").unbind().click(function () {
+                $.ajax({
+                    url: "/bookforuser/2/"+DOMElements.categoryPageDom.currentCategory.id,
+                    data: {
+                        times: times.toString()
+                    }
+                }).done(function (result) {
+                    DOMElements.booking.modal.modal("hide");
+                    loadCategorySchedules(DOMElements);
+                    loadFreeSchedule(DOMElements);
+                    loadScheduledLessons(DOMElements);
+                })
+            })
+
+        })
+    }
+
     function loadFreeSchedule(DOMElements) {
         DOMElements.categoryPageDom.freeSchedule.html("");
         DOMElements.categoryPageDom.freeSchedule.append("<div id='call'></div>");
@@ -379,54 +472,31 @@ function loadUsersData(index, search) {
         $.getJSON("schedulefordays/" + DOMElements.categoryPageDom.currentCategory.id + "/30", function (result) {
 
             DOMElements.categoryPageDom.freeSchedule.append("<div id='timeChart'></div>")
-
-
-            createTable(DOMElements.categoryPageDom.freeSchedule, {
-                date: {
-                    name: "date"
+            var callData = [];
+            for (var key in result) {
+                var item = result[key];
+                callData.push({
+                    start: moment(item.starting_time),
+                    end: moment(item.ending_time).toDate()
+                })
+            }
+            $('#call').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'agendaWeek,agendaDay,listMonth'
                 },
-                start: {
-                    name: "start"
-                },
-                end: {
-                    name: "end"
-                },
-                duration: {
-                    name: "duration"
-                }
-            }, function (table) {
-                var callData = [];
-                for (var key in result) {
-                    var item = result[key];
-                    table.append("<tr>" +
-                        "<td>" + moment(item.starting_time).locale("ka").format("dddd LL") + "</td>" +
-                        "<td>" + moment(item.starting_time).locale("ka").format("HH:mm") + "</td>" +
-                        "<td>" + moment(item.ending_time).locale("ka").format("HH:mm") + "</td>" +
-                        "<td>" + item.durationString + "</td>" +
-                        "</tr>");
-                    callData.push({
-                        start: moment(item.starting_time),
-                        end: moment(item.ending_time).toDate()
-                    })
-                }
-                $('#call').fullCalendar({
-                    header: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'agendaWeek,agendaDay,listMonth'
-                    },
-                    defaultView: "agendaWeek",
-                    height: 650,
-                    editable: false,
-                    eventLimit: false, // allow "more" link when too many events
-                    events: callData
-                });
-                $("#tab10_4link").click(function () {
-                    setTimeout(function () {
-                        $('#call').fullCalendar('render');
-                    }, 400);
-
-                });
+                defaultView: "agendaWeek",
+                height: 650,
+                minTime: "08:00:00",
+                editable: false,
+                eventLimit: false, // allow "more" link when too many events
+                events: callData
+            });
+            $("#tab10_4link").click(function () {
+                setTimeout(function () {
+                    $('#call').fullCalendar('render');
+                }, 400);
 
             });
         })

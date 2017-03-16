@@ -57,6 +57,9 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Payment> payments;
 
+    @Column
+    private float price;
+
 
     public Order(User user) {
         this.user = user;
@@ -162,10 +165,7 @@ public class Order {
         this.payments = payments;
     }
     public float getOrderPrice(){
-        return (float)this.bookedTimes.stream()
-                .mapToDouble(bookedTime ->
-                        (bookedTime.getUserCategoryJoin().getPrice()/60)
-                                *bookedTime.getDurationInMinutes()).sum();
+        return price;
     }
     public float getPayementsMade(){
         return (float)this.payments.stream()
@@ -177,5 +177,9 @@ public class Order {
     public void confirm() {
         this.confirmDate=new Date();
         this.confirmed=true;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
     }
 }

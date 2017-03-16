@@ -50,6 +50,7 @@ public class BookedTime {
         this.student = student;
         this.userCategoryJoin = userCategoryJoin;
         this.order = order;
+        this.active=true;
     }
 
     public BookedTime() {

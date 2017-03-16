@@ -12,8 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -26,13 +24,14 @@ public class UserCategoryController {
     public JsonMessage addCategoryToUser(@CookieValue("projectSessionId") long sessionId,
                                          @RequestParam(value = "user", required = true, defaultValue = "0") long user,
                                          @RequestParam(value = "category", required = true, defaultValue = "0") long category,
-                                         @RequestParam(value = "price", required = true, defaultValue = "0") float price){
+                                         @RequestParam(value = "price", required = true, defaultValue = "0") float price,
+                                         @RequestParam(value = "duration", required = true, defaultValue = "0") int duration){
 
         Session session= sessionRepository.findOne(sessionId);
         if(PermisionChecks.isAdmin(session)&&PermisionChecks.userManagement(session)){
             User user1=userRepository.findOne(user);
             Category category1=categoryRepo.findOne(category);
-            UserCategoryJoin userCategoryJoin=new UserCategoryJoin(user1,category1,price);
+            UserCategoryJoin userCategoryJoin=new UserCategoryJoin(user1,category1,price, duration);
             userCategoryJoinRepo.save(userCategoryJoin);
             return new JsonMessage(JsonReturnCodes.Ok);
         }else{
@@ -43,13 +42,14 @@ public class UserCategoryController {
     @ResponseBody
     public JsonMessage addCategoryToUser(@CookieValue("projectSessionId") long sessionId,
                                          @RequestParam(value = "category", required = true, defaultValue = "0") long category,
-                                         @RequestParam(value = "price", required = true, defaultValue = "0") float price){
+                                         @RequestParam(value = "price", required = true, defaultValue = "0") float price,
+                                         @RequestParam(value = "duration", required = true, defaultValue = "0") int duration){
 
         Session session= sessionRepository.findOne(sessionId);
         if(session.isIsactive()){
             User user1=session.getUser();
             Category category1=categoryRepo.findOne(category);
-            UserCategoryJoin userCategoryJoin=new UserCategoryJoin(user1,category1,price);
+            UserCategoryJoin userCategoryJoin=new UserCategoryJoin(user1,category1,price, duration);
             userCategoryJoinRepo.save(userCategoryJoin);
             return new JsonMessage(JsonReturnCodes.Ok);
         }else{

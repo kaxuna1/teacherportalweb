@@ -13,30 +13,30 @@ import java.util.List;
  * Created by vakhtanggelashvili on 3/15/17.
  */
 public class FreeInterval {
-    private DateTime start;
-    private DateTime end;
+    private Date start;
+    private Date end;
 
     public FreeInterval(Time start, Time end,Date date) {
-        this.start = new DateTime(date).withHourOfDay(start.getHours()).withMinuteOfHour(start.getMinutes());
-        this.end = new DateTime(date).withHourOfDay(end.getHours()).withMinuteOfHour(end.getMinutes());
+        this.start = new DateTime(date).withHourOfDay(start.getHours()).withMinuteOfHour(start.getMinutes()).toDate();
+        this.end = new DateTime(date).withHourOfDay(end.getHours()).withMinuteOfHour(end.getMinutes()).toDate();
     }
     public FreeInterval(){
 
     }
 
     public Date getStarting_time() {
-        return start.toDate();
+        return start;
     }
 
-    public void setStart(DateTime start) {
+    public void setStart(Date start) {
         this.start = start;
     }
 
     public Date getEnding_time() {
-        return end.toDate();
+        return end;
     }
 
-    public void setEnd(DateTime end) {
+    public void setEnd(Date end) {
         this.end = end;
     }
 
