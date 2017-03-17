@@ -20,13 +20,12 @@
 .custom-select-trigger {
     position: relative;
     display: block;
-    width: 200px;
     padding: 0 84px 0 22px;
     font-size: 22px;
     font-weight: 300;
     color: #fff;
     line-height: 60px;
-    background: #5c9cd8;
+    background: transparent;
     border-radius: 4px;
     cursor: pointer;
 }

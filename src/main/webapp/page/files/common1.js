@@ -170,8 +170,8 @@ $(window).resize(function(){
 
 
 function setActiveStyleSheet(cssName){
-    var scheme = $('link[href*="css/colors/color"]');
-    scheme.attr('href','assets/css/colors/'+cssName+'.css');
+    var scheme = $('link[href*="files/color"]');
+    scheme.attr('href','files/color/'+cssName+'.css');
 }
 
 

@@ -558,11 +558,8 @@ $(document).ready(function($){
 	var $mapWrapper = $('#map'), draggableOp;
 
 
-	if ( jQuery.browser.mobile === true ) {
 		draggableOp = false;
-	} else {
-		draggableOp = true;
-	}
+
 
 
 }(jQuery));
