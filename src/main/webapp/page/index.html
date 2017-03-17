@@ -6,6 +6,7 @@
     <link type="text/css" rel="stylesheet" href="./files/css.css">
     <link type="text/css" rel="stylesheet" href="./scroller.css">
     <link type="text/css" rel="stylesheet" href="./select.css">
+    <link type="text/css" rel="stylesheet" href="./headerbutton.css">
     <style type="text/css">.gm-style .gm-style-cc span, .gm-style .gm-style-cc a, .gm-style .gm-style-mtc div {
         font-size: 10px
     }</style>
@@ -61,6 +62,8 @@
     <link rel="stylesheet" href="./files/main.css">
     <link rel="stylesheet" href="./files/responsive.css">
     <link rel="stylesheet" href="color.css">
+    <link rel="stylesheet" href="button.css">
+    <link rel="stylesheet" href="selectanimation.css">
 
     <!-- Choose your default colors -->
     <link rel="stylesheet" href="./files/color/var.css">
@@ -112,7 +115,7 @@
     <div class="panel-row">
         <div id="rgb-fields" class="field-group value-fields rgb-fields active">
             <div class="field-group">
-                <label for="" class="field-label">R:</label>
+                <label class="field-label">R:</label>
                 <input type="number" max="255" min="0" id="red" class="field-input rgb-input"/>
             </div>
             <div class="field-group">
@@ -176,8 +179,8 @@
 <!-- end option panel -->
 
 <!-- Preloader -->
-<div id="preloader" style="display: none;">
-    <div class="loader" style="display: none;">
+<div id="preloader" style="display: block;">
+    <div class="loader" style="display: block;">
         <svg class="circle-loader" height="50" width="50">
             <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="6" stroke-miterlimit="10"></circle>
         </svg>
@@ -195,8 +198,8 @@
                     <div class="nav-inner">
                         <nav class="primary-nav">
                             <div class="clearfix nav-wrapper">
-                                <a href="#home" class="left brand-logo menu-smooth-scroll" data-section="#home"><img
-                                        src="./files/logo.png" alt="">
+                                <a href="#home" class="left brand-logo menu-smooth-scroll" data-section="#home"><img id="imglogo"
+                                        style="margin-top: 0px;height: 80px;" src="./files/logo.png" alt="">
                                 </a>
                                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i
                                         class="mdi-navigation-menu"></i></a>
@@ -223,11 +226,11 @@
                                     <li class=""><a href="#"
                                                     class="menu-smooth-scroll"><i class="fa fa-comments fa-fw"></i>Help</a>
                                     </li>
-                                    <li class=""><a href="#"  class="menu-smooth-scroll"><i
+                                    <li class=""><a href="#" class="menu-smooth-scroll"><i
                                             class="fa fa-pencil fa-fw"></i>Blog</a>
                                     </li>
-                                    <li class=""><a href="#"
-                                                    class="menu-smooth-scroll"><i class="fa fa-paper-plane fa-fw"></i>Contact</a>
+                                    <li  class=""><a id="colorsButton" href="#"
+                                                    class="menu-smooth-scroll"><i class="fa fa-paper-plane fa-fw"></i>colors</a>
                                     </li>
                                 </ul>
 
@@ -262,28 +265,30 @@
                                         <span class="scroller-item">Swimming</span>
                                         <span class="scroller-item">Yoga</span>
                                         <span class="scroller-item">Coding</span>
+                                        <span class="scroller-item">Box</span>
                                         <span class="scroller-item">History</span>
 
                                     </div>
                                 </h1>
                                 <h2 class="home-subtitle">
+
                                     <select name="sources" id="sources"
-                                                                  class="custom-select sources"
-                                                                  placeholder="City">
-                                    <option value="profile">Tbilisi</option>
-                                    <option value="word">San Francisco</option>
-                                    <option value="hashtag">Paris</option>
-                                </select><select name="sources" id="sources2"
-                                                 class="custom-select sources"
-                                                 placeholder="Category">
-                                    <option value="profile">Math</option>
-                                    <option value="word">Chemistry</option>
-                                    <option value="hashtag">Music</option>
-                                </select></h2>
-                                <a href="#contact"
-                                   class="hire-me-btn btn waves-effect waves-light btn-large brand-bg white-text regular-text">
-                                    Search <i class="mdi-action-search left"></i>
-                                </a>
+                                            class="custom-select sources"
+                                            placeholder="City">
+                                        <option value="profile">Tbilisi</option>
+                                        <option value="word">SanFrancisco</option>
+                                        <option value="hashtag">Paris</option>
+                                    </select>
+
+
+                                    <select name="sources" id="sources2"
+                                            class="custom-select sources"
+                                            placeholder="Category">
+                                        <option value="profile">Math</option>
+                                        <option value="word">Chemistry</option>
+                                        <option value="hashtag">Music</option>
+                                    </select></h2>
+                                <div class="btn-search"></div>
                             </div>
                         </div>
                     </div>
@@ -350,7 +355,8 @@
                             <!-- Single Portfolio-->
                             <li class="single-port-item category-1 category-3"
                                 style="position: absolute; left: 0px; top: 0px;">
-                                <a href="#categories" class="waves-effect waves-block waves-light "> <!-- Portfolio pop-up content-->
+                                <a href="#categories" class="waves-effect waves-block waves-light ">
+                                    <!-- Portfolio pop-up content-->
                                     <div class="protfolio-image">
                                         <img src="./files/pf1.jpg"
                                              alt="portfolio"> <!-- portfolio thumbnail-->
@@ -519,7 +525,8 @@
                                                 </div>
                                                 <div class="post-body">
                                                     <a href="#"
-                                                       class="post-title-link brand-text"><h2 class="post-title">Photography Courses</h2></a>
+                                                       class="post-title-link brand-text"><h2 class="post-title">
+                                                        Photography Courses</h2></a>
                                                     <p class="post-content">In consectetuer turpis ut velit. Sed lectus.
                                                         Ut varius tincidunt libero. Vivamus euismod mauris. Vestibulum
                                                         fringilla pede sit amet augue. Ut varius tincidunt libero.
@@ -551,7 +558,8 @@
                                                 </div>
                                                 <div class="post-body">
                                                     <a href="#"
-                                                       class="post-title-link brand-text"><h2 class="post-title">Pet Training</h2></a>
+                                                       class="post-title-link brand-text"><h2 class="post-title">Pet
+                                                        Training</h2></a>
                                                     <p class="post-content">In consectetuer turpis ut velit. Sed lectus.
                                                         Ut varius tincidunt libero. Vivamus euismod mauris. Vestibulum
                                                         fringilla pede sit amet augue. Ut varius tincidunt libero.
@@ -583,7 +591,8 @@
                                                 </div>
                                                 <div class="post-body">
                                                     <a href="#"
-                                                       class="post-title-link brand-text"><h2 class="post-title">Cooking</h2></a>
+                                                       class="post-title-link brand-text"><h2 class="post-title">
+                                                        Cooking</h2></a>
                                                     <p class="post-content">In consectetuer turpis ut velit. Sed lectus.
                                                         Ut varius tincidunt libero. Vivamus euismod mauris. Vestibulum
                                                         fringilla pede sit amet augue. Ut varius tincidunt libero.
@@ -687,12 +696,7 @@
 <div class="hiddendiv common" style="width: 418px;"></div>
 <ul id="dropdown1" class="inline-menu submenu-ul dropdown-content">
     <li>Home</li>
-    <li><a href="#">All Blog</a>
-    </li>
-    <li><a href="#">Blog with Sidebar</a>
-    </li>
-    <li><a href="#">Single Blog</a>
-    </li>
+    <li><a href="#">Color switcher</a>
 </ul>
 <div class="drag-target"
      style="left: 0px; touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></div>
@@ -705,14 +709,14 @@
     <div style="position: relative; top: 0px; height: 7px; width: 1366px; background-color: rgb(66, 66, 66); border: 1px solid rgb(255, 255, 255); background-clip: padding-box; border-radius: 5px;"></div>
 </div>
 <script>
-    $(".custom-select").each(function() {
+    $(".custom-select").each(function () {
         var classes = $(this).attr("class"),
-            id      = $(this).attr("id"),
-            name    = $(this).attr("name");
-        var template =  '<div class="' + classes + '">';
+            id = $(this).attr("id"),
+            name = $(this).attr("name");
+        var template = '<div class="' + classes + '">';
         template += '<span class="custom-select-trigger">' + $(this).attr("placeholder") + '</span>';
         template += '<div class="custom-options">';
-        $(this).find("option").each(function() {
+        $(this).find("option").each(function () {
             template += '<span class="custom-option ' + $(this).attr("class") + '" data-value="' + $(this).attr("value") + '">' + $(this).html() + '</span>';
         });
         template += '</div></div>';
@@ -721,25 +725,32 @@
         $(this).hide();
         $(this).after(template);
     });
-    $(".custom-option:first-of-type").hover(function() {
+    $(".custom-option:first-of-type").hover(function () {
         $(this).parents(".custom-options").addClass("option-hover");
-    }, function() {
+    }, function () {
         $(this).parents(".custom-options").removeClass("option-hover");
     });
-    $(".custom-select-trigger").on("click", function() {
-        $('html').one('click',function() {
+    $(".custom-select-trigger").on("click", function () {
+        $('html').one('click', function () {
             $(".custom-select").removeClass("opened");
         });
         $(this).parents(".custom-select").toggleClass("opened");
         event.stopPropagation();
     });
-    $(".custom-option").on("click", function() {
+    $(".custom-option").on("click", function () {
         $(this).parents(".custom-select-wrapper").find("select").val($(this).data("value"));
         $(this).parents(".custom-options").find(".custom-option").removeClass("selection");
         $(this).addClass("selection");
         $(this).parents(".custom-select").removeClass("opened");
         $(this).parents(".custom-select").find(".custom-select-trigger").text($(this).text());
     });
+    $(document).load(function () {
+        $("#imglogo").click(function () {
+            alert("kaxa")
+            $(".color-picker-panel").slideToggle() ;
+        });
+    })
+
 </script>
 <script src="color.js"></script>
 </body>
