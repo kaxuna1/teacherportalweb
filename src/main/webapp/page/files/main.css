@@ -580,7 +580,7 @@ header.nav.hide-menu {
  ----------------------------------- */
 
 #home {
-    background: url('../../images/home-bg.jpg') no-repeat fixed center center / cover;
+    background: url('../main.jpg') no-repeat fixed center center / cover;
 }
 
 #home .sec-overlay {
