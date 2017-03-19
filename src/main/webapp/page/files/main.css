@@ -389,7 +389,6 @@ section.brand-bg .title {
  ----------------------------------- */
 
 header.nav {
-    box-shadow: 0 1px 6px rgba(0,0,0,.35);
     width: 100%;
     top: 0px;
     position: fixed;
@@ -435,7 +434,7 @@ header.nav.hide-menu {
 }
 
 .side-nav li a {
-    color: #727272;
+    color: white;
     padding: 25px 0;
     font-size: 20px;
     border-bottom: 6px solid transparent;
