@@ -19,25 +19,50 @@ import java.util.Date;
 public class BookingController {
     @RequestMapping("/bookforuser/{userId}/{usercat}")
     @ResponseBody
-    public JsonMessage removeUserPermissions(@CookieValue("projectSessionId") long sessionId,
-                                             @PathVariable("userId") long userId,
-                                             @PathVariable("usercat") long usercat,
-                                             @RequestParam(value = "times") ArrayList<Long> times) {
+    public JsonMessage book(@CookieValue("projectSessionId") long sessionId,
+                            @PathVariable("userId") long userId,
+                            @PathVariable("usercat") long usercat,
+                            @RequestParam(value = "times") ArrayList<Long> times) {
 
         Session session = sessionRepository.findOne(sessionId);
-        if(PermisionChecks.isAdmin(session)){
+        if (PermisionChecks.isAdmin(session)) {
             User user = userDao.findOne(userId);
-            UserCategoryJoin userCategoryJoin= userCategoryJoinRepo.findOne(usercat);
-            Order order= new Order(user);
-            order.setPrice(userCategoryJoin.getPrice()*times.size());
+            UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(usercat);
+            Order order = new Order(user);
+            order.setPrice(userCategoryJoin.getPrice() * times.size());
             orderRepo.save(order);
             for (Long time : times) {
-                BookedTime bookedTime= new BookedTime(new Date(time),new DateTime(time).plusMinutes(userCategoryJoin.getDuration()).toDate(),user,userCategoryJoin,order);
+                BookedTime bookedTime = new BookedTime(new Date(time), new DateTime(time).plusMinutes(userCategoryJoin.getDuration()).toDate(), user, userCategoryJoin, order);
                 bookedTimeRepo.save(bookedTime);
             }
-            Payment payment = new Payment(order.getOrderPrice(),order);
+            Payment payment = new Payment(order.getOrderPrice(), order);
             paymentsRepo.save(payment);
             return new JsonMessage(JsonReturnCodes.Ok);
+        }
+        return new JsonMessage(JsonReturnCodes.DONTHAVEPERMISSION);
+
+    }
+
+    @RequestMapping("/bookforuser/{usercat}")
+    @ResponseBody
+    public JsonMessage book(@CookieValue("projectSessionId") long sessionId,
+                            @PathVariable("usercat") long usercat,
+                            @RequestParam(value = "times") ArrayList<Long> times) {
+
+        Session session = sessionRepository.findOne(sessionId);
+        if (PermisionChecks.student(session)) {
+            User user = session.getUser();
+            UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(usercat);
+            Order order = new Order(user);
+            order.setPrice(userCategoryJoin.getPrice() * times.size());
+            orderRepo.save(order);
+            for (Long time : times) {
+                BookedTime bookedTime = new BookedTime(new Date(time), new DateTime(time).plusMinutes(userCategoryJoin.getDuration()).toDate(), user, userCategoryJoin, order);
+                bookedTimeRepo.save(bookedTime);
+            }
+            Payment payment = new Payment(order.getOrderPrice(), order);
+            paymentsRepo.save(payment);
+            return new JsonMessage(JsonReturnCodes.Ok.getCODE(),payment.getUuid());
         }
         return new JsonMessage(JsonReturnCodes.DONTHAVEPERMISSION);
 

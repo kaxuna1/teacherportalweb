@@ -89,6 +89,15 @@ public class User {
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BookedTime> bookedTimesStudent;
 
+    @JsonIgnore
+    @Column
+    private String facebookId;
+    @JsonIgnore
+    @Column
+    private String googleId;
+    @Column
+    private boolean active;
+
 
     @ManyToOne
     @JoinColumn(name = "cityId")
@@ -133,6 +142,7 @@ public class User {
         this.confirmationTokens = new ArrayList<>();
         this.bookedTimesStudent=new ArrayList<>();
         this.orders=new ArrayList<>();
+        this.active=true;
     }
 
 
@@ -332,5 +342,29 @@ public class User {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public String getFacebookId() {
+        return facebookId;
+    }
+
+    public void setFacebookId(String facebookId) {
+        this.facebookId = facebookId;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public String getGoogleId() {
+        return googleId;
+    }
+
+    public void setGoogleId(String googleId) {
+        this.googleId = googleId;
     }
 }

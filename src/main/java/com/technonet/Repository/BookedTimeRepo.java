@@ -1,6 +1,7 @@
 package com.technonet.Repository;
 
 import com.technonet.model.BookedTime;
+import com.technonet.model.User;
 import com.technonet.model.UserCategoryJoin;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -30,4 +31,14 @@ public interface BookedTimeRepo extends JpaRepository<BookedTime, Long> {
     List<BookedTime> findInsideIntervalWithCat(@Param("start") Date start,
                                         @Param("end") Date end,
                                         @Param("userCategoryJoin") UserCategoryJoin userCategoryJoin);
+    @Query("select bt from BookedTime bt " +
+            "join bt.userCategoryJoin ucj " +
+            "where ucj.user=:user " +
+            "and bt.startDate < :end " +
+            "and bt.startDate > :start " +
+            "and bt.active = true " +
+            "order by bt.startDate")
+    List<BookedTime> findInsideIntervalWithUser(@Param("start") Date start,
+                                               @Param("end") Date end,
+                                               @Param("user") User user);
 }

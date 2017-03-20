@@ -22,7 +22,7 @@ public class LoginController     {
         this.connectionRepository = connectionRepository;
     }
 
-    @GetMapping(value = "/login", produces = "text/html")
+    @RequestMapping(value = "/login", produces = "text/html")
     public String login(Model model){
         if (connectionRepository.findPrimaryConnection(Facebook.class) != null) {
             String email=facebook.userOperations().getUserProfile().getEmail();
@@ -32,4 +32,5 @@ public class LoginController     {
         }
         return "login";
     }
+
 }

@@ -26,4 +26,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query(value = "SELECT u.* FROM users u where u.user_id not in (SELECT val2 FROM project_to_prarab where val1=:id) AND type=3",
 			nativeQuery = true)
 	List<User> findByTypeAndIdNotIn(@Param("id") long id);
+
+    List<User> findByFacebookIdAndActive(String facebookId, boolean active);
+
+    List<User> findByGoogleIdAndActive(String googleId, boolean active);
 }

@@ -50,16 +50,16 @@ public class GalleryPicturesController {
                 BufferedImage bufferedImage = ImageIO.read(file.getInputStream());
                 int w = bufferedImage.getWidth();
                 int h = bufferedImage.getHeight();
-                if(w>700){
-                    int newWidth=700;
-                    float scale=((float)w/(float)newWidth);
-                    float newHeight=  (h/scale);
-                    bufferedImage= Variables.resize(bufferedImage,newWidth,(int)newHeight);
+                if (w > 700) {
+                    int newWidth = 700;
+                    float scale = ((float) w / (float) newWidth);
+                    float newHeight = (h / scale);
+                    bufferedImage = Variables.resize(bufferedImage, newWidth, (int) newHeight);
                 }
-                int newWidth=100;
-                float scale=((float)w/(float)newWidth);
-                float newHeight=  (h/scale);
-                BufferedImage iconImg=Variables.resize(bufferedImage,newWidth,(int)newHeight);
+                int newWidth = 100;
+                float scale = ((float) w / (float) newWidth);
+                float newHeight = (h / scale);
+                BufferedImage iconImg = Variables.resize(bufferedImage, newWidth, (int) newHeight);
 
                 ByteArrayOutputStream baosIcon = new ByteArrayOutputStream();
                 ImageIO.write(iconImg, "png", baosIcon);
@@ -72,13 +72,14 @@ public class GalleryPicturesController {
 
                 Files.copy(is, Paths.get(Variables.appDir + "/images/galleryPics", uuid.toString()));
                 Files.copy(isIcon, Paths.get(Variables.appDir + "/images/galleryPicLogos", uuid.toString()));
-                galleryPictureRepo.save(new GalleryPicture(uuid.toString(),user,file.getContentType()));
+                galleryPictureRepo.save(new GalleryPicture(uuid.toString(), user, file.getContentType()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         return true;
     }
+
     @RequestMapping("uploadGalleryPic")
     @ResponseBody
     public boolean uploadFile(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
@@ -95,16 +96,16 @@ public class GalleryPicturesController {
                 BufferedImage bufferedImage = ImageIO.read(file.getInputStream());
                 int w = bufferedImage.getWidth();
                 int h = bufferedImage.getHeight();
-                if(w>700){
-                    int newWidth=700;
-                    float scale=((float)w/(float)newWidth);
-                    float newHeight=  (h/scale);
-                    bufferedImage= Variables.resize(bufferedImage,newWidth,(int)newHeight);
+                if (w > 700) {
+                    int newWidth = 700;
+                    float scale = ((float) w / (float) newWidth);
+                    float newHeight = (h / scale);
+                    bufferedImage = Variables.resize(bufferedImage, newWidth, (int) newHeight);
                 }
-                int newWidth=100;
-                float scale=((float)w/(float)newWidth);
-                float newHeight=  (h/scale);
-                BufferedImage iconImg=Variables.resize(bufferedImage,newWidth,(int)newHeight);
+                int newWidth = 100;
+                float scale = ((float) w / (float) newWidth);
+                float newHeight = (h / scale);
+                BufferedImage iconImg = Variables.resize(bufferedImage, newWidth, (int) newHeight);
 
                 ByteArrayOutputStream baosIcon = new ByteArrayOutputStream();
                 ImageIO.write(iconImg, "png", baosIcon);
@@ -117,25 +118,27 @@ public class GalleryPicturesController {
 
                 Files.copy(is, Paths.get(Variables.appDir + "/images/galleryPics", uuid.toString()));
                 Files.copy(isIcon, Paths.get(Variables.appDir + "/images/galleryPicLogos", uuid.toString()));
-                galleryPictureRepo.save(new GalleryPicture(uuid.toString(),user,file.getContentType()));
+                galleryPictureRepo.save(new GalleryPicture(uuid.toString(), user, file.getContentType()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         return true;
     }
-    @RequestMapping("listgallery/{id}")
+
+    @RequestMapping("/listgallery/{id}/{page}")
     @ResponseBody
     public Page<GalleryPicture> listGallery(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
-                                  @PathVariable("id") long id, @RequestParam("page") int page) {
+                                            @PathVariable("id") long id, @PathVariable("page") int page) {
         Session session = sessionRepository.findOne(sessionId);
-        return galleryPictureRepo.findByUserAndActiveOrderByDate(userRepository.findOne(id),true,constructPageSpecification(page));
+        return galleryPictureRepo.findByUserAndActiveOrderByDate(userRepository.findOne(id), true, constructPageSpecification(page));
     }
-    @RequestMapping(value = "userpicture/{pic}",method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+
+    @RequestMapping(value = "userpicture/{pic}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
     public byte[] userPic(HttpServletResponse response, @CookieValue("projectSessionId") long sessionId, @PathVariable("pic") String pic) {
         Session session = sessionRepository.findOne(sessionId);
-        Path path=Paths.get(Variables.appDir+"/images/galleryPics/"+pic);
+        Path path = Paths.get(Variables.appDir + "/images/galleryPics/" + pic);
         response.setContentType("image/jpeg");
         response.setHeader("Content-disposition", "attachment; filename=pic.jpg");
         try {
@@ -145,7 +148,7 @@ public class GalleryPicturesController {
         } catch (IOException e) {
             e.printStackTrace();
             try {
-                return Files.readAllBytes(Paths.get(Variables.appDir+"/images/galleryPics/nopic.png"));
+                return Files.readAllBytes(Paths.get(Variables.appDir + "/images/galleryPics/nopic.png"));
             } catch (IOException e1) {
                 e1.printStackTrace();
                 return null;
@@ -153,11 +156,11 @@ public class GalleryPicturesController {
         }
     }
 
-    @RequestMapping(value = "userpicturelogo/{pic}",method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+    @RequestMapping(value = "userpicturelogo/{pic}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
     public byte[] userPicLogo(HttpServletResponse response, @CookieValue("projectSessionId") long sessionId, @PathVariable("pic") String pic) {
         Session session = sessionRepository.findOne(sessionId);
-        Path path=Paths.get(Variables.appDir+"/images/galleryPicLogos/"+pic);
+        Path path = Paths.get(Variables.appDir + "/images/galleryPicLogos/" + pic);
         response.setContentType("image/jpeg");
         response.setHeader("Content-disposition", "attachment; filename=pic.jpg");
         try {
@@ -167,17 +170,13 @@ public class GalleryPicturesController {
             e.printStackTrace();
             try {
 
-                return Files.readAllBytes(Paths.get(Variables.appDir+"/images/galleryPics/nopic.png"));
+                return Files.readAllBytes(Paths.get(Variables.appDir + "/images/galleryPics/nopic.png"));
             } catch (IOException e1) {
                 e1.printStackTrace();
                 return null;
             }
         }
     }
-
-
-
-
 
 
     private Pageable constructPageSpecification(int pageIndex) {

@@ -71,6 +71,8 @@ function loadUsersData(index, search) {
 
                 openDocuments(DOMElements, documents, currentElement);
 
+                drawLessons(DOMElements);
+
 
                 permissions.append('<div style="display:inline-flex;width: 100%">' +
                     '    <div style="width: 45%">' +
@@ -206,6 +208,40 @@ function loadUsersData(index, search) {
         })
     });
 
+    function drawLessons(DOMElements) {
+        DOMElements.lessons.html("<div id='callAllLessons'></div>")
+        $.getJSON("getscheduledtimeforuser/" + DOMElements.currentElement.id + "/60", function (result) {
+            var callData = [];
+            for (var key in result) {
+                var item = result[key];
+                callData.push({
+                    start: moment(item.startDate),
+                    end: moment(item.endDate).toDate(),
+                    title: item.categoryName
+                })
+            }
+            $('#callAllLessons').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'agendaDay,listMonth'
+                },
+                defaultView: "listMonth",
+                height: 650,
+                minTime: "08:00:00",
+                editable: false,
+                eventLimit: true, // allow "more" link when too many events
+                events: callData
+            });
+            $("#tab5_3link").click(function () {
+                setTimeout(function () {
+                    $('#callAllLessons').fullCalendar('render');
+                }, 400);
+
+            });
+        })
+    }
+
     function drawCategories(DOMElements, currentElement) {
 
         DOMElements.categories.append('<div id="categoryPageActions" class="row">' +
@@ -301,9 +337,7 @@ function loadUsersData(index, search) {
                     loadCategorySchedules(DOMElements);
                     loadFreeSchedule(DOMElements);
                     loadScheduledLessons(DOMElements);
-
-
-                }, {}, 800)
+                }, {}, 1000)
             })
         })
     }
