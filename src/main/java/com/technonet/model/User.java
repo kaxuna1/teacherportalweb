@@ -97,6 +97,8 @@ public class User {
     private String googleId;
     @Column
     private boolean active;
+    @Column
+    private String calendarRefreshToken;
 
 
     @ManyToOne
@@ -366,5 +368,13 @@ public class User {
 
     public void setGoogleId(String googleId) {
         this.googleId = googleId;
+    }
+
+    public String getCalendarRefreshToken() {
+        return calendarRefreshToken;
+    }
+
+    public void setCalendarRefreshToken(String calendarRefreshToken) {
+        this.calendarRefreshToken = calendarRefreshToken;
     }
 }

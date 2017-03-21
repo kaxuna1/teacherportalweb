@@ -2,8 +2,7 @@ package com.technonet.controlers;
 
 
 
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.*;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.util.Key;
@@ -19,12 +18,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpRequestInitializer;
-import com.google.api.client.http.HttpResponse;
-import com.google.api.client.http.HttpResponseException;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.GenericJson;
@@ -130,7 +124,6 @@ public class SessionController {
         try {
             HttpRequest request = requestFactory.buildGetRequest(url);
             HttpResponse responseFB=request.execute();
-
             GoogleSession googleSession=responseFB.parseAs(GoogleSession.class);
             List<User> users=userDao.findByGoogleIdAndActive(googleSession.id,true);
 
