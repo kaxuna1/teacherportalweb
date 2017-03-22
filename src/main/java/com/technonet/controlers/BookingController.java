@@ -1,5 +1,15 @@
 package com.technonet.controlers;
 
+import com.google.api.client.auth.oauth2.TokenResponse;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.googleapis.auth.oauth2.GoogleRefreshTokenRequest;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.store.FileDataStoreFactory;
+import com.google.api.services.calendar.model.Event;
+import com.google.api.services.calendar.model.EventDateTime;
 import com.technonet.Enums.JsonReturnCodes;
 import com.technonet.Repository.*;
 import com.technonet.model.*;
@@ -11,12 +21,23 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Created by kakha on 3/16/2017.
  */
 @Controller
 public class BookingController {
+    private HttpTransport httpTransport;
+
+    /**
+     * Global instance of the JSON factory.
+     */
+    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+
+    private com.google.api.services.calendar.Calendar client;
+
     @RequestMapping("/bookforuser/{userId}/{usercat}")
     @ResponseBody
     public JsonMessage book(@CookieValue("projectSessionId") long sessionId,
@@ -26,6 +47,7 @@ public class BookingController {
 
         Session session = sessionRepository.findOne(sessionId);
         if (PermisionChecks.isAdmin(session)) {
+            List<BookedTime> bookedTimes = new ArrayList<>();
             User user = userDao.findOne(userId);
             UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(usercat);
             Order order = new Order(user);
@@ -34,9 +56,51 @@ public class BookingController {
             for (Long time : times) {
                 BookedTime bookedTime = new BookedTime(new Date(time), new DateTime(time).plusMinutes(userCategoryJoin.getDuration()).toDate(), user, userCategoryJoin, order);
                 bookedTimeRepo.save(bookedTime);
+                bookedTimes.add(bookedTime);
             }
             Payment payment = new Payment(order.getOrderPrice(), order);
             paymentsRepo.save(payment);
+
+            if(userCategoryJoin.getUser().getCalendarId()!=null)
+            try {
+                httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+
+                // initialize the data store factory
+
+                GoogleRefreshTokenRequest g = new GoogleRefreshTokenRequest(httpTransport,
+                        JSON_FACTORY,
+                        session.getUser().getCalendarRefreshToken(),
+                        "55995473742-00obqav5bir1au4qdn4l1jgdvf7kbmv2.apps.googleusercontent.com",
+                        "qUPLRbRgZjm-wMJ_VBDWrEPC");
+                TokenResponse tokenResponse = g.execute();
+                // initialize the transport
+
+
+                GoogleCredential credential = new GoogleCredential().setAccessToken(tokenResponse.getAccessToken());
+                String ref = credential.getRefreshToken();
+
+                // set up global Calendar instance
+                client = new com.google.api.services.calendar.Calendar.Builder(
+                        httpTransport, JSON_FACTORY, credential).setApplicationName("ALLWITZ").build();
+                for (BookedTime bookedTime : bookedTimes) {
+                    Event event = new Event();
+                    event.setSummary(bookedTime.getCategoryName()+" "+bookedTime.getStudent().getNameSurname());
+                    Date startDate = bookedTime.getStartDate();
+                    Date endDate = bookedTime.getEndDate();
+                    com.google.api.client.util.DateTime start = new com.google.api.client.util.DateTime(startDate);
+                    event.setStart(new EventDateTime().setDateTime(start));
+                    com.google.api.client.util.DateTime end = new com.google.api.client.util.DateTime(endDate);
+                    event.setEnd(new EventDateTime().setDateTime(end));
+                    Event result = client.events().insert(userCategoryJoin.getUser().getCalendarId(),
+                            event).execute();
+                }
+
+
+            } catch (Exception e) {
+
+            }
+
+
             return new JsonMessage(JsonReturnCodes.Ok);
         }
         return new JsonMessage(JsonReturnCodes.DONTHAVEPERMISSION);
@@ -62,7 +126,7 @@ public class BookingController {
             }
             Payment payment = new Payment(order.getOrderPrice(), order);
             paymentsRepo.save(payment);
-            return new JsonMessage(JsonReturnCodes.Ok.getCODE(),payment.getUuid());
+            return new JsonMessage(JsonReturnCodes.Ok.getCODE(), payment.getUuid());
         }
         return new JsonMessage(JsonReturnCodes.DONTHAVEPERMISSION);
 

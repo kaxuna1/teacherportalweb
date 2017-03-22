@@ -618,8 +618,7 @@ function loadUsersData(index, search) {
                     name: "#"
                 }
             }, function (tableBody) {
-                $.getJSON("getusercategoryscheduledays/" + DOMElements.currentElement.id + "/"
-                    + DOMElements.categoryPageDom.currentCategory.id, function (result) {
+                $.getJSON("getusercategoryscheduledays/"+ DOMElements.categoryPageDom.currentCategory.id, function (result) {
                     for (var key in result) {
                         var item = result[key];
                         /** @namespace item.workHours */

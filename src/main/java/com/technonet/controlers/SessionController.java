@@ -6,8 +6,7 @@ import com.google.api.client.auth.oauth2.BearerToken;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
-import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
+import com.google.api.client.googleapis.auth.oauth2.*;
 import com.google.api.client.http.*;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpResponse;
@@ -43,9 +42,7 @@ import com.google.api.client.json.GenericJson;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 
 
 import javax.servlet.http.Cookie;
@@ -182,35 +179,26 @@ public class SessionController {
         }
     }
 
-    @RequestMapping("/savecalltoken")
+    @RequestMapping("/oauthcall")
     @ResponseBody
     public boolean savecalltoken(@CookieValue("projectSessionId") long sessionId,
-                                 @RequestParam("token")String token){
+                                 @RequestParam("code")String token){
         Session session= sessionDao.findOne(sessionId);
         User user=session.getUser();
+        GoogleAuthorizationCodeTokenRequest g=new GoogleAuthorizationCodeTokenRequest(HTTP_TRANSPORT,
+                JSON_FACTORY,
+                "55995473742-00obqav5bir1au4qdn4l1jgdvf7kbmv2.apps.googleusercontent.com",
+                "qUPLRbRgZjm-wMJ_VBDWrEPC",
+                token,
+                "http://localhost:8081/oauthcall");
 
 
-
+        g.setScopes(Collections.singleton("https://www.googleapis.com/auth/calendar"));
         try {
-            HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost("https://www.googleapis.com/oauth2/v4/token");
-            List nameValuePairs = new ArrayList(6);
-            nameValuePairs.add(new BasicNameValuePair("Content-Type", "application/x-www-form-urlencoded"));
-            nameValuePairs.add(new BasicNameValuePair("charset", "utf-8"));
-            nameValuePairs.add(new BasicNameValuePair("grant_type","authorization_code"));
-            nameValuePairs.add(new BasicNameValuePair("client_id","55995473742-00obqav5bir1au4qdn4l1jgdvf7kbmv2.apps.googleusercontent.com"));
-            nameValuePairs.add(new BasicNameValuePair("client_secret","qUPLRbRgZjm-wMJ_VBDWrEPC"));
-            nameValuePairs.add(new BasicNameValuePair("code",token));
-            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-            org.apache.http.HttpResponse response = httpClient.execute(httpPost);
-            int statusCode = response.getStatusLine().getStatusCode();
-            final String responseBody = EntityUtils.toString(response.getEntity());
-            user.setCalendarRefreshToken(responseBody);
+            GoogleTokenResponse response=g.execute();
+            String token2=response.getAccessToken();
+            user.setCalendarRefreshToken(response.getRefreshToken());
             userDao.save(user);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

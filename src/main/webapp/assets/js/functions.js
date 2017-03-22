@@ -7,9 +7,7 @@ var currentFunction;
 var datarowSlide = false;
 var dashRow = false;
 var currentPage = 1;
-var permissions={
-
-};
+var permissions = {};
 $.getJSON("/getsessionstatus", function (result) {
     if (!result["isactive"]) {
         eraseCookie("projectSessionId");
@@ -20,7 +18,7 @@ $(document).ready(function () {
     $.getJSON("/getpermissions", function (result) {
         for (var key in result) {
             var permission = result[key];
-            permissions[permission.code]=permission;
+            permissions[permission.code] = permission;
             switch (permission.code) {
                 case "users":
                     navigation.append('<li id="loadUsersButton" class="k">' +
@@ -102,9 +100,18 @@ $(document).ready(function () {
         showModalWithTableInside(function (head, body, modal, rand) {
             body.append("<button class='btn btn-flat' id='callConnect'>Connect Google Callendar</button>")
             $("#callConnect").click(function () {
-                auth2.grantOfflineAccess().then(signInCallback);
+                window.open("https://accounts.google.com/o/oauth2/v2/auth?" +
+                    "scope=https://www.googleapis.com/auth/calendar&" +
+                    "access_type=offline&" +
+                    "prompt=consent&" +
+                    "include_granted_scopes=true&" +
+                    "state=state_parameter_passthrough_value&" +
+                    "redirect_uri=http://localhost:8081/oauthcall&" +
+                    "response_type=code&" +
+                    "client_id=55995473742-00obqav5bir1au4qdn4l1jgdvf7kbmv2.apps.googleusercontent.com", "_blank")
+
             })
-        },{},600);
+        }, {}, 600);
 
     });
     function signInCallback(authResult) {
@@ -114,40 +121,23 @@ $(document).ready(function () {
             $('#signinButton').attr('style', 'display: none');
 
 
+            // Send the code to the server
             $.ajax({
                 type: 'POST',
-                url: 'https://www.googleapis.com/oauth2/v4/token?grant_type=authorization_code&' +
-                'client_id=55995473742-00obqav5bir1au4qdn4l1jgdvf7kbmv2.apps.googleusercontent.com&' +
-                'client_secret=qUPLRbRgZjm-wMJ_VBDWrEPC&code='+authResult['code'],
-                crossDomain: true,
-                dataType: 'json',
-                success: function(responseData, textStatus, jqXHR) {
-                    var value = responseData;
-                    console.log(value);
-                },
-                error: function (responseData, textStatus, errorThrown) {
-                    alert('POST failed.');
-                }
-            });
-
-
-            // Send the code to the server
-            /*$.ajax({
-                type: 'POST',
-                url: 'savecalltoken?token='+authResult['code'],
+                url: 'savecalltoken?token=' + authResult['code'],
                 // Always include an `X-Requested-With` header in every AJAX request,
                 // to protect against CSRF attacks.
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
                 },
                 contentType: 'application/octet-stream; charset=utf-8',
-                success: function(result) {
+                success: function (result) {
                     // Handle or verify the server response.
-                    if(result)
-                    alert("Your Google Calendar Is Now Connected!")
+                    if (result)
+                        alert("Your Google Calendar Is Now Connected!")
                 },
                 processData: false
-            });*/
+            });
         } else {
             // There was an error.
         }

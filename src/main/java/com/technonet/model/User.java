@@ -99,8 +99,8 @@ public class User {
     private boolean active;
     @Column
     private String calendarRefreshToken;
-
-
+    @Column
+    private String calendarId;
     @ManyToOne
     @JoinColumn(name = "cityId")
     private City city;
@@ -376,5 +376,13 @@ public class User {
 
     public void setCalendarRefreshToken(String calendarRefreshToken) {
         this.calendarRefreshToken = calendarRefreshToken;
+    }
+
+    public String getCalendarId() {
+        return calendarId;
+    }
+
+    public void setCalendarId(String calendarId) {
+        this.calendarId = calendarId;
     }
 }

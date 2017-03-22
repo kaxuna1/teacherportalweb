@@ -1,6 +1,7 @@
 package com.technonet.controlers;
 
 import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.*;
@@ -40,6 +41,54 @@ import java.util.TimeZone;
  */
 @Controller
 public class CallendarController {
+
+
+
+    @RequestMapping("/getmycalendarslist")
+    @ResponseBody
+    public CalendarList getMyCals(@CookieValue("projectSessionId") long sessionId){
+        Session session = sessionRepository.findOne(sessionId);
+        if(session.getUser().getCalendarRefreshToken()!=null){
+            try {
+                httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+
+                // initialize the data store factory
+                dataStoreFactory = new FileDataStoreFactory(DATA_STORE_DIR);
+
+                GoogleRefreshTokenRequest g=new GoogleRefreshTokenRequest(httpTransport,
+                        JSON_FACTORY,
+                        session.getUser().getCalendarRefreshToken(),
+                        "55995473742-00obqav5bir1au4qdn4l1jgdvf7kbmv2.apps.googleusercontent.com",
+                        "qUPLRbRgZjm-wMJ_VBDWrEPC");
+                TokenResponse tokenResponse=g.execute();
+                // initialize the transport
+
+
+                GoogleCredential credential = new GoogleCredential().setAccessToken(tokenResponse.getAccessToken());
+                String ref = credential.getRefreshToken();
+
+                // set up global Calendar instance
+                client = new com.google.api.services.calendar.Calendar.Builder(
+                        httpTransport, JSON_FACTORY, credential).setApplicationName(APPLICATION_NAME).build();
+                CalendarList feed = client.calendarList().list().execute();
+                return feed;
+
+            } catch (IOException | GeneralSecurityException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+
+    @RequestMapping("/setcalendarid")
+    @ResponseBody
+    public boolean setCallId(@CookieValue("projectSessionId") long sessionId,
+                             String id){
+        Session session=sessionRepository.findOne(sessionId);
+        session.getUser().setCalendarId(id);
+        return true;
+    }
 
 
     private static final String APPLICATION_NAME = "App";
@@ -84,33 +133,25 @@ public class CallendarController {
 
             // initialize the data store factory
             dataStoreFactory = new FileDataStoreFactory(DATA_STORE_DIR);
-            GoogleTokenResponse tokenResponse =
-                    new GoogleAuthorizationCodeTokenRequest(
-                            new NetHttpTransport(),
-                            JacksonFactory.getDefaultInstance(),
-                            "https://www.googleapis.com/oauth2/v4/token",
-                            "55995473742-00obqav5bir1au4qdn4l1jgdvf7kbmv2.apps.googleusercontent.com",
-                            "qUPLRbRgZjm-wMJ_VBDWrEPC",
-                            session.getUser().getCalendarRefreshToken(),
-                            "")  // Specify the same redirect URI that you use with your web
-                            // app. If you don't have a web version of your app, you can
-                            // specify an empty string.
-                            .execute();
 
-            String accessToken = tokenResponse.getAccessToken();
-            String refresh = tokenResponse.getRefreshToken();
+            GoogleRefreshTokenRequest g=new GoogleRefreshTokenRequest(httpTransport,
+                    JSON_FACTORY,
+                    session.getUser().getCalendarRefreshToken(),
+                    "55995473742-00obqav5bir1au4qdn4l1jgdvf7kbmv2.apps.googleusercontent.com",
+                    "qUPLRbRgZjm-wMJ_VBDWrEPC");
+            TokenResponse tokenResponse=g.execute();
             // initialize the transport
 
 
-            // authorization
-            GoogleCredential credential = new GoogleCredential().setAccessToken(accessToken);
+            GoogleCredential credential = new GoogleCredential().setAccessToken(tokenResponse.getAccessToken());
             String ref = credential.getRefreshToken();
 
             // set up global Calendar instance
             client = new com.google.api.services.calendar.Calendar.Builder(
                     httpTransport, JSON_FACTORY, credential).setApplicationName(APPLICATION_NAME).build();
 
-
+            Calendar calendar = client.calendars().get("id").execute();
+            FreeBusyRequest freeBusyRequest= new FreeBusyRequest();
             // run commands
             showCalendars();
             addCalendarsUsingBatch();
