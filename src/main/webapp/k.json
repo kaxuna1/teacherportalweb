@@ -1,76 +1,16 @@
 {
-  "items": [
-    {
-      "kind": "calendar#calendarListEntry",
-      "foregroundColor": "#000000",
-      "defaultReminders": [
-        {
-          "minutes": 30,
-          "method": "popup"
-        },
-        {
-          "minutes": 10,
-          "method": "email"
-        }
-      ],
-      "primary": true,
-      "colorId": "17",
-      "selected": true,
-      "notificationSettings": {
-        "notifications": [
-          {
-            "type": "eventCreation",
-            "method": "email"
-          },
-          {
-            "type": "eventChange",
-            "method": "email"
-          },
-          {
-            "type": "eventCancellation",
-            "method": "email"
-          },
-          {
-            "type": "eventResponse",
-            "method": "email"
-          }
-        ]
-      },
-      "summary": "kaxgel11@gmail.com",
-      "etag": "\"0\"",
-      "backgroundColor": "#9a9cff",
-      "timeZone": "Asia/Tbilisi",
-      "accessRole": "owner",
-      "id": "kaxgel11@gmail.com"
-    },
-    {
-      "kind": "calendar#calendarListEntry",
-      "foregroundColor": "#000000",
-      "defaultReminders": [],
-      "colorId": "9",
-      "selected": true,
-      "summary": "Contacts",
-      "etag": "\"1455373044965000\"",
-      "backgroundColor": "#7bd148",
-      "timeZone": "Asia/Tbilisi",
-      "accessRole": "reader",
-      "id": "#contacts@group.v.calendar.google.com"
-    },
-    {
-      "kind": "calendar#calendarListEntry",
-      "foregroundColor": "#000000",
-      "defaultReminders": [],
-      "colorId": "8",
-      "selected": true,
-      "summary": "Holidays in Georgia",
-      "etag": "\"1455373045408000\"",
-      "backgroundColor": "#16a765",
-      "timeZone": "Asia/Tbilisi",
-      "accessRole": "reader",
-      "id": "en.ge#holiday@group.v.calendar.google.com"
-    }
-  ],
-  "kind": "calendar#calendarList",
-  "etag": "\"p324d36snufit40g\"",
-  "nextSyncToken": "CIjRm5fz5dICEhJrYXhnZWwxMUBnbWFpbC5jb20="
+  "web": {
+    "client_id": "55995473742-00obqav5bir1au4qdn4l1jgdvf7kbmv2.apps.googleusercontent.com",
+    "project_id": "calm-flames-162112",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://accounts.google.com/o/oauth2/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_secret": "qUPLRbRgZjm-wMJ_VBDWrEPC",
+    "redirect_uris": [
+      "http://localhost:8081/"
+    ],
+    "javascript_origins": [
+      "http://localhost"
+    ]
+  }
 }

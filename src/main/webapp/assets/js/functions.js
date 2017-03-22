@@ -99,15 +99,41 @@ $(document).ready(function () {
 
     $("#settingsBtn").click(function () {
 
-        showModalEditPage({
-            "password": {
-                value: "",
-                url: "/edituser",
-                name: "პაროლი"
-            }
-        }, {});
+        showModalWithTableInside(function (head, body, modal, rand) {
+            body.append("<button class='btn btn-flat' id='callConnect'>Connect Google Callendar</button>")
+            $("#callConnect").click(function () {
+                auth2.grantOfflineAccess().then(signInCallback);
+            })
+        },{},600);
 
     });
+    function signInCallback(authResult) {
+        if (authResult['code']) {
+            console.log(authResult);
+            // Hide the sign-in button now that the user is authorized, for example:
+            $('#signinButton').attr('style', 'display: none');
+
+            // Send the code to the server
+            $.ajax({
+                type: 'POST',
+                url: 'savecalltoken?token='+authResult['code'],
+                // Always include an `X-Requested-With` header in every AJAX request,
+                // to protect against CSRF attacks.
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                contentType: 'application/octet-stream; charset=utf-8',
+                success: function(result) {
+                    // Handle or verify the server response.
+                    if(result)
+                    alert("Your Google Calendar Is Now Connected!")
+                },
+                processData: false
+            });
+        } else {
+            // There was an error.
+        }
+    }
 
     if (readCookie("projectUserType") === "1" || readCookie("projectUserType") === "2") {
 

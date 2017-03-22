@@ -196,14 +196,22 @@
         <p><input name="username" type="text" placeholder="Username"></p>
         <p><input name="password" type="password" placeholder="Password"></p>
         <p><input type="submit" value="Log in"></p>
-        <button onclick="loginWithFace(); return false;" class="loginBtn loginBtn--facebook">
-            Facebook
-        </button>
+        <table style="width:100%;">
+            <tbody style="width:100%;">
+            <tr style="width:100%;">
+                <td style="width:70%;">
+                    <button style="width: 90%" onclick="loginWithFace(); return false;" class="loginBtn loginBtn--facebook">
+                        Login With Facebook
+                    </button>
+                </td>
+                <td style="width:30%;">
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
 
-        <button class="loginBtn loginBtn--google">
-            Google
-        </button>
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
 
     </form>
 </div>

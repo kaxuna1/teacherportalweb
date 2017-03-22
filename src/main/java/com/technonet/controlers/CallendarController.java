@@ -3,15 +3,14 @@ package com.technonet.controlers;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
-import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
-import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.googleapis.auth.oauth2.*;
 import com.google.api.client.googleapis.batch.BatchRequest;
 import com.google.api.client.googleapis.batch.json.JsonBatchCallback;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.googleapis.json.GoogleJsonError;
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.DateTime;
@@ -20,15 +19,22 @@ import com.google.api.client.util.store.DataStoreFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.*;
+import com.technonet.Repository.SessionRepository;
+import com.technonet.model.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.TimeZone;
+
 /**
  * Created by vakhtanggelashvili on 3/21/17.
  */
@@ -36,16 +42,11 @@ import java.util.TimeZone;
 public class CallendarController {
 
 
-
-
-
-
-
-
-
     private static final String APPLICATION_NAME = "App";
 
-    /** Directory to store user credentials. */
+    /**
+     * Directory to store user credentials.
+     */
     private static final java.io.File DATA_STORE_DIR =
             new java.io.File(System.getProperty("user.home"), ".store/calendar_sample");
 
@@ -55,51 +56,55 @@ public class CallendarController {
      */
     private static FileDataStoreFactory dataStoreFactory;
 
-    /** Global instance of the HTTP transport. */
+    /**
+     * Global instance of the HTTP transport.
+     */
     private static HttpTransport httpTransport;
 
-    /** Global instance of the JSON factory. */
+    /**
+     * Global instance of the JSON factory.
+     */
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
     private static com.google.api.services.calendar.Calendar client;
 
     static final java.util.List<Calendar> addedCalendarsUsingBatch = Lists.newArrayList();
 
-    /** Authorizes the installed application to access user's protected data. */
-    private static Credential authorize() throws Exception {
-        // load client secrets
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY,
-                new InputStreamReader(CallendarController.class.getResourceAsStream("/client_secrets.json")));
-        if (clientSecrets.getDetails().getClientId().startsWith("Enter")
-                || clientSecrets.getDetails().getClientSecret().startsWith("Enter ")) {
-            System.out.println(
-                    "Enter Client ID and Secret from https://code.google.com/apis/console/?api=calendar "
-                            + "into calendar-cmdline-sample/src/main/resources/client_secrets.json");
-            System.exit(1);
-        }
-        // set up authorization code flow
-        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
-                httpTransport, JSON_FACTORY, clientSecrets,
-                Collections.singleton(CalendarScopes.CALENDAR)).setDataStoreFactory(dataStoreFactory)
-                .build();
-        // authorize
-        return new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
-    }
 
     @RequestMapping("/calendar")
     @ResponseBody
-    public String call(String token){
+    public String call(@CookieValue("projectSessionId") long sessionId) {
+
+        Session session = sessionRepository.findOne(sessionId);
+
+        // Exchange auth code for access token
 
         try {
-            // initialize the transport
             httpTransport = GoogleNetHttpTransport.newTrustedTransport();
 
             // initialize the data store factory
             dataStoreFactory = new FileDataStoreFactory(DATA_STORE_DIR);
+            GoogleTokenResponse tokenResponse =
+                    new GoogleAuthorizationCodeTokenRequest(
+                            new NetHttpTransport(),
+                            JacksonFactory.getDefaultInstance(),
+                            "https://www.googleapis.com/oauth2/v4/token",
+                            "55995473742-00obqav5bir1au4qdn4l1jgdvf7kbmv2.apps.googleusercontent.com",
+                            "qUPLRbRgZjm-wMJ_VBDWrEPC",
+                            session.getUser().getCalendarRefreshToken(),
+                            "")  // Specify the same redirect URI that you use with your web
+                            // app. If you don't have a web version of your app, you can
+                            // specify an empty string.
+                            .execute();
+
+            String accessToken = tokenResponse.getAccessToken();
+            String refresh = tokenResponse.getRefreshToken();
+            // initialize the transport
+
 
             // authorization
-            GoogleCredential credential = new GoogleCredential().setAccessToken(token);
-            String ref=credential.getRefreshToken();
+            GoogleCredential credential = new GoogleCredential().setAccessToken(accessToken);
+            String ref = credential.getRefreshToken();
 
             // set up global Calendar instance
             client = new com.google.api.services.calendar.Calendar.Builder(
@@ -115,11 +120,8 @@ public class CallendarController {
             showEvents(calendar);
             deleteCalendarsUsingBatch();
             deleteCalendar(calendar);
-
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        } catch (Throwable t) {
-            t.printStackTrace();
+        } catch (IOException | GeneralSecurityException e) {
+            e.printStackTrace();
         }
         return "";
     }
@@ -228,4 +230,8 @@ public class CallendarController {
         View.header("Delete Calendar");
         client.calendars().delete(calendar.getId()).execute();
     }
+
+
+    @Autowired
+    private SessionRepository sessionRepository;
 }
