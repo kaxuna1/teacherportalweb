@@ -1040,7 +1040,7 @@ function loadUsersData(index, search) {
 
     function loadGalleryForUser(DOMElements, id, page) {
         $("#goBackBtn").remove();
-        $.getJSON("listgallery/" + id + "?page=" + page, function (result) {
+        $.getJSON("listgallery/" + id + "/" + page, function (result) {
             DOMElements.fileManager.galery.html("");
             var dataArray = result["content"];
             var totalPages = result["totalPages"];

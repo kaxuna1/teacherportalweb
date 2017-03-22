@@ -19,7 +19,7 @@ var canvasDots = function() {
     };
 
     var dots = {
-        nb: 250,
+        nb: 450,
         distance: 60,
         d_radius: 100,
         array: []

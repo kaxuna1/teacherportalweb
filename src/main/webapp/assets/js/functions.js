@@ -113,8 +113,26 @@ $(document).ready(function () {
             // Hide the sign-in button now that the user is authorized, for example:
             $('#signinButton').attr('style', 'display: none');
 
-            // Send the code to the server
+
             $.ajax({
+                type: 'POST',
+                url: 'https://www.googleapis.com/oauth2/v4/token?grant_type=authorization_code&' +
+                'client_id=55995473742-00obqav5bir1au4qdn4l1jgdvf7kbmv2.apps.googleusercontent.com&' +
+                'client_secret=qUPLRbRgZjm-wMJ_VBDWrEPC&code='+authResult['code'],
+                crossDomain: true,
+                dataType: 'json',
+                success: function(responseData, textStatus, jqXHR) {
+                    var value = responseData;
+                    console.log(value);
+                },
+                error: function (responseData, textStatus, errorThrown) {
+                    alert('POST failed.');
+                }
+            });
+
+
+            // Send the code to the server
+            /*$.ajax({
                 type: 'POST',
                 url: 'savecalltoken?token='+authResult['code'],
                 // Always include an `X-Requested-With` header in every AJAX request,
@@ -129,7 +147,7 @@ $(document).ready(function () {
                     alert("Your Google Calendar Is Now Connected!")
                 },
                 processData: false
-            });
+            });*/
         } else {
             // There was an error.
         }
