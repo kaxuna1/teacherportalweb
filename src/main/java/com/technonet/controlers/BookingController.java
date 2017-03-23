@@ -8,12 +8,14 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
+import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventDateTime;
 import com.technonet.Enums.JsonReturnCodes;
 import com.technonet.Repository.*;
 import com.technonet.model.*;
 import com.technonet.staticData.PermisionChecks;
+import com.technonet.staticData.Variables;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,14 +31,6 @@ import java.util.TimeZone;
  */
 @Controller
 public class BookingController {
-    private HttpTransport httpTransport;
-
-    /**
-     * Global instance of the JSON factory.
-     */
-    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-
-    private com.google.api.services.calendar.Calendar client;
 
     @RequestMapping("/bookforuser/{userId}/{usercat}")
     @ResponseBody
@@ -61,44 +55,28 @@ public class BookingController {
             Payment payment = new Payment(order.getOrderPrice(), order);
             paymentsRepo.save(payment);
 
-            if(userCategoryJoin.getUser().getCalendarId()!=null)
-            try {
-                httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+            if (userCategoryJoin.getUser().getCalendarId() != null)
+                try {
 
-                // initialize the data store factory
+                    Calendar client = Variables.getCalendarClient(userCategoryJoin.getUser());
 
-                GoogleRefreshTokenRequest g = new GoogleRefreshTokenRequest(httpTransport,
-                        JSON_FACTORY,
-                        session.getUser().getCalendarRefreshToken(),
-                        "55995473742-00obqav5bir1au4qdn4l1jgdvf7kbmv2.apps.googleusercontent.com",
-                        "qUPLRbRgZjm-wMJ_VBDWrEPC");
-                TokenResponse tokenResponse = g.execute();
-                // initialize the transport
+                    for (BookedTime bookedTime : bookedTimes) {
+                        Event event = new Event();
+                        event.setSummary(bookedTime.getCategoryName() + " " + bookedTime.getStudent().getNameSurname());
+                        Date startDate = bookedTime.getStartDate();
+                        Date endDate = bookedTime.getEndDate();
+                        com.google.api.client.util.DateTime start = new com.google.api.client.util.DateTime(startDate);
+                        event.setStart(new EventDateTime().setDateTime(start));
+                        com.google.api.client.util.DateTime end = new com.google.api.client.util.DateTime(endDate);
+                        event.setEnd(new EventDateTime().setDateTime(end));
+                        Event result = client.events().insert(userCategoryJoin.getUser().getCalendarId(),
+                                event).execute();
+                    }
 
 
-                GoogleCredential credential = new GoogleCredential().setAccessToken(tokenResponse.getAccessToken());
-                String ref = credential.getRefreshToken();
-
-                // set up global Calendar instance
-                client = new com.google.api.services.calendar.Calendar.Builder(
-                        httpTransport, JSON_FACTORY, credential).setApplicationName("ALLWITZ").build();
-                for (BookedTime bookedTime : bookedTimes) {
-                    Event event = new Event();
-                    event.setSummary(bookedTime.getCategoryName()+" "+bookedTime.getStudent().getNameSurname());
-                    Date startDate = bookedTime.getStartDate();
-                    Date endDate = bookedTime.getEndDate();
-                    com.google.api.client.util.DateTime start = new com.google.api.client.util.DateTime(startDate);
-                    event.setStart(new EventDateTime().setDateTime(start));
-                    com.google.api.client.util.DateTime end = new com.google.api.client.util.DateTime(endDate);
-                    event.setEnd(new EventDateTime().setDateTime(end));
-                    Event result = client.events().insert(userCategoryJoin.getUser().getCalendarId(),
-                            event).execute();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-
-
-            } catch (Exception e) {
-
-            }
 
 
             return new JsonMessage(JsonReturnCodes.Ok);

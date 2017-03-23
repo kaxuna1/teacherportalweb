@@ -150,8 +150,6 @@ public class CallendarController {
             client = new com.google.api.services.calendar.Calendar.Builder(
                     httpTransport, JSON_FACTORY, credential).setApplicationName(APPLICATION_NAME).build();
 
-            Calendar calendar = client.calendars().get("id").execute();
-            FreeBusyRequest freeBusyRequest= new FreeBusyRequest();
             // run commands
             showCalendars();
             addCalendarsUsingBatch();
