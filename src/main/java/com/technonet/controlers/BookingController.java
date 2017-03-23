@@ -9,6 +9,7 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.Calendar;
+import com.google.api.services.calendar.model.CalendarListEntry;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventDateTime;
 import com.technonet.Enums.JsonReturnCodes;
@@ -58,16 +59,17 @@ public class BookingController {
             if (userCategoryJoin.getUser().getCalendarId() != null)
                 try {
 
-                    Calendar client = Variables.getCalendarClient(userCategoryJoin.getUser());
+                     Calendar client = Variables.getCalendarClient(userCategoryJoin.getUser());
+                    CalendarListEntry calendar=client.calendarList().get(userCategoryJoin.getUser().getCalendarId()).execute();
 
                     for (BookedTime bookedTime : bookedTimes) {
                         Event event = new Event();
                         event.setSummary(bookedTime.getCategoryName() + " " + bookedTime.getStudent().getNameSurname());
                         Date startDate = bookedTime.getStartDate();
                         Date endDate = bookedTime.getEndDate();
-                        com.google.api.client.util.DateTime start = new com.google.api.client.util.DateTime(startDate);
+                        com.google.api.client.util.DateTime start = new com.google.api.client.util.DateTime(startDate,TimeZone.getTimeZone(calendar.getTimeZone()));
                         event.setStart(new EventDateTime().setDateTime(start));
-                        com.google.api.client.util.DateTime end = new com.google.api.client.util.DateTime(endDate);
+                        com.google.api.client.util.DateTime end = new com.google.api.client.util.DateTime(endDate,TimeZone.getTimeZone(calendar.getTimeZone()));
                         event.setEnd(new EventDateTime().setDateTime(end));
                         Event result = client.events().insert(userCategoryJoin.getUser().getCalendarId(),
                                 event).execute();

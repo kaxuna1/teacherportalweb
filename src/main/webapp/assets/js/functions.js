@@ -110,7 +110,43 @@ $(document).ready(function () {
                     "response_type=code&" +
                     "client_id=55995473742-00obqav5bir1au4qdn4l1jgdvf7kbmv2.apps.googleusercontent.com", "_blank")
 
+            });
+            $.getJSON("/getmycalendarslist",function (result) {
+                console.log(result);
+                if(result){
+                    var calendarItems=[];
+                    body.append("<br><div>" +
+                        "<select style='margin-top: 50px;display: inline;width: 60%' class='form-control' id='calSelect'>" +
+                        "<option value='0'>აირჩიეთ კალენდარი</option></select>" +
+                        "<button style='margin-top: 50px;margin-left: 10px;width: 20%' id='saveCallBtn' class='btn'>შენახვა</button></div>")
+                    for(var key in result.items){
+                        var item=result.items[key];
+                        if(item.accessRole==="owner"){
+
+                            $("#calSelect").append("<option value='"+item.id+"'>"+item.summary+"</option>")
+                            calendarItems.push({
+                                name:item.summary,
+                                id:item.id
+                            })
+                        }
+                    }
+                    $("#saveCallBtn").click(function () {
+                        if($("#calSelect").val())
+                        $.getJSON("/setcalendarid?id="+$("#calSelect").val(),function (result) {
+                            if(result){
+                                alert("Calendar Saved As Default");
+                            }
+                        })
+                    });
+
+
+
+                }
+
             })
+
+
+
         }, {}, 600);
 
     });

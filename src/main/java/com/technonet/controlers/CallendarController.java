@@ -21,6 +21,7 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.*;
 import com.technonet.Repository.SessionRepository;
+import com.technonet.Repository.UserRepository;
 import com.technonet.model.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -85,9 +86,15 @@ public class CallendarController {
     @ResponseBody
     public boolean setCallId(@CookieValue("projectSessionId") long sessionId,
                              String id){
-        Session session=sessionRepository.findOne(sessionId);
-        session.getUser().setCalendarId(id);
-        return true;
+        try{
+            Session session=sessionRepository.findOne(sessionId);
+            session.getUser().setCalendarId(id);
+            userRepository.save(session.getUser());
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+
     }
 
 
@@ -273,4 +280,6 @@ public class CallendarController {
 
     @Autowired
     private SessionRepository sessionRepository;
+    @Autowired
+    private UserRepository userRepository;
 }
