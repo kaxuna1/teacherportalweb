@@ -49,7 +49,8 @@ public class BookingController {
             order.setPrice(userCategoryJoin.getPrice() * times.size());
             orderRepo.save(order);
             for (Long time : times) {
-                BookedTime bookedTime = new BookedTime(new Date(time), new DateTime(time).plusMinutes(userCategoryJoin.getDuration()).toDate(), user, userCategoryJoin, order);
+                BookedTime bookedTime = new BookedTime(new DateTime(time).withSecondOfMinute(0).withMillisOfSecond(0).toDate(),
+                        new DateTime(time).plusMinutes(userCategoryJoin.getDuration()).withSecondOfMinute(0).withMillisOfSecond(0).toDate(), user, userCategoryJoin, order);
                 bookedTimeRepo.save(bookedTime);
                 bookedTimes.add(bookedTime);
             }
@@ -59,17 +60,17 @@ public class BookingController {
             if (userCategoryJoin.getUser().getCalendarId() != null)
                 try {
 
-                     Calendar client = Variables.getCalendarClient(userCategoryJoin.getUser());
-                    CalendarListEntry calendar=client.calendarList().get(userCategoryJoin.getUser().getCalendarId()).execute();
+                    Calendar client = Variables.getCalendarClient(userCategoryJoin.getUser());
+                    CalendarListEntry calendar = client.calendarList().get(userCategoryJoin.getUser().getCalendarId()).execute();
 
                     for (BookedTime bookedTime : bookedTimes) {
                         Event event = new Event();
                         event.setSummary(bookedTime.getCategoryName() + " " + bookedTime.getStudent().getNameSurname());
                         Date startDate = bookedTime.getStartDate();
                         Date endDate = bookedTime.getEndDate();
-                        com.google.api.client.util.DateTime start = new com.google.api.client.util.DateTime(startDate,TimeZone.getTimeZone(calendar.getTimeZone()));
+                        com.google.api.client.util.DateTime start = new com.google.api.client.util.DateTime(startDate, TimeZone.getTimeZone(calendar.getTimeZone()));
                         event.setStart(new EventDateTime().setDateTime(start));
-                        com.google.api.client.util.DateTime end = new com.google.api.client.util.DateTime(endDate,TimeZone.getTimeZone(calendar.getTimeZone()));
+                        com.google.api.client.util.DateTime end = new com.google.api.client.util.DateTime(endDate, TimeZone.getTimeZone(calendar.getTimeZone()));
                         event.setEnd(new EventDateTime().setDateTime(end));
                         Event result = client.events().insert(userCategoryJoin.getUser().getCalendarId(),
                                 event).execute();

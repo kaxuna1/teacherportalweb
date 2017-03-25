@@ -4,8 +4,7 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.calendar.Calendar;
-import com.google.api.services.calendar.model.FreeBusyRequest;
-import com.google.api.services.calendar.model.FreeBusyResponse;
+import com.google.api.services.calendar.model.*;
 import com.technonet.Enums.JsonReturnCodes;
 import com.technonet.Repository.*;
 import com.technonet.model.*;
@@ -13,17 +12,16 @@ import com.technonet.staticData.PermisionChecks;
 import com.technonet.staticData.Variables;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
+import org.joda.time.Interval;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.sql.Time;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 /**
  * Created by kakha on 3/11/2017.
@@ -151,15 +149,42 @@ public class ScheduleController {
         List<FreeInterval> returnList = new ArrayList<>();
         UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(id);
         Date date = new Date();
-        Calendar client=null;
-        if (userCategoryJoin.getUser().getCalendarId() != null)
+        Calendar client = null;
+        CalendarListEntry calendarItem = null;
+        if (userCategoryJoin.getUser().getCalendarId() != null) {
+
             try {
 
 
                 client = Variables.getCalendarClient(userCategoryJoin.getUser());
+
+
+                calendarItem = client.calendarList().get(userCategoryJoin.getUser().getCalendarId()).execute();
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+        List<Interval> intervalsBusy = new ArrayList<>();
+        if (client != null && calendarItem != null) {
+            FreeBusyRequest freeBusyRequest = new FreeBusyRequest();
+            freeBusyRequest.setTimeMin(new com.google.api.client.util.DateTime(new DateTime().toDate(), TimeZone.getTimeZone(calendarItem.getTimeZone())));
+            freeBusyRequest.setTimeMax(new com.google.api.client.util.DateTime(new DateTime().plusDays(days).withHourOfDay(0)
+                    .withMinuteOfHour(0).withSecondOfMinute(0).toDate(), TimeZone.getTimeZone(calendarItem.getTimeZone())));
+            FreeBusyRequestItem freeBusyRequestItem = new FreeBusyRequestItem();
+            freeBusyRequestItem.setId(userCategoryJoin.getUser().getCalendarId());
+            List<FreeBusyRequestItem> freeBusyRequestItems = new ArrayList<>();
+            freeBusyRequestItems.add(freeBusyRequestItem);
+            freeBusyRequest.setItems(freeBusyRequestItems);
+            try {
+                FreeBusyResponse freeBusyResponse = client.freebusy().query(freeBusyRequest).execute();
+                List<TimePeriod> busyPeriods = freeBusyResponse.getCalendars().get(calendarItem.getId()).getBusy();
+                busyPeriods.forEach(timePeriod -> intervalsBusy.add(new Interval(timePeriod.getStart().getValue(),timePeriod.getEnd().getValue())));
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }
+        }
+
 
         for (int i = 0; i < days; i++) {
             DateTime dateTime = new DateTime().plusDays(i);
@@ -190,24 +215,9 @@ public class ScheduleController {
 
                         FreeInterval freeIntervalLast = new FreeInterval(new Time(lastFreeTime[0].getTime()),
                                 new Time(freeInterval.getEnding_time().getTime()), dateTime.toDate());
-                        if(client!=null){
-                            FreeBusyRequest freeBusyRequest=new FreeBusyRequest();
-                            freeBusyRequest.setTimeMin(new com.google.api.client.util.DateTime(freeIntervalLast.getStarting_time()));
-                            freeBusyRequest.setTimeMax(new com.google.api.client.util.DateTime(freeIntervalLast.getEnding_time()));
 
-                            try {
+                        list.add(freeIntervalLast);
 
-                                FreeBusyResponse freeBusyResponse = client.freebusy().query(freeBusyRequest).execute();
-                                String k=freeBusyResponse.toString();
-                                String l=k;
-                                list.add(freeIntervalLast);
-
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }else{
-                            list.add(freeIntervalLast);
-                        }
 
                     }
                 } else {
@@ -218,13 +228,18 @@ public class ScheduleController {
 
         }
 
+        Calendar finalClient = client;
+        CalendarListEntry finalCalendarItem = calendarItem;
         list.forEach(freeInterval -> {
             while (freeInterval.getDuration().getStandardMinutes() >= userCategoryJoin.getDuration()) {
                 FreeInterval freeIntervalToAdd = new FreeInterval();
                 freeIntervalToAdd.setStart(freeInterval.getStarting_time());
                 Date intervalEndDate = new DateTime(freeInterval.getStarting_time()).plusMinutes(userCategoryJoin.getDuration()).toDate();
                 freeIntervalToAdd.setEnd(intervalEndDate);
-                returnList.add(freeIntervalToAdd);
+                if(intervalsBusy.stream().noneMatch(interval ->
+                        interval.overlap(new Interval(freeIntervalToAdd.getStarting_time().getTime(),freeIntervalToAdd.getEnding_time().getTime()))!=null)){
+                    returnList.add(freeIntervalToAdd);
+                }
                 freeInterval.setStart(intervalEndDate);
             }
 
