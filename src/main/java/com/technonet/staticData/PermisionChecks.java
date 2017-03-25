@@ -1,6 +1,7 @@
 package com.technonet.staticData;
 
 import com.technonet.Enums.PERMISSIONS;
+import com.technonet.model.Order;
 import com.technonet.model.Permission;
 import com.technonet.model.Session;
 import com.technonet.model.User;
@@ -54,10 +55,17 @@ public class PermisionChecks {
                 .getPermissions().stream()
                 .filter(permission -> permission.getCode().equals(PERMISSIONS.scheduling.name()))
                 .count() > 0;
-    }static public boolean categoryConfirmation(Session session){
+    }
+    static public boolean categoryConfirmation(Session session){
         return session.isIsactive() && session.getUser()
                 .getPermissions().stream()
                 .filter(permission -> permission.getCode().equals(PERMISSIONS.categoryConfirmation.name()))
+                .count() > 0;
+    }
+    static public boolean orderManagement(Session session){
+        return session.isIsactive() && session.getUser()
+                .getPermissions().stream()
+                .filter(permission -> permission.getCode().equals(PERMISSIONS.orders.name()))
                 .count() > 0;
     }
 
@@ -66,5 +74,11 @@ public class PermisionChecks {
                 .getPermissions().stream()
                 .filter(permission -> permission.getCode().equals(PERMISSIONS.student.name()))
                 .count() > 0;
+    }
+
+    public static boolean ownOrder(Session session, Order order) {
+        return session.isIsactive() &&(
+                        session.getUser().getId()==order.getUser().getId()||
+                        session.getUser().getId()==order.getTeacher().getId());
     }
 }

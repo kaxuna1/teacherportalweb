@@ -7,15 +7,13 @@ import com.technonet.model.JsonMessage;
 import com.technonet.model.Session;
 import com.technonet.model.User;
 import com.technonet.model.UserBuilder;
+import com.technonet.staticData.PermisionChecks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -173,6 +171,15 @@ public class UsersController {
     private Pageable constructPageSpecification(int pageIndex) {
         Pageable pageSpecification = new PageRequest(pageIndex, 10);
         return pageSpecification;
+    }
+    @RequestMapping("/getuser/{id}")
+    @ResponseBody
+    public User getUser(@CookieValue("projectSessionId") long sessionId, @PathVariable("")long id){
+        if(PermisionChecks.isAdmin(sessionDao.findOne(sessionId))){
+            return userDao.findOne(id);
+        }else{
+            return null;
+        }
     }
 
 

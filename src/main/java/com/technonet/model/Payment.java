@@ -55,6 +55,9 @@ public class Payment {
         this.date = new Date();
     }
 
+    public Payment(){
+
+    }
     public long getId() {
         return id;
     }

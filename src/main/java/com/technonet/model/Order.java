@@ -1,6 +1,9 @@
 package com.technonet.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.Interval;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -21,6 +24,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "orderId")
+    @JsonIgnore
     private long id;
 
     @Column
@@ -30,18 +34,22 @@ public class Order {
     private Date createDate;
 
     @Column
+    @JsonIgnore
     private Date lastModifyDate;
 
     @Column
+    @JsonIgnore
     private Date confirmDate;
 
     @Column
     private boolean confirmed;
 
     @Column
+    @JsonIgnore
     private boolean refunded;
 
     @Column
+    @JsonIgnore
     private boolean active;
 
     @ManyToOne
@@ -49,7 +57,7 @@ public class Order {
     @JsonIgnore
     private User user;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BookedTime> bookedTimes;
 
@@ -167,6 +175,7 @@ public class Order {
     public float getOrderPrice(){
         return price;
     }
+    @JsonIgnore
     public float getPayementsMade(){
         return (float)this.payments.stream()
                 .filter(payment -> payment.isActive()&&payment
@@ -181,5 +190,35 @@ public class Order {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    @JsonIgnore
+    public User getTeacher() {
+        return bookedTimes.size()>0?bookedTimes.get(0).getUserCategoryJoin().getUser():null;
+    }
+    public String getCategoryName(){
+        return bookedTimes.size()>0?bookedTimes.get(0).getUserCategoryJoin().getCategory().getName():"";
+    }
+    public String getTeacherName(){
+        return this.getTeacher().getNameSurname();
+    }
+    public String getStudentName(){
+        return this.user.getNameSurname();
+    }
+    public long getStudentId(){
+        return user.getId();
+    }
+    public long getTeacherId(){
+        return getTeacher().getId();
+    }
+    public boolean isCanBePaid(){
+        Date date=new Date();
+        long nowLong= date.getTime();
+        Date createDate = new Date(new DateTime(this.createDate).getMillis());
+        long cLong= createDate.getTime();
+        long dif=nowLong-cLong;
+
+
+        return (dif<1000*60*60)&&!this.confirmed;
     }
 }

@@ -26,12 +26,28 @@ $(document).ready(function () {
                     $("#loadUsersButton").click(function () {
                         $(".k").attr("class", "k");
                         $(this).attr("class", "k nav-active active");
+                        $("#searchparams").html("");
                         if (datarowSlide) {
                             $("#dataRow").slideDown("slow");
                             $("#dashRow").slideUp("slow");
                             datarowSlide = true;
                         }
                         loadUsersData(0, "");
+                    });
+                    break;
+                case "orders":
+                    navigation.append('<li id="loadordersButton" class="k">' +
+                        '<a href="#"><i class="icon-picture"></i><span data-translate="შეკვეთები">შეკვეთები</span></a></li>');
+                    $("#loadordersButton").click(function () {
+                        $(".k").attr("class", "k");
+                        $(this).attr("class", "k nav-active active");
+                        $("#searchparams").html("<div id='dynamicFilterRow' class='row'> </div>");
+                        if (datarowSlide) {
+                            $("#dataRow").slideDown("slow");
+                            $("#dashRow").slideUp("slow");
+                            datarowSlide = true;
+                        }
+                        loadOrders(0, "");
                     });
                     break;
                 case "payments":
@@ -43,6 +59,7 @@ $(document).ready(function () {
                     $("#loadCategoriesButton").click(function () {
                         $(".k").attr("class", "k");
                         $(this).attr("class", "k nav-active active");
+                        $("#searchparams").html("");
                         if (datarowSlide) {
                             $("#dataRow").slideDown("slow");
                             $("#dashRow").slideUp("slow");

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -15,7 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class PaymentsController {
     @RequestMapping("/confirmpayment")
     @ResponseBody
-    public boolean confirmPayment(String token,String id){
+    public boolean confirmPayment(@RequestParam(value = "token", required = true, defaultValue = "") String token,
+                                  @RequestParam(value = "id", required = true, defaultValue = "")String id){
         Payment payment = paymentsRepo.findByUuid(id);
         payment.confirm();
         paymentsRepo.save(payment);

@@ -10,5 +10,6 @@ public enum PERMISSIONS {
     admin,fileManagement,
     categories,docTypes,
     gallery,scheduling,
-    categoryConfirmation
+    categoryConfirmation,
+    orders
 }

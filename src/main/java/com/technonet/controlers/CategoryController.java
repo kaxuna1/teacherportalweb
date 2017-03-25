@@ -74,6 +74,11 @@ public class CategoryController {
         } else
             return null;
     }
+    @RequestMapping("/categories")
+    @ResponseBody
+    public List<Category> getCategoriesAll(){
+        return categoryRepo.findByActive(true);
+    }
 
     @RequestMapping("uploadcategorylogo/{id}")
     @ResponseBody

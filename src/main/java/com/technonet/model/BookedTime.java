@@ -16,6 +16,7 @@ public class BookedTime {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "bookedTimeId")
+    @JsonIgnore
     private long id;
 
     @Column
@@ -41,6 +42,7 @@ public class BookedTime {
 
 
     @Column
+    @JsonIgnore
     private boolean active;
 
 

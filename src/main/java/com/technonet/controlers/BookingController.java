@@ -82,7 +82,7 @@ public class BookingController {
                 }
 
 
-            return new JsonMessage(JsonReturnCodes.Ok);
+            return new JsonMessage(JsonReturnCodes.Ok.getCODE(),order.getUuid());
         }
         return new JsonMessage(JsonReturnCodes.DONTHAVEPERMISSION);
 

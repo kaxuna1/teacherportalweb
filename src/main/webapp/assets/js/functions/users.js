@@ -5,6 +5,9 @@ var cities = {};
 var currentUploadUrl = '';
 var currentRefreshFunction = null;
 var currentFileType = 0;
+var openUserGlobal = function () {
+
+};
 function loadUsersData(index, search) {
     $.getJSON("getusers?index=" + index + "&search=" + search, function (result) {
         $("#dataGridHeader").html("");
@@ -46,113 +49,8 @@ function loadUsersData(index, search) {
         gridRow.click(function () {
             var currentElement = dataArray[$(this).attr("value")];
             console.log(currentElement);
-            showModalWithTableInside(function (head, body, modal, rand) {
-                body.html(clientProfileTemplate);
-                var documents = $("#tab5_1");
-                var permissions = $("#tab5_2");
-                var lessons = $("#tab5_3");
-                var categories = $("#tab5_4")
-                var actions = $("#tab6_1");
-                var infoDiv = $("#tab6_2");
-                var DOMElements = {
-                    documents: documents,
-                    permissions: permissions,
-                    lessons: lessons,
-                    categories: categories,
-                    actions: actions,
-                    infoDiv: infoDiv,
-                    modal: modal,
-                    rand: rand,
-                    currentElement: currentElement
-                };
-                drawInfoForUser(DOMElements);
+            openUserGlobal(currentElement);
 
-                drawCategories(DOMElements, currentElement);
-
-                openDocuments(DOMElements, documents, currentElement);
-
-                drawLessons(DOMElements);
-
-
-                permissions.append('<div style="display:inline-flex;width: 100%">' +
-                    '    <div style="width: 45%">' +
-                    '        <table class="table">' +
-                    '            <thead>' +
-                    '            <tr>' +
-                    '                <th class="text-left">მომხმარებლის უფლებები</th>' +
-                    '            </tr>' +
-                    '            </thead>' +
-                    '            <tbody id="userpermissions">' +
-                    '            </tbody>' +
-                    '        </table>' +
-                    '    </div>' +
-                    '    <div style="width:10%">' +
-                    '        <button style="width: 100%" id="removePermission">-></button>' +
-                    '        <br>' +
-                    '        <button style="width: 100%" id="addPermissions"><-</button>' +
-                    '    </div>' +
-                    '    <div style="width: 45%">' +
-                    '        <table class="table">' +
-                    '            <thead>' +
-                    '            <tr>' +
-                    '                <th class="text-left">დასამატებელი უფლებები</th>' +
-                    '            </tr>' +
-                    '            </thead>' +
-                    '            <tbody id="notuserspermissions">' +
-                    '            </tbody>' +
-                    '        </table>' +
-                    '    </div>' +
-                    '</div>');
-
-                drawPermsForAdding(currentElement.id);
-
-                var addPerms = $("#addPermissions");
-                addPerms.unbind();
-                addPerms.click(function () {
-                    var checkboxPerm = $(".checkboxPerm");
-                    var productIds = [];
-                    checkboxPerm.each(function () {
-                        if (this.checked) {
-                            productIds.push(this.value);
-                            this.checked = false;
-                        }
-                    });
-                    $.ajax({
-                        url: "/giveuserpermission",
-                        data: {
-                            id: currentElement["id"],
-                            ids: productIds.toString()
-                        }
-                    }).done(function (result) {
-                        drawPermsForAdding(currentElement["id"]);
-                    })
-                });
-
-                var removePerms = $("#removePermission");
-                removePerms.unbind();
-                removePerms.click(function () {
-                    var checkboxPerm = $(".checkboxUserPerm");
-                    var productIds = [];
-                    checkboxPerm.each(function () {
-                        if (this.checked) {
-                            productIds.push(this.value);
-                            this.checked = false;
-                        }
-                    });
-                    $.ajax({
-                        url: "/removeuserpermission",
-                        data: {
-                            id: currentElement["id"],
-                            ids: productIds.toString()
-                        }
-                    }).done(function (result) {
-                        drawPermsForAdding(currentElement["id"]);
-                    })
-                })
-            }, {
-                "დამატებითი ღილაკი": function () {
-                }
-            }, 1024);
 
         });
 
@@ -207,6 +105,115 @@ function loadUsersData(index, search) {
             })
         })
     });
+    openUserGlobal = function (currentElement) {
+        showModalWithTableInside(function (head, body, modal, rand) {
+            body.html(clientProfileTemplate);
+            var documents = $("#tab5_1");
+            var permissions = $("#tab5_2");
+            var lessons = $("#tab5_3");
+            var categories = $("#tab5_4")
+            var actions = $("#tab6_1");
+            var infoDiv = $("#tab6_2");
+            var DOMElements = {
+                documents: documents,
+                permissions: permissions,
+                lessons: lessons,
+                categories: categories,
+                actions: actions,
+                infoDiv: infoDiv,
+                modal: modal,
+                rand: rand,
+                currentElement: currentElement
+            };
+            drawInfoForUser(DOMElements);
+
+            drawCategories(DOMElements, currentElement);
+
+            openDocuments(DOMElements, documents, currentElement);
+
+            drawLessons(DOMElements);
+
+
+            permissions.append('<div style="display:inline-flex;width: 100%">' +
+                '    <div style="width: 45%">' +
+                '        <table class="table">' +
+                '            <thead>' +
+                '            <tr>' +
+                '                <th class="text-left">მომხმარებლის უფლებები</th>' +
+                '            </tr>' +
+                '            </thead>' +
+                '            <tbody id="userpermissions">' +
+                '            </tbody>' +
+                '        </table>' +
+                '    </div>' +
+                '    <div style="width:10%">' +
+                '        <button style="width: 100%" id="removePermission">-></button>' +
+                '        <br>' +
+                '        <button style="width: 100%" id="addPermissions"><-</button>' +
+                '    </div>' +
+                '    <div style="width: 45%">' +
+                '        <table class="table">' +
+                '            <thead>' +
+                '            <tr>' +
+                '                <th class="text-left">დასამატებელი უფლებები</th>' +
+                '            </tr>' +
+                '            </thead>' +
+                '            <tbody id="notuserspermissions">' +
+                '            </tbody>' +
+                '        </table>' +
+                '    </div>' +
+                '</div>');
+
+            drawPermsForAdding(currentElement.id);
+
+            var addPerms = $("#addPermissions");
+            addPerms.unbind();
+            addPerms.click(function () {
+                var checkboxPerm = $(".checkboxPerm");
+                var productIds = [];
+                checkboxPerm.each(function () {
+                    if (this.checked) {
+                        productIds.push(this.value);
+                        this.checked = false;
+                    }
+                });
+                $.ajax({
+                    url: "/giveuserpermission",
+                    data: {
+                        id: currentElement["id"],
+                        ids: productIds.toString()
+                    }
+                }).done(function (result) {
+                    drawPermsForAdding(currentElement["id"]);
+                })
+            });
+
+            var removePerms = $("#removePermission");
+            removePerms.unbind();
+            removePerms.click(function () {
+                var checkboxPerm = $(".checkboxUserPerm");
+                var productIds = [];
+                checkboxPerm.each(function () {
+                    if (this.checked) {
+                        productIds.push(this.value);
+                        this.checked = false;
+                    }
+                });
+                $.ajax({
+                    url: "/removeuserpermission",
+                    data: {
+                        id: currentElement["id"],
+                        ids: productIds.toString()
+                    }
+                }).done(function (result) {
+                    drawPermsForAdding(currentElement["id"]);
+                })
+            })
+        }, {
+            "დამატებითი ღილაკი": function () {
+            }
+        }, 1024);
+    };
 
     function drawLessons(DOMElements) {
         DOMElements.lessons.html("<div id='callAllLessons'></div>")
@@ -356,7 +363,7 @@ function loadUsersData(index, search) {
                             dates: {}
                         },
                         chosenDiv: $("#chosenDatesTable"),
-                        modal:modal
+                        modal: modal
                     };
 
                     var callData = [];
@@ -452,7 +459,7 @@ function loadUsersData(index, search) {
                 name: "#"
             }
         }, function (table) {
-            var times=[];
+            var times = [];
             var keys = Object.keys(DOMElements.booking.bookData.dates),
                 i, len = keys.length;
 
@@ -483,19 +490,29 @@ function loadUsersData(index, search) {
             })
             $("#bookBtn").unbind().click(function () {
                 $.ajax({
-                    url: "/bookforuser/2/"+DOMElements.categoryPageDom.currentCategory.id,
+                    url: "/bookforuser/2/" + DOMElements.categoryPageDom.currentCategory.id,
                     data: {
                         times: times.toString()
                     }
                 }).done(function (result) {
-                    DOMElements.booking.modal.modal("hide");
-                    loadCategorySchedules(DOMElements);
-                    loadFreeSchedule(DOMElements);
-                    loadScheduledLessons(DOMElements);
+                    if (result.code == 100) {
+                        DOMElements.booking.modal.modal("hide");
+                        loadCategorySchedules(DOMElements);
+                        loadFreeSchedule(DOMElements);
+                        loadScheduledLessons(DOMElements);
+                        openOrderGlobal(result.message,DOMElements);
+                    } else {
+                        alert("მოხდა შეცდომა დაუკავშირდით ადმინისტრაციას!")
+                    }
+
                 })
             })
 
         })
+    }
+
+    function openOrderPage(DOMElements, orderid) {
+
     }
 
     function loadFreeSchedule(DOMElements) {
@@ -618,7 +635,7 @@ function loadUsersData(index, search) {
                     name: "#"
                 }
             }, function (tableBody) {
-                $.getJSON("getusercategoryscheduledays/"+ DOMElements.categoryPageDom.currentCategory.id, function (result) {
+                $.getJSON("getusercategoryscheduledays/" + DOMElements.categoryPageDom.currentCategory.id, function (result) {
                     for (var key in result) {
                         var item = result[key];
                         /** @namespace item.workHours */

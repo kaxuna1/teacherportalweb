@@ -121,6 +121,7 @@ function loadConfiscatedData(index, search, noAnimation) {
         }
         dataLoading()
     });
+
     dynamicFilters.brand.change(function () {
         dataLoading();
     });
