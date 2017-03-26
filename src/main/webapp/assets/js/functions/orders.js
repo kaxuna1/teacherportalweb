@@ -144,33 +144,33 @@ function loadOrders(index, search) {
                     '<div class="col-md-4">Status: </div>' +
                     '<div class="col-md-4">'+(result.confirmed?"Paid":"Not Paid")+'</div>' +
                     '<div class="col-md-4">'+(result.canBePaid?"<button class='btn'>Pay Now</button>":"")+'</div>' +
-                    '</div>')
+                    '</div>');
 
                 body.append('<div class="row">' +
                     '<div class="col-md-4">Price: </div>' +
                     '<div class="col-md-4">'+result.orderPrice+'</div>' +
                     '<div class="col-md-4"></div>' +
-                    '</div>')
+                    '</div>');
                 body.append('<div class="row">' +
                     '<div class="col-md-4">Category: </div>' +
                     '<div class="col-md-4">'+result.categoryName+'</div>' +
                     '<div class="col-md-4"></div>' +
-                    '</div>')
+                    '</div>');
                 body.append('<div class="row">' +
                     '<div class="col-md-4">Teacher: </div>' +
                     '<div class="col-md-4">'+result.teacherName+'</div>' +
                     '<div class="col-md-4"></div>' +
-                    '</div>')
+                    '</div>');
                 body.append('<div class="row">' +
                     '<div class="col-md-4">Student: </div>' +
                     '<div class="col-md-4">'+result.studentName+'</div>' +
                     '<div class="col-md-4"></div>' +
-                    '</div>')
+                    '</div>');
                 body.append('<div class="row">' +
                     '<div class="col-md-4"><h4>Ordered Times: </h4></div>' +
                     '<div class="col-md-4"></div>' +
                     '<div class="col-md-4"></div>' +
-                    '</div>')
+                    '</div>');
                 createTable(body,{
                     date:{
                         name:"Date"
