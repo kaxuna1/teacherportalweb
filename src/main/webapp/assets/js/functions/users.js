@@ -55,7 +55,8 @@ function loadUsersData(index, search) {
         });
 
 
-        $("#addNewDiv").html('<button id="addNewButton" data-target="#myModal" class="btn btn-sm btn-dark">ახალი მომხმარებლის დამატება </button>');
+        $("#addNewDiv").html('<button id="addNewButton" data-target="#myModal" class="btn btn-sm btn-dark">'+
+            strings["admin_button_newuser"]+'</button>');
         $("#addNewButton").click(function () {
             showModalWithTableInside(function (head, body, modal) {
                 dynamicCreateForm(body, "/createuser", {

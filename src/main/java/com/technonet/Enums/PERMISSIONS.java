@@ -11,5 +11,5 @@ public enum PERMISSIONS {
     categories,docTypes,
     gallery,scheduling,
     categoryConfirmation,
-    orders
+    orders,strings
 }

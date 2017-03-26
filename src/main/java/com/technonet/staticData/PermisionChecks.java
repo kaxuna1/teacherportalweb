@@ -68,6 +68,12 @@ public class PermisionChecks {
                 .filter(permission -> permission.getCode().equals(PERMISSIONS.orders.name()))
                 .count() > 0;
     }
+    static public boolean stringsManagement(Session session){
+        return session.isIsactive() && session.getUser()
+                .getPermissions().stream()
+                .filter(permission -> permission.getCode().equals(PERMISSIONS.strings.name()))
+                .count() > 0;
+    }
 
     public static boolean student(Session session) {
         return session.isIsactive() && session.getUser()

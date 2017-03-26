@@ -15,8 +15,8 @@ import java.util.Date;
 @Component
 @Transactional
 public class BackgroundTasks {
-    @Transactional
-    @Scheduled(fixedRate = 5000)
+    /*@Transactional
+    @Scheduled(fixedRate = 5000)*/
     public void removeUnpaidOrders(){
         orderRepo.findUnpaidOld(new DateTime().minusMinutes(15).toDate()).forEach(order -> {
             order.getBookedTimes().forEach(bookedTime -> {
