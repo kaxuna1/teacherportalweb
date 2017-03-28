@@ -468,9 +468,9 @@ function loadUsersData(index, search) {
             table.append("<tr>" +
                 "<td></td>" +
                 "<td></td>" +
-                "<td>ჯამი:</td>" +
+                "<td>"+strings["admin_label_sum"]+":</td>" +
                 "<td>" + (parseFloat(DOMElements.categoryPageDom.currentCategory.price) * parseFloat(len)) + " ₾</td>" +
-                "<td><button id='bookBtn' class='btn btn-primary'>დაჯავშნა</button></td>" +
+                "<td><button id='bookBtn' class='btn btn-primary'>"+strings["admin_button_book"]+"</button></td>" +
                 "</tr>")
             $(".removeDateFromBooking").click(function () {
                 delete DOMElements.booking.bookData.dates[$(this).attr("value")]
@@ -617,7 +617,7 @@ function loadUsersData(index, search) {
                     name: strings["admin_label_day"]
                 },
                 workTime: {
-                    name: "სამუშაო საათები"
+                    name: strings["admin_label_work_hours"]
                 },
                 actions: {
                     name: "#"

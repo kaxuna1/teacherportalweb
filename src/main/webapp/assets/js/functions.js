@@ -155,7 +155,7 @@ $(document).ready(function () {
                     body.append("<br><div>" +
                         "<select style='margin-top: 50px;display: inline;width: 60%' class='form-control' id='calSelect'>" +
                         "<option value='0'>აირჩიეთ კალენდარი</option></select>" +
-                        "<button style='margin-top: 50px;margin-left: 10px;width: 20%' id='saveCallBtn' class='btn'>შენახვა</button></div>")
+                        "<button style='margin-top: 50px;margin-left: 10px;width: 20%' id='saveCallBtn' class='btn'>"+strings["admin_button_save"]+"</button></div>")
                     for(var key in result.items){
                         var item=result.items[key];
                         if(item.accessRole==="owner"){

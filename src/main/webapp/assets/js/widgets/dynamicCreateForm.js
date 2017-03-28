@@ -54,7 +54,7 @@ function dynamicCreateForm(div, url, data, callback) {
                 OuterFunc(localKey, localValueField, localNameField, random, element, element.IdToNameMap);
         }
     }
-    div.append("<button class='btn' id='save" + random + "'>შენახვა</button>");
+    div.append("<button class='btn' id='save" + random + "'>"+strings["admin_button_save"]+"</button>");
     div.append("<button class='btn' id='cancel" + random + "'>"+strings['admin_button_cancele']+"</button>");
     $("#save" + random).click(function () {
         var sendData = {};
@@ -131,7 +131,7 @@ function dynamicCreateToArray(div, array, data, callback, afterDraw, beforeDelet
             OuterFunc(localKey, localValueField, localNameField, random, element, element.IdToNameMap);
         }
     }
-    div.append("<button class='btn' id='save" + random + "'>შენახვა</button>");
+    div.append("<button class='btn' id='save" + random + "'>"+strings["admin_button_save"]+"</button>");
     div.append("<button class='btn' id='cancel" + random + "'>"+strings['admin_button_cancele']+"</button>");
     $("#save" + random).click(function () {
         var sendData = {};
@@ -210,7 +210,7 @@ function dynamicChooserToCallback(div, data, callback,afterDraw, beforeDelete) {
         var localelement = element;
         OuterFunc(localKey, localValueField, localNameField, random, element, element.IdToNameMap);
     }
-    div.append("<button class='btn' id='save" + random + "'>შენახვა</button>");
+    div.append("<button class='btn' id='save" + random + "'>"+strings["admin_button_save"]+"</button>");
     div.append("<button class='btn' id='cancel" + random + "'>"+strings['admin_button_cancele']+"</button>");
     $("#save" + random).click(function () {
         var sendData = {};
