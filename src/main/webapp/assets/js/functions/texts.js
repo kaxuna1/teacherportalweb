@@ -6,7 +6,7 @@ function loadTexts(index, search) {
 
     $("#addNewDiv").html(
         '');
-    createButtonWithHandlerr($("#addNewDiv"),"დამატება",function () {
+    createButtonWithHandlerr($("#addNewDiv"),strings["admin_button_add"],function () {
        showModalWithTableInside(function (head, body, modal, rand) {
            dynamicCreateForm(body,"/createstring",{
                name: {

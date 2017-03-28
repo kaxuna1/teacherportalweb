@@ -6,9 +6,12 @@ var currentData;
 var projectColumns = ["#", "სახელი", "მისამართი", "საკადასტრო"];
 var loanColumns = ["#", "ნივთები", "ნომერი", "კლიენტი", "რაოდენობა", "გაცემის თარიღი"];
 var confiscatedColumns = ["#", "სახელი", "ნივთის #", "სესხის #", "შეფასება", "დარიცხული %", "გადახდილი", "სტატუსი"];
-var orderColumns = ["#","კატეგორია","მასწავლებელი","მოსწავლე","თარიღი","ფასი"];
-var stringsColumns = ["#","name","value"];
-var userColumns = ["სახელი", "გვარი", "მომხმარებლის სახელი", "პირადი ნომერი", "მობილური"];
+var orderColumns = ["#", strings["admin_label_category"],
+    strings["admin_label_teacher"], strings['admin_label_student'],
+    strings["admin_label_date"], strings['admin_label_price']];
+var stringsColumns = ["#", "name", "value"];
+var userColumns = [strings["admin_label_name"], strings["admin_label_surname"],
+    strings["admin_label_username"], strings['admin_label_pn'], strings["admin_label_phone"]];
 var loanConditionsColumns = ["#", "სახელი", "პროცენტი", "პირველი დღის %", "პერიოდი", "პერიოდის ტიპი"];
 var periodTypes = {
     "1": "დღე",
@@ -30,7 +33,7 @@ var loanStatuses = {
 };
 
 var clientColumns = ["სახელი", "გვარი", "პირადი ნომერი", "საკონტაქტო ნომერი", "სესხების რაოდენობა"];
-var categoryColumns = ["სახელი", 'მოქმედებები'];
+var categoryColumns = [strings["admin_label_name"], strings["admin_label_action"]];
 var elementColumns = ["კოდი", 'სახელი'];
 var regionColumns = ["სახელი"];
 var projectStageTypeColumns = ["სახელი"];

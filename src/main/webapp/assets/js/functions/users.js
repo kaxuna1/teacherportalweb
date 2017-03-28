@@ -140,7 +140,7 @@ function loadUsersData(index, search) {
                 '        <table class="table">' +
                 '            <thead>' +
                 '            <tr>' +
-                '                <th class="text-left">მომხმარებლის უფლებები</th>' +
+                '                <th class="text-left">'+strings['admin_label_user_permissions']+'</th>' +
                 '            </tr>' +
                 '            </thead>' +
                 '            <tbody id="userpermissions">' +
@@ -156,7 +156,7 @@ function loadUsersData(index, search) {
                 '        <table class="table">' +
                 '            <thead>' +
                 '            <tr>' +
-                '                <th class="text-left">დასამატებელი უფლებები</th>' +
+                '                <th class="text-left">'+strings['admin_label_permissions_to_add']+'</th>' +
                 '            </tr>' +
                 '            </thead>' +
                 '            <tbody id="notuserspermissions">' +
@@ -253,39 +253,26 @@ function loadUsersData(index, search) {
     function drawCategories(DOMElements, currentElement) {
 
         DOMElements.categories.append('<div id="categoryPageActions" class="row">' +
-            '</div>' +
-            '<div class="row">' +
-            '<div class="col-md-3">' +
-            '<label>' +
-            '<input id="checkBoxPayments1" type="checkbox" data-checkbox="icheckbox_square-blue">ფილტრი 1' +
-            '</label>' +
-            '</div><div class="col-md-3">' +
-            '<label>' +
-            '<input id="checkBoxPayments2" type="checkbox" data-checkbox="icheckbox_square-blue">ფილტრი 2' +
-            '</label></div><div class="col-md-4"><div class="input-group">            ' +
-            '<div class="icheck-list"><label>' +
-            '<input id="checkBoxPayments3" type="checkbox" data-checkbox="icheckbox_square-blue">ფილტრი 3' +
-            '</label></div></div></div>' +
             '</div>');
         DOMElements.categories.append(UserCategories);
         DOMElements.CategoriesDataTableBody = $("#CategoriesDataTableBody");
         loadCategiries(DOMElements, currentElement);
-        createButtonWithHandlerr($("#categoryPageActions"), "კატეგორიის დამატება", function () {
+        createButtonWithHandlerr($("#categoryPageActions"), strings['admin_button_add_category'], function () {
             showModalWithTableInside(function (head, body, modal, rand) {
                 dynamicCreateForm(body, "/addcategorytouser", {
                     category: {
-                        name: "კატეგორია",
+                        name: strings["admin_label_category"],
                         type: "comboBox",
                         valueField: "id",
                         nameField: "name",
                         url: "/getcategoriesforuseradding/" + currentElement.id
                     },
                     price: {
-                        name: "ფასი",
+                        name: strings["admin_label_price"],
                         type: "number"
                     },
                     duration: {
-                        name: "ხანგრძლივობა (წუთებში)",
+                        name: strings["admin_label_duration"],
                         type: "number"
                     },
                     user: {
@@ -352,7 +339,7 @@ function loadUsersData(index, search) {
 
     function loadScheduledLessons(DOMElements) {
         DOMElements.categoryPageDom.lessons.html("");
-        createButtonWithHandlerr(DOMElements.categoryPageDom.lessons, "გაკვეთილის დანიშვნა", function () {
+        createButtonWithHandlerr(DOMElements.categoryPageDom.lessons, strings["admin_button_book_lesson"], function () {
             showModalWithTableInside(function (head, body, modal, rand) {
                 body.append("<div id='callForBooking'></div>" +
                     "<div id='chosenDatesTable' class='row'></div>");
@@ -445,16 +432,16 @@ function loadUsersData(index, search) {
         DOMElements.booking.chosenDiv.html("");
         createTable(DOMElements.booking.chosenDiv, {
             date: {
-                name: "თარიღი"
+                name: strings["admin_label_date"]
             },
             start: {
-                name: "დასაყისი"
+                name: strings["admin_label_start_time"]
             },
             end: {
-                name: "დასასრული"
+                name: strings["admin_label_end_time"]
             },
             price: {
-                name: "ფასი"
+                name: strings["admin_label_price"]
             },
             buttons: {
                 name: "#"
@@ -600,13 +587,13 @@ function loadUsersData(index, search) {
 
     function loadCategorySchedules(DOMElements) {
         DOMElements.categoryPageDom.schedules.html("");
-        var btn = createButtonWithHandlerr(DOMElements.categoryPageDom.schedules, "დამატება", function () {
+        var btn = createButtonWithHandlerr(DOMElements.categoryPageDom.schedules, strings["admin_button_add"], function () {
             $("#addDayFormDiv").remove();
             $("<div id='addDayFormDiv'></div>").insertAfter(btn.obj);
             dynamicCreateForm($("#addDayFormDiv"), "/createscheduleday", {
 
                 day: {
-                    name: "კვირის დღე",
+                    name: strings["admin_label_weekday"],
                     type: "comboBox",
                     valueField: "day",
                     nameField: "name",
@@ -627,7 +614,7 @@ function loadUsersData(index, search) {
         createTable(DOMElements.categoryPageDom.schedules,
             {
                 name: {
-                    name: "დღე"
+                    name: strings["admin_label_day"]
                 },
                 workTime: {
                     name: "სამუშაო საათები"
@@ -665,12 +652,12 @@ function loadUsersData(index, search) {
     function loadCategoryDayHours(DOMElements) {
 
         showModalWithTableInside(function (head, body, modal, rand) {
-            var createScheduleIntervalBtn = createButtonWithHandlerr(body, "დამატება", function () {
+            var createScheduleIntervalBtn = createButtonWithHandlerr(body, strings["admin_button_add"], function () {
                 $("#timeIntervalChooserDiv").remove();
                 $("<div id='timeIntervalChooserDiv'>" +
                     '<input style="" type="time" id="fromTime" class=" floating-label" placeholder="Time"/>' +
                     '<input style="" type="time" id="toTime" class=" floating-label" placeholder="Time"/>' +
-                    '<button id="addTimeToSchedule" class="btn btn-primary">დამატება</button>' +
+                    '<button id="addTimeToSchedule" class="btn btn-primary">'+strings["admin_button_add"]+'</button>' +
                     "</div>").insertAfter(createScheduleIntervalBtn.obj);
                 var fromTime = $('#fromTime').bootstrapMaterialDatePicker
                 ({
@@ -882,14 +869,14 @@ function loadUsersData(index, search) {
                     dynamicCreateToArray(body, sendData, {
 
                         category: {
-                            name: "კატეგორია",
+                            name: strings["admin_label_category"],
                             type: "comboBox",
                             valueField: "id",
                             nameField: "name",
                             url: "/usercategoriescats/" + currentElement.id
                         },
                         docType: {
-                            name: "კატეგორია",
+                            name: strings["admin_label_category"],
                             type: "comboBox",
                             valueField: "id",
                             nameField: "name",
@@ -1237,14 +1224,14 @@ function loadUsersData(index, search) {
                 dynamicCreateToArray(body, sendData, {
 
                     category: {
-                        name: "კატეგორია",
+                        name: strings["admin_label_category"],
                         type: "comboBox",
                         valueField: "id",
                         nameField: "name",
                         url: "/usercategoriescats/" + userId
                     },
                     docType: {
-                        name: "კატეგორია",
+                        name: strings["admin_label_category"],
                         type: "comboBox",
                         valueField: "id",
                         nameField: "name",

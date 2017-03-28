@@ -55,7 +55,7 @@ function dynamicCreateForm(div, url, data, callback) {
         }
     }
     div.append("<button class='btn' id='save" + random + "'>შენახვა</button>");
-    div.append("<button class='btn' id='cancel" + random + "'>გაუქმება</button>");
+    div.append("<button class='btn' id='cancel" + random + "'>"+strings['admin_button_cancele']+"</button>");
     $("#save" + random).click(function () {
         var sendData = {};
         for (key in data) {
@@ -132,7 +132,7 @@ function dynamicCreateToArray(div, array, data, callback, afterDraw, beforeDelet
         }
     }
     div.append("<button class='btn' id='save" + random + "'>შენახვა</button>");
-    div.append("<button class='btn' id='cancel" + random + "'>გაუქმება</button>");
+    div.append("<button class='btn' id='cancel" + random + "'>"+strings['admin_button_cancele']+"</button>");
     $("#save" + random).click(function () {
         var sendData = {};
         for (key in data) {
@@ -211,7 +211,7 @@ function dynamicChooserToCallback(div, data, callback,afterDraw, beforeDelete) {
         OuterFunc(localKey, localValueField, localNameField, random, element, element.IdToNameMap);
     }
     div.append("<button class='btn' id='save" + random + "'>შენახვა</button>");
-    div.append("<button class='btn' id='cancel" + random + "'>გაუქმება</button>");
+    div.append("<button class='btn' id='cancel" + random + "'>"+strings['admin_button_cancele']+"</button>");
     $("#save" + random).click(function () {
         var sendData = {};
         if (data.type === "date") {

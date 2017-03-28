@@ -17,7 +17,7 @@ function showModalWithTableInside(callback,callbacks,width) {
         '      <div id="modalWithTableBody'+random+'" class="modal-body">' +
         '</div>' +
         '      <div id="modalFooterDynamic'+random+'" class="modal-footer">' +
-        '        <button type="button" class="btn btn-link" data-dismiss="modal">გაუქმება</button>' +
+        '        <button type="button" class="btn btn-link" data-dismiss="modal">'+strings['admin_button_cancele']+'</button>' +
         '      </div>' +
         '    </div>' +
         '  </div>' +

@@ -13,7 +13,7 @@ function showModalEditPage(data,buttons){
         '      <div id="editModalBody" class="modal-body">' +
         '</div>' +
         '      <div id="modalFooterDynamic" class="modal-footer">' +
-        '        <button type="button" class="btn btn-link" data-dismiss="modal">გაუქმება</button>' +
+        '        <button type="button" class="btn btn-link" data-dismiss="modal">'+strings['admin_button_cancele']+'</button>' +
         '      </div>' +
         '    </div>' +
         '  </div>' +

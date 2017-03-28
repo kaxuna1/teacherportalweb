@@ -47,12 +47,12 @@ function loadCategoriesData(index, search) {
             });
 
         });
-        $("#addNewDiv").html('<button id="addNewButton" data-target="#myModal" class="btn btn-sm btn-dark">ახალი კატეგორიის დამატება </button>');
+        $("#addNewDiv").html('<button id="addNewButton" data-target="#myModal" class="btn btn-sm btn-dark">'+strings["admin_button_add_category"]+'</button>');
         $("#addNewButton").click(function () {
             showModalWithTableInside(function (head, body, modal) {
                 dynamicCreateForm(body, "/createcategory", {
                     name: {
-                        name: "სახელი",
+                        name: strings["admin_label_name"],
                         type: "text"
                     }
                 }, function () {
@@ -92,7 +92,7 @@ function loadCategoriesData(index, search) {
                     '        <table class="table">' +
                     '            <thead>' +
                     '            <tr>' +
-                    '                <th class="text-left">საჭირო დოკუმენტის ტიპები</th>' +
+                    '                <th class="text-left">'+strings["admin_label_required_document_types"]+'</th>' +
                     '            </tr>' +
                     '            </thead>' +
                     '            <tbody id="categoryDocTypes">' +
@@ -108,7 +108,7 @@ function loadCategoriesData(index, search) {
                     '        <table class="table">' +
                     '            <thead>' +
                     '            <tr>' +
-                    '                <th class="text-left">დასამატებელი ტიპები</th>' +
+                    '                <th class="text-left">'+strings["admin_label_types_to_add"]+'</th>' +
                     '            </tr>' +
                     '            </thead>' +
                     '            <tbody id="notCategoryDocTypes">' +
@@ -177,23 +177,23 @@ function loadCategoriesData(index, search) {
             }, 1024);
         })
         if(permissions["docTypes"]){
-            createButtonWithHandlerr($("#addNewDiv"),"დოკუმენტის ტიპები", function () {
+            createButtonWithHandlerr($("#addNewDiv"),strings["admin_button_doctypes"], function () {
                 showModalWithTableInside(function (head, body, modal, rand) {
-                    head.html("<h2>დოკუმენტის ტიპები</h2>");
+                    head.html("<h2>"+strings["admin_label_document_types"]+"</h2>");
                     body.append("<div id='buttonsDivForDocTypes'></div>" +
                         "<div id='addFormDiv'></div>" +
                         "<div>" +
                         "<table class='table-bordered table'>" +
                         "<thead>" +
                         "<tr>" +
-                        "<th>სახელი</th>" +
+                        "<th>"+strings["admin_label_name"]+"</th>" +
                         "</tr>" +
                         "</thead>" +
                         "<tbody id='docTypesTableBody'>" +
                         "</tbody>" +
                         "</table>" +
                         "</div>");
-                    createButtonWithHandlerr($("#buttonsDivForDocTypes"),"ახალი დოკ ტიპი", function () {
+                    createButtonWithHandlerr($("#buttonsDivForDocTypes"),strings["admin_button_add_new_doc_type"], function () {
                         $("#addFormDiv").html("");
                         dynamicCreateForm($("#addFormDiv"), "/createdoctype", {
                             name: {
