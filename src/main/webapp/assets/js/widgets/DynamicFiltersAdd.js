@@ -67,7 +67,7 @@ function addDynamicFilters(div,data){
             div.append('<div id="div'+ key + random +'" class="filterCol col-md-2"><div class="form-group">' +
                 "<select  data-search='true' class='form-control'   value='" +
                 (element.value ? element.value : "") + "' name='" + key + "' id='" + key + random + "'>" +
-                "<option value='0'>ყველა "+element.name+"</option>" +
+                "<option value='0'>"+strings["admin_label_all"]+" "+element.name+"</option>" +
                 "</select>" +
                 "</div></div>");
             returnObj[key] = $("#" + key + random);

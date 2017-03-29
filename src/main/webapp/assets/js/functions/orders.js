@@ -6,14 +6,14 @@ function loadOrders(index, search) {
     var dynamicFilters = addDynamicFilters($("#dynamicFilterRow").html(""),
         {
             type: {
-                name: "კატეგორია",
+                name: strings["admin_label_categories"],
                 type: "comboBox",
                 valueField: "id",
                 nameField: "name",
                 url: "/categories"
             },
             price: {
-                name: "ფასი",
+                name: strings["admin_label_price"],
                 type: "text",
                 operator: {
                     type: "comboBox",
@@ -25,11 +25,11 @@ function loadOrders(index, search) {
                 }
             },
             teacher: {
-                name: "მასწ.პ/ნ",
+                name: strings["admin_label_teacher_pn"],
                 type: "text"
             },
             student: {
-                name: "მოსწ.პ/ნ",
+                name: strings["admin_label_student_pn"],
                 type: "text"
             }
         });

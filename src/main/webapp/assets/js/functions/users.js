@@ -61,42 +61,42 @@ function loadUsersData(index, search) {
             showModalWithTableInside(function (head, body, modal) {
                 dynamicCreateForm(body, "/createuser", {
                     name: {
-                        name: "სახელი",
+                        name: strings["admin_label_name"],
                         type: "text"
                     },
                     surname: {
-                        name: "გვარი",
+                        name: strings["admin_label_surname"],
                         type: "text"
                     },
                     city: {
-                        name: "ქალაქი",
+                        name: strings["admin_label_city"],
                         type: "comboBox",
                         valueField: "id",
                         nameField: "name",
                         url: "/cities"
                     },
                     username: {
-                        name: "მომხმარებელი",
+                        name: strings["admin_label_username"],
                         type: "text"
                     },
                     email: {
-                        name: "email",
+                        name: strings["admin_label_email"],
                         type: "text"
                     },
                     password: {
-                        name: "პაროლი",
+                        name: strings["admin_label_password"],
                         type: "text"
                     },
                     personalNumber: {
-                        name: "პირადი ნომერი",
+                        name: strings["admin_label_personal_number"],
                         type: "text"
                     },
                     mobile: {
-                        name: "მობილური",
+                        name: strings["admin_label_phone"],
                         type: "text"
                     },
                     address: {
-                        name: "მისამართი",
+                        name: strings["admin_label_address"],
                         type: "text"
                     }
                 }, function () {
@@ -254,38 +254,46 @@ function loadUsersData(index, search) {
 
         DOMElements.categories.append('<div id="categoryPageActions" class="row">' +
             '</div>');
-        DOMElements.categories.append(UserCategories);
-        DOMElements.CategoriesDataTableBody = $("#CategoriesDataTableBody");
-        loadCategiries(DOMElements, currentElement);
-        createButtonWithHandlerr($("#categoryPageActions"), strings['admin_button_add_category'], function () {
-            showModalWithTableInside(function (head, body, modal, rand) {
-                dynamicCreateForm(body, "/addcategorytouser", {
-                    category: {
-                        name: strings["admin_label_category"],
-                        type: "comboBox",
-                        valueField: "id",
-                        nameField: "name",
-                        url: "/getcategoriesforuseradding/" + currentElement.id
-                    },
-                    price: {
-                        name: strings["admin_label_price"],
-                        type: "number"
-                    },
-                    duration: {
-                        name: strings["admin_label_duration"],
-                        type: "number"
-                    },
-                    user: {
-                        type: "hidden",
-                        value: "" + currentElement.id
-                    }
+        createTable(DOMElements.categories,{
+            category:{
+                name:strings["admin_label_category"]
+            }
+        },function (table) {
+            DOMElements.CategoriesDataTableBody = table;
+            loadCategiries(DOMElements, currentElement);
+            createButtonWithHandlerr($("#categoryPageActions"), strings['admin_button_add_category'], function () {
+                showModalWithTableInside(function (head, body, modal, rand) {
+                    dynamicCreateForm(body, "/addcategorytouser", {
+                        category: {
+                            name: strings["admin_label_category"],
+                            type: "comboBox",
+                            valueField: "id",
+                            nameField: "name",
+                            url: "/getcategoriesforuseradding/" + currentElement.id
+                        },
+                        price: {
+                            name: strings["admin_label_price"],
+                            type: "number"
+                        },
+                        duration: {
+                            name: strings["admin_label_duration"],
+                            type: "number"
+                        },
+                        user: {
+                            type: "hidden",
+                            value: "" + currentElement.id
+                        }
 
-                }, function () {
-                    loadCategiries(DOMElements, currentElement);
-                    modal.modal("hide")
-                })
-            }, {}, 600)
-        })
+                    }, function () {
+                        loadCategiries(DOMElements, currentElement);
+                        modal.modal("hide")
+                    })
+                }, {}, 600)
+            })
+        });
+
+
+
     }
 
     function loadCategiries(DOMElements, currentElement) {
