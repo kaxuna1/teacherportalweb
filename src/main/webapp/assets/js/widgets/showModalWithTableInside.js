@@ -1,7 +1,7 @@
 /**
  * Created by kakha on 1/14/2016.
  */
-function showModalWithTableInside(callback,callbacks,width) {
+function showModalWithTableInside(callback,callbacks,width,noHeader) {
     if(!width)
         width=600
     var random=Math.floor((Math.random() * 10000) + 1);
@@ -10,10 +10,10 @@ function showModalWithTableInside(callback,callbacks,width) {
         '<div id="promptModal'+random+ '" class="modal fade">' +
         '  <div id="promptModal'+random+ 'Dialog"  class="modal-dialog">' +
         '    <div class="modal-content">' +
-        '      <div class="modal-header">' +
+        (noHeader?"":('      <div class="modal-header">' +
         '        <button type="button" class="close" data-dismiss="modal">&times;</button>' +
         '        <h4 id="modalWithTableHeader'+random+'" class="modal-title"></h4>' +
-        '      </div>' +
+        '      </div>')) +
         '      <div id="modalWithTableBody'+random+'" class="modal-body">' +
         '</div>' +
         '      <div id="modalFooterDynamic'+random+'" class="modal-footer">' +
@@ -32,7 +32,7 @@ function showModalWithTableInside(callback,callbacks,width) {
         $("#promptModal"+random).remove();
     }).on('shown.bs.modal', function () {
 
-        callback($(this).find("#modalWithTableHeader"+random),$(this).find("#modalWithTableBody"+random),thisModal,random);
+        callback($(this).find("#modalWithTableHeader"+random),$(this).find("#modalWithTableBody"+random),thisModal,random,$(this).find("#modalFooterDynamic"+random));
 
         for (var key in callbacks) {
             var random2=Math.floor((Math.random() * 10000) + 1);
