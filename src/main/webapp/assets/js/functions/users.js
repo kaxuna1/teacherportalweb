@@ -257,6 +257,12 @@ function loadUsersData(index, search) {
         createTable(DOMElements.categories,{
             category:{
                 name:strings["admin_label_category"]
+            },
+            duration:{
+                name:strings["admin_label_duration"]
+            },
+            price:{
+                name:strings["admin_label_price"]
             }
         },function (table) {
             DOMElements.CategoriesDataTableBody = table;
@@ -310,10 +316,7 @@ function loadUsersData(index, search) {
                     item.duration +
                     " წთ.</td>" +
                     "<td>" +
-                    "</td>" +
-                    "<td>" +
-                    "</td>" +
-                    "<td>" +
+                    item.price +
                     "</td>" +
                     "</tr>")
             }
