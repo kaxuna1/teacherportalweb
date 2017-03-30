@@ -20,7 +20,7 @@ public class CityController {
     @GetMapping("/cities/{id}")
     @ResponseBody
     public List<City> getCities(@PathVariable("id") long id){
-        return cityRepo.findByCountry(countryRepo.findOne(id));
+        return cityRepo.findByCountry(countryRepo.findOne(id).get());
     }
     @GetMapping("/cities")
     @ResponseBody

@@ -38,14 +38,14 @@ public class GalleryPicturesController {
     public boolean uploadFile(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                               @PathVariable("id") long id,
                               @RequestParam("file") MultipartFile file) {
-        Session session = sessionRepository.findOne(sessionId);
+        Session session = sessionRepository.findOne(sessionId).get();
         if (!PermisionChecks.galleryManagement(session))
             return false;
         if (file.isEmpty()) {
             return false;
         } else {
             try {
-                User user = userRepository.findOne(id);
+                User user = userRepository.findOne(id).get();
                 UUID uuid = UUID.randomUUID();
                 BufferedImage bufferedImage = ImageIO.read(file.getInputStream());
                 int w = bufferedImage.getWidth();
@@ -84,7 +84,7 @@ public class GalleryPicturesController {
     @ResponseBody
     public boolean uploadFile(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                               @RequestParam("file") MultipartFile file) {
-        Session session = sessionRepository.findOne(sessionId);
+        Session session = sessionRepository.findOne(sessionId).get();
         if (!session.isIsactive())
             return false;
         if (file.isEmpty()) {
@@ -130,14 +130,14 @@ public class GalleryPicturesController {
     @ResponseBody
     public Page<GalleryPicture> listGallery(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                                             @PathVariable("id") long id, @PathVariable("page") int page) {
-        Session session = sessionRepository.findOne(sessionId);
-        return galleryPictureRepo.findByUserAndActiveOrderByDate(userRepository.findOne(id), true, constructPageSpecification(page));
+        Session session = sessionRepository.findOne(sessionId).get();
+        return galleryPictureRepo.findByUserAndActiveOrderByDate(userRepository.findOne(id).get(), true, constructPageSpecification(page));
     }
 
     @RequestMapping(value = "userpicture/{pic}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
     public byte[] userPic(HttpServletResponse response, @CookieValue("projectSessionId") long sessionId, @PathVariable("pic") String pic) {
-        Session session = sessionRepository.findOne(sessionId);
+        Session session = sessionRepository.findOne(sessionId).get();
         Path path = Paths.get(Variables.appDir + "/images/galleryPics/" + pic);
         response.setContentType("image/jpeg");
         response.setHeader("Content-disposition", "attachment; filename=pic.jpg");
@@ -159,7 +159,7 @@ public class GalleryPicturesController {
     @RequestMapping(value = "userpicturelogo/{pic}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
     public byte[] userPicLogo(HttpServletResponse response, @CookieValue("projectSessionId") long sessionId, @PathVariable("pic") String pic) {
-        Session session = sessionRepository.findOne(sessionId);
+        Session session = sessionRepository.findOne(sessionId).get();
         Path path = Paths.get(Variables.appDir + "/images/galleryPicLogos/" + pic);
         response.setContentType("image/jpeg");
         response.setHeader("Content-disposition", "attachment; filename=pic.jpg");

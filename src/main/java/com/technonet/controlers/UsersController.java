@@ -50,7 +50,7 @@ public class UsersController {
                 .setPersonalNumber(personalNumber)
                 .setType(0)
                 .setSessions(new ArrayList<Session>())
-                .setCity(cityRepo.findOne(city))
+                .setCity(cityRepo.findOne(city).get())
                 .createUser();
         user.setSex(sex);
         try {
@@ -73,9 +73,9 @@ public class UsersController {
     @ResponseBody
     public JsonMessage giveUserPermissions(long id, @RequestParam(value = "ids") ArrayList<Long> ids) {
 
-        User user = userDao.findOne(id);
+        User user = userDao.findOne(id).get();
         for (Long id1 : ids) {
-            user.getPermissions().add(permissionRepo.findOne(id1));
+            user.getPermissions().add(permissionRepo.findOne(id1).get());
         }
         userDao.save(user);
         return new JsonMessage(JsonReturnCodes.Ok.getCODE(), "წარმატებით");
@@ -86,7 +86,7 @@ public class UsersController {
     @ResponseBody
     public JsonMessage removeUserPermissions(long id, @RequestParam(value = "ids") ArrayList<Long> ids) {
 
-        User user = userDao.findOne(id);
+        User user = userDao.findOne(id).get();
         for (Long id1 : ids) {
             user.getPermissions().remove(permissionRepo.findOne(id1));
         }
@@ -98,7 +98,7 @@ public class UsersController {
     @RequestMapping("/changepassword")
     public boolean changePassword(@CookieValue("projectSessionId") long sessionId, String password) {
         try {
-            Session session = sessionDao.findOne(sessionId);
+            Session session = sessionDao.findOne(sessionId).get();
 
             User user = session.getUser();
             if (!password.isEmpty()) {
@@ -117,7 +117,7 @@ public class UsersController {
     @ResponseBody
     public boolean editUser(@CookieValue("projectSessionId") long sessionId, User k) {
 
-        Session session = sessionDao.findOne(sessionId);
+        Session session = sessionDao.findOne(sessionId).get();
 
         User user = session.getUser();
 
@@ -175,8 +175,8 @@ public class UsersController {
     @RequestMapping("/getuser/{id}")
     @ResponseBody
     public User getUser(@CookieValue("projectSessionId") long sessionId, @PathVariable("")long id){
-        if(PermisionChecks.isAdmin(sessionDao.findOne(sessionId))){
-            return userDao.findOne(id);
+        if(PermisionChecks.isAdmin(sessionDao.findOne(sessionId).get())){
+            return userDao.findOne(id).get();
         }else{
             return null;
         }

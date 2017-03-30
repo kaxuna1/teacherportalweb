@@ -40,11 +40,11 @@ public class BookingController {
                             @PathVariable("usercat") long usercat,
                             @RequestParam(value = "times") ArrayList<Long> times) {
 
-        Session session = sessionRepository.findOne(sessionId);
+        Session session = sessionRepository.findOne(sessionId).get();
         if (PermisionChecks.isAdmin(session)) {
             List<BookedTime> bookedTimes = new ArrayList<>();
-            User user = userDao.findOne(userId);
-            UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(usercat);
+            User user = userDao.findOne(userId).get();
+            UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(usercat).get();
             Order order = new Order(user);
             order.setPrice(userCategoryJoin.getPrice() * times.size());
             orderRepo.save(order);
@@ -94,10 +94,10 @@ public class BookingController {
                             @PathVariable("usercat") long usercat,
                             @RequestParam(value = "times") ArrayList<Long> times) {
 
-        Session session = sessionRepository.findOne(sessionId);
+        Session session = sessionRepository.findOne(sessionId).get();
         if (PermisionChecks.student(session)) {
             User user = session.getUser();
-            UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(usercat);
+            UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(usercat).get();
             Order order = new Order(user);
             order.setPrice(userCategoryJoin.getPrice() * times.size());
             orderRepo.save(order);

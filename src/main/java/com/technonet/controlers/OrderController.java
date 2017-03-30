@@ -26,7 +26,7 @@ public class OrderController {
     @ResponseBody
     public Order getOrderById(@CookieValue("projectSessionId") long sessionId,
                               @PathVariable("uuid") String uuid) {
-        Session session = sessionRepository.findOne(sessionId);
+        Session session = sessionRepository.findOne(sessionId).get();
         Order order = orderRepo.findByUuidAndActive(uuid, true);
         if (PermisionChecks.isAdmin(session) || PermisionChecks.ownOrder(session, order)) {
             return order;
@@ -39,7 +39,7 @@ public class OrderController {
     @ResponseBody
     public List<BookedTime> getOrderTimesById(@CookieValue("projectSessionId") long sessionId,
                                               @PathVariable("uuid") String uuid) {
-        Session session = sessionRepository.findOne(sessionId);
+        Session session = sessionRepository.findOne(sessionId).get();
         Order order = orderRepo.findByUuidAndActive(uuid, true);
         if (order == null)
             return null;
@@ -54,7 +54,7 @@ public class OrderController {
     @ResponseBody
     public Page<Order> getOrders(@CookieValue("projectSessionId") long sessionId,
                                  @PathVariable("page") int page) {
-        Session session = sessionRepository.findOne(sessionId);
+        Session session = sessionRepository.findOne(sessionId).get();
         if (PermisionChecks.orderManagement(session))
             return orderRepo.findByActiveOrderByCreateDateDesc(true, constructPageSpecification(page));
         else

@@ -183,7 +183,7 @@ public class SessionController {
     @ResponseBody
     public boolean savecalltoken(@CookieValue("projectSessionId") long sessionId,
                                  @RequestParam("code")String token){
-        Session session= sessionDao.findOne(sessionId);
+        Session session= sessionDao.findOne(sessionId).get();
         User user=session.getUser();
         GoogleAuthorizationCodeTokenRequest g=new GoogleAuthorizationCodeTokenRequest(HTTP_TRANSPORT,
                 JSON_FACTORY,
@@ -268,7 +268,7 @@ public class SessionController {
     @RequestMapping("/logout")
     @ResponseBody
     public Session logout(@CookieValue("projectSessionId") String sessionId){
-        Session session=sessionDao.findOne(Long.parseLong(sessionId));
+        Session session=sessionDao.findOne(Long.parseLong(sessionId)).get();
         session.setIsactive(false);
         sessionDao.save(session);
         return session;
@@ -276,7 +276,7 @@ public class SessionController {
     @RequestMapping("/getsessionstatus")
     @ResponseBody
     public Session sessionStatus(@CookieValue("projectSessionId") String sessionId){
-        Session session=sessionDao.findOne(Long.parseLong(sessionId));
+        Session session=sessionDao.findOne(Long.parseLong(sessionId)).get();
         return session;
     }
     @Autowired

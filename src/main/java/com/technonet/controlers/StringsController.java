@@ -26,7 +26,7 @@ public class StringsController {
     public boolean createString(@CookieValue("projectSessionId") long sessionId,
                                 @RequestParam(value = "name", required = true, defaultValue = "0") String name,
                                 @RequestParam(value = "value", required = true, defaultValue = "0") String value){
-        Session session = sessionRepository.findOne(sessionId);
+        Session session = sessionRepository.findOne(sessionId).get();
         if(PermisionChecks.isAdmin(session)){
             if(sysStringRepo.findByNameAndActive(name,true).size()>0){
                 return false;

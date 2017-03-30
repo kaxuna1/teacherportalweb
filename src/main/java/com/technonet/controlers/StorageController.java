@@ -35,7 +35,7 @@ public class StorageController {
                               @RequestParam("category") long category,
                               @RequestParam("docType") long docType) {
 
-        Session session = sessionRepository.findOne(sessionId);
+        Session session = sessionRepository.findOne(sessionId).get();
         if (!PermisionChecks.FileManagement(session))
             return false;
         if (file.isEmpty()) {
@@ -43,8 +43,8 @@ public class StorageController {
         } else {
             try {
 
-                User user = userRepository.findOne(id);
-                Category category1=categoryRepo.findOne(category);
+                User user = userRepository.findOne(id).get();
+                Category category1=categoryRepo.findOne(category).get();
                 List<UserCategoryJoin> userCategoryJoins = userCategoryJoinRepo.findByUserAndCategoryAndActive(user,category1,true);
                 if(userCategoryJoins.size()==0){
                     return false;
@@ -53,7 +53,7 @@ public class StorageController {
                 String originalName = file.getOriginalFilename();
                 UUID uuid = UUID.randomUUID();
                 Files.copy(file.getInputStream(), Paths.get(Variables.appDir + "/docs", uuid.toString()));
-                Document doc = new Document(originalName, user, uuid.toString(), file.getContentType(), userCategoryJoin, docTypeRepo.findOne(docType));
+                Document doc = new Document(originalName, user, uuid.toString(), file.getContentType(), userCategoryJoin, docTypeRepo.findOne(docType).get());
                 documentsRepo.save(doc);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -68,7 +68,7 @@ public class StorageController {
                               @PathVariable("id") long id,
                               @RequestParam("file") MultipartFile file) {
 
-        Session session = sessionRepository.findOne(sessionId);
+        Session session = sessionRepository.findOne(sessionId).get();
         if (!PermisionChecks.FileManagement(session))
             return false;
         if (file.isEmpty()) {
@@ -76,7 +76,7 @@ public class StorageController {
         } else {
             try {
 
-                User user = userRepository.findOne(id);
+                User user = userRepository.findOne(id).get();
                 String originalName = file.getOriginalFilename();
                 UUID uuid = UUID.randomUUID();
                 BufferedImage bufferedImage = ImageIO.read(file.getInputStream());
@@ -109,7 +109,7 @@ public class StorageController {
     public boolean uploadProfilePic(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                               @RequestParam("file") MultipartFile file) {
 
-        Session session = sessionRepository.findOne(sessionId);
+        Session session = sessionRepository.findOne(sessionId).get();
         if (!session.isIsactive())
             return false;
         if (file.isEmpty()) {
@@ -149,7 +149,7 @@ public class StorageController {
                                    @RequestParam("file") MultipartFile file, @RequestParam("category") long category,
                                    @RequestParam("docType") long docType) {
 
-        Session session = sessionRepository.findOne(sessionId);
+        Session session = sessionRepository.findOne(sessionId).get();
         if (!session.isIsactive())
             return false;
         if (file.isEmpty()) {
@@ -157,14 +157,14 @@ public class StorageController {
         } else {
             try {
                 User user = session.getUser();
-                UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(category);
+                UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(category).get();
                 if (!user.getUserCategoryJoins().contains(userCategoryJoin)) {
                     return false;
                 }
                 String originalName = file.getOriginalFilename();
                 UUID uuid = UUID.randomUUID();
                 Files.copy(file.getInputStream(), Paths.get(Variables.appDir + "/docs", uuid.toString()));
-                Document doc = new Document(originalName, user, uuid.toString(), file.getContentType(), userCategoryJoin, docTypeRepo.findOne(docType));
+                Document doc = new Document(originalName, user, uuid.toString(), file.getContentType(), userCategoryJoin, docTypeRepo.findOne(docType).get());
                 documentsRepo.save(doc);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -177,9 +177,9 @@ public class StorageController {
     @ResponseBody
     public Page<Document> getDocs(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                                   @PathVariable("id") long id, @RequestParam("page") int page) {
-        Session session = sessionRepository.findOne(sessionId);
+        Session session = sessionRepository.findOne(sessionId).get();
         if (session.isIsactive() && PermisionChecks.isAdmin(session.getUser())) {
-            return documentsRepo.findByUserAndActiveOrderByDateDesc(userRepository.findOne(id), true, constructPageSpecification(page));
+            return documentsRepo.findByUserAndActiveOrderByDateDesc(userRepository.findOne(id).get(), true, constructPageSpecification(page));
         } else {
             return null;
         }
@@ -188,9 +188,9 @@ public class StorageController {
     @ResponseBody
     public List<Document> getUsrCatDocs(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                                         @PathVariable("id") long id) {
-        Session session = sessionRepository.findOne(sessionId);
+        Session session = sessionRepository.findOne(sessionId).get();
         if (session.isIsactive() && PermisionChecks.isAdmin(session.getUser())) {
-            return userCategoryJoinRepo.findOne(id).getDocuments();
+            return userCategoryJoinRepo.findOne(id).get().getDocuments();
         } else {
             return null;
         }
@@ -199,8 +199,8 @@ public class StorageController {
     @RequestMapping("doc/{id}")
     @ResponseBody
     public void doc(HttpServletResponse response, @CookieValue("projectSessionId") long sessionId, @PathVariable("id") long id) {
-        Session session = sessionRepository.findOne(sessionId);
-        Document doc = documentsRepo.findOne(id);
+        Session session = sessionRepository.findOne(sessionId).get();
+        Document doc = documentsRepo.findOne(id).get();
         if (session.isIsactive() && (PermisionChecks.isAdmin(session.getUser()) || doc.getUser().getId() == session.getUser().getId())) {
             File file = new File(Variables.appDir + "/docs/" + doc.getFileName());
             Path path = Paths.get(Variables.appDir + "/docs/" + doc.getFileName());
@@ -222,7 +222,7 @@ public class StorageController {
     @RequestMapping("profilePic/{id}")
     @ResponseBody
     public byte[] profilePic(HttpServletResponse response, @CookieValue("projectSessionId") long sessionId, @PathVariable("id") long id) {
-        User user = userRepository.findOne(id);
+        User user = userRepository.findOne(id).get();
         Path path;
         if(user.getProfilePic()==null){
             path = Paths.get(Variables.appDir+"/images/profilePics/noPhoto.jpg");

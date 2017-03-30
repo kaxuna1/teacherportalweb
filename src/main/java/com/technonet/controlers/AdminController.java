@@ -33,7 +33,7 @@ public class AdminController {
     public String admin(Model model,@CookieValue(value = "projectSessionId",defaultValue = "0") long sessionId){
 
         if(sessionId!=0){
-            Session session=sessionRepository.findOne(sessionId);
+            Session session=sessionRepository.findOne(sessionId).get();
             if(session.isIsactive()&& isAdmin(session.getUser())){
                 model.addAttribute("name","გამარჯობა "+session.getUser().getNameSurname());
                 return "admin/index";
