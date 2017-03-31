@@ -1,8 +1,7 @@
 /**
  * Created by kakha on 3/30/2017.
  */
-$(function ($)
-{
+$(function ($) {
     var month = {
             "number": ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
             "short": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -12,10 +11,10 @@ $(function ($)
         todayYear = today.getFullYear(),
         todayMonth = today.getMonth() + 1,
         todayDay = today.getDate();
-    updateTheBirthDayValue = function(options, $selector, selectedYear, selectedMonth, selectedDay) {
+    updateTheBirthDayValue = function (options, $selector, selectedYear, selectedMonth, selectedDay) {
         if ((selectedYear * selectedMonth * selectedDay) != 0) {
-            if (selectedMonth<10) selectedMonth="0"+selectedMonth;
-            if (selectedDay<10) selectedDay="0"+selectedDay;
+            if (selectedMonth < 10) selectedMonth = "0" + selectedMonth;
+            if (selectedDay < 10) selectedDay = "0" + selectedDay;
             hiddenDate = selectedYear + "-" + selectedMonth + "-" + selectedDay;
             $selector.val(hiddenDate);
 
@@ -24,20 +23,19 @@ $(function ($)
             }
         }
     }
-    generateBirthdayPicker = function ($parent, options)
-    {
+    generateBirthdayPicker = function ($parent, options) {
         var parentId = $parent.attr('id').replace(/-/g, '');
 
         if (!options.name) {
-            options.name = parentId+"_birthDay";
+            options.name = parentId + "_birthDay";
         }
 
         // Create the html picker skeleton
         var $fieldset = $("<fieldset class='birthdayPicker form-inline'></fieldset>"),
-            $year = $("<select style='width: 30%;' class='form-control birthYear "+options.sizeClass+"' name='"+parentId+"_birth[year]'></select>"),
-            $month = $("<select style='width: 30%;' class='form-control birthMonth "+options.sizeClass+"' name='"+parentId+"_birth[month]'></select>"),
-            $day = $("<select style='width: 30%;' class='form-control birthDate "+options.sizeClass+"' name='"+parentId+"_birth[day]'></select>")
-        $birthday = $("<input class='form-control birthDay' name='"+options.name+"' type='hidden'/>");
+            $year = $("<select style='width: 30%;' class='form-control birthYear " + options.sizeClass + "' name='" + parentId + "_birth[year]'></select>"),
+            $month = $("<select style='width: 30%;' class='form-control birthMonth " + options.sizeClass + "' name='" + parentId + "_birth[month]'></select>"),
+            $day = $("<select style='width: 30%;' class='form-control birthDate " + options.sizeClass + "' name='" + parentId + "_birth[day]'></select>")
+        $birthday = $("<input class='form-control birthDay' name='" + options.name + "' type='hidden'/>");
 
         // Add the option placeholders if specified
         if (options.placeholder) {
@@ -68,7 +66,7 @@ $(function ($)
             $("<option></option>").attr('value', i + 1).text(month[options.monthFormat][i]).appendTo($month);
         }
         for (var i = 1; i <= 31; i++) {
-            var number = (i < 10) ? "0"+i: i;
+            var number = (i < 10) ? "0" + i : i;
             $("<option></option>").attr('value', i).text(number).appendTo($day);
         }
 
@@ -77,7 +75,7 @@ $(function ($)
 
         // Set the default date if given
         if (options.defaultDate) {
-            if($.type(options.defaultDate) !== "date"){
+            if ($.type(options.defaultDate) !== "date") {
                 /*
                  * There is no concept of a pure date in js, only absolute timestamps.
                  * A call to `new Date(value)` with a `value` of a string will attempt
@@ -88,7 +86,7 @@ $(function ($)
                  */
                 var date = new Date(options.defaultDate);
                 date.setSeconds(date.getSeconds() + (date.getTimezoneOffset() * 60));
-            }else{
+            } else {
                 var date = options.defaultDate;
             }
             $year.val(date.getFullYear());
@@ -96,8 +94,7 @@ $(function ($)
             $day.val(date.getDate());
             updateTheBirthDayValue(options, $birthday, date.getFullYear(), date.getMonth() + 1, date.getDate());
         }
-        $fieldset.on('change', function ()
-        {
+        $fieldset.on('change', function () {
             $birthday = $(this).find('.birthDay');
             // currently selected values
             selectedYear = parseInt($year.val(), 10),
@@ -114,7 +111,7 @@ $(function ($)
                 }
             } else {
                 while (currentMaxMonth < 12) {
-                    $("<option></option>").attr('value', parseInt(currentMaxMonth)+1).text(month[options.monthFormat][currentMaxMonth]).appendTo($month);
+                    $("<option></option>").attr('value', parseInt(currentMaxMonth) + 1).text(month[options.monthFormat][currentMaxMonth]).appendTo($month);
                     currentMaxMonth++;
                 }
             }
@@ -127,11 +124,10 @@ $(function ($)
                     $day.children(":last").remove();
                     currentMaxDate--;
                 }
-            } else if (currentMaxDate < actMaxDay ) {
-                while (currentMaxDate < actMaxDay)
-                {
+            } else if (currentMaxDate < actMaxDay) {
+                while (currentMaxDate < actMaxDay) {
                     var dateIndex = parseInt(currentMaxDate) + 1;
-                    var number = (dateIndex < 10) ? "0"+dateIndex: dateIndex;
+                    var number = (dateIndex < 10) ? "0" + dateIndex : dateIndex;
                     $("<option></option>").attr('value', dateIndex).text(number).appendTo($day);
                     currentMaxDate++;
                 }
@@ -141,23 +137,22 @@ $(function ($)
         });
     }
 
-    $.fn.birthdayPicker = function(options)
-    {
+    $.fn.birthdayPicker = function (options) {
         return this.each(function () {
-            var settings = $.extend($.fn.birthdayPicker.defaults, options );
+            var settings = $.extend($.fn.birthdayPicker.defaults, options);
             generateBirthdayPicker($(this), settings);
         });
     };
 
     $.fn.birthdayPicker.defaults = {
-        "maxAge"        : 100,
-        "minAge"        : 0,
-        "maxYear"       : todayYear,
-        "dateFormat"    : "middleEndian",
-        "monthFormat"   : "number",
-        "placeholder"   : true,
-        "defaultDate"   : false,
-        "sizeClass"        : "span2",
+        "maxAge": 100,
+        "minAge": 0,
+        "maxYear": todayYear,
+        "dateFormat": "middleEndian",
+        "monthFormat": "number",
+        "placeholder": true,
+        "defaultDate": false,
+        "sizeClass": "span2",
         'callback': false
     }
-}( jQuery ))
+}(jQuery))

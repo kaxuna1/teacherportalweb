@@ -5,3 +5,10 @@
     width: 33%;
     margin: 5px;
 }
+.reg-invalid{
+    border-color: red;
+    outline-color: red;
+}
+#errorMessage{
+    color: red;
+}

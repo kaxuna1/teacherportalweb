@@ -81,7 +81,7 @@ public class SessionController {
             session=sessionDao.save(session);
             response.addCookie(new Cookie("projectSessionId", session.getId()+""));
             response.addCookie(new Cookie("userId", session.getUser().getId()+""));
-            return "redirect:/admin";
+            return "redirect:/";
         }
     }
     @RequestMapping("/loginapifb/{token}")
@@ -170,6 +170,7 @@ public class SessionController {
 
 
     }
+
     public static class GoogleSession {
         @Key("user_id")
         private String id;
