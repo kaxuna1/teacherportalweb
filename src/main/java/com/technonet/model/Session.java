@@ -2,6 +2,8 @@ package com.technonet.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -21,6 +23,7 @@ public class Session {
 
     @ManyToOne
     @JoinColumn(name = "userId")
+    @JsonIgnore
     private User user;
 
     @Column

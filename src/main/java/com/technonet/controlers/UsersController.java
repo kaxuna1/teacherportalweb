@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -60,6 +61,31 @@ public class UsersController {
             return new JsonMessage(JsonReturnCodes.ERROR.getCODE(), ex.toString());
         }
         return new JsonMessage(JsonReturnCodes.Ok.getCODE(), "მომხმარებელი შეიქმნა წარმატებით");
+    }
+
+    @RequestMapping("/registerapi")
+    @ResponseBody
+    public Session registerApi(@RequestParam(value = "password", required = true, defaultValue = "") String password,
+                               @RequestParam(value = "email", required = true, defaultValue = "") String email,
+                               @RequestParam(value = "name", required = false, defaultValue = "") String name,
+                               @RequestParam(value = "surname", required = false, defaultValue = "") String surname,
+                               @RequestParam(value = "fbId", required = false, defaultValue = "") String fbId,
+                               @RequestParam(value = "googleId", required = false, defaultValue = "") String googleId){
+        if(password.isEmpty()||email.isEmpty()||emailExists(email)||name.isEmpty()||surname.isEmpty()){
+            return new Session();
+        }
+        User user = new User(password,email,name,surname);
+        if(!fbId.isEmpty()){
+            user.setFacebookId(fbId);
+        }
+        if(!googleId.isEmpty()){
+            user.setGoogleId(googleId);
+        }
+        userDao.save(user);
+        Session session=new Session(new Date(),user);
+        session=sessionDao.save(session);
+
+        return session;
     }
 
 
@@ -172,14 +198,21 @@ public class UsersController {
         Pageable pageSpecification = new PageRequest(pageIndex, 10);
         return pageSpecification;
     }
+
     @RequestMapping("/getuser/{id}")
     @ResponseBody
-    public User getUser(@CookieValue("projectSessionId") long sessionId, @PathVariable("")long id){
-        if(PermisionChecks.isAdmin(sessionDao.findOne(sessionId).get())){
+    public User getUser(@CookieValue("projectSessionId") long sessionId, @PathVariable("") long id) {
+        if (PermisionChecks.isAdmin(sessionDao.findOne(sessionId).get())) {
             return userDao.findOne(id).get();
-        }else{
+        } else {
             return null;
         }
+    }
+
+    @RequestMapping("/emailexists")
+    @ResponseBody
+    public boolean emailExists(@RequestParam(name = "email", defaultValue = "") String email) {
+        return userDao.findByEmailAndActive(email, true).size() > 0;
     }
 
 

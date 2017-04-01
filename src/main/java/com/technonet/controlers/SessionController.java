@@ -71,7 +71,7 @@ public class SessionController {
     public String login(String username, String password,HttpServletResponse response){
         Session session;
         User user;
-        List<User> users=userDao.findByUsernameAndPassword(username,password);
+        List<User> users=userDao.findByEmailAndPassword(username,password);
 
         if(users.size()==0){
             return "redirect:/";
@@ -100,7 +100,7 @@ public class SessionController {
             List<User> users=userDao.findByFacebookIdAndActive(fbSession.id,true);
 
             if(users.size()==0){
-                return null;
+                return new Session();
             }else{
                 user=users.get(0);
                 session=new Session(new Date(),user);

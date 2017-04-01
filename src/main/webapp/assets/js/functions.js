@@ -11,7 +11,7 @@ var permissions = {};
 $.getJSON("/getsessionstatus", function (result) {
     if (!result["isactive"]) {
         eraseCookie("projectSessionId");
-        window.location.href = "/login.html";
+        window.location.href = "/";
     }
 });
 $(document).ready(function () {
@@ -124,7 +124,7 @@ $(document).ready(function () {
         $.getJSON("/logout", function (result) {
             if (result) {
                 eraseCookie("projectSessionId");
-                window.location.href = "/login.html";
+                window.location.href = "/";
             }
         })
 

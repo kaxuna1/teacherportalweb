@@ -5,14 +5,17 @@ $(document).ready(function () {
     $("#logisignbtn").click(function () {
         showModalWithTableInside(function (head, body, modal, random, footer) {
             //$(".modal-header").remove();
-            body.append(' <form class="form-signin">' +
+            body.append(' <form action="loginapi" method="post" class="form-signin">' +
                 ' <h2 class="form-signin-heading">Please login</h2>' +
-                '<input type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />' +
-                '<input type="password" class="form-control" name="password" placeholder="Password" required=""/>' +
-                '<a style="background-color: #ee9cac;color: white;" class="btn btn-block btn-social"> <span class="fa fa-sign-in"></span> Sign in </a>' +
+                '<input style="margin-top: 5px;" type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />' +
+                '<input style="margin-top: 5px;" type="password" class="form-control" name="password" placeholder="Password" required=""/>' +
+                '<button style="margin-top: 5px;background-color: #ee9cac;color: white;" id="signInBtn" class="btn btn-block btn-social"> <span class="fa fa-sign-in"></span> Sign in </button>' +
                 '<a id="signInFB" onclick="loginWithFace()" class="btn btn-block btn-social btn-facebook"> <span class="fa fa-facebook"></span> Sign in with Facebook </a>' +
                 '<a id="signInGoogle" class="btn btn-block btn-social btn-google"> <span class="fa fa-google"></span> Sign in with Google </a>' +
                 '</form>');
+            $("#signInBtn").click(function () {
+
+            })
 
         }, {
             "sign up": function () {
@@ -35,11 +38,23 @@ $(document).ready(function () {
                         '<div id="errorMessage"></div>' +
                         '</form>');
 
+                    $("#emailReg").change(function () {
+                        $.getJSON("emailexists?email=" + $(this).val(), function (result) {
+                            $("#emailExistsError").remove();
+                            if (result) {
+                                $("#emailReg").addClass("reg-invalid");
+                                $("#errorMessage").append("<p id='emailExistsError'>Email exists</p>")
+                            } else {
+                                $("#emailReg").removeClass("reg-invalid");
+                            }
+                        })
+                    });
                     $("#connectFB").click(function () {
                         registerWithFacebook();
                     });
                     $("#registerBtn").click(function () {
                         $('.reg-control').removeClass("reg-invalid");
+                        $("#emailExistsError").remove();
                         var regData = {};
                         var valid = true;
                         regData["name"] = $("#nameReg").val();
@@ -51,6 +66,18 @@ $(document).ready(function () {
                                 $("#" + key + "Reg").addClass("reg-invalid");
                                 valid = false;
                             }
+                        }
+                        if ($("#connectFB").attr("value")) {
+                            regData["fbId"] = $("#connectFB").attr("value");
+                        }
+                        if (valid) {
+                            $.ajax({
+                                url: "registerapi",
+                                data: regData
+                            }).done(function (result) {
+                                createCookie("projectSessionId", result["id"], 365);
+                                location.reload();
+                            })
                         }
 
                     })
@@ -96,6 +123,7 @@ window.fbAsyncInit = function () {
 
 };
 function registerWithFacebook() {
+    $("#emailExistsError").remove();
     FB.login(function (response) {
         //https://graph.facebook.com/me?access_token=
         //10202582199151436
@@ -105,10 +133,10 @@ function registerWithFacebook() {
                 console.log(result);
                 if (result) {
                     var token = response.authResponse.accessToken;
-                    $.getJSON("/loginapifb/" + token, function (result) {
-                        if (result) {
-                            createCookie("projectSessionId",result["id"],365);
-                            createCookie("userId",result["user"]["id"],365);
+                    $.getJSON("/loginapifb/" + token, function (session) {
+                        console.log(session)
+                        if (session.id) {
+                            createCookie("projectSessionId", session["id"], 365);
                             location.reload();
                         } else {
                             $("#imagePlace").html("<img style='height: 150px' src='http://graph.facebook.com/" + result.id + "/picture?type=large'>");
@@ -117,13 +145,12 @@ function registerWithFacebook() {
                             $("#nameReg").val(name);
                             $("#surnameReg").val(surname);
                             $("#emailReg").val(result.email);
+                            $("#emailReg").change();
                             $("#connectGoogle").hide();
                             $("#connectFB").unbind().html('<span class="fa fa-facebook"></span>Facebook Connected');
+                            $("#connectFB").attr("value", result.id);
                         }
                     })
-
-
-
 
 
                 }
@@ -150,8 +177,7 @@ function loginWithFace() {
             var token = response.authResponse.accessToken;
             $.getJSON("/loginapifb/" + token, function (result) {
                 if (result) {
-                    createCookie("projectSessionId",result["id"],365);
-                    createCookie("userId",result["user"]["id"],365);
+                    createCookie("projectSessionId", result["id"], 365);
                     location.reload();
                 } else {
                     alert("no such user")
@@ -182,6 +208,24 @@ function loginWithFace() {
 
  }
  */
+$(".settingsBtn").click(function () {
+    showModalWithTableInside(function (head, body, modal, rand) {
+        body.html("<ul class='settingsList'>" +
+            "<li class='settingsItem'><a class='settingsItemA'><h3>Name</h3><span>kaxa gelashvili</span><span><span>edit</span></span></a> </li>" +
+            "<li class='settingsItem'></li>" +
+            "<li class='settingsItem'></li>" +
+            "</ul>")
+    }, {}, 500, true);
+});
+
+$(".logoutBtn").click(function () {
+    $.getJSON("/logout", function (result) {
+        if (result) {
+            eraseCookie("projectSessionId");
+            window.location.href = "/";
+        }
+    })
+})
 
 (function (d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];

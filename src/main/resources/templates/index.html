@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
 
@@ -27,7 +27,8 @@
     </script>
     <script src="js/templates.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="493400848528-rvhu5blcif6mhpujdrm083ll77bd53dq.apps.googleusercontent.com">
+    <meta name="google-signin-client_id"
+          content="493400848528-rvhu5blcif6mhpujdrm083ll77bd53dq.apps.googleusercontent.com">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300" rel="stylesheet">
     <!-- Bootstrap Core CSS -->
@@ -140,15 +141,31 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="hidden">
-                    <a href="#page-top"></a>
-                </li>
-                <li id="logisignbtn">
-                    <a class="page-scroll" href="#" style="color: black;font-family: font1">LOGIN/SIGN UP</a>
-                </li>
+            <ul th:if="${!loggedIn}" class="nav navbar-nav navbar-left">
                 <li id="becometeacherbtn">
-                    <a class="page-scroll" href="#" style="color: black;font-family: font1">BECOME A TEACHER</a>
+                    <a class="page-scroll" th:text="${strings.main_become_a_teacher}" href="#"
+                       style="color: black;font-family: font1"></a>
+                </li>
+            </ul>
+            <ul th:if="${!loggedIn}" class="nav navbar-nav navbar-right">
+                <li id="logisignbtn">
+                    <a class="page-scroll" th:text="${strings.main_login_signup}" href="#"
+                       style="color: black;font-family: font1"></a>
+                </li>
+            </ul>
+            <ul th:if="${loggedIn}" class="nav navbar-nav navbar-right">
+                <li class="dropdown" id="userBtn">
+                    <a href="#" th:text="${userNameSurname}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false"> <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li class="profileBtn"><a href="#">Profile</a></li>
+                        <li class="settingsBtn"><a href="#">Settings</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a class="logoutBtn" href="#">Log Out</a></li>
+                    </ul>
+                </li>
+                <li id="userPic">
+                    <img class="profilePicInHeader" th:src="${profilePicUrl}">
                 </li>
             </ul>
         </div>

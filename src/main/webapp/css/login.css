@@ -1,5 +1,5 @@
 .reg-control{
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 .birthdayPicker select{
     width: 33%;
@@ -11,4 +11,35 @@
 }
 #errorMessage{
     color: red;
+}
+#emailExistsError{
+    color: red;
+}
+.profilePicInHeader{
+    height: 50px;
+}
+.dropdown a{
+    color: black;
+}
+.settingsList{
+    border-top: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.settingsItem{
+    border-color: #e9ebee;
+    border-style: solid;
+    word-wrap: break-word;
+}
+.settingsItemA{
+    background: transparent;
+    display: block;
+    text-decoration: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    zoom: 1;
 }

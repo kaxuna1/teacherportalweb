@@ -112,6 +112,22 @@ public class User {
 
     public User() {
     }
+    public User(String password,
+                String email,
+                String name,
+                String surname){
+        this.password = password;
+        this.email = email;
+        this.name = name;
+        this.surname = surname;
+        this.username="";
+        this.active=true;
+        this.confirmedEmail=false;
+        this.confirmedSMS=false;
+        this.personalNumber="";
+        this.facebookId="";
+        this.googleId="";
+    }
 
 
     public User(String username,
