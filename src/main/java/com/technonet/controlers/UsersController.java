@@ -70,20 +70,20 @@ public class UsersController {
                                @RequestParam(value = "name", required = false, defaultValue = "") String name,
                                @RequestParam(value = "surname", required = false, defaultValue = "") String surname,
                                @RequestParam(value = "fbId", required = false, defaultValue = "") String fbId,
-                               @RequestParam(value = "googleId", required = false, defaultValue = "") String googleId){
-        if(password.isEmpty()||email.isEmpty()||emailExists(email)||name.isEmpty()||surname.isEmpty()){
+                               @RequestParam(value = "googleId", required = false, defaultValue = "") String googleId) {
+        if (password.isEmpty() || email.isEmpty() || emailExists(email) || name.isEmpty() || surname.isEmpty()) {
             return new Session();
         }
-        User user = new User(password,email,name,surname);
-        if(!fbId.isEmpty()){
+        User user = new User(password, email, name, surname);
+        if (!fbId.isEmpty()) {
             user.setFacebookId(fbId);
         }
-        if(!googleId.isEmpty()){
+        if (!googleId.isEmpty()) {
             user.setGoogleId(googleId);
         }
         userDao.save(user);
-        Session session=new Session(new Date(),user);
-        session=sessionDao.save(session);
+        Session session = new Session(new Date(), user);
+        session = sessionDao.save(session);
 
         return session;
     }
@@ -201,12 +201,64 @@ public class UsersController {
 
     @RequestMapping("/getuser/{id}")
     @ResponseBody
-    public User getUser(@CookieValue("projectSessionId") long sessionId, @PathVariable("") long id) {
+    public User getUser(@CookieValue("projectSessionId") long sessionId, @PathVariable("id") long id) {
         if (PermisionChecks.isAdmin(sessionDao.findOne(sessionId).get())) {
             return userDao.findOne(id).get();
         } else {
             return null;
         }
+    }
+
+    @RequestMapping("/mydata")
+    @ResponseBody
+    public User getMyData(@CookieValue("projectSessionId") long sessionId) {
+        return sessionDao.findOne(sessionId).get().getUser();
+    }
+
+    @RequestMapping("/disconnect/{type}")
+    @ResponseBody
+    public boolean disconnect(@CookieValue("projectSessionId") long sessionId, @PathVariable("type") int type) {
+        Session session = sessionDao.findOne(sessionId).get();
+        if (type == 1) {
+            session.getUser().setFacebookId("");
+        }
+        if (type == 2) {
+            session.getUser().setGoogleId("");
+        }
+        if (type == 3) {
+            session.getUser().setCalendarRefreshToken("");
+            session.getUser().setCalendarId("");
+        }
+        if (type == 4) {
+            session.getUser().setCalendarId("");
+        }
+        sessionDao.save(session);
+
+        return true;
+
+    }
+
+    @RequestMapping("/connectSocial/{type}")
+    @ResponseBody
+    public boolean connectSocial(@CookieValue("projectSessionId") long sessionId, @PathVariable("type") int type, @RequestParam(name = "value") String value) {
+        Session session = sessionDao.findOne(sessionId).get();
+        if (type == 1) {
+            if (userDao.findByFacebookIdAndActive(value, true).size() == 0) {
+                session.getUser().setFacebookId(value);
+            } else {
+                return false;
+            }
+        }
+        if (type == 2) {
+            if (userDao.findByGoogleIdAndActive(value, true).size() == 0) {
+                session.getUser().setGoogleId(value);
+            }else{
+                return false;
+            }
+        }
+        sessionDao.save(session);
+
+        return true;
     }
 
     @RequestMapping("/emailexists")

@@ -181,8 +181,7 @@ public class SessionController {
     }
 
     @RequestMapping("/oauthcall")
-    @ResponseBody
-    public boolean savecalltoken(@CookieValue("projectSessionId") long sessionId,
+    public String savecalltoken(@CookieValue("projectSessionId") long sessionId,
                                  @RequestParam("code")String token){
         Session session= sessionDao.findOne(sessionId).get();
         User user=session.getUser();
@@ -204,7 +203,7 @@ public class SessionController {
             e.printStackTrace();
         }
 
-        return true;
+        return "redirect:/";
     }
     private String getAccessToken(String token)
     {

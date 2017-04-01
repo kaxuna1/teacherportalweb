@@ -42,4 +42,30 @@
     padding-left: 5px;
     padding-right: 5px;
     zoom: 1;
+    cursor: pointer;
+}
+.settingsItemA:hover{
+    background-color: lightgrey;
+}
+.settingsItemH{
+    margin: 0;
+    padding: 0;
+    color: #333;
+    float: left;
+    font-size: 11px;
+    width: 165px;
+}
+.settingsItemEditButton{
+    color: #365899;
+    float: right;
+    padding-left: 25px;
+    padding-right: 5px;
+    text-align: right;
+}
+.settingsItemValue{
+    color: #90949c;
+    padding-left: 0;
+}
+.disconectFbButton{
+    margin-left: 5px;
 }

@@ -209,14 +209,176 @@ function loginWithFace() {
  }
  */
 $(".settingsBtn").click(function () {
-    showModalWithTableInside(function (head, body, modal, rand) {
-        body.html("<ul class='settingsList'>" +
-            "<li class='settingsItem'><a class='settingsItemA'><h3>Name</h3><span>kaxa gelashvili</span><span><span>edit</span></span></a> </li>" +
-            "<li class='settingsItem'></li>" +
-            "<li class='settingsItem'></li>" +
-            "</ul>")
-    }, {}, 500, true);
+    $.getJSON("/mydata", function (result) {
+        console.log(result);
+        showModalWithTableInside(function (head, body, modal, rand) {
+            body.html("<ul class='settingsList'>" +
+                "<li class='settingsItem'>" +
+                "<a class='settingsItemA'>" +
+                "<h3 class='settingsItemH'>Name</h3>" +
+                "<span class='settingsItemValue'>" + result.nameSurname + "</span>" +
+                "<span><span class='settingsItemEditButton'>edit</span></span></a> </li>" +
+                "<li class='settingsItem'>" +
+                "<a class='settingsItemA'>" +
+                "<h3 class='settingsItemH'>Email</h3>" +
+                "<span class='settingsItemValue'>" + result.email + "</span>" +
+                "<span><span class='settingsItemEditButton'>edit</span></span></a> </li>" +
+                "<li class='settingsItem'>" +
+                "<a class='settingsItemA'>" +
+                "<h3 class='settingsItemH'>Password</h3>" +
+                "<span class='settingsItemValue'>******</span>" +
+                "<span><span class='settingsItemEditButton'>edit</span></span></a> </li>" +
+                "<li class='settingsItem'>" +
+                "<a class='settingsItemA'>" +
+                "<h3 class='settingsItemH'>Language</h3>" +
+                "<span class='settingsItemValue'>" + result.langName + "</span>" +
+                "<span><span class='settingsItemEditButton'>edit</span></span></a> </li>" +
+                "<li class='settingsItem'>" +
+                "<a class='settingsItemA'>" +
+                "<h3 class='settingsItemH'>Facebook</h3>" +
+                "<span class='settingsItemValue'>" + getFacebookFieldForSettings(result) + "</span>" +
+                "<span><span class='settingsItemEditButton'></span></span></a> </li>" +
+                "<li class='settingsItem'>" +
+                "<a class='settingsItemA'>" +
+                "<h3 class='settingsItemH'>Google</h3>" +
+                "<span class='settingsItemValue'>" + getGoogleFieldForSettings(result) + "</span>" +
+                "<span><span class='settingsItemEditButton'></span></span></a> </li>" +
+                "<li class='settingsItem'>" +
+                "<a class='settingsItemA'>" +
+                "<h3 class='settingsItemH'>Calendar</h3>" +
+                "<span class='settingsItemValue'>" + getCalendarFieldForSettings(result) + "</span>" +
+                "<span><span class='settingsItemEditButton'></span></span></a> </li>" +
+                getCalendarChooserField(result) +
+                "<li class='settingsItem'>" +
+                "<a class='settingsItemA'>" +
+                "<h3 class='settingsItemH'>Language</h3>" +
+                "<span class='settingsItemValue'>" + result.langName + "</span>" +
+                "<span><span class='settingsItemEditButton'>edit</span></span></a> </li>" +
+                "</ul>");
+            $(".disconnectFbButton").click(function () {
+                $.getJSON("/disconnect/1", function (result) {
+                    if (result) {
+                        modal.modal("hide");
+                        $(".settingsBtn").click();
+                    }
+                })
+            });
+            $(".disconnectGoogleButton").click(function () {
+                $.getJSON("/disconnect/2", function (result) {
+                    if (result) {
+                        modal.modal("hide");
+                        $(".settingsBtn").click();
+                    }
+                })
+            });
+            $(".connectGoogleButton").click(function () {
+                var auth2 = gapi.auth2.getAuthInstance();
+                //console.log(auth2);
+                auth2.signIn().then(function (response) {//request to sign in
+                    console.log(response);
+                    console.log(response.getId());
+                    var id = response.getId();
+                    $.ajax({
+                        url: "connectSocial/2",
+                        data: {
+                            value: id
+                        }
+                    }).done(function (result) {
+                        if (result) {
+                            modal.modal("hide");
+                            $(".settingsBtn").click();
+                        } else {
+                            alert("Cant connect account")
+                        }
+                    })
+                });
+            });
+            $(".connectFbButton").click(function () {
+                FB.login(function (response) {
+                    console.log(response);
+                    var id = response.authResponse.userID;
+                    $.ajax({
+                        url: "connectSocial/1",
+                        data: {
+                            value: id
+                        }
+                    }).done(function (result) {
+                        if (result) {
+                            modal.modal("hide");
+                            $(".settingsBtn").click();
+                        } else {
+                            alert("Cant connect account")
+                        }
+                    })
+                })
+            });
+            $(".connectCalendarButton").click(function () {
+                window.open("https://accounts.google.com/o/oauth2/v2/auth?" +
+                    "scope=https://www.googleapis.com/auth/calendar&" +
+                    "access_type=offline&" +
+                    "prompt=consent&" +
+                    "include_granted_scopes=true&" +
+                    "state=state_parameter_passthrough_value&" +
+                    "redirect_uri=http://localhost:8081/oauthcall&" +
+                    "response_type=code&" +
+                    "client_id=55995473742-00obqav5bir1au4qdn4l1jgdvf7kbmv2.apps.googleusercontent.com", "_self");
+            });
+            $(".disconnectCalendarButton").click(function () {
+                $.getJSON("/disconnect/3", function (result) {
+                    if (result) {
+                        modal.modal("hide");
+                        $(".settingsBtn").click();
+                    }
+                })
+            })
+
+        }, {}, 500, true);
+
+
+    })
+
 });
+function getFacebookFieldForSettings(user) {
+    if (user.facebookConnected) {
+        return "connected<button class='disconnectFbButton' style='margin-left: 5px'>Disconnect</button>";
+    } else {
+        return "<button class='connectFbButton'>connect</button>"
+    }
+}
+function getGoogleFieldForSettings(user) {
+    if (user.googleConnected) {
+        return "connected<button class='disconnectGoogleButton' style='margin-left: 5px'>Disconnect</button>";
+    } else {
+        return "<button class='connectGoogleButton'>connect</button>";
+    }
+}
+function getCalendarFieldForSettings(user) {
+    if (user.calendarConnected) {
+        return "connected<button class='disconnectCalendarButton' style='margin-left: 5px'>Disconnect</button>";
+    } else {
+        return "<button class='connectCalendarButton'>connect</button>";
+    }
+}
+function getCalendarChooserField(user) {
+    if (user.calendarConnected) {
+        return "<li class='settingsItem'>" +
+            "<a class='settingsItemA'>" +
+            "<h3 class='settingsItemH'>Calendar To Use</h3>" +
+            "<span class='settingsItemValue'>" + (user.calendarId ? user.calendarId : "not selected") + "</span>" +
+            "<span><span class='settingsItemEditButton'>edit</span></span></a> </li>";
+    }
+    else {
+        return "";
+    }
+
+}
+function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+}
 
 $(".logoutBtn").click(function () {
     $.getJSON("/logout", function (result) {
@@ -225,8 +387,7 @@ $(".logoutBtn").click(function () {
             window.location.href = "/";
         }
     })
-})
-
+});
 (function (d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) {

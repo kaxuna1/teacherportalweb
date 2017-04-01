@@ -2,6 +2,7 @@ package com.technonet.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.technonet.Enums.Languages;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -54,6 +55,8 @@ public class User {
     @Column
     private boolean confirmedSMS;
 
+    @Column
+    private int language;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
@@ -89,8 +92,8 @@ public class User {
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BookedTime> bookedTimesStudent;
 
-    @JsonIgnore
     @Column
+    @JsonIgnore
     private String facebookId;
     @JsonIgnore
     @Column
@@ -98,6 +101,7 @@ public class User {
     @Column
     private boolean active;
     @Column
+    @JsonIgnore
     private String calendarRefreshToken;
     @Column
     private String calendarId;
@@ -127,6 +131,9 @@ public class User {
         this.personalNumber="";
         this.facebookId="";
         this.googleId="";
+        this.language=1;
+        this.calendarRefreshToken="";
+        this.calendarId="";
     }
 
 
@@ -161,6 +168,9 @@ public class User {
         this.bookedTimesStudent=new ArrayList<>();
         this.orders=new ArrayList<>();
         this.active=true;
+        this.language=1;
+        this.calendarRefreshToken="";
+        this.calendarId="";
     }
 
 
@@ -400,5 +410,25 @@ public class User {
 
     public void setCalendarId(String calendarId) {
         this.calendarId = calendarId;
+    }
+
+    public int getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(int language) {
+        this.language = language;
+    }
+    public String getLangName(){
+        return  Languages.valueOf(this.language).name();
+    }
+    public boolean isFacebookConnected(){
+        return !this.facebookId.isEmpty();
+    }
+    public boolean isGoogleConnected(){
+        return !this.googleId.isEmpty();
+    }
+    public boolean isCalendarConnected(){
+        return !this.calendarRefreshToken.isEmpty();
     }
 }

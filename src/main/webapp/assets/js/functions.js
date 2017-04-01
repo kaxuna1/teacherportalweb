@@ -135,7 +135,7 @@ $(document).ready(function () {
     $("#settingsBtn").click(function () {
 
         showModalWithTableInside(function (head, body, modal, rand) {
-            body.append("<button class='btn btn-flat' id='callConnect'>Connect Google Callendar</button>")
+            body.append("<button class='btn btn-flat' id='callConnect'>Connect Google Calendar</button>")
             $("#callConnect").click(function () {
                 window.open("https://accounts.google.com/o/oauth2/v2/auth?" +
                     "scope=https://www.googleapis.com/auth/calendar&" +
@@ -145,7 +145,7 @@ $(document).ready(function () {
                     "state=state_parameter_passthrough_value&" +
                     "redirect_uri=http://localhost:8081/oauthcall&" +
                     "response_type=code&" +
-                    "client_id=55995473742-00obqav5bir1au4qdn4l1jgdvf7kbmv2.apps.googleusercontent.com", "_blank")
+                    "client_id=55995473742-00obqav5bir1au4qdn4l1jgdvf7kbmv2.apps.googleusercontent.com", "_blank");
 
             });
             $.getJSON("/getmycalendarslist",function (result) {
