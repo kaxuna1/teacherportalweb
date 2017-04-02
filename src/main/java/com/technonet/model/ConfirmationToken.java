@@ -14,6 +14,8 @@ import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
 
+import static com.technonet.staticData.Variables.mailer;
+
 /**
  * Created by kaxa on 3/11/17.
  */
@@ -103,11 +105,12 @@ public class ConfirmationToken {
     public void setConfimed(boolean confimed) {
         this.confimed = confimed;
     }
-    public void confirmToken(){
-        if(!confimed){
+
+    public void confirmToken() {
+        if (!confimed) {
             this.confimed = true;
             this.confirmationDate = new Date();
-            if(this.type==ConfirmationTypes.EMAIL.getCODE()){
+            if (this.type == ConfirmationTypes.EMAIL.getCODE()) {
                 this.user.setEmail(this.mailForConfirmation);
                 this.user.setConfirmedEmail(true);
             }
@@ -132,20 +135,18 @@ public class ConfirmationToken {
     }
 
     public void sendMail() {
-        new Thread(() -> {
-            Email email = new Email();
-            email.setFromAddress("ALLWITZ Confirmation", "confirm@allwitz.com");
-            email.addRecipient("", mailForConfirmation, Message.RecipientType.TO);
-            email.setSubject("Hello Confirm Your Email On ALLWITZ");
-            email.setText("We should meet up! ;)");
-            email.setTextHTML("please Confirm Account </br> " +
-                    "<a href='http://localhost:8081/confirmtoken?token="+token+"'>click here to confirm</a>");
 
-            new Mailer(
-                    new ServerConfig("smtp.gmail.com", 587, "kaxgel11@gmail.com", "dwrstn11"),
-                    TransportStrategy.SMTP_TLS
-            ).sendMail(email);
-        }).run();
+        Email email = new Email();
+        email.setFromAddress("ALLWITZ Confirmation", "confirm@allwitz.com");
+        email.addRecipient("", mailForConfirmation, Message.RecipientType.TO);
+        email.setSubject("Hello Confirm Your Email On ALLWITZ");
+        email.setText("We should meet up! ;)");
+        email.setTextHTML("please Confirm Account </br> " +
+                "<a href='http://localhost:8081/confirmtoken?token=" + token + "'>click here to confirm</a>");
+
+
+        mailer.sendMail(email, true);
+
 
     }
 

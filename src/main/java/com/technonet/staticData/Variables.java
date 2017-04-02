@@ -9,6 +9,9 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.technonet.model.User;
 import com.technonet.model.WeekDay;
+import org.simplejavamail.mailer.Mailer;
+import org.simplejavamail.mailer.config.ServerConfig;
+import org.simplejavamail.mailer.config.TransportStrategy;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -20,6 +23,14 @@ import java.util.HashMap;
 public class Variables {
     public static String appDir = "/Users/vakhtanggelashvili/IdeaProjects/teacherportalweb/build/app";
     //public static String appDir="D:/app";
+
+    public static Mailer mailer=new Mailer(
+            new ServerConfig("smtp.gmail.com", 587, "kaxgel11@gmail.com", "dwrstn11"),
+            TransportStrategy.SMTP_TLS
+    );
+    static {
+        mailer.setThreadPoolSize(50);
+    }
 
     public static BufferedImage getScaledInstance(BufferedImage img, int targetWidth, int targetHeight, Object hint,
                                                   boolean higherQuality) {
