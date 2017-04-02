@@ -1,16 +1,6 @@
 /**
  * Created by kakha on 3/30/2017.
  */
-function onLoad() {
-    gapi.load("client:auth2", function () {
-        alert(1);
-    });
-
-    gapi.load('auth2', function() {
-        gapi.auth2.init();
-        alert(2);
-    });
-}
 
 $(document).ready(function () {
     $("#logisignbtn").click(function () {
@@ -28,7 +18,7 @@ $(document).ready(function () {
 
             });
             $("#signInGoogle").click(function () {
-                gapi.load('auth2', function() {
+                gapi.load('auth2', function () {
                     gapi.auth2.init();
                     var auth2 = gapi.auth2.getAuthInstance();
                     //console.log(auth2);
@@ -37,7 +27,7 @@ $(document).ready(function () {
                         var id_token = response.getAuthResponse().id_token;
                         $.getJSON("/loginapigoogle?token=" + id_token, function (result) {
                             if (result) {
-                                createCookie("projectSessionId",result["id"],365);
+                                createCookie("projectSessionId", result["id"], 365);
                                 location.reload();
                             } else {
                                 alert("no such user")
@@ -246,13 +236,13 @@ $(".settingsBtn").click(function () {
                 "<li class='settingsItem'>" +
                 "<a class='settingsItemA'>" +
                 "<h3 class='settingsItemH'>Name</h3>" +
-                "<span class='settingsItemValue'>" + result.nameSurname + "</span>" +
-                "<span><span class='settingsItemEditButton'>edit</span></span></a> </li>" +
+                "<span class='settingsItemValue' id='settingsItemValueNameSurname'>" + result.nameSurname + "</span>" +
+                "<span><span id='nameSurnameSettingsItem' class='settingsItemEditButton'>edit</span></span></a> <div id='nameSurnameSettingsFormDiv' hidden class='settingsChangeFormDiv'></div></li>" +
                 "<li class='settingsItem'>" +
                 "<a class='settingsItemA'>" +
                 "<h3 class='settingsItemH'>Email</h3>" +
-                "<span class='settingsItemValue'>" + result.email + "</span>" +
-                "<span><span class='settingsItemEditButton'>edit</span></span></a> </li>" +
+                "<span class='settingsItemValue' style='font-size: 12px' id='settingsItemValueEmail'>" + getMailStringForValue(result) + "</span>" +
+                "<span><span id='emailSettingsItem' class='settingsItemEditButton'>edit</span></span></a> <div id='emailSettingsFormDiv' hidden class='settingsChangeFormDiv'></div></li>" +
                 "<li class='settingsItem'>" +
                 "<a class='settingsItemA'>" +
                 "<h3 class='settingsItemH'>Password</h3>" +
@@ -261,8 +251,8 @@ $(".settingsBtn").click(function () {
                 "<li class='settingsItem'>" +
                 "<a class='settingsItemA'>" +
                 "<h3 class='settingsItemH'>Language</h3>" +
-                "<span class='settingsItemValue'>" + result.langName + "</span>" +
-                "<span><span class='settingsItemEditButton'>edit</span></span></a> </li>" +
+                "<span class='settingsItemValue' id='settingsItemValueLang'>" + result.langName + "</span>" +
+                "<span><span id='langSettingsItem' class='settingsItemEditButton'>edit</span></span></a> <div id='langSettingsFormDiv' hidden class='settingsChangeFormDiv'></div></li>" +
                 "<li class='settingsItem'>" +
                 "<a class='settingsItemA'>" +
                 "<h3 class='settingsItemH'>Facebook</h3>" +
@@ -302,7 +292,7 @@ $(".settingsBtn").click(function () {
                 })
             });
             $(".connectGoogleButton").click(function () {
-                gapi.load('auth2', function() {
+                gapi.load('auth2', function () {
                     gapi.auth2.init();
                     var auth2 = gapi.auth2.getAuthInstance();
                     //console.log(auth2);
@@ -365,7 +355,109 @@ $(".settingsBtn").click(function () {
                         $(".settingsBtn").click();
                     }
                 })
-            })
+            });
+
+            $("#nameSurnameSettingsItem").click(function () {
+                if ($("#nameSurnameSettingsFormDiv").html() == "") {
+                    dynamicCreateForm($("#nameSurnameSettingsFormDiv"), "editme", {
+                        name: {
+                            name: "Name",
+                            type: "text",
+                            value: result.name
+                        },
+                        surname: {
+                            name: "Surname",
+                            type: "text",
+                            value: result.surname
+                        }
+                    }, function () {
+                        $("#nameSurnameSettingsFormDiv").slideUp().html("")
+                        $.getJSON("/mydata", function (result2) {
+                            result = result2;
+                            $("#settingsItemValueNameSurname").html(result.nameSurname)
+                        })
+                    });
+                    $("#nameSurnameSettingsFormDiv").slideDown()
+
+                } else {
+                    $("#nameSurnameSettingsFormDiv").slideUp().html("")
+
+                }
+
+            });
+            $("#emailSettingsItem").click(function () {
+                if ($("#emailSettingsFormDiv").html() == "") {
+                    dynamicCreateForm($("#emailSettingsFormDiv"), "editme", {
+                        email: {
+                            name: "Email",
+                            type: "text",
+                            value: result.email
+                        }
+                    }, function () {
+                        $("#emailSettingsFormDiv").slideUp().html("")
+                        $.getJSON("/mydata", function (result2) {
+                            result = result2;
+                            $("#settingsItemValueEmail").html(getMailStringForValue(result))
+                        })
+                    });
+                    $("#emailSettingsFormDiv").slideDown()
+
+                } else {
+                    $("#emailSettingsFormDiv").slideUp().html("")
+
+                }
+
+            });
+            $("#langSettingsItem").click(function () {
+                if ($("#langSettingsFormDiv").html() == "") {
+                    dynamicCreateForm($("#langSettingsFormDiv"), "editme", {
+                        lang: {
+                            name: "Language",
+                            type: "comboBox",
+                            valueField: "id",
+                            nameField: "name",
+                            url: "/getlanguages"
+                        }
+                    }, function () {
+                        $("#langSettingsFormDiv").slideUp().html("")
+                        $.getJSON("/mydata", function (result2) {
+                            result = result2;
+                            $("#settingsItemValueLang").html(result.langName)
+                        })
+                    });
+                    $("#langSettingsFormDiv").slideDown()
+
+                } else {
+                    $("#langSettingsFormDiv").slideUp().html("")
+
+                }
+
+            });
+            $("#calSettingsItem").click(function () {
+                if ($("#calSettingsFormDiv").html() == "") {
+                    dynamicCreateForm($("#calSettingsFormDiv"), "editme", {
+                        cal: {
+                            name: "Calendar",
+                            type: "comboBox",
+                            valueField: "id",
+                            nameField: "summary",
+                            url: "/getmycalendarslist"
+                        }
+                    }, function () {
+                        $("#calSettingsFormDiv").slideUp().html("")
+                        $.getJSON("/mydata", function (result2) {
+                            result = result2;
+                            $("#settingsItemValueCal").html((result.calendarId ? result.calendarId : "not selected"))
+                        })
+                    });
+                    $("#calSettingsFormDiv").slideDown()
+
+                } else {
+                    $("#calSettingsFormDiv").slideUp().html("")
+
+                }
+
+            });
 
         }, {}, 500, true);
 
@@ -373,6 +465,11 @@ $(".settingsBtn").click(function () {
     })
 
 });
+
+function getMailStringForValue(user) {
+    return user.email+(user.confirmedEmail?"":"(Not Confirmed)")
+}
+
 function getFacebookFieldForSettings(user) {
     if (user.facebookConnected) {
         return "connected<button class='disconnectFbButton' style='margin-left: 5px'>Disconnect</button>";
@@ -399,8 +496,8 @@ function getCalendarChooserField(user) {
         return "<li class='settingsItem'>" +
             "<a class='settingsItemA'>" +
             "<h3 class='settingsItemH'>Calendar To Use</h3>" +
-            "<span class='settingsItemValue'>" + (user.calendarId ? user.calendarId : "not selected") + "</span>" +
-            "<span><span class='settingsItemEditButton'>edit</span></span></a> </li>";
+            "<span class='settingsItemValue' id='settingsItemValueCal'>" + (user.calendarId ? user.calendarId : "not selected") + "</span>" +
+            "<span><span id='calSettingsItem' class='settingsItemEditButton'>edit</span></span></a> <div id='calSettingsFormDiv' hidden class='settingsChangeFormDiv'></div></li>";
     }
     else {
         return "";

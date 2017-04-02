@@ -2,7 +2,13 @@ package com.technonet.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.technonet.Enums.ConfirmationTypes;
+import org.simplejavamail.email.Email;
+import org.simplejavamail.mailer.Mailer;
+import org.simplejavamail.mailer.config.ProxyConfig;
+import org.simplejavamail.mailer.config.ServerConfig;
+import org.simplejavamail.mailer.config.TransportStrategy;
 
+import javax.mail.Message;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Random;
@@ -29,6 +35,9 @@ public class ConfirmationToken {
     private Date date;
 
     @Column
+    private Date confirmationDate;
+
+    @Column
     private boolean confimed;
 
     @ManyToOne
@@ -36,18 +45,22 @@ public class ConfirmationToken {
     @JsonIgnore
     private User user;
 
+    @Column
+    private String mailForConfirmation;
+
     public ConfirmationToken(int type, User user) {
         this.type = type;
         this.user = user;
-        if(type== ConfirmationTypes.EMAIL.getCODE()){
+        if (type == ConfirmationTypes.EMAIL.getCODE()) {
             this.token = UUID.randomUUID().toString();
-        }else{
-            this.token = ((new Random().nextInt(9000) + 1000)+"");
+        } else {
+            this.token = ((new Random().nextInt(9000) + 1000) + "");
         }
         this.date = new Date();
         this.confimed = false;
     }
-    public ConfirmationToken(){
+
+    public ConfirmationToken() {
 
     }
 
@@ -90,6 +103,17 @@ public class ConfirmationToken {
     public void setConfimed(boolean confimed) {
         this.confimed = confimed;
     }
+    public void confirmToken(){
+        if(!confimed){
+            this.confimed = true;
+            this.confirmationDate = new Date();
+            if(this.type==ConfirmationTypes.EMAIL.getCODE()){
+                this.user.setEmail(this.mailForConfirmation);
+                this.user.setConfirmedEmail(true);
+            }
+        }
+
+    }
 
     public User getUser() {
         return user;
@@ -97,5 +121,39 @@ public class ConfirmationToken {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getMailForConfirmation() {
+        return mailForConfirmation;
+    }
+
+    public void setMailForConfirmation(String mailForConfirmation) {
+        this.mailForConfirmation = mailForConfirmation;
+    }
+
+    public void sendMail() {
+        new Thread(() -> {
+            Email email = new Email();
+            email.setFromAddress("ALLWITZ Confirmation", "confirm@allwitz.com");
+            email.addRecipient("", mailForConfirmation, Message.RecipientType.TO);
+            email.setSubject("Hello Confirm Your Email On ALLWITZ");
+            email.setText("We should meet up! ;)");
+            email.setTextHTML("please Confirm Account </br> " +
+                    "<a href='http://localhost:8081/confirmtoken?token="+token+"'>click here to confirm</a>");
+
+            new Mailer(
+                    new ServerConfig("smtp.gmail.com", 587, "kaxgel11@gmail.com", "dwrstn11"),
+                    TransportStrategy.SMTP_TLS
+            ).sendMail(email);
+        }).run();
+
+    }
+
+    public Date getConfirmationDate() {
+        return confirmationDate;
+    }
+
+    public void setConfirmationDate(Date confirmationDate) {
+        this.confirmationDate = confirmationDate;
     }
 }

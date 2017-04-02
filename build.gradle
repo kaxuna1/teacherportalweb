@@ -61,6 +61,9 @@ dependencies {
 	compile 'com.google.apis:google-api-services-calendar:v3-rev237-1.22.0'
 // https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-core-asl
 	compile group: 'org.codehaus.jackson', name: 'jackson-core-asl', version: '1.9.13'
+// https://mvnrepository.com/artifact/javax.mail/mail
+	compile group: 'javax.mail', name: 'mail', version: '1.4.1'
+	compile 'org.simplejavamail:simple-java-mail:4.2.1-java6-release'
 
 
 

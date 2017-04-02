@@ -1,39 +1,48 @@
-.reg-control{
+.reg-control {
     margin-bottom: 5px;
 }
-.birthdayPicker select{
+
+.birthdayPicker select {
     width: 33%;
     margin: 5px;
 }
-.reg-invalid{
+
+.reg-invalid {
     border-color: red;
     outline-color: red;
 }
-#errorMessage{
+
+#errorMessage {
     color: red;
 }
-#emailExistsError{
+
+#emailExistsError {
     color: red;
 }
-.profilePicInHeader{
+
+.profilePicInHeader {
     height: 50px;
 }
-.dropdown a{
+
+.dropdown a {
     color: black;
 }
-.settingsList{
+
+.settingsList {
     border-top: 1px solid #aaa;
     border-bottom: 1px solid #aaa;
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
-.settingsItem{
+
+.settingsItem {
     border-color: #e9ebee;
     border-style: solid;
     word-wrap: break-word;
 }
-.settingsItemA{
+
+.settingsItemA {
     background: transparent;
     display: block;
     text-decoration: none;
@@ -44,10 +53,12 @@
     zoom: 1;
     cursor: pointer;
 }
-.settingsItemA:hover{
+
+.settingsItemA:hover {
     background-color: lightgrey;
 }
-.settingsItemH{
+
+.settingsItemH {
     margin: 0;
     padding: 0;
     color: #333;
@@ -55,17 +66,27 @@
     font-size: 11px;
     width: 165px;
 }
-.settingsItemEditButton{
+
+.settingsItemEditButton {
     color: #365899;
     float: right;
     padding-left: 25px;
     padding-right: 5px;
     text-align: right;
 }
-.settingsItemValue{
+
+.settingsItemValue {
     color: #90949c;
     padding-left: 0;
 }
-.disconectFbButton{
+
+.disconectFbButton {
     margin-left: 5px;
+}
+
+.settingsChangeFormDiv {
+    padding: 10px;
+}
+.btn{
+    margin-left: 10px;
 }

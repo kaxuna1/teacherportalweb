@@ -8,5 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
  * Created by kaxa on 3/11/17.
  */
 @Transactional
-public interface ConfirmationTokenRepo extends JpaRepository<ConfirmationToken,Long> {
+public interface ConfirmationTokenRepo extends JpaRepository<ConfirmationToken, Long> {
+    ConfirmationToken findByToken(String token);
 }

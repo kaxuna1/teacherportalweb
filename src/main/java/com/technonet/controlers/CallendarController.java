@@ -1,9 +1,6 @@
 package com.technonet.controlers;
 
-import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.auth.oauth2.TokenResponse;
-import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
-import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.*;
 import com.google.api.client.googleapis.batch.BatchRequest;
 import com.google.api.client.googleapis.batch.json.JsonBatchCallback;
@@ -11,14 +8,12 @@ import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.googleapis.json.GoogleJsonError;
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.DateTime;
 import com.google.api.client.util.Lists;
 import com.google.api.client.util.store.DataStoreFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
-import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.*;
 import com.technonet.Repository.SessionRepository;
 import com.technonet.Repository.UserRepository;
@@ -29,13 +24,13 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
-import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Created by vakhtanggelashvili on 3/21/17.
@@ -47,7 +42,7 @@ public class CallendarController {
 
     @RequestMapping("/getmycalendarslist")
     @ResponseBody
-    public CalendarList getMyCals(@CookieValue("projectSessionId") long sessionId){
+    public List<CalendarListEntry> getMyCals(@CookieValue("projectSessionId") long sessionId){
         Session session = sessionRepository.findOne(sessionId).get();
         if(session.getUser().getCalendarRefreshToken()!=null){
             try {
@@ -72,7 +67,12 @@ public class CallendarController {
                 client = new com.google.api.services.calendar.Calendar.Builder(
                         httpTransport, JSON_FACTORY, credential).setApplicationName(APPLICATION_NAME).build();
                 CalendarList feed = client.calendarList().list().execute();
-                return feed;
+                return feed.getItems().stream().filter(new Predicate<CalendarListEntry>() {
+                    @Override
+                    public boolean test(CalendarListEntry calendarListEntry) {
+                        return calendarListEntry.getAccessRole().equals("owner");
+                    }
+                }).collect(Collectors.toList());
 
             } catch (IOException | GeneralSecurityException e) {
                 e.printStackTrace();

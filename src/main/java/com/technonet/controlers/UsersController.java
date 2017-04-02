@@ -1,13 +1,13 @@
 package com.technonet.controlers;
 
 
+import com.technonet.Enums.ConfirmationTypes;
 import com.technonet.Enums.JsonReturnCodes;
+import com.technonet.Enums.Languages;
 import com.technonet.Repository.*;
-import com.technonet.model.JsonMessage;
-import com.technonet.model.Session;
-import com.technonet.model.User;
-import com.technonet.model.UserBuilder;
+import com.technonet.model.*;
 import com.technonet.staticData.PermisionChecks;
+import org.apache.commons.codec.language.bm.Lang;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -260,6 +260,66 @@ public class UsersController {
 
         return true;
     }
+    @RequestMapping("/editme")
+    @ResponseBody
+    public boolean editMe(@CookieValue("projectSessionId") long sessionId,
+                          @RequestParam(name = "name",defaultValue = "") String name,
+                          @RequestParam(name = "surname",defaultValue = "") String surname,
+                          @RequestParam(name = "email",defaultValue = "") String email,
+                          @RequestParam(name = "pn",defaultValue = "") String pn,
+                          @RequestParam(name = "phone",defaultValue = "") String phone,
+                          @RequestParam(name = "cal",defaultValue = "") String cal,
+                          @RequestParam(name = "birthDate",defaultValue = "0") long birthDate,
+                          @RequestParam(name = "lang",defaultValue = "0") int lang,
+                          @RequestParam(name = "city",defaultValue = "0") long city){
+
+        Session session= sessionDao.findOne(sessionId).get();
+        User user= session.getUser();
+        if(!name.isEmpty())
+            user.setName(name);
+        if(!surname.isEmpty())
+            user.setSurname(surname);
+        if(!email.isEmpty()){
+            if(emailExists(email)&&!user.getEmail().equals(email))
+                return false;
+
+            ConfirmationToken confirmationToken = new ConfirmationToken(ConfirmationTypes.EMAIL.getCODE(),user);
+            confirmationToken.setMailForConfirmation(email);
+            try{
+                confirmationTokenRepo.save(confirmationToken);
+                user.setConfirmedEmail(false);
+                user.setEmail(email);
+                confirmationToken.sendMail();
+            }catch (Exception e){
+                return false;
+            }
+        }
+        if(!cal.isEmpty())
+            user.setCalendarId(cal);
+        if(!phone.isEmpty())
+            user.setMobile(phone);
+        if(!pn.isEmpty())
+            user.setPersonalNumber(pn);
+        if(birthDate!=0)
+            user.setBirthDate(new Date(birthDate));
+        if(lang!=0&&Languages.valueOf(lang)!=null)
+            user.setLanguage(lang);
+        if(city!=0&&cityRepo.findOne(city).isPresent())
+            user.setCity(cityRepo.findOne(city).get());
+
+        userDao.save(user);
+        return true;
+    }
+    @RequestMapping("getlanguages")
+    @ResponseBody
+    public List<IdNameData> getLanguages(){
+        List<IdNameData> data=new ArrayList<>();
+        for(int i=0; i<Languages.values().length;i++){
+            data.add(new IdNameData(Languages.values()[i].getCODE(),Languages.values()[i].name()));
+        }
+
+        return data;
+    }
 
     @RequestMapping("/emailexists")
     @ResponseBody
@@ -268,6 +328,8 @@ public class UsersController {
     }
 
 
+    @Autowired
+    private ConfirmationTokenRepo confirmationTokenRepo;
     @Autowired
     private PermissionRepo permissionRepo;
     @Autowired
