@@ -134,6 +134,8 @@ public class User {
         this.language=1;
         this.calendarRefreshToken="";
         this.calendarId="";
+        this.mobile="";
+
     }
 
 

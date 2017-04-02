@@ -1,6 +1,17 @@
 /**
  * Created by kakha on 3/30/2017.
  */
+function onLoad() {
+    gapi.load("client:auth2", function () {
+        alert(1);
+    });
+
+    gapi.load('auth2', function() {
+        gapi.auth2.init();
+        alert(2);
+    });
+}
+
 $(document).ready(function () {
     $("#logisignbtn").click(function () {
         showModalWithTableInside(function (head, body, modal, random, footer) {
@@ -11,10 +22,29 @@ $(document).ready(function () {
                 '<input style="margin-top: 5px;" type="password" class="form-control" name="password" placeholder="Password" required=""/>' +
                 '<button style="margin-top: 5px;background-color: #ee9cac;color: white;" id="signInBtn" class="btn btn-block btn-social"> <span class="fa fa-sign-in"></span> Sign in </button>' +
                 '<a id="signInFB" onclick="loginWithFace()" class="btn btn-block btn-social btn-facebook"> <span class="fa fa-facebook"></span> Sign in with Facebook </a>' +
-                '<a id="signInGoogle" class="btn btn-block btn-social btn-google"> <span class="fa fa-google"></span> Sign in with Google </a>' +
+                '<a id="signInGoogle" class="g-signin2 btn btn-block btn-social btn-google" data-onsuccess="onSignIn"> <span class="fa fa-google"></span> Sign in with Google </a>' +
                 '</form>');
             $("#signInBtn").click(function () {
 
+            });
+            $("#signInGoogle").click(function () {
+                gapi.load('auth2', function() {
+                    gapi.auth2.init();
+                    var auth2 = gapi.auth2.getAuthInstance();
+                    //console.log(auth2);
+                    auth2.signIn().then(function (response) {//request to sign in
+                        console.log(response);
+                        var id_token = response.getAuthResponse().id_token;
+                        $.getJSON("/loginapigoogle?token=" + id_token, function (result) {
+                            if (result) {
+                                createCookie("projectSessionId",result["id"],365);
+                                location.reload();
+                            } else {
+                                alert("no such user")
+                            }
+                        })
+                    });
+                });
             })
 
         }, {
@@ -272,26 +302,31 @@ $(".settingsBtn").click(function () {
                 })
             });
             $(".connectGoogleButton").click(function () {
-                var auth2 = gapi.auth2.getAuthInstance();
-                //console.log(auth2);
-                auth2.signIn().then(function (response) {//request to sign in
-                    console.log(response);
-                    console.log(response.getId());
-                    var id = response.getId();
-                    $.ajax({
-                        url: "connectSocial/2",
-                        data: {
-                            value: id
-                        }
-                    }).done(function (result) {
-                        if (result) {
-                            modal.modal("hide");
-                            $(".settingsBtn").click();
-                        } else {
-                            alert("Cant connect account")
-                        }
-                    })
+                gapi.load('auth2', function() {
+                    gapi.auth2.init();
+                    var auth2 = gapi.auth2.getAuthInstance();
+                    //console.log(auth2);
+                    auth2.signIn().then(function (response) {//request to sign in
+                        console.log(response);
+                        console.log(response.getId());
+                        var id = response.getId();
+                        $.ajax({
+                            url: "connectSocial/2",
+                            data: {
+                                value: id
+                            }
+                        }).done(function (result) {
+                            if (result) {
+                                modal.modal("hide");
+                                $(".settingsBtn").click();
+                            } else {
+                                alert("Cant connect account")
+                            }
+                        })
+                    });
                 });
+
+
             });
             $(".connectFbButton").click(function () {
                 FB.login(function (response) {

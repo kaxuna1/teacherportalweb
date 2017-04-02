@@ -259,7 +259,6 @@
                 $.getJSON("/loginapifb/" + token, function (result) {
                     if (result) {
                         createCookie("projectSessionId",result["id"],365);
-                        createCookie("userId",result["user"]["id"],365);
                         location.reload();
                     } else {
                         alert("no such user")
@@ -281,7 +280,6 @@
         $.getJSON("/loginapigoogle?token=" + id_token, function (result) {
             if (result) {
                 createCookie("projectSessionId",result["id"],365);
-                createCookie("userId",result["user"]["id"],365);
                 location.reload();
             } else {
                 alert("no such user")
