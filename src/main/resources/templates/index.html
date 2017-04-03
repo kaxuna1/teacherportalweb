@@ -4,7 +4,6 @@
 <head>
 
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -50,7 +49,7 @@
 
     </style>
     <!-- Theme CSS -->
-    <link href="css/agency.min.css" rel="stylesheet">
+    <link href="css/agency.css" rel="stylesheet">
     <link href="css/login.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -122,17 +121,19 @@
         <div style="position: absolute;z-index: 300;margin-left: auto;margin-right: auto;left: 0;right: 0;"
              class="intro-text">
             <div class="intro-heading">
-                <a id="mainSearchBtn" href="#" style="font-family: font1" class="page-scroll btn btn-xl"><i
-                        class="fa fa-search" aria-hidden="true"></i>
-                </a>
-                <input placeholder="Search" class="categoryInputSearch" type="text">
-                <input placeholder="City" class="cityInputSearch" type="text">
+                <!--   <a id="mainSearchBtn" href="#" style="font-family: font1" class="page-scroll btn btn-xl"><i
+                           class="fa fa-search" aria-hidden="true"></i>
+                   </a>
+                   <input placeholder="Search" class="categoryInputSearch" type="text">
+                   <input placeholder="City" class="cityInputSearch" type="text">-->
+                <form class="form-wrapper cf">
+                    <button class="searchButton" type="button" ></button>
+                    <input class="categorySearchField" type="text" placeholder="Category" >
+                    <input class="citySearchField" type="text" placeholder="City" >
+                </form>
             </div>
-            <div style="position: absolute;z-index: 300;margin-left: auto;margin-right: auto;left: 0;right: 0;">
-                <img src="png/aw.png">
-            </div>
-        </div>
 
+        </div>
 
 
         <!-- Wrapper for slides -->
@@ -146,7 +147,9 @@
             </div>
 
         </div>
-
+        <div class="awLogoRight">
+            <img src="png/aw.png">
+        </div>
         <!-- Controls -->
     </div>
 

@@ -1,7 +1,6 @@
 /**
  * Created by kakha on 3/30/2017.
  */
-
 $(document).ready(function () {
     $("#logisignbtn").click(function () {
         showModalWithTableInside(function (head, body, modal, random, footer) {
@@ -105,10 +104,67 @@ $(document).ready(function () {
             }
         }, 400, true)
     })
+
+    var cat= $(".categorySearchField");
+    var city= $(".citySearchField");
+    $.getJSON("/categories",function (result) {
+        cat.typeahead({
+            source: result,
+            autoSelect: true,
+            afterSelect:function (selected) {
+
+            },
+            fitToElement:true,
+            items:5,
+            showHintOnFocus:true
+        });
+        cat.change(function() {
+            var current = cat.typeahead("getActive");
+            if (current) {
+                // Some item from your model is active!
+                if (current.name == cat.val()) {
+                    // This means the exact match is found. Use toLowerCase() if you want case insensitive match.
+                } else {
+                    // This means it is only a partial match, you can either add a new item
+                    // or take the active if you don't want new items
+                }
+            } else {
+                // Nothing is active so it is a new value (or maybe empty value)
+            }
+        });
+    });
+    $.getJSON("/cities",function (result) {
+        city.typeahead({
+            source: result,
+            autoSelect: true,
+            afterSelect:function (selected) {
+
+            },
+            fitToElement:true,
+            items:5,
+            showHintOnFocus:true
+        });
+        city.change(function() {
+            var current = cat.typeahead("getActive");
+            if (current) {
+                // Some item from your model is active!
+                if (current.name == cat.val()) {
+                    // This means the exact match is found. Use toLowerCase() if you want case insensitive match.
+                    alert(1)
+                } else {
+                    // This means it is only a partial match, you can either add a new item
+                    // or take the active if you don't want new items
+                    alert(2)
+                }
+            } else {
+                // Nothing is active so it is a new value (or maybe empty value)
+            }
+        });
+    })
+
 });
 function checkRegValue(name, val) {
 }
-
 function createCookie(name, value, days) {
     var expires = "";
     if (days) {
@@ -118,7 +174,6 @@ function createCookie(name, value, days) {
     }
     document.cookie = name + "=" + value + expires + "; path=/";
 }
-
 function readCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
@@ -129,7 +184,6 @@ function readCookie(name) {
     }
     return null;
 }
-
 function eraseCookie(name) {
     createCookie(name, "", -1);
 }
@@ -206,28 +260,6 @@ function loginWithFace() {
         }
     });
 }
-/*
- function onSignIn(googleUser) {
- var profile = googleUser.getBasicProfile();
- console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
- console.log('Name: ' + profile.getName());
- console.log('Image URL: ' + profile.getImageUrl());
- console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-
-
- var id_token = googleUser.getAuthResponse().id_token;
- $.getJSON("/loginapigoogle?token=" + id_token, function (result) {
- if (result) {
- createCookie("projectSessionId",result["id"],365);
- createCookie("userId",result["user"]["id"],365);
- location.reload();
- } else {
- alert("no such user")
- }
- })
-
- }
- */
 $(".settingsBtn").click(function () {
     $.getJSON("/mydata", function (result) {
         console.log(result);
@@ -465,11 +497,9 @@ $(".settingsBtn").click(function () {
     })
 
 });
-
 function getMailStringForValue(user) {
     return user.email+(user.confirmedEmail?"":"(Not Confirmed)")
 }
-
 function getFacebookFieldForSettings(user) {
     if (user.facebookConnected) {
         return "connected<button class='disconnectFbButton' style='margin-left: 5px'>Disconnect</button>";
@@ -511,7 +541,6 @@ function onSignIn(googleUser) {
     console.log('Image URL: ' + profile.getImageUrl());
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 }
-
 $(".logoutBtn").click(function () {
     $.getJSON("/logout", function (result) {
         if (result) {
@@ -530,3 +559,4 @@ $(".logoutBtn").click(function () {
     js.src = "//connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
+

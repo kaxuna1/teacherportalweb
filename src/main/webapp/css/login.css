@@ -87,24 +87,12 @@
 .settingsChangeFormDiv {
     padding: 10px;
 }
-.btn{
-    margin-left: 10px;
-}
+
 .brand {
     position: absolute;
     left: 50%;
     margin-left: -50px !important; /* 50% of your logo width */
     display: block;
-}
-
-@font-face {
-    font-family: font1;
-    src: url('files/bpg_extrasquare_mtavruli_2009.ttf');
-}
-
-@font-face {
-    font-family: font2;
-    src: url(files/bpg_square_2009.ttf);
 }
 
 .carousel,
@@ -125,7 +113,7 @@
     height: 100%;
 }
 
-/* Background images are set within the HTML using inline CSS, not here */
+/* Background images are set wi2px the HTML using inline CSS, not here */
 
 .fill {
     width: 100%;
@@ -153,9 +141,135 @@
     width: 250px;
     text-align: center;
 }
-#categoryInputSearch{
+
+.categoryInputSearch {
+    font-color: black;
+}
+
+.cityInputSearch {
 
 }
-#cityInputSearch{
 
+/*Clearing Floats*/
+.cf:before, .cf:after {
+    content: "";
+    display: table;
+}
+
+.cf:after {
+    clear: both;
+}
+
+.cf {
+    zoom: 1;
+}
+
+/* Form wrapper styling */
+.form-wrapper {
+    max-width: 400px;
+    padding: 15px;
+    margin: 0px auto 0px auto;
+}
+
+/* Form text input */
+
+.form-wrapper input {
+    width: 40%;
+    height: 100px;
+    padding: 10px 5px;
+    float: left;
+    font: bold 20px 'lucida sans', 'trebuchet MS', 'Tahoma';
+    border: 0;
+    background: white;
+    border-style: solid;
+    border-top: 2px solid grey;
+    border-bottom: 2px solid grey;
+
+}
+
+.form-wrapper input:focus {
+    outline: 0;
+    background: #fff;
+}
+
+.form-wrapper input::-webkit-input-placeholder {
+    color: grey;
+    font-weight: normal;
+    font-style: italic;
+}
+
+.form-wrapper input:-moz-placeholder {
+    color: grey;
+    font-weight: normal;
+    font-style: italic;
+}
+
+.form-wrapper input:-ms-input-placeholder {
+    color: grey;
+    font-weight: normal;
+    font-style: italic;
+}
+
+/* Form submit button */
+.form-wrapper button {
+    overflow: visible;
+    position: relative;
+    float: left;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    height: 100px;
+    width: 20%;
+    font: bold 15px/40px 'lucida sans', 'trebuchet MS', 'Tahoma';
+    color: #fff;
+    text-transform: uppercase;
+    background: white;
+    border-top: 2px solid grey;
+    border-bottom: 2px solid grey;
+    border-left: 2px solid grey;
+    background-image: url(../png/search.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.form-wrapper button i {
+    color: #000;
+}
+
+.form-wrapper button:hover:before {
+    border-right-color: #e54040;
+}
+
+.form-wrapper button:focus:before,
+.form-wrapper button:active:before {
+    border-right-color: #c42f2f;
+}
+
+.form-wrapper button::-moz-focus-inner { /* remove extra button spacing for Mozilla Firefox */
+    border: 0;
+    padding: 0;
+}
+
+.citySearchField {
+    border-right: 2px solid grey !important;
+    color: grey;
+    text-align: center !important;
+}
+
+.categorySearchField {
+    color: grey;
+    text-align: center !important;
+}
+
+.awLogoRight {
+    position: absolute;
+    z-index: 300;
+    left: 0;
+    bottom: 0;
+    float: right;
+    width: 30%;
+}
+.awLogoRight img{
+    width: 100%;
 }
