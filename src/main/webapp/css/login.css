@@ -90,3 +90,72 @@
 .btn{
     margin-left: 10px;
 }
+.brand {
+    position: absolute;
+    left: 50%;
+    margin-left: -50px !important; /* 50% of your logo width */
+    display: block;
+}
+
+@font-face {
+    font-family: font1;
+    src: url('files/bpg_extrasquare_mtavruli_2009.ttf');
+}
+
+@font-face {
+    font-family: font2;
+    src: url(files/bpg_square_2009.ttf);
+}
+
+.carousel,
+.item,
+.active {
+    height: 100%;
+}
+
+.item {
+    background-position: center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+.carousel-inner {
+    height: 100%;
+}
+
+/* Background images are set within the HTML using inline CSS, not here */
+
+.fill {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.navbar-custom .nav li a {
+    font-size: 15px;
+}
+
+.portfolio-item {
+    padding-top: 10px;
+}
+
+.selectbox {
+    color: black;
+    background: transparent;
+    border-bottom: black;
+    border-style: groove;
+    width: 250px;
+    text-align: center;
+}
+#categoryInputSearch{
+
+}
+#cityInputSearch{
+
+}

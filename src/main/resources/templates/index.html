@@ -44,71 +44,10 @@
           type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
     <link href="assets/css/bootstrap-social.css" rel="stylesheet" type="text/css">
-    <meta name="google-signin-client_id" content="493400848528-rvhu5blcif6mhpujdrm083ll77bd53dq.apps.googleusercontent.com">
+    <meta name="google-signin-client_id"
+          content="493400848528-rvhu5blcif6mhpujdrm083ll77bd53dq.apps.googleusercontent.com">
     <style>
-        .brand {
-            position: absolute;
-            left: 50%;
-            margin-left: -50px !important; /* 50% of your logo width */
-            display: block;
-        }
 
-        @font-face {
-            font-family: font1;
-            src: url('files/bpg_extrasquare_mtavruli_2009.ttf');
-        }
-
-        @font-face {
-            font-family: font2;
-            src: url(files/bpg_square_2009.ttf);
-        }
-
-        .carousel,
-        .item,
-        .active {
-            height: 100%;
-        }
-
-        .item {
-            background-position: center;
-            background-size: cover;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-        }
-
-        .carousel-inner {
-            height: 100%;
-        }
-
-        /* Background images are set within the HTML using inline CSS, not here */
-
-        .fill {
-            width: 100%;
-            height: 100%;
-            background-position: center;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            background-size: cover;
-            -o-background-size: cover;
-        }
-
-        .navbar-custom .nav li a {
-            font-size: 15px;
-        }
-
-        .portfolio-item {
-            padding-top: 10px;
-        }
-
-        .selectbox {
-            color: black;
-            background: transparent;
-            border: black;
-            border-style: groove;
-            width: 250px;
-            text-align: center;
-        }
     </style>
     <!-- Theme CSS -->
     <link href="css/agency.min.css" rel="stylesheet">
@@ -156,7 +95,8 @@
             </ul>
             <ul th:if="${loggedIn}" class="nav navbar-nav navbar-right">
                 <li class="dropdown" id="userBtn">
-                    <a href="#" th:text="${userNameSurname}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                    <a href="#" th:text="${userNameSurname}" class="dropdown-toggle" data-toggle="dropdown"
+                       role="button" aria-haspopup="true"
                        aria-expanded="false"> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li class="profileBtn"><a href="#">Profile</a></li>
@@ -179,28 +119,26 @@
 <header id="" class="carousel slide" style=" min-height: 100vh; height: auto;">
 
     <div id="mycarousel" class="carousel slide" data-ride="carousel">
-        <div style="
-    position: absolute;
-    z-index: 300;
-    margin-left: auto;
-margin-right: auto;
-left: 0;
-right: 0;
-" class="intro-text">
-            <div class="intro-heading"><select class="selectbox" style="">
-                <option>Tbilisi</option>
-            </select><select class="selectbox">
-                <option>Math</option>
-            </select></div>
-            <a href="#" style="font-family: font1" class="page-scroll btn btn-xl">search</a>
+        <div style="position: absolute;z-index: 300;margin-left: auto;margin-right: auto;left: 0;right: 0;"
+             class="intro-text">
+            <div class="intro-heading">
+                <a id="mainSearchBtn" href="#" style="font-family: font1" class="page-scroll btn btn-xl"><i
+                        class="fa fa-search" aria-hidden="true"></i>
+                </a>
+                <input placeholder="Search" class="categoryInputSearch" type="text">
+                <input placeholder="City" class="cityInputSearch" type="text">
+            </div>
+            <div style="position: absolute;z-index: 300;margin-left: auto;margin-right: auto;left: 0;right: 0;">
+                <img src="png/aw.png">
+            </div>
         </div>
-        <!-- Indicators -->
+
 
 
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
             <div class="item">
-                <img src="" data-color="lightblue" alt="First Image">
+                <img src="png/background.png" class="backgroundImg" data-color="lightblue" alt="First Image">
 
                 <div class="carousel-caption">
 
@@ -356,6 +294,7 @@ right: 0;
 
 <!-- Bootstrap Core JavaScript -->
 <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/js/bootstrap3-typeahead.js"></script>
 
 <!-- Plugin JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
@@ -383,7 +322,7 @@ right: 0;
     $item.height($wHeight);
     $item.addClass('full-screen');
 
-    $('.carousel img').each(function () {
+    $('.carousel .backgroundImg').each(function () {
         var $src = $(this).attr('src');
         var $color = $(this).attr('data-color');
         $(this).parent().css({
