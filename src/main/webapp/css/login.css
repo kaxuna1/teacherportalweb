@@ -168,7 +168,7 @@
 .form-wrapper {
     max-width: 400px;
     padding: 15px;
-    margin: 0px auto 0px auto;
+    margin: 0 auto 0 auto;
 }
 
 /* Form text input */
@@ -267,9 +267,11 @@
     z-index: 300;
     left: 0;
     bottom: 0;
-    float: right;
     width: 30%;
 }
 .awLogoRight img{
     width: 100%;
+}
+.palmaLogoRight{
+    display: none;
 }

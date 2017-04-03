@@ -224,6 +224,17 @@ header .intro-text .intro-heading {
 }
 
 @media  (min-width: 768px) {
+    .palmaLogoRight{
+        display: block!important;
+        position: absolute;
+        z-index: 100;
+        right: 0;
+        top: 0;
+        height: 400px;
+    }
+    .palmaLogoRight img{
+        height:100%;
+    }
     header .intro-text {
         padding-top: 200px;
         padding-bottom: 200px
