@@ -54,6 +54,7 @@ ul, li{
 
 /* 2 COL */
 
+
 @media (max-width: 600px){
     #Grid li{
         width: 48%;
