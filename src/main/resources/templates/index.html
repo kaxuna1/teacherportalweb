@@ -96,9 +96,10 @@
             <ul th:if="${loggedIn}" class="nav navbar-nav navbar-right">
                 <li class="dropdown" id="userBtn">
 
-                    <a href="#"  class="dropdown-toggle" data-toggle="dropdown"
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                        role="button" aria-haspopup="true"
-                       aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><span th:text="${userNameSurname}" ></span></span></a>
+                       aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><span
+                            th:text="${userNameSurname}"></span></span></a>
                     <ul class="dropdown-menu">
                         <li class="profileBtn"><a href="#">Profile</a></li>
                         <li class="settingsBtn"><a href="#">Settings</a></li>
@@ -127,9 +128,9 @@
                    <input placeholder="Search" class="categoryInputSearch" type="text">
                    <input placeholder="City" class="cityInputSearch" type="text">-->
                 <form class="form-wrapper cf">
-                    <button class="searchButton" type="button" ></button>
-                    <input class="categorySearchField" type="text" placeholder="Category" >
-                    <input class="citySearchField" type="text" placeholder="City" >
+                    <button class="searchButton" type="button"></button>
+                    <input class="categorySearchField" type="text" placeholder="Category">
+                    <input class="citySearchField" type="text" placeholder="City">
                 </form>
             </div>
 
@@ -196,17 +197,69 @@
 <footer>
     <div class="container">
         <div class="row">
+            <div class="col-md-3">
+
+            </div>
+            <div class="col-md-6">
+                <ul class="list-inline social-buttons">
+
+                    <li><a><img src="png/fb.png">
+                    </a></li>
+                    <li><a><img src="png/tweeter.png">
+                    </a></li>
+                    <li><a><img src="png/instagram.png">
+                    </a></li>
+                    <li><a><img src="png/pinterest.png">
+                    </a></li>
+                    <li><a><img src="png/g.png">
+                    </a></li>
+                    <li><a><img src="png/skype.png">
+                    </a></li>
+
+                </ul>
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-4">
+                <ul class="footerMenu">
+                    <li>
+                       <a>
+                           About Us
+                       </a>
+                    </li>
+                    <li>
+                       <a>
+                           Terms & Conditions
+                       </a>
+                    </li>
+                    <li>
+                       <a>
+                           Press
+                       </a>
+                    </li>
+                    <li>
+                       <a>
+
+                           Contact
+                       </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-4">
                 <span class="copyright">Copyright &copy; <a href="#">Technet</a></span>
             </div>
             <div class="col-md-4">
-                <ul class="list-inline social-buttons">
-
-                    <li><a target="_blank" href="https://www.facebook.com/TechNet.Ge/"><i
-                            class="fa fa-facebook"></i></a>
-                    </li>
-
-                </ul>
+                <span>Copyright 2017 Allwitz</span>
             </div>
             <div class="col-md-4">
                 <ul class="list-inline quicklinks">

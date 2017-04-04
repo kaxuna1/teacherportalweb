@@ -165,6 +165,8 @@
 /* Form wrapper styling */
 .form-wrapper {
     max-width: 400px;
+    min-width: 300px;
+    width: 30vw;
     padding: 15px;
     margin: 0 auto 0 auto;
     z-index: 10000;
@@ -174,7 +176,8 @@
 
 .form-wrapper input {
     width: 40%;
-    height: 100px;
+    height: 12vh;
+    min-height: 70px;
     padding: 10px 5px;
     float: left;
     font: bold 20px 'lucida sans', 'trebuchet MS', 'Tahoma';
@@ -217,7 +220,8 @@
     border: 0;
     padding: 0;
     cursor: pointer;
-    height: 100px;
+    min-height: 70px;
+    height: 12vh;
     width: 20%;
     font: bold 15px/40px 'lucida sans', 'trebuchet MS', 'Tahoma';
     color: #fff;
@@ -278,6 +282,7 @@
 }
 #topCategories{
     padding-top: 20px;
+    padding-bottom: 0px;
 }
 .categoriesContainer{
     width:90%!important;
@@ -317,4 +322,17 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+}
+.social-buttons img{
+    width: 40px;
+    cursor: pointer;
+    padding-bottom: 5px;
+}
+.footerMenu{
+    list-style-type: none;
+}
+.footerMenu li{
+    float: left;
+    padding: 10px;
+    cursor: pointer;
 }
