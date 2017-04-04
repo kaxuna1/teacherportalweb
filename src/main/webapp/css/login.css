@@ -263,15 +263,11 @@
 }
 
 .awLogoRight {
-    position: absolute;
-    z-index: 300;
-    left: 0;
-    bottom: 0;
-    width: 30%;
-}
-.awLogoRight img{
-    width: 100%;
+   display: none;
 }
 .palmaLogoRight{
+    display: none;
+}
+.zolebiRight{
     display: none;
 }

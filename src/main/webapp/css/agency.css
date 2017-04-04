@@ -203,7 +203,11 @@ header {
 
 header .intro-text {
     padding-top: 50px;
-    padding-bottom: 50px
+    padding-bottom: 50px;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
 }
 
 header .intro-text .intro-lead-in {
@@ -224,20 +228,56 @@ header .intro-text .intro-heading {
 }
 
 @media  (min-width: 768px) {
+    .awLogoRight {
+        position: absolute;
+        z-index: 300;
+        left: 0;
+        bottom: 0;
+        height: 25%;
+        display: block!important;
+        margin-bottom: 10%;
+    }
+    .awLogoRight img{
+        height:100%;
+        left: 0;
+        bottom: 0;
+        position: absolute;
+    }
     .palmaLogoRight{
+        display: block!important;
+        position: absolute;
+        z-index: 150;
+        right: 0;
+        top: 0;
+        height: 60%;
+    }
+    .palmaLogoRight img{
+        height:100%;
+        position: absolute;
+        z-index: 150;
+        right: 0;
+        top: 0;
+    }
+    .zolebiRight{
         display: block!important;
         position: absolute;
         z-index: 100;
         right: 0;
-        top: 0;
-        height: 400px;
+        bottom: 0;
+        height: 60%!important;
     }
-    .palmaLogoRight img{
+    .zolebiRight img{
         height:100%;
+        position: absolute;
+        z-index: 100;
+        right: 0;
+        bottom: 0;
     }
     header .intro-text {
-        padding-top: 200px;
-        padding-bottom: 200px
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%,-50%);
+        width: 100%;
     }
 
     header .intro-text .intro-lead-in {

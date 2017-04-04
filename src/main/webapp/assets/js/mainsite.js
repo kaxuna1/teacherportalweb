@@ -160,7 +160,13 @@ $(document).ready(function () {
                 // Nothing is active so it is a new value (or maybe empty value)
             }
         });
+    });
+
+    $("#mycarousel").resize(function () {
+        alert("resize");
     })
+
+
 
 });
 function checkRegValue(name, val) {
