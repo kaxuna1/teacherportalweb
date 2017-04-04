@@ -150,11 +150,11 @@ $(document).ready(function () {
                 // Some item from your model is active!
                 if (current.name == cat.val()) {
                     // This means the exact match is found. Use toLowerCase() if you want case insensitive match.
-                    alert(1)
+
                 } else {
                     // This means it is only a partial match, you can either add a new item
                     // or take the active if you don't want new items
-                    alert(2)
+
                 }
             } else {
                 // Nothing is active so it is a new value (or maybe empty value)

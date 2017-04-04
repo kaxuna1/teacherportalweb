@@ -43,6 +43,7 @@
           type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
     <link href="assets/css/bootstrap-social.css" rel="stylesheet" type="text/css">
+    <link href="css/grid.css" rel="stylesheet" type="text/css">
     <meta name="google-signin-client_id"
           content="493400848528-rvhu5blcif6mhpujdrm083ll77bd53dq.apps.googleusercontent.com">
     <style>
@@ -67,7 +68,7 @@
 <nav style="background-color: white;z-index: 500" id="mainNav"
      class="navbar navbar-default navbar-custom navbar-fixed-top">
 
-    <div class="container">
+    <div style="width: 100%;" class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header page-scroll">
             <button style=";z-index: 100000;" type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -94,9 +95,10 @@
             </ul>
             <ul th:if="${loggedIn}" class="nav navbar-nav navbar-right">
                 <li class="dropdown" id="userBtn">
-                    <a href="#" th:text="${userNameSurname}" class="dropdown-toggle" data-toggle="dropdown"
+
+                    <a href="#"  class="dropdown-toggle" data-toggle="dropdown"
                        role="button" aria-haspopup="true"
-                       aria-expanded="false"> <span class="caret"></span></a>
+                       aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><span th:text="${userNameSurname}" ></span></span></a>
                     <ul class="dropdown-menu">
                         <li class="profileBtn"><a href="#">Profile</a></li>
                         <li class="settingsBtn"><a href="#">Settings</a></li>
@@ -104,9 +106,7 @@
                         <li><a class="logoutBtn" href="#">Log Out</a></li>
                     </ul>
                 </li>
-                <li id="userPic">
-                    <img class="profilePicInHeader" th:src="${profilePicUrl}">
-                </li>
+
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -157,101 +157,33 @@
         <img src="png/palma.png">
     </div>
     <div class="zolebiRight">
-        <img src="png/shav-tetri zolebi.png">
+        <img src="png/shav-tetri-zolebi.png">
+    </div>
+    <div class="yviteliZolebiRight">
+        <img src="png/yviteli_zolebi.png">
+    </div>
+    <div class="lampLeft">
+        <img src="png/lampa.png">
     </div>
 </header>
 <!-- Services Section -->
 <!-- About Section -->
 <!-- Portfolio Grid Section -->
-<section id="clients" class="bg-light-gray">
-    <div class="container">
+<section id="topCategories" class="bg-light-gray">
+    <div class="container categoriesContainer">
         <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2 class="section-heading" style="font-family: font1">TOP CATEGORIES</h2>
-
-                <h3 class="section-subheading text-muted" style="font-family: font1">TOP CATEGORIES</h3>
+            <div class="col-lg-12">
+                <h2 class="section-subheading text-muted" style="font-family: font1">Popular</h2>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-6 portfolio-item">
-                <a class="portfolio-link">
-                    <div class="portfolio-hover">
-                        <div class="portfolio-hover-content">
-                            <!--<i class="fa fa-plus fa-3x"></i>-->
-                        </div>
-                    </div>
-                    <img style="height: 225px;width: 360px;color: #00a8ff" src="" class="img-responsive" alt="">
-                </a>
-
-
-            </div>
-            <div class="col-md-4 col-sm-6 portfolio-item">
-                <a class="portfolio-link">
-                    <div class="portfolio-hover">
-                        <div class="portfolio-hover-content">
-                            <!--<i class="fa fa-plus fa-3x"></i>-->
-                        </div>
-                    </div>
-                    <img style="height: 225px;width: 360px;color: #00a8ff" src="" class="img-responsive" alt="">
-                </a>
-
-
-            </div>
-            <div class="col-md-4 col-sm-6 portfolio-item">
-                <a class="portfolio-link">
-                    <div class="portfolio-hover">
-                        <div class="portfolio-hover-content">
-                            <!--<i class="fa fa-plus fa-3x"></i>-->
-                        </div>
-                    </div>
-                    <img style="height: 225px;width: 360px;color: #00a8ff" src="" class="img-responsive" alt="">
-                </a>
-
-
-            </div>
-
-
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-6 portfolio-item">
-                <a class="portfolio-link">
-                    <div class="portfolio-hover">
-                        <div class="portfolio-hover-content">
-                            <!--<i class="fa fa-plus fa-3x"></i>-->
-                        </div>
-                    </div>
-                    <img style="height: 225px;width: 360px;color: #00a8ff" src="" class="img-responsive" alt="">
-                </a>
-
-
-            </div>
-            <div class="col-md-4 col-sm-6 portfolio-item">
-                <a class="portfolio-link">
-                    <div class="portfolio-hover">
-                        <div class="portfolio-hover-content">
-                            <!--<i class="fa fa-plus fa-3x"></i>-->
-                        </div>
-                    </div>
-                    <img style="height: 225px;width: 360px;color: #00a8ff" src="" class="img-responsive" alt="">
-                </a>
-
-
-            </div>
-            <div class="col-md-4 col-sm-6 portfolio-item">
-                <a class="portfolio-link">
-                    <div class="portfolio-hover">
-                        <div class="portfolio-hover-content">
-                            <!--<i class="fa fa-plus fa-3x"></i>-->
-                        </div>
-                    </div>
-                    <img style="height: 225px;width: 360px;color: #00a8ff" src="" class="img-responsive" alt="">
-                </a>
-
-
-            </div>
-
-
-        </div>
+        <ul id="Grid">
+            <li class="item1"></li>
+            <li class="item2"></li>
+            <li class="item3"></li>
+            <li class="item4"></li>
+            <li class="item5"></li>
+            <li class="item6"></li>
+        </ul>
     </div>
 </section>
 

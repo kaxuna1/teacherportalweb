@@ -49,7 +49,7 @@ a.active, a:active, a:focus, a:hover {
 }
 
 .bg-light-gray {
-    background-color: #eee
+    background-color: white;
 }
 
 .bg-darkest-gray {
@@ -226,7 +226,29 @@ header .intro-text .intro-heading {
     line-height: 50px;
     margin-bottom: 25px
 }
+@media (max-width: 1024px) {
 
+}
+.cf {
+    zoom: 1;
+}
+@media  (min-width: 1100px) {
+    .lampLeft {
+        position: absolute;
+        z-index: 100;
+        left: 0;
+        bottom: 0;
+        width: 40%;
+        display: block!important;
+        margin-bottom: 5%;
+    }
+    .lampLeft img{
+        width:100%;
+        left: 0;
+        bottom: 0;
+        position: absolute;
+    }
+}
 @media  (min-width: 768px) {
     .awLogoRight {
         position: absolute;
@@ -243,6 +265,8 @@ header .intro-text .intro-heading {
         bottom: 0;
         position: absolute;
     }
+
+
     .palmaLogoRight{
         display: block!important;
         position: absolute;
@@ -272,6 +296,22 @@ header .intro-text .intro-heading {
         z-index: 100;
         right: 0;
         bottom: 0;
+    }
+    .yviteliZolebiRight{
+        display: block!important;
+        position: absolute;
+        z-index: 100;
+        left: 0;
+        top: 0;
+        margin-left: 3%;
+        height: 60%!important;
+    }
+    .yviteliZolebiRight img{
+        height:100%;
+        position: absolute;
+        z-index: 100;
+        left: 0;
+        top: 0;
     }
     header .intro-text {
         position: absolute;

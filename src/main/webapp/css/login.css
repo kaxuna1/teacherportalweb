@@ -160,15 +160,14 @@
     clear: both;
 }
 
-.cf {
-    zoom: 1;
-}
+
 
 /* Form wrapper styling */
 .form-wrapper {
     max-width: 400px;
     padding: 15px;
     margin: 0 auto 0 auto;
+    z-index: 10000;
 }
 
 /* Form text input */
@@ -270,4 +269,52 @@
 }
 .zolebiRight{
     display: none;
+}
+.yviteliZolebiRight{
+    display: none;
+}
+.lampLeft{
+    display: none;
+}
+#topCategories{
+    padding-top: 20px;
+}
+.categoriesContainer{
+    width:90%!important;
+}
+.item1{
+    background-image: url("../png/guli.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.item2{
+    background-image: url("../png/manikeni.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.item3{
+    background-image: url("../png/burti.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.item4{
+    background-image: url("../png/skami.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.item5{
+    background-image: url("../png/david.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.item6{
+    background-image: url("../png/sagzao-nishani.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
