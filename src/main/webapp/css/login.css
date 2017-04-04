@@ -336,3 +336,9 @@
     padding: 10px;
     cursor: pointer;
 }
+.paymentsLogosImg{
+    height: 40px;
+}
+.botomMenuLinksRow{
+    padding-top: 20px;
+}

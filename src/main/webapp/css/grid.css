@@ -81,7 +81,7 @@ h1{
     text-transform: uppercase;
 }
 
-label{
+#Grid label{
     padding: 8px 15px;
     margin-bottom: 20px;
     display: block;
@@ -89,11 +89,11 @@ label{
     border-left: 10px solid #922d8d;
 }
 
-label:last-of-type{
+#Grid label:last-of-type{
     border-left: 10px dotted #922d8d;
 }
 
-p{
+#Grid p{
     font: 200 15px/1.5em "Helvetica Neue";
     max-width: 400px;
     margin-bottom: 30px;
