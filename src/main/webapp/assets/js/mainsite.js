@@ -104,7 +104,6 @@ $(document).ready(function () {
             }
         }, 400, true)
     })
-
     var cat= $(".categorySearchField");
     var city= $(".citySearchField");
     $.getJSON("/categories",function (result) {
@@ -161,13 +160,28 @@ $(document).ready(function () {
             }
         });
     });
-
     $("#mycarousel").resize(function () {
         alert("resize");
     })
+    $.getJSON("/topcategories",function (result) {
+        var data=result["content"];//
+        var grid=$("#protfolio-msnry");
+        for(var key in data){
+            var item=data[key];
+            grid.append('<li class="single-port-item category-1 category-3" >' +
+                ' <a href="#categories" class="waves-effect waves-block waves-light ">' +
+                '  <div class="protfolio-image">' +
+                '<img src="categorylogo/'+item.id+'?'+new Date().getTime()+'" alt="portfolio">' +
+                '<div class="protfolio-content waves-effect waves-block waves-light">' +
+                ' <div class="protfolio-content__inner">' +
+                ' <h2 class="p-title">'+item.name+'</h2>' +
+                ' </div> </div><div class="p-overlay"></div></div></a> </li>')
 
-
-
+        }
+    })
+    var portfolioMsnry = $('#protfolio-msnry').isotope({
+        layoutMode: 'fitRows'
+    });
 });
 function checkRegValue(name, val) {
 }

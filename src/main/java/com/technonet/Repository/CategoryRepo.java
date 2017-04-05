@@ -15,5 +15,7 @@ import java.util.List;
 public interface CategoryRepo extends JpaRepository<Category,Long> {
     Page<Category> findByActiveOrderByNameAsc(boolean active, Pageable pageable);
 
-    List<Category> findByActive(boolean active);
+    List<Category> findByActiveAndVisible(boolean active,boolean visible);
+
+    Page<Category> findByActiveAndVisible(boolean active, boolean visible, Pageable pageable);
 }

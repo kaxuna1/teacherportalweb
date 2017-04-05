@@ -1,103 +1,59 @@
-/* -- DEFAULTS -- */
-
-ul, li{
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
+* {
+    box-sizing: border-box;
 }
 
-/* -- FLUID GRID STYLES -- */
 
-#Grid{
-    margin-bottom: 40px;
+
+.grid {
     text-align: justify;
     font-size: 0.1px;
 }
-
-#Grid li{
+.grid:after {
+    content: '';
     display: inline-block;
-    width: 30%;
-    padding-top: 23%; /* Used instead of height to give elements fluid, width-based height */
+    width: 100%;
+}
+
+/* default small screen 2-column layout */
+.grid-base-element, .grid-element, .grid-placeholder {
+    display: inline-block;
+    width: 48%;
+    text-indent: -9999px;
+    vertical-align: top;
+    transition: width 0.5s;
+}
+
+.grid-element {
     margin-bottom: 2.5%;
+    /* Used instead of height to give elements fluid, width-based height */
+    padding-top: 48%;
+    background-color: #ffffff;
 }
 
-#Grid:after{
-    content: '';
-    display: inline-block;
-    width: 100%;
-    border-top: 2px solid grey; /* Border added to make element visible for demonstration purposes */
-}
-#Grid:before{
-    content: '';
-    display: inline-block;
-    width: 100%;
-    padding-bottom: 28.5px;
-    border-top: 2px solid grey; /* Border added to make element visible for demonstration purposes */
+.grid-placeholder {
+    height: 0;
 }
 
-#Grid .placeholder{
-    padding: 0;
-    border-top: 10px solid #922d8d; /* Border added to make element visible for demonstration purposes */
-}
+/**
+   MEDIA QUERIES FOR ALTERNATE LAYOUTS
+*/
+/* medium screen 3 column layout */
+@media (min-width: 400px) {
+    .grid-base-element, .grid-element, .grid-placeholder {
+        width: 32%;
+    }
 
-/* -- MEDIA QUERIES DEFINING RESPONSIVE LAYOUTS -- */
-
-/* 3 COL */
-
-@media (max-width: 800px){
-    #Grid li{
-        width: 31%;
-        padding-top: 31%;
-        margin-bottom: 3%;
+    .grid-element {
+        padding-top: 29%;
     }
 }
-
-/* 2 COL */
-
-
-
-@media (max-width: 600px){
-    #Grid li{
-        width: 48%;
-        padding-top: 48%;
-        margin-bottom: 4%;
+/* large screen 4 column layout */
+@media (min-width: 800px) {
+    .grid-base-element, .grid-element, .grid-placeholder {
+        width: 29%;
     }
-}
 
-/* SINGLE COL */
-
-@media (max-width: 400px){
-    #Grid li{
-        width: 100%;
-        padding-top: 100%;
-        margin-bottom: 5%;
+    .grid-element {
+        padding-top: 23%;
     }
-}
-
-
-/* -- LEGEND STYLES (NOT PART OF GRID FRAMEWORK) -- */
-
-h1{
-    font: 600 20px "Helvetica Neue";
-    text-align: right;
-    text-transform: uppercase;
-}
-
-#Grid label{
-    padding: 8px 15px;
-    margin-bottom: 20px;
-    display: block;
-    font: 100 22px "Helvetica Neue";
-    border-left: 10px solid #922d8d;
-}
-
-#Grid label:last-of-type{
-    border-left: 10px dotted #922d8d;
-}
-
-#Grid p{
-    font: 200 15px/1.5em "Helvetica Neue";
-    max-width: 400px;
-    margin-bottom: 30px;
-    color: #333;
 }

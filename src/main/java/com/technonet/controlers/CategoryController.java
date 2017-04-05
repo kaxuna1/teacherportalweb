@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -77,7 +76,7 @@ public class CategoryController {
     @RequestMapping("/categories")
     @ResponseBody
     public List<Category> getCategoriesAll(){
-        return categoryRepo.findByActive(true);
+        return categoryRepo.findByActiveAndVisible(true,true);
     }
 
     @RequestMapping("uploadcategorylogo/{id}")
@@ -183,11 +182,16 @@ public class CategoryController {
     public List<DocType> getDocTypes(@CookieValue("projectSessionId") String sessionId) {
         return docTypeRepo.findAll();
     }
+    @RequestMapping("/topcategories")
+    @ResponseBody
+    public Page<Category> getTopCategories(){
+        return categoryRepo.findByActiveAndVisible(true,true,constructPageSpecification(0));
+    }
 
 
 
     private Pageable constructPageSpecification(int pageIndex) {
-        return new PageRequest(pageIndex, 10);
+        return new PageRequest(pageIndex, 6);
     }
 
 

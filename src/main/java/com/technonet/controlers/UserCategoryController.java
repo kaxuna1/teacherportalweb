@@ -77,7 +77,7 @@ public class UserCategoryController {
     public List<Category> getCategotiesForUserAdding(@CookieValue("projectSessionId") long sessionId,
                                                      @PathVariable("id") long id){
         Session session = sessionRepository.findOne(sessionId).get();
-        List<Category> categories=categoryRepo.findByActive(true);
+        List<Category> categories=categoryRepo.findByActiveAndVisible(true,true);
         User user = userRepository.findOne(id).get();
         user.getUserCategoryJoins().stream().forEach(userCategoryJoin -> categories.remove(userCategoryJoin.getCategory()));
         return categories;
