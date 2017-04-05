@@ -64,7 +64,7 @@
     color: #333;
     float: left;
     font-size: 11px;
-    width: 165px;
+    width: 100px;
 }
 
 .settingsItemEditButton {
@@ -170,6 +170,8 @@
     padding: 15px;
     margin: 0 auto 0 auto;
     z-index: 10000;
+
+    font-family: brix!important;
 }
 
 /* Form text input */
@@ -187,6 +189,8 @@
     border-top: 2px solid grey;
     border-bottom: 2px solid grey;
 
+    font-family: brix!important;
+
 }
 
 .form-wrapper input:focus {
@@ -197,19 +201,22 @@
 .form-wrapper input::-webkit-input-placeholder {
     color: grey;
     font-weight: normal;
-    font-style: italic;
+
+    font-family: brix!important;
 }
 
 .form-wrapper input:-moz-placeholder {
     color: grey;
     font-weight: normal;
-    font-style: italic;
+
+    font-family: brix!important;
 }
 
 .form-wrapper input:-ms-input-placeholder {
     color: grey;
     font-weight: normal;
-    font-style: italic;
+
+    font-family: brix!important;
 }
 
 /* Form submit button */
@@ -287,6 +294,7 @@
 .categoriesContainer{
     width:90%!important;
 }
+
 .item1{
     background-image: url("../png/guli.png");
     background-size: contain;
@@ -341,4 +349,35 @@
 }
 .botomMenuLinksRow{
     padding-top: 20px;
+}
+
+@font-face {
+    font-family: brix;
+    src: url("../assets/font/brix3.otf") format("opentype");
+}
+.brand{
+    font-family: brix!important;
+}
+.list-inline li a{
+    font-family: brix!important;
+}
+h1{
+
+    font-family: brix!important;
+}
+h2{
+
+    font-family: brix!important;
+}
+span{
+
+    font-family: brix!important;
+}
+a{
+
+    font-family: brix!important;
+}
+button{
+
+    font-family: brix!important;
 }
