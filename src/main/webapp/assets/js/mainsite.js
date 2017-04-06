@@ -165,24 +165,82 @@ $(document).ready(function () {
     })
     $.getJSON("/topcategories",function (result) {
         var data=result["content"];//
-        var grid=$("#protfolio-msnry");
+        var grid=$(".items");
+        var c=0;
         for(var key in data){
             var item=data[key];
-            grid.append('<li class="single-port-item category-1 category-3" >' +
-                ' <a href="#categories" class="waves-effect waves-block waves-light ">' +
-                '  <div class="protfolio-image">' +
-                '<img src="categorylogo/'+item.id+'?'+new Date().getTime()+'" alt="portfolio">' +
-                '<div class="protfolio-content waves-effect waves-block waves-light">' +
-                ' <div class="protfolio-content__inner">' +
-                ' <h2 class="p-title">'+item.name+'</h2>' +
-                ' </div> </div><div class="p-overlay"></div></div></a> </li>')
-
+            grid.append("<div style='background-image: url(categorylogo/"+item.id+"?"+new Date().getTime()+")' class='item'>" +
+                "<svg preserveAspectRatio='xMidYMid slice' viewBox='0 0 300 300'>" +
+                "<defs><clipPath id='clip-"+c+"'>" +
+                "<circle cx='0' cy='0' fill='#000' r='150px'></circle>" +
+                "</clipPath>" +
+                "</defs>" +
+                "<text class='svg-text' dy='.3em' x='50%' y='50%'>X-rays</text>" +
+                "<g clip-path='url(#clip-"+c+")'><image height='100%' preserveAspectRatio='xMinYMin slice' width='100%' xlink:href='png/black.png'>" +
+                "</image><text class='svg-masked-text' dy='.3em' x='50%' y='50%'>X-rays</text>" +
+                "</g></svg></div>")
+            c++;
         }
+        var items = []
+            , point = document.querySelector('svg').createSVGPoint();
+
+        function getCoordinates(e, svg) {
+            point.x = e.clientX;
+            point.y = e.clientY;
+            return point.matrixTransform(svg.getScreenCTM().inverse());
+        }
+
+        function changeColor(e) {
+            document.body.className = e.currentTarget.className;
+        }
+
+        function Item(config) {
+            Object.keys(config).forEach(function (item) {
+                this[item] = config[item];
+            }, this);
+            this.el.addEventListener('mousemove', this.mouseMoveHandler.bind(this));
+            this.el.addEventListener('touchmove', this.touchMoveHandler.bind(this));
+        }
+
+        Item.prototype = {
+            update: function update(c) {
+                console.log(this)
+                this.clip.setAttribute('cx', c.x);
+                this.clip.setAttribute('cy', c.y);
+            },
+            mouseMoveHandler: function mouseMoveHandler(e) {
+                this.update(getCoordinates(e, this.svg));
+                console.log(e);
+            },
+            touchMoveHandler: function touchMoveHandler(e) {
+                e.preventDefault();
+                var touch = e.targetTouches[0];
+                if (touch) return this.update(getCoordinates(touch, this.svg));
+            }
+        };
+
+        [].slice.call(document.querySelectorAll('.containerGrid .item'), 0).forEach(function (item, index) {
+            items.push(new Item({
+                el: item,
+                svg: item.querySelector('svg'),
+                clip: document.querySelector('#clip-' + index + ' circle'),
+            }));
+        });
+
+        [].slice.call(document.querySelectorAll('button'), 0).forEach(function (button) {
+            button.addEventListener('click', changeColor);
+        });
+
+        itemHWCorect();
+        $( window ).resize(itemHWCorect);
     })
-    var portfolioMsnry = $('#protfolio-msnry').isotope({
-        layoutMode: 'fitRows'
-    });
+
 });
+function itemHWCorect() {
+    $(".containerGrid .item").each(function () {
+        $(this).height($(this).width());
+    })
+}
 function checkRegValue(name, val) {
 }
 function createCookie(name, value, days) {

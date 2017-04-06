@@ -96,12 +96,11 @@
 }
 
 .carousel,
-.item,
 .active {
     height: 100%;
 }
 
-.item {
+.carousel .item {
     background-position: center;
     background-size: cover;
     -webkit-background-size: cover;
@@ -339,8 +338,12 @@
     font-family: brix;
     src: url("../assets/font/brix3.otf") format("opentype");
 }
+@font-face {
+    font-family: brixNorm;
+    src: url("../assets/font/brix4.otf") format("opentype");
+}
 .brand{
-    font-family: brix!important;
+    font-family: brixNorm!important;
 }
 .list-inline li a{
     font-family: brix!important;
