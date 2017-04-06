@@ -22,7 +22,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+
+import static sun.plugin2.main.client.ServiceDelegate.get;
 
 /**
  * Created by kakha on 3/7/2017.
@@ -73,10 +76,11 @@ public class CategoryController {
         } else
             return null;
     }
+
     @RequestMapping("/categories")
     @ResponseBody
-    public List<Category> getCategoriesAll(){
-        return categoryRepo.findByActiveAndVisible(true,true);
+    public List<Category> getCategoriesAll() {
+        return categoryRepo.findByActiveAndVisible(true, true);
     }
 
     @RequestMapping("uploadcategorylogo/{id}")
@@ -108,15 +112,22 @@ public class CategoryController {
 
     @RequestMapping("categorylogo/{id}")
     @ResponseBody
-    public byte[] doc(HttpServletResponse response, @CookieValue("projectSessionId") long sessionId, @PathVariable("id") long id) {
-        Session session = sessionRepository.findOne(sessionId).get();
+    public byte[] doc(HttpServletResponse response, @CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId, @PathVariable("id") long id) {
+
+
+        Session session;
+        Optional<Session> result = sessionRepository.findOne(sessionId);
+        if (result.isPresent())
+            session = result.get();
+
+
         Category category = categoryRepo.findOne(id).get();
         Path path;
 
-        if(category.getLogo()==null){
-            path = Paths.get(Variables.appDir+"/images/categoryLogos/nologo.png");
-        }else{
-            path = Paths.get(Variables.appDir+"/images/categoryLogos/" + category.getLogo());
+        if (category.getLogo() == null) {
+            path = Paths.get(Variables.appDir + "/images/categoryLogos/nologo.png");
+        } else {
+            path = Paths.get(Variables.appDir + "/images/categoryLogos/" + category.getLogo());
         }
 
         try {
@@ -182,12 +193,12 @@ public class CategoryController {
     public List<DocType> getDocTypes(@CookieValue("projectSessionId") String sessionId) {
         return docTypeRepo.findAll();
     }
+
     @RequestMapping("/topcategories")
     @ResponseBody
-    public Page<Category> getTopCategories(){
-        return categoryRepo.findByActiveAndVisible(true,true,constructPageSpecification(0));
+    public Page<Category> getTopCategories() {
+        return categoryRepo.findByActiveAndVisible(true, true, constructPageSpecification(0));
     }
-
 
 
     private Pageable constructPageSpecification(int pageIndex) {

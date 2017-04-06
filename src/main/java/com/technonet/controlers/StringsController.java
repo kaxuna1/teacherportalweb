@@ -38,6 +38,9 @@ public class StringsController {
                 return false;
             }
             sysStringRepo.save(new SysString(value, name));
+            for (int i=0;i<Languages.values().length;i++){
+                Variables.stringsMap.get(Languages.values()[i].getCODE()).put(name,value);
+            }
             return true;
         } else {
             return false;
@@ -76,6 +79,7 @@ public class StringsController {
     @ResponseBody
     public boolean addTranslationToString(@CookieValue("projectSessionId") long sessionId,
                                           @RequestParam(value = "uuid", defaultValue = "") String uuid,
+                                          @RequestParam(value = "name", defaultValue = "") String name,
                                           @RequestParam(value = "value", defaultValue = "") String value,
                                           @RequestParam(value = "lang", defaultValue = "0") int lang){
 
@@ -87,10 +91,9 @@ public class StringsController {
         sysStringTranslations.setLang(lang);
         sysStringTranslations.setUuid(uuid);
         sysStringTranslations.setValue(value);
-
-
         try{
             sysStringTranslationRepo.save(sysStringTranslations);
+            Variables.stringsMap.get(lang).put(name,value);
 
         }catch (Exception e){
             e.printStackTrace();

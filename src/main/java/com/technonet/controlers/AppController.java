@@ -6,6 +6,7 @@ import com.technonet.Repository.SysStringRepo;
 import com.technonet.model.ConfirmationToken;
 import com.technonet.model.Session;
 import com.technonet.model.SysString;
+import com.technonet.staticData.Variables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.facebook.api.Facebook;
@@ -34,11 +35,11 @@ public class AppController {
     }
 
     @GetMapping(value = "/", produces = "text/html")
-    public String admin(Model model, @CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId) {
+    public String admin(Model model,
+                        @CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
+                        @CookieValue(value = "lang", defaultValue = "1") int lang) {
         Session session;
-        Map<String, String> stringMap = sysStringRepo
-                .findByActive(true)
-                .stream().collect(Collectors.toMap(SysString::getName, SysString::getValue));
+        Map<String, String> stringMap = Variables.stringsMap.get(lang);
         model.addAttribute("strings", stringMap);
         if (sessionId != 0) {
             session = sessionRepository.findOne(sessionId).get();

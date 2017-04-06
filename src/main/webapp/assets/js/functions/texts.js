@@ -97,6 +97,10 @@ function loadTexts(index, search) {
                     uuid:{
                         value:uuid,
                         type:"hidden"
+                    },
+                    name:{
+                        value:name,
+                        type:"hidden"
                     }
                 },function () {
                     $("#stringTranslationAddFormPlace").html("");
