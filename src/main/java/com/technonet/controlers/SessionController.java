@@ -81,6 +81,8 @@ public class SessionController {
             session=sessionDao.save(session);
             response.addCookie(new Cookie("projectSessionId", session.getId()+""));
             response.addCookie(new Cookie("userId", session.getUser().getId()+""));
+            response.addCookie(new Cookie("lang", session.getUser().getLanguage()+""));
+
             return "redirect:/";
         }
     }
@@ -107,6 +109,7 @@ public class SessionController {
                 session=sessionDao.save(session);
                 response.addCookie(new Cookie("userId", session.getUser().getId()+""));
                 response.addCookie(new Cookie("projectSessionId", session.getId()+""));
+                response.addCookie(new Cookie("lang", session.getUser().getLanguage()+""));
                 return session;
             }
         } catch (IOException e) {
@@ -154,6 +157,7 @@ public class SessionController {
                 session=sessionDao.save(session);
                 response.addCookie(new Cookie("userId", session.getUser().getId()+""));
                 response.addCookie(new Cookie("projectSessionId", session.getId()+""));
+                response.addCookie(new Cookie("lang", session.getUser().getLanguage()+""));
                 return session;
             }
 

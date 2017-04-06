@@ -1,5 +1,7 @@
 package com.technonet.model;
 
+import com.technonet.Enums.Languages;
+
 import javax.persistence.*;
 
 /**
@@ -19,6 +21,8 @@ public class SysStringTranslations {
     public int getLang() {
         return lang;
     }
+
+    public String getLangName(){ return Languages.valueOf(lang).name();}
 
     public void setLang(int lang) {
         this.lang = lang;

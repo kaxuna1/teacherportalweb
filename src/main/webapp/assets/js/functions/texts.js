@@ -6,26 +6,26 @@ function loadTexts(index, search) {
 
     $("#addNewDiv").html(
         '');
-    createButtonWithHandlerr($("#addNewDiv"),strings["admin_button_add"],function () {
-       showModalWithTableInside(function (head, body, modal, rand) {
-           dynamicCreateForm(body,"/createstring",{
-               name: {
-                   name: "სახელი",
-                   type: "text"
-               },
-               value: {
-                   name: "მნიშვნელობა",
-                   type: "text"
-               }
-           },function () {
-               dataLoading();
-               modal.modal("hide");
-           })
-       },{},500)
+    createButtonWithHandlerr($("#addNewDiv"), strings["admin_button_add"], function () {
+        showModalWithTableInside(function (head, body, modal, rand) {
+            dynamicCreateForm(body, "/createstring", {
+                name: {
+                    name: strings.admin_label_name,
+                    type: "text"
+                },
+                value: {
+                    name: strings.admin_label_value,
+                    type: "text"
+                }
+            }, function () {
+                dataLoading();
+                modal.modal("hide");
+            })
+        }, {}, 500)
     });
     dataLoading()
     function dataLoading() {
-        $.getJSON("/strings/"+index, function (result) {
+        $.getJSON("/strings/" + index, function (result) {
             $("#dataGridHeader").html("");
             $("#dataGridBody").html("");
             $("#paginationUl").html("");
@@ -56,8 +56,8 @@ function loadTexts(index, search) {
             gridRow.css('cursor', 'pointer');
             gridRow.unbind();
             gridRow.click(function () {
-                var currentItem=dataArray[$(this).attr("value")];
-                openTextGlobal(currentItem.id);
+                var currentItem = dataArray[$(this).attr("value")];
+                openTextGlobal(currentItem.uuid,currentItem.name);
             });
             for (i = 0; i < totalPages; i++) {
                 if (i > index - 3 && i < index + 3 || i === 0 || i === (totalPages - 1))
@@ -73,8 +73,53 @@ function loadTexts(index, search) {
 
         })
     }
-    openTextGlobal=function (id,DOMElements) {
-        showModalWithTableInside(function (head, body, modal, rand) {
+
+    openTextGlobal = function (uuid,name, DOMElements) {
+        showModalWithTableInside(function (head, body, modalMain, rand) {
+            head.html(name)
+            body.append("<div id='stringTranslationAddButtonPlace'></div>" +
+                "<div id='stringTranslationAddFormPlace'></div>");
+
+            createButtonWithHandlerr($("#stringTranslationAddButtonPlace"), strings.admin_button_add, function () {
+                $("#stringTranslationAddFormPlace").html("")
+                dynamicCreateForm($("#stringTranslationAddFormPlace"),"/addtranslation",{
+                    value: {
+                        name: strings.admin_label_value,
+                        type: "text"
+                    },
+                    lang: {
+                        name: strings.admin_label_lang,
+                        type: "comboBox",
+                        valueField: "id",
+                        nameField: "name",
+                        url: "/langsnotinstring/"+uuid
+                    },
+                    uuid:{
+                        value:uuid,
+                        type:"hidden"
+                    }
+                },function () {
+                    $("#stringTranslationAddFormPlace").html("");
+                    modalMain.modal("hide")
+                    openTextGlobal(uuid,name, DOMElements);
+
+                })
+            });
+            $.getJSON("/translationsfor/" + uuid, function (resultData) {
+                console.log(resultData)
+                createTable(body,{
+                    lang:{name:strings.admin_label_lang},
+                    value:{name:strings.admin_label_value}
+                },function (table) {
+                    for(var key in resultData){
+                        var item=resultData[key];
+                        table.append("<tr>" +
+                            "<td>"+item.langName+"</td>" +
+                            "<td>"+item.value+"</td>" +
+                            "</tr>")
+                    }
+                })
+            })
         }, {}, 500);
     }
 }

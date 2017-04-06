@@ -317,7 +317,6 @@ public class UsersController {
         for(int i=0; i<Languages.values().length;i++){
             data.add(new IdNameData(Languages.values()[i].getCODE(),Languages.values()[i].name()));
         }
-
         return data;
     }
 

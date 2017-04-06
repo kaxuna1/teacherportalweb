@@ -27,6 +27,7 @@ $(document).ready(function () {
                         $.getJSON("/loginapigoogle?token=" + id_token, function (result) {
                             if (result) {
                                 createCookie("projectSessionId", result["id"], 365);
+                                createCookie("lang",result["lang"],365);
                                 location.reload();
                             } else {
                                 alert("no such user")
@@ -95,6 +96,7 @@ $(document).ready(function () {
                                 data: regData
                             }).done(function (result) {
                                 createCookie("projectSessionId", result["id"], 365);
+                                createCookie("lang",result["lang"],365);
                                 location.reload();
                             })
                         }
@@ -289,6 +291,7 @@ function registerWithFacebook() {
                         console.log(session)
                         if (session.id) {
                             createCookie("projectSessionId", session["id"], 365);
+                            createCookie("lang",result["lang"],365);
                             location.reload();
                         } else {
                             $("#imagePlace").html("<img style='height: 150px' src='http://graph.facebook.com/" + result.id + "/picture?type=large'>");
@@ -330,6 +333,7 @@ function loginWithFace() {
             $.getJSON("/loginapifb/" + token, function (result) {
                 if (result) {
                     createCookie("projectSessionId", result["id"], 365);
+                    createCookie("lang",result["lang"],365);
                     location.reload();
                 } else {
                     alert("no such user")
@@ -533,6 +537,9 @@ $(".settingsBtn").click(function () {
                         $.getJSON("/mydata", function (result2) {
                             result = result2;
                             $("#settingsItemValueLang").html(result.langName)
+                            eraseCookie("lang");
+                            createCookie("lang",result["language"],365);
+                            location.reload();
                         })
                     });
                     $("#langSettingsFormDiv").slideDown()
@@ -623,6 +630,7 @@ $(".logoutBtn").click(function () {
     $.getJSON("/logout", function (result) {
         if (result) {
             eraseCookie("projectSessionId");
+
             window.location.href = "/";
         }
     })

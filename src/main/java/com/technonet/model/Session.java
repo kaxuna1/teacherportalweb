@@ -66,4 +66,8 @@ public class Session {
     public void setIsactive(boolean isactive) {
         this.isactive = isactive;
     }
+
+    public int getLang(){
+        return this.user.getLanguage();
+    }
 }
