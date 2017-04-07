@@ -70,16 +70,14 @@ function loadCategoriesData(index, search) {
             showModalWithTableInside(function (head, body, modal, rand) {
                 body.html(categoryPageTemplate);
                 var documents = $("#tab5_1");
-                var permissions = $("#tab5_2");
-                var lessons = $("#tab5_3");
-                var payments = $("#tab5_4")
+                var teachers = $("#tab5_2");
+                var translations = $("#tab5_3");
                 var actions = $("#tab6_1");
                 var infoDiv = $("#tab6_2");
                 var DOMElements = {
                     documents: documents,
-                    permissions: permissions,
-                    lessons: lessons,
-                    payments: payments,
+                    teachers: teachers,
+                    translations: translations,
                     actions: actions,
                     infoDiv: infoDiv,
                     modal: modal,
@@ -161,9 +159,6 @@ function loadCategoriesData(index, search) {
                         drawDocTypesForAdding(currentElement["id"]);
                     })
                 })
-
-
-
                 drawInfoPage(DOMElements);
 
 
@@ -254,6 +249,9 @@ function loadCategoriesData(index, search) {
         dropBoxFunc('promptModal' + DOMElements.rand,"uploadcategorylogo/"+DOMElements.currentElement.id, function () {
             drawInfoPage(DOMElements);
         });
+    }
+    function drawTranslationsTab(DOMElements) {
+
     }
 
 }

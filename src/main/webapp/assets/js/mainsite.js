@@ -178,7 +178,7 @@ $(document).ready(function () {
                 "</clipPath>" +
                 "</defs>" +
                 "<text class='svg-text' dy='.3em' x='50%' y='50%'>"+item.name+"</text>" +
-                "<g clip-path='url(#clip-"+c+")'><image height='100%' preserveAspectRatio='xMinYMin slice' width='100%' xlink:href='png/black.png'>" +
+                "<g clip-path='url(#clip-"+c+")'><image height='100%' preserveAspectRatio='xMinYMin slice' width='100%' xlink:href='png/white.png'>" +
                 "</image><text class='svg-masked-text' dy='.3em' x='50%' y='50%'>"+item.name+"</text>" +
                 "</g></svg></div>")
             c++;
