@@ -101,10 +101,10 @@
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><span
                             th:text="${userNameSurname}"></span></span></a>
                     <ul class="dropdown-menu">
-                        <li class="profileBtn"><a href="#">Profile</a></li>
-                        <li class="settingsBtn"><a href="#">Settings</a></li>
+                        <li class="profileBtn"><a href="#" th:text="${strings.main_menu_profile}"></a></li>
+                        <li class="settingsBtn"><a href="#" th:text="${strings.main_menu_settings}"></a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a class="logoutBtn" href="#">Log Out</a></li>
+                        <li><a class="logoutBtn" href="#" th:text="${strings.main_menu_log_out}"></a></li>
                     </ul>
                 </li>
 
@@ -129,8 +129,8 @@
                    <input placeholder="City" class="cityInputSearch" type="text">-->
                 <form class="form-wrapper cf">
                     <button class="searchButton" type="button"></button>
-                    <input class="categorySearchField" type="text" placeholder="Category">
-                    <input class="citySearchField" type="text" placeholder="City">
+                    <input class="categorySearchField" type="text" th:placeholder="${strings.main_search_placeholder_category}">
+                    <input class="citySearchField" type="text" th:placeholder="${strings.main_search_placeholder_city}">
                 </form>
             </div>
 

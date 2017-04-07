@@ -1,8 +1,10 @@
 package com.technonet.BackgroundTask;
 
 import com.technonet.Enums.Languages;
+import com.technonet.Repository.CategoryRepo;
 import com.technonet.Repository.SysStringRepo;
 import com.technonet.Repository.SysStringTranslationRepo;
+import com.technonet.model.Category;
 import com.technonet.model.SysString;
 import com.technonet.model.SysStringTranslations;
 import com.technonet.staticData.Variables;
@@ -26,6 +28,9 @@ public class StrurtupFunctions {
     @PostConstruct
     public void init() {
         List<SysString> sysStringList = sysStringRepo.findByActive(true);
+        List<Category> categories = categoryRepo.findByActive(true);
+        categories.forEach(c -> sysStringList.add(new SysString(c.getNameOriginal(), c.getNameOriginal(), c.getUuid())));
+
 
         Map<String, String> mainStringsUuidNameMap = sysStringList
                 .stream().collect(Collectors.toMap(SysString::getUuid, SysString::getName));
@@ -54,4 +59,6 @@ public class StrurtupFunctions {
     private SysStringRepo sysStringRepo;
     @Autowired
     private SysStringTranslationRepo sysStringTranslationRepo;
+    @Autowired
+    private CategoryRepo categoryRepo;
 }

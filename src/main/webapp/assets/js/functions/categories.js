@@ -160,7 +160,7 @@ function loadCategoriesData(index, search) {
                     })
                 })
                 drawInfoPage(DOMElements);
-
+                drawTranslationsTab(DOMElements);
 
 
 
@@ -251,7 +251,52 @@ function loadCategoriesData(index, search) {
         });
     }
     function drawTranslationsTab(DOMElements) {
+        DOMElements.translations.html("");
+        DOMElements.translations.append("<div id='stringTranslationAddButtonPlace'></div>" +
+            "<div id='stringTranslationAddFormPlace'></div>");
+        createButtonWithHandlerr($("#stringTranslationAddButtonPlace"), strings.admin_button_add, function () {
+            $("#stringTranslationAddFormPlace").html("")
+            dynamicCreateForm($("#stringTranslationAddFormPlace"),"/addtranslation",{
+                value: {
+                    name: strings.admin_label_value,
+                    type: "text"
+                },
+                lang: {
+                    name: strings.admin_label_lang,
+                    type: "comboBox",
+                    valueField: "id",
+                    nameField: "name",
+                    url: "/langsnotinstring/"+DOMElements.currentElement.uuid
+                },
+                uuid:{
+                    value:DOMElements.currentElement.uuid,
+                    type:"hidden"
+                },
+                name:{
+                    value:DOMElements.currentElement.name,
+                    type:"hidden"
+                }
+            },function () {
+                $("#stringTranslationAddFormPlace").html("");
+                drawTranslationsTab(DOMElements);
+            });
 
+        });
+        $.getJSON("translationsfor/" + DOMElements.currentElement.uuid, function (resultData) {
+            console.log(resultData)
+            createTable(DOMElements.translations,{
+                lang:{name:strings.admin_label_lang},
+                value:{name:strings.admin_label_value}
+            },function (table) {
+                for(var key in resultData){
+                    var item=resultData[key];
+                    table.append("<tr>" +
+                        "<td>"+item.langName+"</td>" +
+                        "<td>"+item.value+"</td>" +
+                        "</tr>")
+                }
+            })
+        })
     }
 
 }

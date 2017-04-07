@@ -349,46 +349,40 @@ $(".settingsBtn").click(function () {
             body.html("<ul class='settingsList'>" +
                 "<li class='settingsItem'>" +
                 "<a class='settingsItemA'>" +
-                "<h3 class='settingsItemH'>Name</h3>" +
+                "<h3 class='settingsItemH'>"+strings.main_settings_field_name+"</h3>" +
                 "<span class='settingsItemValue' id='settingsItemValueNameSurname'>" + result.nameSurname + "</span>" +
                 "<span><span id='nameSurnameSettingsItem' class='settingsItemEditButton'>edit</span></span></a> <div id='nameSurnameSettingsFormDiv' hidden class='settingsChangeFormDiv'></div></li>" +
                 "<li class='settingsItem'>" +
                 "<a class='settingsItemA'>" +
-                "<h3 class='settingsItemH'>Email</h3>" +
+                "<h3 class='settingsItemH'>"+strings.main_settings_field_email+"</h3>" +
                 "<span class='settingsItemValue' style='font-size: 12px' id='settingsItemValueEmail'>" + getMailStringForValue(result) + "</span>" +
                 "<span><span id='emailSettingsItem' class='settingsItemEditButton'>edit</span></span></a> <div id='emailSettingsFormDiv' hidden class='settingsChangeFormDiv'></div></li>" +
                 "<li class='settingsItem'>" +
                 "<a class='settingsItemA'>" +
-                "<h3 class='settingsItemH'>Password</h3>" +
+                "<h3 class='settingsItemH'>"+strings.main_settings_field_password+"</h3>" +
                 "<span class='settingsItemValue'>******</span>" +
                 "<span><span class='settingsItemEditButton'>edit</span></span></a> </li>" +
                 "<li class='settingsItem'>" +
                 "<a class='settingsItemA'>" +
-                "<h3 class='settingsItemH'>Language</h3>" +
+                "<h3 class='settingsItemH'>"+strings.main_settings_field_language+"</h3>" +
                 "<span class='settingsItemValue' id='settingsItemValueLang'>" + result.langName + "</span>" +
                 "<span><span id='langSettingsItem' class='settingsItemEditButton'>edit</span></span></a> <div id='langSettingsFormDiv' hidden class='settingsChangeFormDiv'></div></li>" +
                 "<li class='settingsItem'>" +
                 "<a class='settingsItemA'>" +
-                "<h3 class='settingsItemH'>Facebook</h3>" +
+                "<h3 class='settingsItemH'>"+strings.main_settings_field_facebook+"</h3>" +
                 "<span class='settingsItemValue'>" + getFacebookFieldForSettings(result) + "</span>" +
                 "<span><span class='settingsItemEditButton'></span></span></a> </li>" +
                 "<li class='settingsItem'>" +
                 "<a class='settingsItemA'>" +
-                "<h3 class='settingsItemH'>Google</h3>" +
+                "<h3 class='settingsItemH'>"+strings.main_settings_field_google+"</h3>" +
                 "<span class='settingsItemValue'>" + getGoogleFieldForSettings(result) + "</span>" +
                 "<span><span class='settingsItemEditButton'></span></span></a> </li>" +
                 "<li class='settingsItem'>" +
                 "<a class='settingsItemA'>" +
-                "<h3 class='settingsItemH'>Calendar</h3>" +
+                "<h3 class='settingsItemH'>"+strings.main_settings_field_calendar+"</h3>" +
                 "<span class='settingsItemValue'>" + getCalendarFieldForSettings(result) + "</span>" +
                 "<span><span class='settingsItemEditButton'></span></span></a> </li>" +
-                getCalendarChooserField(result) +
-                "<li class='settingsItem'>" +
-                "<a class='settingsItemA'>" +
-                "<h3 class='settingsItemH'>Language</h3>" +
-                "<span class='settingsItemValue'>" + result.langName + "</span>" +
-                "<span><span class='settingsItemEditButton'>edit</span></span></a> </li>" +
-                "</ul>");
+                getCalendarChooserField(result));
             $(".disconnectFbButton").click(function () {
                 $.getJSON("/disconnect/1", function (result) {
                     if (result) {
@@ -475,12 +469,12 @@ $(".settingsBtn").click(function () {
                 if ($("#nameSurnameSettingsFormDiv").html() == "") {
                     dynamicCreateForm($("#nameSurnameSettingsFormDiv"), "editme", {
                         name: {
-                            name: "Name",
+                            name: strings.main_label_name,
                             type: "text",
                             value: result.name
                         },
                         surname: {
-                            name: "Surname",
+                            name: strings.main_label_surname,
                             type: "text",
                             value: result.surname
                         }
@@ -503,7 +497,7 @@ $(".settingsBtn").click(function () {
                 if ($("#emailSettingsFormDiv").html() == "") {
                     dynamicCreateForm($("#emailSettingsFormDiv"), "editme", {
                         email: {
-                            name: "Email",
+                            name: strings.main_label_email,
                             type: "text",
                             value: result.email
                         }
@@ -526,7 +520,7 @@ $(".settingsBtn").click(function () {
                 if ($("#langSettingsFormDiv").html() == "") {
                     dynamicCreateForm($("#langSettingsFormDiv"), "editme", {
                         lang: {
-                            name: "Language",
+                            name: strings.main_label_lang,
                             type: "comboBox",
                             valueField: "id",
                             nameField: "name",
@@ -554,7 +548,7 @@ $(".settingsBtn").click(function () {
                 if ($("#calSettingsFormDiv").html() == "") {
                     dynamicCreateForm($("#calSettingsFormDiv"), "editme", {
                         cal: {
-                            name: "Calendar",
+                            name: strings.main_label_calendar,
                             type: "comboBox",
                             valueField: "id",
                             nameField: "summary",
@@ -610,7 +604,7 @@ function getCalendarChooserField(user) {
     if (user.calendarConnected) {
         return "<li class='settingsItem'>" +
             "<a class='settingsItemA'>" +
-            "<h3 class='settingsItemH'>Calendar To Use</h3>" +
+            "<h3 class='settingsItemH'>"+strings.main_settings_field_calendar_to_use+"</h3>" +
             "<span class='settingsItemValue' id='settingsItemValueCal'>" + (user.calendarId ? user.calendarId : "not selected") + "</span>" +
             "<span><span id='calSettingsItem' class='settingsItemEditButton'>edit</span></span></a> <div id='calSettingsFormDiv' hidden class='settingsChangeFormDiv'></div></li>";
     }

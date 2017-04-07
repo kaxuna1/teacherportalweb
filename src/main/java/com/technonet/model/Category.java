@@ -1,6 +1,7 @@
 package com.technonet.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.technonet.staticData.Variables;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "category")
 public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "categoryId")
@@ -40,6 +42,8 @@ public class Category {
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<UserCategoryJoin> userCategoryJoins;
+
+    public int lang=1;
 
 
 
@@ -69,7 +73,7 @@ public class Category {
     }
 
     public String getName() {
-        return name;
+        return Variables.stringsMap.get(lang).get(this.name);
     }
 
     public void setName(String name) {
@@ -131,5 +135,13 @@ public class Category {
 
     public void setUserCategoryJoins(List<UserCategoryJoin> userCategoryJoins) {
         this.userCategoryJoins = userCategoryJoins;
+    }
+
+    public String getNameOriginal() {
+        return name;
+    }
+
+    public void setLang(int lang){
+        this.lang=lang;
     }
 }

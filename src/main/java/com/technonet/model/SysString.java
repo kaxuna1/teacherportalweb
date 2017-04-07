@@ -41,6 +41,12 @@ public class SysString {
     public SysString() {
     }
 
+    public SysString(String value, String name, String uuid) {
+        this.value = value;
+        this.name = name;
+        this.uuid= uuid;
+    }
+
 
     public long getId() {
         return id;

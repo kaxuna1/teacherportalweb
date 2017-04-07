@@ -69,18 +69,23 @@ public class CategoryController {
     @RequestMapping("/categories/{page}")
     @ResponseBody
     public Page<Category> getCategories(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
-                                        @PathVariable("page") int page) {
+                                        @PathVariable("page") int page,
+                                        @CookieValue(value = "lang", defaultValue = "1")int lang) {
         Session session = sessionRepository.findOne(sessionId).get();
         if (PermisionChecks.categoriesManagement(session)) {
-            return categoryRepo.findByActiveOrderByNameAsc(true, constructPageSpecification(page));
+            Page<Category> cats = categoryRepo.findByActiveOrderByNameAsc(true, constructPageSpecification(page, 20));
+            cats.forEach(c->c.setLang(lang));
+            return cats;
         } else
             return null;
     }
 
     @RequestMapping("/categories")
     @ResponseBody
-    public List<Category> getCategoriesAll() {
-        return categoryRepo.findByActiveAndVisible(true, true);
+    public List<Category> getCategoriesAll( @CookieValue(value = "lang", defaultValue = "1")int lang) {
+        List<Category> cats = categoryRepo.findByActiveAndVisible(true, true);
+        cats.forEach(c->c.setLang(lang));
+        return cats;
     }
 
     @RequestMapping("uploadcategorylogo/{id}")
@@ -196,13 +201,15 @@ public class CategoryController {
 
     @RequestMapping("/topcategories")
     @ResponseBody
-    public Page<Category> getTopCategories() {
-        return categoryRepo.findByActiveAndVisible(true, true, constructPageSpecification(0));
+    public Page<Category> getTopCategories( @CookieValue(value = "lang", defaultValue = "1")int lang) {
+        Page<Category> cats = categoryRepo.findByActiveAndVisible(true, true, constructPageSpecification(0, 6));
+        cats.forEach(category -> category.setLang(lang));
+        return cats;
     }
 
 
-    private Pageable constructPageSpecification(int pageIndex) {
-        return new PageRequest(pageIndex, 6);
+    private Pageable constructPageSpecification(int pageIndex,int size) {
+        return new PageRequest(pageIndex, size);
     }
 
 
