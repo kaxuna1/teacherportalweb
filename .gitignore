@@ -23,3 +23,11 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+.gitignore
+app/
+build.gradle
+gradle.properties
+gradle/
+gradlew
+gradlew.bat
+settings.gradle
