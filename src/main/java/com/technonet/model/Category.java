@@ -141,7 +141,8 @@ public class Category {
         return name;
     }
 
-    public void setLang(int lang){
+    public Category setLang(int lang){
         this.lang=lang;
+        return this;
     }
 }

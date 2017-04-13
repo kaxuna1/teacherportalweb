@@ -21,6 +21,8 @@ import java.util.stream.DoubleStream;
 @Entity
 @Table(name = "orders")
 public class Order {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "orderId")
@@ -68,6 +70,7 @@ public class Order {
     @Column
     private float price;
 
+    private int lang;
 
     public Order(User user) {
         this.user = user;
@@ -158,6 +161,7 @@ public class Order {
     }
 
     public List<BookedTime> getBookedTimes() {
+        bookedTimes.forEach(bookedTime -> bookedTime.getUserCategoryJoin().getCategory().setLang(lang));
         return bookedTimes;
     }
 
@@ -197,7 +201,8 @@ public class Order {
         return bookedTimes.size()>0?bookedTimes.get(0).getUserCategoryJoin().getUser():null;
     }
     public String getCategoryName(){
-        return bookedTimes.size()>0?bookedTimes.get(0).getUserCategoryJoin().getCategory().getName():"";
+
+        return bookedTimes.size()>0?bookedTimes.get(0).getUserCategoryJoin().getCategory().setLang(lang).getName():"";
     }
     public String getTeacherName(){
         return this.getTeacher().getNameSurname();
@@ -220,5 +225,13 @@ public class Order {
 
 
         return (dif<1000*60*60)&&!this.confirmed;
+    }
+
+    public int getLang() {
+        return lang;
+    }
+
+    public void setLang(int lang) {
+        this.lang = lang;
     }
 }

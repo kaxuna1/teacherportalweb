@@ -206,6 +206,13 @@ public class CategoryController {
         cats.forEach(category -> category.setLang(lang));
         return cats;
     }
+    @RequestMapping("/topcategoriesmobile")
+    @ResponseBody
+    public List<Category> getTopCategoriesMobile( @CookieValue(value = "lang", defaultValue = "1")int lang) {
+        Page<Category> cats = categoryRepo.findByActiveAndVisible(true, true, constructPageSpecification(0, 6));
+        cats.forEach(category -> category.setLang(lang));
+        return cats.getContent();
+    }
 
 
     private Pageable constructPageSpecification(int pageIndex,int size) {

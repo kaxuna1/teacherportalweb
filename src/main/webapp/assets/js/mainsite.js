@@ -177,9 +177,9 @@ $(document).ready(function () {
                 "<circle cx='0' cy='0' fill='#000' r='150px'></circle>" +
                 "</clipPath>" +
                 "</defs>" +
-                "<text class='svg-text' dy='.3em' x='50%' y='50%'>"+item.name+"</text>" +
+                "<text class='svg-text' fill='black' dy='.3em' x='50%' y='50%'>"+item.name+"</text>" +
                 "<g clip-path='url(#clip-"+c+")'><image height='100%' preserveAspectRatio='xMinYMin slice' width='100%' xlink:href='png/white.png'>" +
-                "</image><text class='svg-masked-text' dy='.3em' x='50%' y='50%'>"+item.name+"</text>" +
+                "</image><text class='svg-masked-text' fill='black' dy='.3em' x='50%' y='50%'>"+item.name+"</text>" +
                 "</g></svg></div>")
             c++;
         }

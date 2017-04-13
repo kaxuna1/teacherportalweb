@@ -130,14 +130,12 @@ public class GalleryPicturesController {
     @ResponseBody
     public Page<GalleryPicture> listGallery(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                                             @PathVariable("id") long id, @PathVariable("page") int page) {
-        Session session = sessionRepository.findOne(sessionId).get();
         return galleryPictureRepo.findByUserAndActiveOrderByDate(userRepository.findOne(id).get(), true, constructPageSpecification(page));
     }
 
     @RequestMapping(value = "userpicture/{pic}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
     public byte[] userPic(HttpServletResponse response, @CookieValue("projectSessionId") long sessionId, @PathVariable("pic") String pic) {
-        Session session = sessionRepository.findOne(sessionId).get();
         Path path = Paths.get(Variables.appDir + "/images/galleryPics/" + pic);
         response.setContentType("image/jpeg");
         response.setHeader("Content-disposition", "attachment; filename=pic.jpg");
@@ -159,7 +157,7 @@ public class GalleryPicturesController {
     @RequestMapping(value = "userpicturelogo/{pic}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
     public byte[] userPicLogo(HttpServletResponse response, @CookieValue("projectSessionId") long sessionId, @PathVariable("pic") String pic) {
-        Session session = sessionRepository.findOne(sessionId).get();
+
         Path path = Paths.get(Variables.appDir + "/images/galleryPicLogos/" + pic);
         response.setContentType("image/jpeg");
         response.setHeader("Content-disposition", "attachment; filename=pic.jpg");

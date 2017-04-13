@@ -69,10 +69,10 @@ public class UserCategoryJoin {
         this.declined = false;
         this.date = new Date();
         this.lastModifyDate = new Date();
-        this.active=true;
-        this.schedules=new ArrayList<>();
-        this.price=price;
-        this.bookedTimes =new ArrayList<>();
+        this.active = true;
+        this.schedules = new ArrayList<>();
+        this.price = price;
+        this.bookedTimes = new ArrayList<>();
     }
 
     public UserCategoryJoin() {
@@ -191,5 +191,25 @@ public class UserCategoryJoin {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public long getCategoryId() {
+        return this.category.getId();
+    }
+
+    public long getUserId() {
+        return this.user.getId();
+    }
+
+    public String getUserName() {
+        return this.user.getName();
+    }
+
+    public String getUserSurname() {
+        return this.user.getSurname();
+    }
+
+    public String getCategoryName() {
+        return this.category.getName();
     }
 }

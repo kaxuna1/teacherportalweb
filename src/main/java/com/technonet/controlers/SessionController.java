@@ -86,6 +86,22 @@ public class SessionController {
             return "redirect:/";
         }
     }
+    @RequestMapping("/loginmobileapi")
+    @ResponseBody
+    public Session loginMobile(String email, String password,HttpServletResponse response){
+        Session session;
+        User user;
+        List<User> users=userDao.findByEmailAndPassword(email,password);
+
+        if(users.size()==0){
+            return null;
+        }else{
+            user=users.get(0);
+            session=new Session(new Date(),user);
+            session=sessionDao.save(session);
+            return session;
+        }
+    }
     @RequestMapping("/loginapifb/{token}")
     @ResponseBody
     public Session loginFB(@PathVariable("token")String token, HttpServletResponse response){

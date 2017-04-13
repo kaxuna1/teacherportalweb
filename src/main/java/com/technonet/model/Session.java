@@ -1,7 +1,6 @@
 package com.technonet.model;
 
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -29,13 +28,14 @@ public class Session {
     @Column
     private boolean isactive;
 
-    public Session(Date createDate,User user){
+    public Session(Date createDate, User user) {
 
         this.createDate = createDate;
-        this.user=user;
-        this.isactive=true;
+        this.user = user;
+        this.isactive = true;
     }
-    public Session(){
+
+    public Session() {
 
     }
 
@@ -67,7 +67,11 @@ public class Session {
         this.isactive = isactive;
     }
 
-    public int getLang(){
+    public int getLang() {
         return this.user.getLanguage();
+    }
+
+    public long getUserId() {
+        return user.getId();
     }
 }

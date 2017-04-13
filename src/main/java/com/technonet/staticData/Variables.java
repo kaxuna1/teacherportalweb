@@ -22,8 +22,8 @@ import java.util.Map;
  * Created by kaxa on 3/8/17.
  */
 public class Variables {
-    //public static String appDir = "/Users/vakhtanggelashvili/IdeaProjects/teacherportalweb/build/app";
-    public static String appDir="D:/app";
+    public static String appDir = "/Users/vakhtanggelashvili/IdeaProjects/teacherportalweb/build/app";
+    //public static String appDir="D:/app";
 
     public static Mailer mailer=new Mailer(
             new ServerConfig("smtp.gmail.com", 587, "kaxgel11@gmail.com", "dwrstn11"),

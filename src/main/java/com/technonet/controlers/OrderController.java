@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Created by vakhtanggelashvili on 3/25/17.
@@ -55,8 +56,13 @@ public class OrderController {
     public Page<Order> getOrders(@CookieValue("projectSessionId") long sessionId,
                                  @PathVariable("page") int page) {
         Session session = sessionRepository.findOne(sessionId).get();
-        if (PermisionChecks.orderManagement(session))
-            return orderRepo.findByActiveOrderByCreateDateDesc(true, constructPageSpecification(page));
+        if (PermisionChecks.orderManagement(session)) {
+            Page<Order> orders = orderRepo.findByActiveOrderByCreateDateDesc(true, constructPageSpecification(page));
+            orders.forEach(order -> {
+                order.setLang(session.getLang());
+            });
+            return orders;
+        }
         else
             return null;
     }

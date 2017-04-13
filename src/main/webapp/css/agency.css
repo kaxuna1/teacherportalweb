@@ -238,9 +238,9 @@ header .intro-text .intro-heading {
         z-index: 100;
         left: 0;
         bottom: 0;
-        width: 59vh;
+        width: 69vh;
         display: block!important;
-        margin-bottom: 10%;
+        margin-bottom: 0%;
     }
     .lampLeft img{
         width:100%;
@@ -257,10 +257,10 @@ header .intro-text .intro-heading {
         bottom: 0;
 
         display: block!important;
-        margin-bottom: 11%;
+        margin-bottom: 0%;
     }
     .awLogoRight img{
-        height: 35vh;
+        height: 40vh;
         left: 0;
         bottom: 0;
         position: absolute;
