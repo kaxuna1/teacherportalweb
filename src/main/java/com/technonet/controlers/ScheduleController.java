@@ -61,11 +61,15 @@ public class ScheduleController {
                                               @RequestParam(value = "user", required = true, defaultValue = "") long user,
                                               @RequestParam(value = "category", required = true, defaultValue = "") long category) {
         HashMap<Integer, WeekDay> weekdays = Variables.getWeekDays();
-        Session session = sessionRepository.findOne(sessionId).get();
-        User user1 = userDao.findOne(user).get();
+
+        Session session;
+        Optional<Session>sessionOptional = sessionRepository.findOne(sessionId);
+        if(sessionOptional.isPresent())
+            session=sessionOptional.get();
+
         UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(category).get();
         List<Schedule> schedules = scheduleRepo.findByUserCategoryJoinAndActive(userCategoryJoin, true);
-        schedules.stream().forEach(schedule -> weekdays.remove(schedule.getDayOfWeek()));
+        schedules.forEach(schedule -> weekdays.remove(schedule.getDayOfWeek()));
 
         return new ArrayList<>(weekdays.values());
     }
@@ -75,8 +79,11 @@ public class ScheduleController {
     public List<WeekDay> getMyWeekDaysForAdding(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                                                 @RequestParam(value = "category", required = true, defaultValue = "") long category) {
         HashMap<Integer, WeekDay> weekdays = Variables.getWeekDays();
-        Session session = sessionRepository.findOne(sessionId).get();
-        User user1 = session.getUser();
+        Session session;
+        Optional<Session>sessionOptional = sessionRepository.findOne(sessionId);
+        if(sessionOptional.isPresent())
+            session=sessionOptional.get();
+
         UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(category).get();
         List<Schedule> schedules = scheduleRepo.findByUserCategoryJoinAndActive(userCategoryJoin, true);
         schedules.stream().forEach(schedule -> weekdays.remove(schedule.getDayOfWeek()));

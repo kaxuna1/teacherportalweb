@@ -10,6 +10,7 @@ import com.technonet.staticData.PermisionChecks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import sun.jvm.hotspot.debugger.Page;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,6 +20,15 @@ import java.util.stream.Collectors;
  */
 @Controller
 public class UserCategoryController {
+
+    @RequestMapping("search/{cat}/{page}")
+    @ResponseBody
+    public Page<UserCategoryJoin> search(@CookieValue(value = "projectSessionId",defaultValue = "0") long sessionId,
+                                         @RequestParam(value = "page", required = true, defaultValue = "0") int page,
+                                         @RequestParam(value = "category", required = true, defaultValue = "0") long cat){
+
+    }
+
     @RequestMapping("/addcategorytouser")
     @ResponseBody
     public JsonMessage addCategoryToUser(@CookieValue("projectSessionId") long sessionId,
