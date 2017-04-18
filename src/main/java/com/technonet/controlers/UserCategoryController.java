@@ -1,16 +1,15 @@
 package com.technonet.controlers;
 
 import com.technonet.Enums.JsonReturnCodes;
-import com.technonet.Repository.CategoryRepo;
-import com.technonet.Repository.SessionRepository;
-import com.technonet.Repository.UserCategoryJoinRepo;
-import com.technonet.Repository.UserRepository;
+import com.technonet.Repository.*;
 import com.technonet.model.*;
 import com.technonet.staticData.PermisionChecks;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import sun.jvm.hotspot.debugger.Page;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,12 +20,20 @@ import java.util.stream.Collectors;
 @Controller
 public class UserCategoryController {
 
-    @RequestMapping("search/{cat}/{page}")
-    @ResponseBody
-    public Page<UserCategoryJoin> search(@CookieValue(value = "projectSessionId",defaultValue = "0") long sessionId,
-                                         @RequestParam(value = "page", required = true, defaultValue = "0") int page,
-                                         @RequestParam(value = "category", required = true, defaultValue = "0") long cat){
+    @Autowired
+    private CityRepo cityRepo;
 
+    @RequestMapping("search/{cat}/{city}/{page}")
+    @ResponseBody
+    public Page<UserCategoryJoin> search(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
+                                         @PathVariable(value = "page", required = true) int page,
+                                         @PathVariable(value = "category", required = true) long cat,
+                                         @PathVariable(value = "city", required = true) long city) {
+
+
+
+        return userCategoryJoinRepo.findByCategoryAndCity(categoryRepo.getOne(cat),
+                cityRepo.getOne(city),constructPageSpecification(page,20));
     }
 
     @RequestMapping("/addcategorytouser")
@@ -35,59 +42,63 @@ public class UserCategoryController {
                                          @RequestParam(value = "user", required = true, defaultValue = "0") long user,
                                          @RequestParam(value = "category", required = true, defaultValue = "0") long category,
                                          @RequestParam(value = "price", required = true, defaultValue = "0") float price,
-                                         @RequestParam(value = "duration", required = true, defaultValue = "0") int duration){
+                                         @RequestParam(value = "duration", required = true, defaultValue = "0") int duration) {
 
-        Session session= sessionRepository.findOne(sessionId).get();
-        if(PermisionChecks.isAdmin(session)&&PermisionChecks.userManagement(session)){
-            User user1=userRepository.findOne(user).get();
-            Category category1=categoryRepo.findOne(category).get();
-            UserCategoryJoin userCategoryJoin=new UserCategoryJoin(user1,category1,price, duration);
+        Session session = sessionRepository.findOne(sessionId).get();
+        if (PermisionChecks.isAdmin(session) && PermisionChecks.userManagement(session)) {
+            User user1 = userRepository.findOne(user).get();
+            Category category1 = categoryRepo.findOne(category).get();
+            UserCategoryJoin userCategoryJoin = new UserCategoryJoin(user1, category1, price, duration);
             userCategoryJoinRepo.save(userCategoryJoin);
             return new JsonMessage(JsonReturnCodes.Ok);
-        }else{
+        } else {
             return new JsonMessage(JsonReturnCodes.DONTHAVEPERMISSION);
         }
     }
+
     @RequestMapping("/requestcategory")
     @ResponseBody
     public JsonMessage addCategoryToUser(@CookieValue("projectSessionId") long sessionId,
                                          @RequestParam(value = "category", required = true, defaultValue = "0") long category,
                                          @RequestParam(value = "price", required = true, defaultValue = "0") float price,
-                                         @RequestParam(value = "duration", required = true, defaultValue = "0") int duration){
+                                         @RequestParam(value = "duration", required = true, defaultValue = "0") int duration) {
 
-        Session session= sessionRepository.findOne(sessionId).get();
-        if(session.isIsactive()){
-            User user1=session.getUser();
-            Category category1=categoryRepo.findOne(category).get();
-            UserCategoryJoin userCategoryJoin=new UserCategoryJoin(user1,category1,price, duration);
+        Session session = sessionRepository.findOne(sessionId).get();
+        if (session.isIsactive()) {
+            User user1 = session.getUser();
+            Category category1 = categoryRepo.findOne(category).get();
+            UserCategoryJoin userCategoryJoin = new UserCategoryJoin(user1, category1, price, duration);
             userCategoryJoinRepo.save(userCategoryJoin);
             return new JsonMessage(JsonReturnCodes.Ok);
-        }else{
+        } else {
             return new JsonMessage(JsonReturnCodes.DONTHAVEPERMISSION);
         }
     }
+
     @RequestMapping("/usercategories/{id}")
     @ResponseBody
     public List<UserCategoryJoin> getUserCategories(@CookieValue("projectSessionId") long sessionId,
-                                                    @PathVariable("id") long id){
+                                                    @PathVariable("id") long id) {
         Session session = sessionRepository.findOne(sessionId).get();
         User user = userRepository.findOne(id).get();
         return user.getUserCategoryJoins();
     }
+
     @RequestMapping("/usercategoriescats/{id}")
     @ResponseBody
     public List<Category> getUserCategoriesCats(@CookieValue("projectSessionId") long sessionId,
-                                                    @PathVariable("id") long id){
+                                                @PathVariable("id") long id) {
         Session session = sessionRepository.findOne(sessionId).get();
         User user = userRepository.findOne(id).get();
         return user.getUserCategoryJoins().stream().map(userCategoryJoin -> userCategoryJoin.getCategory()).collect(Collectors.toList());
     }
+
     @RequestMapping("/getcategoriesforuseradding/{id}")
     @ResponseBody
     public List<Category> getCategotiesForUserAdding(@CookieValue("projectSessionId") long sessionId,
-                                                     @PathVariable("id") long id){
+                                                     @PathVariable("id") long id) {
         Session session = sessionRepository.findOne(sessionId).get();
-        List<Category> categories=categoryRepo.findByActiveAndVisible(true,true);
+        List<Category> categories = categoryRepo.findByActiveAndVisible(true, true);
         User user = userRepository.findOne(id).get();
         user.getUserCategoryJoins().stream().forEach(userCategoryJoin -> categories.remove(userCategoryJoin.getCategory()));
         return categories;
@@ -96,36 +107,39 @@ public class UserCategoryController {
     @RequestMapping("/getusercatdocs/{id}")
     @ResponseBody
     public List<Document> getUserCategoryDocs(@CookieValue("projectSessionId") long sessionId,
-                                              @PathVariable("id") long id){
+                                              @PathVariable("id") long id) {
         Session session = sessionRepository.findOne(sessionId).get();
-        if(PermisionChecks.isAdmin(session)){
+        if (PermisionChecks.isAdmin(session)) {
             return userCategoryJoinRepo.findOne(id).get().getDocuments();
-        }else{
+        } else {
             return null;
         }
     }
+
     @RequestMapping("/usercategoryconfirm/{id}/{action}")
     @ResponseBody
     public JsonMessage userCategoryJoinConfirm(@CookieValue("projectSessionId") long sessionId,
-                                               @PathVariable("id") long id,@PathVariable("action") int action){
-        Session session=sessionRepository.findOne(sessionId).get();
-        if(PermisionChecks.categoryConfirmation(session)){
+                                               @PathVariable("id") long id, @PathVariable("action") int action) {
+        Session session = sessionRepository.findOne(sessionId).get();
+        if (PermisionChecks.categoryConfirmation(session)) {
 
             UserCategoryJoin join = userCategoryJoinRepo.findOne(id).get();
-            if(action==1){
+            if (action == 1) {
                 join.confirm();
             }
-            if(action==2){
+            if (action == 2) {
                 join.decline();
             }
             userCategoryJoinRepo.save(join);
             return new JsonMessage(JsonReturnCodes.Ok);
-        }else{
+        } else {
             return new JsonMessage(JsonReturnCodes.DONTHAVEPERMISSION);
         }
     }
 
-
+    private Pageable constructPageSpecification(int pageIndex, int size) {
+        return new PageRequest(pageIndex, size);
+    }
 
     @Autowired
     private SessionRepository sessionRepository;
