@@ -43,7 +43,7 @@ public class CallendarController {
     @RequestMapping("/getmycalendarslist")
     @ResponseBody
     public List<CalendarListEntry> getMyCals(@CookieValue("projectSessionId") long sessionId){
-        Session session = sessionRepository.findOne(sessionId).get();
+        Session session = sessionRepository.findOne(sessionId);
         if(session.getUser().getCalendarRefreshToken()!=null){
             try {
                 httpTransport = GoogleNetHttpTransport.newTrustedTransport();
@@ -87,7 +87,7 @@ public class CallendarController {
     public boolean setCallId(@CookieValue("projectSessionId") long sessionId,
                              String id){
         try{
-            Session session=sessionRepository.findOne(sessionId).get();
+            Session session=sessionRepository.findOne(sessionId);
             session.getUser().setCalendarId(id);
             userRepository.save(session.getUser());
             return true;
@@ -131,7 +131,7 @@ public class CallendarController {
     @ResponseBody
     public String call(@CookieValue("projectSessionId") long sessionId) {
 
-        Session session = sessionRepository.findOne(sessionId).get();
+        Session session = sessionRepository.findOne(sessionId);
 
         // Exchange auth code for access token
 

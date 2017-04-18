@@ -42,7 +42,7 @@ public class AppController {
         Map<String, String> stringMap = Variables.stringsMap.get(lang);
         model.addAttribute("strings", stringMap);
         if (sessionId != 0) {
-            session = sessionRepository.findOne(sessionId).get();
+            session = sessionRepository.findOne(sessionId);
             if (session.isIsactive()) {
                 model.addAttribute("session", session);
                 model.addAttribute("userNameSurname", session.getUser().getNameSurname());

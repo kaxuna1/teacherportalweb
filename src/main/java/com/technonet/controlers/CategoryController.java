@@ -36,7 +36,7 @@ public class CategoryController {
     @ResponseBody
     public JsonMessage createCategory(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                                       @RequestParam(value = "name", required = true, defaultValue = "") String name) {
-        Session session = sessionRepository.findOne(sessionId).get();
+        Session session = sessionRepository.findOne(sessionId);
         if (PermisionChecks.categoriesManagement(session)) {
             try {
                 categoryRepo.save(new Category(name));
@@ -53,7 +53,7 @@ public class CategoryController {
     @ResponseBody
     public JsonMessage createDocType(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                                      @RequestParam(value = "name", required = true, defaultValue = "") String name) {
-        Session session = sessionRepository.findOne(sessionId).get();
+        Session session = sessionRepository.findOne(sessionId);
         if (PermisionChecks.documentTypes(session)) {
             try {
                 docTypeRepo.save(new DocType(name));
@@ -71,7 +71,7 @@ public class CategoryController {
     public Page<Category> getCategories(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                                         @PathVariable("page") int page,
                                         @CookieValue(value = "lang", defaultValue = "1")int lang) {
-        Session session = sessionRepository.findOne(sessionId).get();
+        Session session = sessionRepository.findOne(sessionId);
         if (PermisionChecks.categoriesManagement(session)) {
             Page<Category> cats = categoryRepo.findByActiveOrderByNameAsc(true, constructPageSpecification(page, 20));
             cats.forEach(c->c.setLang(lang));
@@ -94,7 +94,7 @@ public class CategoryController {
                                       @PathVariable("id") long id,
                                       @RequestParam("file") MultipartFile file) {
 
-        Session session = sessionRepository.findOne(sessionId).get();
+        Session session = sessionRepository.findOne(sessionId);
         if (!PermisionChecks.categoriesManagement(session))
             return false;
         if (file.isEmpty()) {
@@ -102,7 +102,7 @@ public class CategoryController {
         } else {
             try {
 
-                Category category = categoryRepo.findOne(id).get();
+                Category category = categoryRepo.findOne(id);
                 UUID uuid = UUID.randomUUID();
                 Files.copy(file.getInputStream(), Paths.get(Variables.appDir +
                         "/images/categoryLogos", uuid.toString()));
@@ -120,13 +120,11 @@ public class CategoryController {
     public byte[] doc(HttpServletResponse response, @CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId, @PathVariable("id") long id) {
 
 
-        Session session;
-        Optional<Session> result = sessionRepository.findOne(sessionId);
-        if (result.isPresent())
-            session = result.get();
+        Session session = sessionRepository.findOne(sessionId);
 
 
-        Category category = categoryRepo.findOne(id).get();
+
+        Category category = categoryRepo.findOne(id);
         Path path;
 
         if (category.getLogo() == null) {
@@ -154,9 +152,9 @@ public class CategoryController {
     @ResponseBody
     public JsonMessage giveUserPermissions(long id, @RequestParam(value = "ids") ArrayList<Long> ids) {
 
-        Category category = categoryRepo.findOne(id).get();
+        Category category = categoryRepo.findOne(id);
         for (Long id1 : ids) {
-            category.getDocTypes().add(docTypeRepo.findOne(id1).get());
+            category.getDocTypes().add(docTypeRepo.findOne(id1));
         }
         categoryRepo.save(category);
         return new JsonMessage(JsonReturnCodes.Ok.getCODE(), "წარმატებით");
@@ -167,7 +165,7 @@ public class CategoryController {
     @ResponseBody
     public JsonMessage removeUserPermissions(long id, @RequestParam(value = "ids") ArrayList<Long> ids) {
 
-        Category category = categoryRepo.findOne(id).get();
+        Category category = categoryRepo.findOne(id);
         for (Long id1 : ids) {
             category.getDocTypes().remove(docTypeRepo.findOne(id1));
         }
@@ -180,16 +178,16 @@ public class CategoryController {
     @ResponseBody
     public List<DocType> getCategoryDocs(@CookieValue("projectSessionId") String sessionId, @PathVariable("id") long id) {
 
-        return categoryRepo.findOne(id).get().getDocTypes();
+        return categoryRepo.findOne(id).getDocTypes();
 
     }
 
     @RequestMapping("/getnotcategorydocs/{id}")
     @ResponseBody
     public List<DocType> getNotCategoryDocs(@CookieValue("projectSessionId") String sessionId, @PathVariable("id") long id) {
-        Session session = sessionRepository.findOne(Long.parseLong(sessionId)).get();
+        Session session = sessionRepository.findOne(Long.parseLong(sessionId));
         List<DocType> docTypes = docTypeRepo.findAll();
-        docTypes.removeAll(categoryRepo.findOne(id).get().getDocTypes());
+        docTypes.removeAll(categoryRepo.findOne(id).getDocTypes());
         return docTypes;
     }
 

@@ -36,10 +36,10 @@ public class ScheduleController {
                                       @RequestParam(value = "category", required = true, defaultValue = "") long category,
                                       @RequestParam(value = "day", required = true, defaultValue = "") int day
     ) {
-        Session session = sessionRepository.findOne(sessionId).get();
+        Session session = sessionRepository.findOne(sessionId);
         if (PermisionChecks.categoriesManagement(session)) {
             try {
-                UserCategoryJoin category1 = userCategoryJoinRepo.findOne(category).get();
+                UserCategoryJoin category1 = userCategoryJoinRepo.findOne(category);
                 List<Schedule> scheduleCheck = scheduleRepo.findByUserCategoryJoinAndActiveAndDayOfWeek(category1, true, day);
                 if (scheduleCheck.size() > 0) {
                     return new JsonMessage(JsonReturnCodes.ERROR);
@@ -62,12 +62,9 @@ public class ScheduleController {
                                               @RequestParam(value = "category", required = true, defaultValue = "") long category) {
         HashMap<Integer, WeekDay> weekdays = Variables.getWeekDays();
 
-        Session session;
-        Optional<Session>sessionOptional = sessionRepository.findOne(sessionId);
-        if(sessionOptional.isPresent())
-            session=sessionOptional.get();
+        Session session= sessionRepository.findOne(sessionId);
 
-        UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(category).get();
+        UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(category);
         List<Schedule> schedules = scheduleRepo.findByUserCategoryJoinAndActive(userCategoryJoin, true);
         schedules.forEach(schedule -> weekdays.remove(schedule.getDayOfWeek()));
 
@@ -79,12 +76,10 @@ public class ScheduleController {
     public List<WeekDay> getMyWeekDaysForAdding(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                                                 @RequestParam(value = "category", required = true, defaultValue = "") long category) {
         HashMap<Integer, WeekDay> weekdays = Variables.getWeekDays();
-        Session session;
-        Optional<Session>sessionOptional = sessionRepository.findOne(sessionId);
-        if(sessionOptional.isPresent())
-            session=sessionOptional.get();
+        Session session = sessionRepository.findOne(sessionId);
 
-        UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(category).get();
+
+        UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(category);
         List<Schedule> schedules = scheduleRepo.findByUserCategoryJoinAndActive(userCategoryJoin, true);
         schedules.stream().forEach(schedule -> weekdays.remove(schedule.getDayOfWeek()));
 
@@ -96,7 +91,7 @@ public class ScheduleController {
     @ResponseBody
     public List<Schedule> getUserCategoryScheduleDays(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                                                       @PathVariable(value = "category", required = true) long category) {
-        return scheduleRepo.findByUserCategoryJoinAndActive(userCategoryJoinRepo.findOne(category).get(), true);
+        return scheduleRepo.findByUserCategoryJoinAndActive(userCategoryJoinRepo.findOne(category), true);
     }
 
 
@@ -104,9 +99,9 @@ public class ScheduleController {
     @ResponseBody
     public List<ScheduleTime> getScheduledTimes(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                                                 @PathVariable(value = "id", required = true) long id) {
-        Session session = sessionRepository.findOne(sessionId).get();
+        Session session = sessionRepository.findOne(sessionId);
         if (PermisionChecks.isAdmin(session) || PermisionChecks.student(session)) {
-            Schedule schedule = scheduleRepo.findOne(id).get();
+            Schedule schedule = scheduleRepo.findOne(id);
             return scheduleTimeRepo.findByScheduleAndActiveOrderByStartTimeAsc(schedule, true);
         } else {
             return null;
@@ -117,8 +112,8 @@ public class ScheduleController {
     @ResponseBody
     public boolean createScheduleTime(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                                       @PathVariable(value = "id", required = true) long id, long from, long to) {
-        Session session = sessionRepository.findOne(sessionId).get();
-        Schedule schedule = scheduleRepo.findOne(id).get();
+        Session session = sessionRepository.findOne(sessionId);
+        Schedule schedule = scheduleRepo.findOne(id);
         if (PermisionChecks.scheduleManagement(session) || schedule.getCategory().getUser().getId() == session.getUser().getId()) {
 
 
@@ -154,7 +149,7 @@ public class ScheduleController {
                                                       @PathVariable(value = "id") long id, @PathVariable(value = "days") int days) {
         List<FreeInterval> list = new ArrayList<>();
         List<FreeInterval> returnList = new ArrayList<>();
-        UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(id).get();
+        UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(id);
         Date date = new Date();
         Calendar client = null;
         CalendarListEntry calendarItem = null;
@@ -262,9 +257,9 @@ public class ScheduleController {
                                                 @PathVariable(value = "id") long id,
                                                 @PathVariable(value = "cat") long cat,
                                                 @PathVariable(value = "days") int days) {
-        Session session = sessionRepository.findOne(sessionId).get();
+        Session session = sessionRepository.findOne(sessionId);
         if (PermisionChecks.isAdmin(session)) {
-            return bookedTimeRepo.findInsideIntervalWithCat(new DateTime().minusDays(days).toDate(), new DateTime().plusDays(days).toDate(), userCategoryJoinRepo.findOne(cat).get());
+            return bookedTimeRepo.findInsideIntervalWithCat(new DateTime().minusDays(days).toDate(), new DateTime().plusDays(days).toDate(), userCategoryJoinRepo.findOne(cat));
         } else {
             return null;
         }
@@ -275,9 +270,9 @@ public class ScheduleController {
     public List<BookedTime> getScheduledLessons(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                                                 @PathVariable(value = "id") long id,
                                                 @PathVariable(value = "days") int days) {
-        Session session = sessionRepository.findOne(sessionId).get();
+        Session session = sessionRepository.findOne(sessionId);
         if (PermisionChecks.isAdmin(session)) {
-            return bookedTimeRepo.findInsideIntervalWithUser(new DateTime().minusDays(days).toDate(), new DateTime().plusDays(days).toDate(), userDao.findOne(id).get());
+            return bookedTimeRepo.findInsideIntervalWithUser(new DateTime().minusDays(days).toDate(), new DateTime().plusDays(days).toDate(), userDao.findOne(id));
         } else {
             return null;
         }

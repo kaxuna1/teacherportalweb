@@ -51,7 +51,7 @@ public class UsersController {
                 .setPersonalNumber(personalNumber)
                 .setType(0)
                 .setSessions(new ArrayList<Session>())
-                .setCity(cityRepo.findOne(city).get())
+                .setCity(cityRepo.findOne(city))
                 .createUser();
         user.setSex(sex);
         try {
@@ -99,9 +99,9 @@ public class UsersController {
     @ResponseBody
     public JsonMessage giveUserPermissions(long id, @RequestParam(value = "ids") ArrayList<Long> ids) {
 
-        User user = userDao.findOne(id).get();
+        User user = userDao.findOne(id);
         for (Long id1 : ids) {
-            user.getPermissions().add(permissionRepo.findOne(id1).get());
+            user.getPermissions().add(permissionRepo.findOne(id1));
         }
         userDao.save(user);
         return new JsonMessage(JsonReturnCodes.Ok.getCODE(), "წარმატებით");
@@ -112,7 +112,7 @@ public class UsersController {
     @ResponseBody
     public JsonMessage removeUserPermissions(long id, @RequestParam(value = "ids") ArrayList<Long> ids) {
 
-        User user = userDao.findOne(id).get();
+        User user = userDao.findOne(id);
         for (Long id1 : ids) {
             user.getPermissions().remove(permissionRepo.findOne(id1));
         }
@@ -124,7 +124,7 @@ public class UsersController {
     @RequestMapping("/changepassword")
     public boolean changePassword(@CookieValue("projectSessionId") long sessionId, String password) {
         try {
-            Session session = sessionDao.findOne(sessionId).get();
+            Session session = sessionDao.findOne(sessionId);
 
             User user = session.getUser();
             if (!password.isEmpty()) {
@@ -143,7 +143,7 @@ public class UsersController {
     @ResponseBody
     public boolean editUser(@CookieValue("projectSessionId") long sessionId, User k) {
 
-        Session session = sessionDao.findOne(sessionId).get();
+        Session session = sessionDao.findOne(sessionId);
 
         User user = session.getUser();
 
@@ -202,8 +202,8 @@ public class UsersController {
     @RequestMapping("/getuser/{id}")
     @ResponseBody
     public User getUser(@CookieValue("projectSessionId") long sessionId, @PathVariable("id") long id) {
-        if (PermisionChecks.isAdmin(sessionDao.findOne(sessionId).get())) {
-            return userDao.findOne(id).get();
+        if (PermisionChecks.isAdmin(sessionDao.findOne(sessionId))) {
+            return userDao.findOne(id);
         } else {
             return null;
         }
@@ -212,13 +212,13 @@ public class UsersController {
     @RequestMapping("/mydata")
     @ResponseBody
     public User getMyData(@CookieValue("projectSessionId") long sessionId) {
-        return sessionDao.findOne(sessionId).get().getUser();
+        return sessionDao.findOne(sessionId).getUser();
     }
 
     @RequestMapping("/disconnect/{type}")
     @ResponseBody
     public boolean disconnect(@CookieValue("projectSessionId") long sessionId, @PathVariable("type") int type) {
-        Session session = sessionDao.findOne(sessionId).get();
+        Session session = sessionDao.findOne(sessionId);
         if (type == 1) {
             session.getUser().setFacebookId("");
         }
@@ -241,7 +241,7 @@ public class UsersController {
     @RequestMapping("/connectSocial/{type}")
     @ResponseBody
     public boolean connectSocial(@CookieValue("projectSessionId") long sessionId, @PathVariable("type") int type, @RequestParam(name = "value") String value) {
-        Session session = sessionDao.findOne(sessionId).get();
+        Session session = sessionDao.findOne(sessionId);
         if (type == 1) {
             if (userDao.findByFacebookIdAndActive(value, true).size() == 0) {
                 session.getUser().setFacebookId(value);
@@ -273,7 +273,7 @@ public class UsersController {
                           @RequestParam(name = "lang",defaultValue = "0") int lang,
                           @RequestParam(name = "city",defaultValue = "0") long city){
 
-        Session session= sessionDao.findOne(sessionId).get();
+        Session session= sessionDao.findOne(sessionId);
         User user= session.getUser();
         if(!name.isEmpty())
             user.setName(name);
@@ -304,8 +304,8 @@ public class UsersController {
             user.setBirthDate(new Date(birthDate));
         if(lang!=0&&Languages.valueOf(lang)!=null)
             user.setLanguage(lang);
-        if(city!=0&&cityRepo.findOne(city).isPresent())
-            user.setCity(cityRepo.findOne(city).get());
+        if(city!=0)
+            user.setCity(cityRepo.findOne(city));
 
         userDao.save(user);
         return true;

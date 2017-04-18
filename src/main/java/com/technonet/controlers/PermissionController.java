@@ -22,7 +22,7 @@ public class PermissionController {
     @RequestMapping("/getpermissions")
     @ResponseBody
     public List<Permission> getPermissions(@CookieValue("projectSessionId") String sessionId) {
-        return sessionRepository.findOne(Long.parseLong(sessionId)).get().getUser().getPermissions();
+        return sessionRepository.findOne(Long.parseLong(sessionId)).getUser().getPermissions();
     }
 
     @RequestMapping("/getuserpermissions/{id}")
@@ -30,24 +30,24 @@ public class PermissionController {
     public List<Permission> getUserPermissions(@CookieValue("projectSessionId") String sessionId, @PathVariable("id") long id) {
 
 
-        Session session = sessionRepository.findOne(Long.parseLong(sessionId)).get();
+        Session session = sessionRepository.findOne(Long.parseLong(sessionId));
 
 
 
-        return userRepository.findOne(id).get().getPermissions();
+        return userRepository.findOne(id).getPermissions();
 
     }
 
     @RequestMapping("/getnotuserpermissions/{id}")
     @ResponseBody
     public List<Permission> getNotUserPermissions(@CookieValue("projectSessionId") String sessionId, @PathVariable("id") long id) {
-        Session session = sessionRepository.findOne(Long.parseLong(sessionId)).get();
+        Session session = sessionRepository.findOne(Long.parseLong(sessionId));
 
 
 
 
         List<Permission> permissions = permissionRepo.findAll();
-        permissions.removeAll(userRepository.findOne(id).get().getPermissions());
+        permissions.removeAll(userRepository.findOne(id).getPermissions());
         return permissions;
     }
 
