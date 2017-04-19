@@ -38,19 +38,19 @@ public class AppController {
     public String admin(Model model,
                         @CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                         @CookieValue(value = "lang", defaultValue = "1") int lang) {
-        Session session;
+        Session sessiona;
         Map<String, String> stringMap = Variables.stringsMap.get(lang);
         model.addAttribute("strings", stringMap);
         if (sessionId != 0) {
-            session = sessionRepository.findOne(sessionId);
-            if (session.isIsactive()) {
-                model.addAttribute("session", session);
-                model.addAttribute("userNameSurname", session.getUser().getNameSurname());
-                model.addAttribute("userId", session.getUser().getId());
-                String profilePicUrl = "/profilePic/" + session.getUser().getId() + "?" + Math.random();
+            sessiona = sessionRepository.findOne(sessionId);
+            if (sessiona.isIsactive()) {
+                model.addAttribute("sessionobj", sessiona);
+                model.addAttribute("userNameSurname", sessiona.getUser().getNameSurname());
+                model.addAttribute("userId", sessiona.getUser().getId());
+                String profilePicUrl = "/profilePic/" + sessiona.getUser().getId() + "?" + Math.random();
 
-                if (!session.getUser().getFacebookId().isEmpty()) {
-                    profilePicUrl = "http://graph.facebook.com/" + session.getUser().getFacebookId() + "/picture?type=large";
+                if (!sessiona.getUser().getFacebookId().isEmpty()) {
+                    profilePicUrl = "http://graph.facebook.com/" + sessiona.getUser().getFacebookId() + "/picture?type=large";
                 }
                 model.addAttribute("profilePicUrl", profilePicUrl);
 
@@ -64,7 +64,7 @@ public class AppController {
             model.addAttribute("loggedIn", false);
         }
 
-        return "/index";
+        return "main/index";
     }
 
     @GetMapping(value = "/confirmtoken", produces = "text/html")

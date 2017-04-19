@@ -68,7 +68,7 @@ public class Session {
     }
 
     public int getLang() {
-        return this.user.getLanguage();
+        return this.user==null?0:this.user.getLanguage();
     }
 
     public long getUserId() {

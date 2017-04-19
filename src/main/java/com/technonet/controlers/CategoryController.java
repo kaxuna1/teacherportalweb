@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static sun.plugin2.main.client.ServiceDelegate.get;
 
 /**
  * Created by kakha on 3/7/2017.

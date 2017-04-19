@@ -11,13 +11,12 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'war'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
 
 
-war {
+jar {
 	baseName = 'teacherportalweb'
 }
 
@@ -36,9 +35,7 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-thymeleaf")
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-web-services')
-	compile('org.springframework.boot:spring-boot-starter-webflux')
 	compile('org.springframework.boot:spring-boot-starter-websocket')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
 	compile('mysql:mysql-connector-java:5.1.36')
 	// https://mvnrepository.com/artifact/org.apache.tika/tika-core
 	compile group: 'org.apache.tika', name: 'tika-core', version: '1.14'
@@ -62,6 +59,8 @@ dependencies {
 // https://mvnrepository.com/artifact/javax.mail/mail
 	compile group: 'javax.mail', name: 'mail', version: '1.4.1'
 	compile 'org.simplejavamail:simple-java-mail:4.2.1-java6-release'
+// https://mvnrepository.com/artifact/net.sourceforge.nekohtml/nekohtml
+	compile group: 'net.sourceforge.nekohtml', name: 'nekohtml', version: '1.9.22'
 
 
 
