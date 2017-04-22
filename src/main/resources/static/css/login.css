@@ -615,6 +615,16 @@ ul{
     .form-wrapper{
         width: 400px;
     }
+    .paralLeft{
+
+        border-left: 400px solid transparent!important;
+        float: left;
+    }
+    .paralRight{
+        border-right: 400px solid transparent!important;
+        margin-left: 400px!important;
+
+    }
 }
 .containerfortopcat{
     border-top: 1px solid black;
@@ -624,3 +634,38 @@ ul{
     padding-top: 15px!important;
     font-family: brix!important
 }
+
+.containerForRect{
+
+}
+.paralLeft{
+    width: 0;
+    height: 0;
+    border-top: 60vh solid #46c3bf;
+    border-left: 300px solid transparent;
+    float: left;
+}
+.paralRight{
+    width: 0;
+    height: 0;
+    border-bottom: 60vh solid #46c3bf;
+    border-right: 300px solid transparent;
+    margin-left: 300px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

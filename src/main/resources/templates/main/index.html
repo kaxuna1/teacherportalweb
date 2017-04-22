@@ -118,7 +118,7 @@
 <!-- Header -->
 <header id="" class="carousel slide" style=" min-height: 100vh; height: auto;">
 
-    <div style="height: 100vh;" id="mycarousel" class="carousel slide" data-ride="carousel">
+    <div style="height: 100vh;overflow: hidden " id="mycarousel" class="carousel slide" data-ride="carousel">
         <div class="intro-text">
             <div class="intro-heading">
                 <!--   <a id="mainSearchBtn" href="#" style="font-family: font1" class="page-scroll btn btn-xl"><i
@@ -134,6 +134,10 @@
                            th:placeholder="${strings.main_search_placeholder_city}">
                     <button class="searchButton" type="button"></button>
                 </form>
+                <div class="containerForRect form-wrapper">
+                    <div class="paralLeft"></div>
+                    <div class="paralRight"></div>
+                </div>
 
 
             </div>
