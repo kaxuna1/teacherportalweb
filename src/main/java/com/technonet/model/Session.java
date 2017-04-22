@@ -36,7 +36,7 @@ public class Session {
     }
 
     public Session() {
-
+        isactive=true;
     }
 
     public Date getCreateDate() {
@@ -72,6 +72,6 @@ public class Session {
     }
 
     public long getUserId() {
-        return user.getId();
+        return this.user==null?0:user.getId();
     }
 }

@@ -118,53 +118,30 @@
 <!-- Header -->
 <header id="" class="carousel slide" style=" min-height: 100vh; height: auto;">
 
-    <div id="mycarousel" class="carousel slide" data-ride="carousel">
-        <div style="z-index: 300;"
-             class="intro-text">
+    <div style="height: 100vh;" id="mycarousel" class="carousel slide" data-ride="carousel">
+        <div class="intro-text">
             <div class="intro-heading">
                 <!--   <a id="mainSearchBtn" href="#" style="font-family: font1" class="page-scroll btn btn-xl"><i
                            class="fa fa-search" aria-hidden="true"></i>
                    </a>
                    <input placeholder="Search" class="categoryInputSearch" type="text">
                    <input placeholder="City" class="cityInputSearch" type="text">-->
+
                 <form class="form-wrapper cf">
+                    <input class="categorySearchField" type="text"
+                           th:placeholder="${strings.main_search_placeholder_search}">
+                    <input class="citySearchField" type="text"
+                           th:placeholder="${strings.main_search_placeholder_city}">
                     <button class="searchButton" type="button"></button>
-                    <input class="categorySearchField" type="text" th:placeholder="${strings.main_search_placeholder_category}">
-                    <input class="citySearchField" type="text" th:placeholder="${strings.main_search_placeholder_city}">
                 </form>
+
+
             </div>
 
         </div>
 
-
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner" role="listbox">
-            <div class="item">
-                <img src="png/background.png" class="backgroundImg" data-color="lightblue" alt="First Image">
-
-                <div class="carousel-caption">
-
-                </div>
-            </div>
-
-        </div>
 
         <!-- Controls -->
-    </div>
-    <div class="awLogoRight">
-        <img src="png/aw.png">
-    </div>
-    <div class="palmaLogoRight">
-        <img src="png/palma.png">
-    </div>
-    <div class="zolebiRight">
-        <img src="png/shav-tetri-zolebi.png">
-    </div>
-    <div class="yviteliZolebiRight">
-        <img src="png/yviteli_zolebi.png">
-    </div>
-    <div class="lampLeft">
-        <img src="png/lampa.png">
     </div>
 </header>
 <!-- Services Section -->
@@ -174,24 +151,15 @@
     <div class="container categoriesContainer">
         <div class="row">
             <div class="col-lg-12">
-                <h2 class="section-subheading text-muted" style="font-family: brix">Popular</h2>
+                <h4 class="section-subheading text-muted" style="font-family: brix;color: black;">Popular Classes</h4>
             </div>
         </div>
-
-
     </div>
 
+    <div class='containerfortopcat'>
+
+    </div>
 </section>
-<div class='containerGrid'>
-    <header>
-
-    </header>
-    <main>
-        <div class='items'>
-
-        </div>
-    </main>
-</div>
 
 <!-- Clients Aside -->
 
@@ -232,25 +200,25 @@
             <div class="col-md-4">
                 <ul class="list-inline">
                     <li>
-                       <a>
-                           About Us
-                       </a>
+                        <a>
+                            About Us
+                        </a>
                     </li>
                     <li>
-                       <a>
-                           Terms & Conditions
-                       </a>
+                        <a>
+                            Terms & Conditions
+                        </a>
                     </li>
                     <li>
-                       <a>
-                           Press
-                       </a>
+                        <a>
+                            Press
+                        </a>
                     </li>
                     <li>
-                       <a>
+                        <a>
 
-                           Contact
-                       </a>
+                            Contact
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -260,7 +228,7 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <span class="copyright">Created By  &copy; <a href="#">Technonet</a></span>
+                <span class="copyright">Created By &copy; <a href="#">Technonet</a></span>
             </div>
             <div class="col-md-4">
                 <span>Copyright 2017 Allwitz</span>
@@ -305,35 +273,8 @@
 <script src="assets/js/widgets/dynamicCreateForm.js"></script>
 <script src="assets/js/mainsite.js"></script>
 <script>
-    var image = 1;
-    $(document).ready(function () {
 
-    });
-    var $item = $('.carousel .item');
-    var $wHeight = $(window).height();
-    $item.eq(0).addClass('active');
-    $item.height($wHeight);
-    $item.addClass('full-screen');
 
-    $('.carousel .backgroundImg').each(function () {
-        var $src = $(this).attr('src');
-        var $color = $(this).attr('data-color');
-        $(this).parent().css({
-            'background-image': 'url(' + $src + ')',
-            'background-color': $color
-        });
-        $(this).remove();
-    });
-
-    $(window).on('resize', function () {
-        $wHeight = $(window).height();
-        $item.height($wHeight);
-    });
-
-    /* $('.carousel').carousel({
-     interval: 6000,
-     pause: "false"
-     });*/
 </script>
 
 </body>

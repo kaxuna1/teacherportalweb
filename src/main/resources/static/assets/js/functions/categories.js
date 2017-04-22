@@ -84,6 +84,20 @@ function loadCategoriesData(index, search) {
                     rand: rand,
                     currentElement:currentElement
                 };
+                actions.append("<button id='giveColor'>Give Color</button>");
+
+                $("#giveColor").click(function () {
+                   showModalWithTableInside(function (head, body, modal, rand) {
+                       dynamicCreateForm(body,"setcolor/"+currentElement.id,{
+                           color:{
+                               name:"",
+                               type:"text"
+                           }
+                       },function () {
+                           modal.modal("hide");
+                       })
+                   },{},400)
+                });
 
                 documents.append('<div style="display:inline-flex;width: 100%">' +
                     '    <div style="width: 45%">' +
@@ -236,9 +250,12 @@ function loadCategoriesData(index, search) {
         DOMElements.infoDiv.html("");
         DOMElements.infoDiv.append(
             "<div id='categoryLogoDiv' class='row'>" +
-            "<div class='col-md-2'></div>" +
+
             "<div class='col-md-2'>"+
             "<img style='width: 150px' src='categorylogo/"+DOMElements.currentElement.id+"?"+ new Date().getTime()+"'/>"+
+            "</div>" +
+            "<div class='col-md-2'>" +
+            "color:" + DOMElements.currentElement.color+
             "</div>" +
             "</div>");
         DOMElements.infoDiv.append(

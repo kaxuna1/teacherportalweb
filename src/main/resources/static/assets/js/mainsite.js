@@ -167,74 +167,16 @@ $(document).ready(function () {
     })
     $.getJSON("/topcategories",function (result) {
         var data=result["content"];//
-        var grid=$(".items");
-        var c=0;
+        var grid=$(".containerfortopcat");
+        var left=true
         for(var key in data){
+            //categorylogo/"+item.id+"?"+new Date().getTime()+"
             var item=data[key];
-            grid.append("<div style='background-image: url(categorylogo/"+item.id+"?"+new Date().getTime()+")' class='item'>" +
-                "<svg preserveAspectRatio='xMidYMid slice' viewBox='0 0 300 300'>" +
-                "<defs><clipPath id='clip-"+c+"'>" +
-                "<circle cx='0' cy='0' fill='#000' r='150px'></circle>" +
-                "</clipPath>" +
-                "</defs>" +
-                "<text class='svg-text' fill='black' dy='.3em' x='50%' y='50%'>"+item.name+"</text>" +
-                "<g clip-path='url(#clip-"+c+")'><image height='100%' preserveAspectRatio='xMinYMin slice' width='100%' xlink:href='png/white.png'>" +
-                "</image><text class='svg-masked-text' fill='black' dy='.3em' x='50%' y='50%'>"+item.name+"</text>" +
-                "</g></svg></div>")
-            c++;
+            grid.append("<div style='background-color: #"+item.color+";height: 100vh'>" +
+                "<img style='height:65%;margin-top:10%;"+(left?"float:left;margin-left:10%;":"float:right;margin-right:10%;")+"' src='categorylogo/"+item.id+"?"+new Date().getTime()+"'/>" +
+                "</div>")
+            left=!left;
         }
-        var items = []
-            , point = document.querySelector('svg').createSVGPoint();
-
-        function getCoordinates(e, svg) {
-            point.x = e.clientX;
-            point.y = e.clientY;
-            return point.matrixTransform(svg.getScreenCTM().inverse());
-        }
-
-        function changeColor(e) {
-            document.body.className = e.currentTarget.className;
-        }
-
-        function Item(config) {
-            Object.keys(config).forEach(function (item) {
-                this[item] = config[item];
-            }, this);
-            this.el.addEventListener('mousemove', this.mouseMoveHandler.bind(this));
-            this.el.addEventListener('touchmove', this.touchMoveHandler.bind(this));
-        }
-
-        Item.prototype = {
-            update: function update(c) {
-                console.log(this)
-                this.clip.setAttribute('cx', c.x);
-                this.clip.setAttribute('cy', c.y);
-            },
-            mouseMoveHandler: function mouseMoveHandler(e) {
-                this.update(getCoordinates(e, this.svg));
-                console.log(e);
-            },
-            touchMoveHandler: function touchMoveHandler(e) {
-                e.preventDefault();
-                var touch = e.targetTouches[0];
-                if (touch) return this.update(getCoordinates(touch, this.svg));
-            }
-        };
-
-        [].slice.call(document.querySelectorAll('.containerGrid .item'), 0).forEach(function (item, index) {
-            items.push(new Item({
-                el: item,
-                svg: item.querySelector('svg'),
-                clip: document.querySelector('#clip-' + index + ' circle'),
-            }));
-        });
-
-        [].slice.call(document.querySelectorAll('button'), 0).forEach(function (button) {
-            button.addEventListener('click', changeColor);
-        });
-
-        itemHWCorect();
-        $( window ).resize(itemHWCorect);
     })
 
 });

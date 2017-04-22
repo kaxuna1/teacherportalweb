@@ -69,11 +69,11 @@ public class CategoryController {
     @ResponseBody
     public Page<Category> getCategories(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                                         @PathVariable("page") int page,
-                                        @CookieValue(value = "lang", defaultValue = "1")int lang) {
+                                        @CookieValue(value = "lang", defaultValue = "1") int lang) {
         Session session = sessionRepository.findOne(sessionId);
         if (PermisionChecks.categoriesManagement(session)) {
             Page<Category> cats = categoryRepo.findByActiveOrderByNameAsc(true, constructPageSpecification(page, 20));
-            cats.forEach(c->c.setLang(lang));
+            cats.forEach(c -> c.setLang(lang));
             return cats;
         } else
             return null;
@@ -81,9 +81,9 @@ public class CategoryController {
 
     @RequestMapping("/categories")
     @ResponseBody
-    public List<Category> getCategoriesAll( @CookieValue(value = "lang", defaultValue = "1")int lang) {
+    public List<Category> getCategoriesAll(@CookieValue(value = "lang", defaultValue = "1") int lang) {
         List<Category> cats = categoryRepo.findByActiveAndVisible(true, true);
-        cats.forEach(c->c.setLang(lang));
+        cats.forEach(c -> c.setLang(lang));
         return cats;
     }
 
@@ -120,7 +120,6 @@ public class CategoryController {
 
 
         Session session = sessionRepository.findOne(sessionId);
-
 
 
         Category category = categoryRepo.findOne(id);
@@ -198,21 +197,39 @@ public class CategoryController {
 
     @RequestMapping("/topcategories")
     @ResponseBody
-    public Page<Category> getTopCategories( @CookieValue(value = "lang", defaultValue = "1")int lang) {
+    public Page<Category> getTopCategories(@CookieValue(value = "lang", defaultValue = "1") int lang) {
         Page<Category> cats = categoryRepo.findByActiveAndVisible(true, true, constructPageSpecification(0, 6));
         cats.forEach(category -> category.setLang(lang));
         return cats;
     }
+
     @RequestMapping("/topcategoriesmobile")
     @ResponseBody
-    public List<Category> getTopCategoriesMobile( @CookieValue(value = "lang", defaultValue = "1")int lang) {
+    public List<Category> getTopCategoriesMobile(@CookieValue(value = "lang", defaultValue = "1") int lang) {
         Page<Category> cats = categoryRepo.findByActiveAndVisible(true, true, constructPageSpecification(0, 6));
         cats.forEach(category -> category.setLang(lang));
         return cats.getContent();
     }
 
+    @RequestMapping("/setcolor/{id}")
+    @ResponseBody
+    public boolean setCategoryColor(@CookieValue("projectSessionId") long sessionId, @PathVariable("id") long id,
+                                    @RequestParam(value = "color") String color) {
+        Session session = sessionRepository.findOne(sessionId);
+        if (PermisionChecks.isAdmin(session)) {
+            Category category=categoryRepo.findOne(id);
+            category.setColor(color);
+            categoryRepo.save(category);
+            return true;
+        } else {
+            return false;
+        }
 
-    private Pageable constructPageSpecification(int pageIndex,int size) {
+
+    }
+
+
+    private Pageable constructPageSpecification(int pageIndex, int size) {
         return new PageRequest(pageIndex, size);
     }
 

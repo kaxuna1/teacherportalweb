@@ -165,10 +165,11 @@
 .form-wrapper {
     max-width: 400px;
     min-width: 300px;
-    width: 30vw;
-    padding: 15px;
+    width: 300px;
     margin: 0 auto 0 auto;
     z-index: 10000;
+
+
 
     font-family: brix!important;
 }
@@ -177,7 +178,7 @@
 
 .form-wrapper input {
     width: 40%;
-    height: 12vh;
+    height: 75px;
     min-height: 70px;
     padding: 10px 5px;
     float: left;
@@ -185,8 +186,8 @@
     border: 0;
     background: white;
     border-style: solid;
-    border-top: 2px solid grey;
-    border-bottom: 2px solid grey;
+    border-top: 0px solid grey;
+    border-bottom: 0px solid grey;
 
     font-family: brix!important;
 
@@ -198,21 +199,21 @@
 }
 
 .form-wrapper input::-webkit-input-placeholder {
-    color: grey;
+    color: black;
     font-weight: normal;
 
     font-family: brix!important;
 }
 
 .form-wrapper input:-moz-placeholder {
-    color: grey;
+    color: black;
     font-weight: normal;
 
     font-family: brix!important;
 }
 
 .form-wrapper input:-ms-input-placeholder {
-    color: grey;
+    color: black;
     font-weight: normal;
 
     font-family: brix!important;
@@ -223,23 +224,32 @@
     overflow: visible;
     position: relative;
     float: left;
+
     border: 0;
     padding: 0;
     cursor: pointer;
     min-height: 70px;
-    height: 12vh;
+    height: 75px;
     width: 20%;
     font: bold 15px/40px 'lucida sans', 'trebuchet MS', 'Tahoma';
     color: #fff;
     text-transform: uppercase;
     background: white;
-    border-top: 2px solid grey;
-    border-bottom: 2px solid grey;
-    border-left: 2px solid grey;
-    background-image: url(../png/search.png);
-    background-size: contain;
+    border-top: 0px solid grey;
+    border-bottom: 0px solid grey;
+    border-left: 0px solid grey;
+    background-image: url(../png/search_icon.png);
+    -webkit-background-size: 33px;
+    background-size: 19px;;
     background-repeat: no-repeat;
     background-position: center;
+
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+}
+.categorySearchField{
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
 }
 
 .form-wrapper button i {
@@ -261,7 +271,7 @@
 }
 
 .citySearchField {
-    border-right: 2px solid grey !important;
+    border-right: 0px solid grey !important;
     color: grey;
     text-align: center !important;
 }
@@ -272,7 +282,7 @@
 }
 
 .awLogoRight {
-   display: none;
+    display: none;
 }
 .palmaLogoRight{
     display: none;
@@ -573,4 +583,44 @@ ul{
 }
 .protfolio-image img{
     width: 100%;
+}
+#mycarousel{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#c32f2e+0,c32f2e+58,2f7154+58,2f7154+100 */
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ff3d3c+0,ff3d3c+0,ff3d3c+58,2f7154+59,2f7154+100 */
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f6302f+0,f6302f+58,2f7154+58,2f7154+100 */
+
+    background: -moz-linear-gradient(left, rgba(246,48,47,1) 0%, rgba(246,48,47,1) 58%, rgba(47,113,84,1) 58%, rgba(47,113,84,1) 100%);
+    background: -webkit-linear-gradient(left, rgba(246,48,47,1) 0%,rgba(246,48,47,1) 58%,rgba(47,113,84,1) 58%,rgba(47,113,84,1) 100%);
+    background: linear-gradient(to right, rgba(246,48,47,1) 0%,rgba(246,48,47,1) 58%,rgba(47,113,84,1) 58%,rgba(47,113,84,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6302f', endColorstr='#2f7154',GradientType=1 );
+
+}
+
+
+.navbar {
+    border-bottom: 1px solid black;
+}
+#wrapperDiv{
+    max-width: 400px;
+    min-width: 300px;
+    width: 300px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+@media  (min-width: 400px){
+    #wrapperDiv{
+        overflow: visible;
+        width: 400px;
+    }
+    .form-wrapper{
+        width: 400px;
+    }
+}
+.containerfortopcat{
+    border-top: 1px solid black;
+    width: 100%;
+}
+.navbar-brand{
+    padding-top: 15px!important;
+    font-family: brix!important
 }

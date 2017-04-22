@@ -39,6 +39,9 @@ public class Category {
     @Column
     private String logo;
 
+    @Column
+    private String color;
+
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<UserCategoryJoin> userCategoryJoins;
@@ -61,6 +64,7 @@ public class Category {
         this.date=new Date();
         this.visible=false;
         this.userCategoryJoins=new ArrayList<>();
+        this.color="";
     }
     public Category(){}
 
@@ -144,5 +148,13 @@ public class Category {
     public Category setLang(int lang){
         this.lang=lang;
         return this;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }
