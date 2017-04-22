@@ -30,3 +30,5 @@ gradlew
 gradlew.bat
 
 androidApp/Allwitz/app/libs/
+plugins/
+/src/main/resources/static/assets/plugins/
