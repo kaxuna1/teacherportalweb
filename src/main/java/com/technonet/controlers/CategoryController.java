@@ -239,6 +239,20 @@ public class CategoryController {
             return false;
         }
     }
+    @RequestMapping("/setdescriptioncolor/{id}")
+    @ResponseBody
+    public boolean setCategoryDescriptionColor(@CookieValue("projectSessionId") long sessionId, @PathVariable("id") long id,
+                                    @RequestParam(value = "descriptionColor") String descriptionColor) {
+        Session session = sessionRepository.findOne(sessionId);
+        if (PermisionChecks.isAdmin(session)) {
+            Category category=categoryRepo.findOne(id);
+            category.setDescriptionColor(descriptionColor);
+            categoryRepo.save(category);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
     private Pageable constructPageSpecification(int pageIndex, int size) {

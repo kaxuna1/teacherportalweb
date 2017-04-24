@@ -240,7 +240,7 @@
     border-left: 0px solid grey;
     background-image: url(../png/search_icon.png);
     -webkit-background-size: 33px;
-    background-size: 19px;;
+    background-size: 22px;;
     background-repeat: no-repeat;
     background-position: center;
 
@@ -588,10 +588,10 @@ ul{
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#c32f2e+0,c32f2e+58,2f7154+58,2f7154+100 */
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ff3d3c+0,ff3d3c+0,ff3d3c+58,2f7154+59,2f7154+100 */
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f6302f+0,f6302f+58,2f7154+58,2f7154+100 */
-
-    background: -moz-linear-gradient(left, rgba(246,48,47,1) 0%, rgba(246,48,47,1) 58%, rgba(47,113,84,1) 58%, rgba(47,113,84,1) 100%);
-    background: -webkit-linear-gradient(left, rgba(246,48,47,1) 0%,rgba(246,48,47,1) 58%,rgba(47,113,84,1) 58%,rgba(47,113,84,1) 100%);
-    background: linear-gradient(to right, rgba(246,48,47,1) 0%,rgba(246,48,47,1) 58%,rgba(47,113,84,1) 58%,rgba(47,113,84,1) 100%);
+    /*cc2322-Red-rgba(246,48,47,1)*/
+    background: -moz-linear-gradient(left, #cc2322 0%, #cc2322 58%, rgba(47,113,84,1) 58%, rgba(47,113,84,1) 100%);
+    background: -webkit-linear-gradient(left, #cc2322 0%,#cc2322 58%,rgba(47,113,84,1) 58%,rgba(47,113,84,1) 100%);
+    background: linear-gradient(to right, #cc2322 0%,#cc2322 58%,rgba(47,113,84,1) 58%,rgba(47,113,84,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6302f', endColorstr='#2f7154',GradientType=1 );
 
 }
@@ -622,13 +622,14 @@ ul{
     }
     .paralRight{
         border-right: 397px solid transparent!important;
-        margin-left: 397px!important;
+        margin-left: 396px!important;
 
     }
 }
 .containerfortopcat{
     border-top: 1px solid black;
     width: 100%;
+    overflow: hidden;
 }
 .navbar-brand{
     padding-top: 15px!important;
@@ -658,7 +659,9 @@ ul{
     height: auto;
 }
 .catimg{
-    width:75%;
+    height: 25vh;
+    max-width: 25vh;
+    align-self: center
 }
 
 @media (min-width: 992px){
@@ -669,9 +672,30 @@ ul{
         width: 100%;
     }
 }
+.mycol{
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 50%;
+    float: left;
+}
+@media  (min-width: 600px){
+    .catimg{
+        height: 50vh;
+        max-width: 50vh;
+        align-self: center
+    }
+    .descriptionText{
+        font-size: 30px;
+    }
+}
+.topCatRow{
+    height: 70vh;
+}
+.descriptionText{
 
-
-
+}
 
 
 

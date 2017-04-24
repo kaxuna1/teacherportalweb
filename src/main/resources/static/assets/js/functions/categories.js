@@ -86,7 +86,7 @@ function loadCategoriesData(index, search) {
                 };
                 actions.append("<button id='giveColor'>Give Color</button>");
                 actions.append("<button id='giveDesc'>Set Description</button>");
-
+                actions.append("<button id='giveDescColor'>Set Description Color</button>");
                 $("#giveColor").click(function () {
                    showModalWithTableInside(function (head, body, modal, rand) {
                        dynamicCreateForm(body,"setcolor/"+currentElement.id,{
@@ -103,6 +103,18 @@ function loadCategoriesData(index, search) {
                    showModalWithTableInside(function (head, body, modal, rand) {
                        dynamicCreateForm(body,"setdescription/"+currentElement.id,{
                            description:{
+                               name:"",
+                               type:"text"
+                           }
+                       },function () {
+                           modal.modal("hide");
+                       })
+                   },{},400)
+                });
+                $("#giveDescColor").click(function () {
+                   showModalWithTableInside(function (head, body, modal, rand) {
+                       dynamicCreateForm(body,"setdescriptioncolor/"+currentElement.id,{
+                           descriptionColor:{
                                name:"",
                                type:"text"
                            }

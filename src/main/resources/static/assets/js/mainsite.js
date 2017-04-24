@@ -172,19 +172,19 @@ $(document).ready(function () {
         for (var key in data) {
             //categorylogo/"+item.id+"?"+new Date().getTime()+"
             var item = data[key];
-            var img= "<div style='display: flex;justify-content: center;' class='col-md-6'>" +
-                "<div style='align-self: center;display: flex;justify-content: center;'>" +
-                "<img class='catimg' style='align-self: center' src='categorylogo/" + item.id + "?" + new Date().getTime() + "'/>" +
+            var img= "<div style='display: flex;justify-content: center; height: 70vh;width: 50%!important;' class='col-md-6 mycol'>" +
+                "<div style='align-self: center;display: flex;justify-content: center;height: 100%;'>" +
+                "<img class='catimg' src='categorylogo/" + item.id + "?" + new Date().getTime() + "'/>" +
                 "</div>" +
                 "</div>";
-            var txt="<div style='display: flex;justify-content: center;' class='col-md-6 cattext'>" +
-                "<div style='width: 70%;align-self: center'>" +
-                "<h3 style='font-family: brix;color: white;'>" + item.description + "</h3>" +
+            var txt="<div style='display: flex;justify-content: center;height: 70vh;width: 50%!important;' class='col-md-6 cattext mycol'>" +
+                "<div style='width: 70%;align-self: center;'>" +
+                "<span class='descriptionText' style='font-family: brix;color: #"+item.descriptionColor+";'>" + item.description + "</span>" +
                 "</div>" +
                 "</div>";
 
             grid.append(
-                "<div class='row' style='background-color: #" + item.color + ";height: 100vh'>" +
+                "<div class='row topCatRow' style='background-color: #" + item.color + ";'>" +
                 (left?img+txt:txt+img)+
                 "</div>")
             left = !left;
