@@ -191,6 +191,30 @@ $(document).ready(function () {
         }
     })
 
+    $(window).resize(function () {
+        //document.documentElement.style.setProperty("--widz",k+"%");
+        var com=cumulativeOffset(document.getElementById("searchBtn"))
+        var l=com.left;
+        l=l/50;
+
+
+        //document.documentElement.style.setProperty("--widz",(100-)+"%");
+        console.log(l);
+    })
+    var cumulativeOffset = function(element) {
+        var top = 0, left = 0;
+        do {
+            top += element.offsetTop  || 0;
+            left += element.offsetLeft || 0;
+            element = element.offsetParent;
+        } while(element);
+
+        return {
+            top: top,
+            left: left
+        };
+    };
+
 });
 function itemHWCorect() {
     $(".containerGrid .item").each(function () {

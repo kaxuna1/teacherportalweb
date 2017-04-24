@@ -1,3 +1,7 @@
+:root {
+    --widz: 58%;
+}
+
 .reg-control {
     margin-bottom: 5px;
 }
@@ -125,7 +129,7 @@
 }
 
 .navbar-custom .nav li a {
-    font-size: 15px;
+    font-size: 20px;
 }
 
 .portfolio-item {
@@ -159,6 +163,12 @@
     clear: both;
 }
 
+.cf{
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+}
 
 
 /* Form wrapper styling */
@@ -178,11 +188,11 @@
 
 .form-wrapper input {
     width: 40%;
-    height: 75px;
+    height: 85px;
     min-height: 70px;
     padding: 10px 5px;
     float: left;
-    font: bold 20px 'lucida sans', 'trebuchet MS', 'Tahoma';
+    font: bold 24px 'lucida sans', 'trebuchet MS', 'Tahoma';
     border: 0;
     background: white;
     border-style: solid;
@@ -229,7 +239,7 @@
     padding: 0;
     cursor: pointer;
     min-height: 70px;
-    height: 75px;
+    height: 85px;
     width: 20%;
     font: bold 15px/40px 'lucida sans', 'trebuchet MS', 'Tahoma';
     color: #fff;
@@ -349,6 +359,10 @@
     src: url("../assets/font/brix3.otf") format("opentype");
 }
 @font-face {
+    font-family: brixBold;
+    src: url("../assets/font/brixBold.otf") format("opentype");
+}
+@font-face {
     font-family: brixNorm;
     src: url("../assets/font/brix4.otf") format("opentype");
 }
@@ -363,10 +377,6 @@ h1{
     font-family: brix!important;
 }
 h2{
-
-    font-family: brix!important;
-}
-span{
 
     font-family: brix!important;
 }
@@ -589,9 +599,9 @@ ul{
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ff3d3c+0,ff3d3c+0,ff3d3c+58,2f7154+59,2f7154+100 */
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f6302f+0,f6302f+58,2f7154+58,2f7154+100 */
     /*cc2322-Red-rgba(246,48,47,1)*/
-    background: -moz-linear-gradient(left, #cc2322 0%, #cc2322 58%, rgba(47,113,84,1) 58%, rgba(47,113,84,1) 100%);
-    background: -webkit-linear-gradient(left, #cc2322 0%,#cc2322 58%,rgba(47,113,84,1) 58%,rgba(47,113,84,1) 100%);
-    background: linear-gradient(to right, #cc2322 0%,#cc2322 58%,rgba(47,113,84,1) 58%,rgba(47,113,84,1) 100%);
+    background: -moz-linear-gradient(left, #cc2322 0%, #cc2322 var(--widz), rgba(47,113,84,1) var(--widz), rgba(47,113,84,1) 100%);
+    background: -webkit-linear-gradient(left, #cc2322 0%,#cc2322 var(--widz),rgba(47,113,84,1) var(--widz),rgba(47,113,84,1) 100%);
+    background: linear-gradient(to right, #cc2322 0%,#cc2322 var(--widz),rgba(47,113,84,1) var(--widz),rgba(47,113,84,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6302f', endColorstr='#2f7154',GradientType=1 );
 
 }
@@ -627,9 +637,9 @@ ul{
     }
 }
 .containerfortopcat{
-    border-top: 1px solid black;
     width: 100%;
     overflow: hidden;
+    margin-top: 20px;
 }
 .navbar-brand{
     padding-top: 15px!important;
@@ -651,7 +661,7 @@ ul{
     height: 0;
     border-bottom: 60vh solid #46c3bf;
     border-right: 297px solid transparent;
-    margin-left: 297px;
+    margin-left: 296px;
 
 }
 
