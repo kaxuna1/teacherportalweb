@@ -224,8 +224,20 @@ public class CategoryController {
         } else {
             return false;
         }
-
-
+    }
+    @RequestMapping("/setdescription/{id}")
+    @ResponseBody
+    public boolean setCategoryDescription(@CookieValue("projectSessionId") long sessionId, @PathVariable("id") long id,
+                                    @RequestParam(value = "description") String description) {
+        Session session = sessionRepository.findOne(sessionId);
+        if (PermisionChecks.isAdmin(session)) {
+            Category category=categoryRepo.findOne(id);
+            category.setDescription(description);
+            categoryRepo.save(category);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 

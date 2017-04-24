@@ -85,11 +85,24 @@ function loadCategoriesData(index, search) {
                     currentElement:currentElement
                 };
                 actions.append("<button id='giveColor'>Give Color</button>");
+                actions.append("<button id='giveDesc'>Set Description</button>");
 
                 $("#giveColor").click(function () {
                    showModalWithTableInside(function (head, body, modal, rand) {
                        dynamicCreateForm(body,"setcolor/"+currentElement.id,{
                            color:{
+                               name:"",
+                               type:"text"
+                           }
+                       },function () {
+                           modal.modal("hide");
+                       })
+                   },{},400)
+                });
+                $("#giveDesc").click(function () {
+                   showModalWithTableInside(function (head, body, modal, rand) {
+                       dynamicCreateForm(body,"setdescription/"+currentElement.id,{
+                           description:{
                                name:"",
                                type:"text"
                            }
@@ -250,15 +263,25 @@ function loadCategoriesData(index, search) {
         DOMElements.infoDiv.html("");
         DOMElements.infoDiv.append(
             "<div id='categoryLogoDiv' class='row'>" +
-
             "<div class='col-md-2'>"+
             "<img style='width: 150px' src='categorylogo/"+DOMElements.currentElement.id+"?"+ new Date().getTime()+"'/>"+
             "</div>" +
             "<div class='col-md-2'>" +
+            "</div>" +
+            "</div>"+
+            "<div id='catColor' class='row'>" +
+            "<div class='col-md-2'>"+
             "color:" + DOMElements.currentElement.color+
             "</div>" +
+            "<div class='col-md-2'>" +
+            "</div>" +
+            "</div>"+
+            "<div id='catColor' class='row'>" +
+            "<div class='col-md-12'>"+
+            "Description:" + DOMElements.currentElement.description+
+            "</div>" +
             "</div>");
-        DOMElements.infoDiv.append(
+            DOMElements.infoDiv.append(
             "<div class='row'>" +
             "<div>" +
             "</div>"

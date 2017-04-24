@@ -617,12 +617,12 @@ ul{
     }
     .paralLeft{
 
-        border-left: 400px solid transparent!important;
+        border-left: 397px solid transparent!important;
         float: left;
     }
     .paralRight{
-        border-right: 400px solid transparent!important;
-        margin-left: 400px!important;
+        border-right: 397px solid transparent!important;
+        margin-left: 397px!important;
 
     }
 }
@@ -636,27 +636,39 @@ ul{
 }
 
 .containerForRect{
-
+    padding-left: 3px;
 }
 .paralLeft{
     width: 0;
     height: 0;
     border-top: 60vh solid #46c3bf;
-    border-left: 300px solid transparent;
+    border-left: 297px solid transparent;
     float: left;
 }
 .paralRight{
     width: 0;
     height: 0;
     border-bottom: 60vh solid #46c3bf;
-    border-right: 300px solid transparent;
-    margin-left: 300px;
+    border-right: 297px solid transparent;
+    margin-left: 297px;
 
 }
 
+.cattext{
+    height: auto;
+}
+.catimg{
+    width:75%;
+}
 
-
-
+@media (min-width: 992px){
+    .cattext{
+        height: 100%;
+    }
+    .catimg{
+        width: 100%;
+    }
+}
 
 
 

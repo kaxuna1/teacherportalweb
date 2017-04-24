@@ -27,7 +27,7 @@ $(document).ready(function () {
                         $.getJSON("/loginapigoogle?token=" + id_token, function (result) {
                             if (result) {
                                 createCookie("projectSessionId", result["id"], 365);
-                                createCookie("lang",result["lang"],365);
+                                createCookie("lang", result["lang"], 365);
                                 location.reload();
                             } else {
                                 alert("no such user")
@@ -96,7 +96,7 @@ $(document).ready(function () {
                                 data: regData
                             }).done(function (result) {
                                 createCookie("projectSessionId", result["id"], 365);
-                                createCookie("lang",result["lang"],365);
+                                createCookie("lang", result["lang"], 365);
                                 location.reload();
                             })
                         }
@@ -106,20 +106,20 @@ $(document).ready(function () {
             }
         }, 400, true)
     })
-    var cat= $(".categorySearchField");
-    var city= $(".citySearchField");
-    $.getJSON("/categories",function (result) {
+    var cat = $(".categorySearchField");
+    var city = $(".citySearchField");
+    $.getJSON("/categories", function (result) {
         cat.typeahead({
             source: result,
             autoSelect: true,
-            afterSelect:function (selected) {
+            afterSelect: function (selected) {
 
             },
-            fitToElement:true,
-            items:5,
-            showHintOnFocus:true
+            fitToElement: true,
+            items: 5,
+            showHintOnFocus: true
         });
-        cat.change(function() {
+        cat.change(function () {
             var current = cat.typeahead("getActive");
             if (current) {
                 // Some item from your model is active!
@@ -134,18 +134,18 @@ $(document).ready(function () {
             }
         });
     });
-    $.getJSON("/cities",function (result) {
+    $.getJSON("/cities", function (result) {
         city.typeahead({
             source: result,
             autoSelect: true,
-            afterSelect:function (selected) {
+            afterSelect: function (selected) {
 
             },
-            fitToElement:true,
-            items:5,
-            showHintOnFocus:true
+            fitToElement: true,
+            items: 5,
+            showHintOnFocus: true
         });
-        city.change(function() {
+        city.change(function () {
             var current = cat.typeahead("getActive");
             if (current) {
                 // Some item from your model is active!
@@ -165,17 +165,29 @@ $(document).ready(function () {
     $("#mycarousel").resize(function () {
         alert("resize");
     })
-    $.getJSON("/topcategories",function (result) {
-        var data=result["content"];//
-        var grid=$(".containerfortopcat");
-        var left=true
-        for(var key in data){
+    $.getJSON("/topcategories", function (result) {
+        var data = result["content"];//
+        var grid = $(".containerfortopcat");
+        var left = true
+        for (var key in data) {
             //categorylogo/"+item.id+"?"+new Date().getTime()+"
-            var item=data[key];
-            grid.append("<div style='background-color: #"+item.color+";height: 100vh'>" +
-                "<img style='height:65%;margin-top:10%;"+(left?"float:left;margin-left:10%;":"float:right;margin-right:10%;")+"' src='categorylogo/"+item.id+"?"+new Date().getTime()+"'/>" +
+            var item = data[key];
+            var img= "<div style='display: flex;justify-content: center;' class='col-md-6'>" +
+                "<div style='align-self: center;display: flex;justify-content: center;'>" +
+                "<img class='catimg' style='align-self: center' src='categorylogo/" + item.id + "?" + new Date().getTime() + "'/>" +
+                "</div>" +
+                "</div>";
+            var txt="<div style='display: flex;justify-content: center;' class='col-md-6 cattext'>" +
+                "<div style='width: 70%;align-self: center'>" +
+                "<h3 style='font-family: brix;color: white;'>" + item.description + "</h3>" +
+                "</div>" +
+                "</div>";
+
+            grid.append(
+                "<div class='row' style='background-color: #" + item.color + ";height: 100vh'>" +
+                (left?img+txt:txt+img)+
                 "</div>")
-            left=!left;
+            left = !left;
         }
     })
 
@@ -233,7 +245,7 @@ function registerWithFacebook() {
                         console.log(session)
                         if (session.id) {
                             createCookie("projectSessionId", session["id"], 365);
-                            createCookie("lang",result["lang"],365);
+                            createCookie("lang", result["lang"], 365);
                             location.reload();
                         } else {
                             $("#imagePlace").html("<img style='height: 150px' src='http://graph.facebook.com/" + result.id + "/picture?type=large'>");
@@ -275,7 +287,7 @@ function loginWithFace() {
             $.getJSON("/loginapifb/" + token, function (result) {
                 if (result) {
                     createCookie("projectSessionId", result["id"], 365);
-                    createCookie("lang",result["lang"],365);
+                    createCookie("lang", result["lang"], 365);
                     location.reload();
                 } else {
                     alert("no such user")
@@ -291,37 +303,37 @@ $(".settingsBtn").click(function () {
             body.html("<ul class='settingsList'>" +
                 "<li class='settingsItem'>" +
                 "<a class='settingsItemA'>" +
-                "<h3 class='settingsItemH'>"+strings.main_settings_field_name+"</h3>" +
+                "<h3 class='settingsItemH'>" + strings.main_settings_field_name + "</h3>" +
                 "<span class='settingsItemValue' id='settingsItemValueNameSurname'>" + result.nameSurname + "</span>" +
                 "<span><span id='nameSurnameSettingsItem' class='settingsItemEditButton'>edit</span></span></a> <div id='nameSurnameSettingsFormDiv' hidden class='settingsChangeFormDiv'></div></li>" +
                 "<li class='settingsItem'>" +
                 "<a class='settingsItemA'>" +
-                "<h3 class='settingsItemH'>"+strings.main_settings_field_email+"</h3>" +
+                "<h3 class='settingsItemH'>" + strings.main_settings_field_email + "</h3>" +
                 "<span class='settingsItemValue' style='font-size: 12px' id='settingsItemValueEmail'>" + getMailStringForValue(result) + "</span>" +
                 "<span><span id='emailSettingsItem' class='settingsItemEditButton'>edit</span></span></a> <div id='emailSettingsFormDiv' hidden class='settingsChangeFormDiv'></div></li>" +
                 "<li class='settingsItem'>" +
                 "<a class='settingsItemA'>" +
-                "<h3 class='settingsItemH'>"+strings.main_settings_field_password+"</h3>" +
+                "<h3 class='settingsItemH'>" + strings.main_settings_field_password + "</h3>" +
                 "<span class='settingsItemValue'>******</span>" +
                 "<span><span class='settingsItemEditButton'>edit</span></span></a> </li>" +
                 "<li class='settingsItem'>" +
                 "<a class='settingsItemA'>" +
-                "<h3 class='settingsItemH'>"+strings.main_settings_field_language+"</h3>" +
+                "<h3 class='settingsItemH'>" + strings.main_settings_field_language + "</h3>" +
                 "<span class='settingsItemValue' id='settingsItemValueLang'>" + result.langName + "</span>" +
                 "<span><span id='langSettingsItem' class='settingsItemEditButton'>edit</span></span></a> <div id='langSettingsFormDiv' hidden class='settingsChangeFormDiv'></div></li>" +
                 "<li class='settingsItem'>" +
                 "<a class='settingsItemA'>" +
-                "<h3 class='settingsItemH'>"+strings.main_settings_field_facebook+"</h3>" +
+                "<h3 class='settingsItemH'>" + strings.main_settings_field_facebook + "</h3>" +
                 "<span class='settingsItemValue'>" + getFacebookFieldForSettings(result) + "</span>" +
                 "<span><span class='settingsItemEditButton'></span></span></a> </li>" +
                 "<li class='settingsItem'>" +
                 "<a class='settingsItemA'>" +
-                "<h3 class='settingsItemH'>"+strings.main_settings_field_google+"</h3>" +
+                "<h3 class='settingsItemH'>" + strings.main_settings_field_google + "</h3>" +
                 "<span class='settingsItemValue'>" + getGoogleFieldForSettings(result) + "</span>" +
                 "<span><span class='settingsItemEditButton'></span></span></a> </li>" +
                 "<li class='settingsItem'>" +
                 "<a class='settingsItemA'>" +
-                "<h3 class='settingsItemH'>"+strings.main_settings_field_calendar+"</h3>" +
+                "<h3 class='settingsItemH'>" + strings.main_settings_field_calendar + "</h3>" +
                 "<span class='settingsItemValue'>" + getCalendarFieldForSettings(result) + "</span>" +
                 "<span><span class='settingsItemEditButton'></span></span></a> </li>" +
                 getCalendarChooserField(result));
@@ -474,7 +486,7 @@ $(".settingsBtn").click(function () {
                             result = result2;
                             $("#settingsItemValueLang").html(result.langName)
                             eraseCookie("lang");
-                            createCookie("lang",result["language"],365);
+                            createCookie("lang", result["language"], 365);
                             location.reload();
                         })
                     });
@@ -519,7 +531,7 @@ $(".settingsBtn").click(function () {
 
 });
 function getMailStringForValue(user) {
-    return user.email+(user.confirmedEmail?"":"(Not Confirmed)")
+    return user.email + (user.confirmedEmail ? "" : "(Not Confirmed)")
 }
 function getFacebookFieldForSettings(user) {
     if (user.facebookConnected) {
@@ -546,7 +558,7 @@ function getCalendarChooserField(user) {
     if (user.calendarConnected) {
         return "<li class='settingsItem'>" +
             "<a class='settingsItemA'>" +
-            "<h3 class='settingsItemH'>"+strings.main_settings_field_calendar_to_use+"</h3>" +
+            "<h3 class='settingsItemH'>" + strings.main_settings_field_calendar_to_use + "</h3>" +
             "<span class='settingsItemValue' id='settingsItemValueCal'>" + (user.calendarId ? user.calendarId : "not selected") + "</span>" +
             "<span><span id='calSettingsItem' class='settingsItemEditButton'>edit</span></span></a> <div id='calSettingsFormDiv' hidden class='settingsChangeFormDiv'></div></li>";
     }
