@@ -33,9 +33,10 @@ $(document).ready(function () {
                 '</div>' +
                 '<button style="margin-top: 10px;background-color: #33cccc;color: white;" id="signInBtn" class="btn btn-block btn-social">  Log in </button>' +
                 '</form>');
-            $("#signInBtn").click(function () {
 
-            });
+            $(".modal-cancele-btn").remove()
+            console.log(footer[0].lastChild);
+
             $("#signInGoogle").click(function () {
                 gapi.load('auth2', function () {
                     gapi.auth2.init();

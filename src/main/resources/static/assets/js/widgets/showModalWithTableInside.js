@@ -1,6 +1,10 @@
 /**
  * Created by kakha on 1/14/2016.
  */
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.split(search).join(replacement);
+};
 function showModalWithTableInside(callback,callbacks,width,noHeader) {
     if(!width)
         width=600
@@ -17,7 +21,7 @@ function showModalWithTableInside(callback,callbacks,width,noHeader) {
         '      <div id="modalWithTableBody'+random+'" class="modal-body">' +
         '</div>' +
         '      <div id="modalFooterDynamic'+random+'" class="modal-footer">' +
-        '        <button type="button" class="btn btn-link" data-dismiss="modal">'+strings['admin_button_cancele']+'</button>' +
+        '        <button type="button" class="modal-cancele-btn btn btn-link" data-dismiss="modal">'+strings['admin_button_cancele']+'</button>' +
         '      </div>' +
         '    </div>' +
         '  </div>' +
@@ -36,7 +40,7 @@ function showModalWithTableInside(callback,callbacks,width,noHeader) {
 
         for (var key in callbacks) {
             var random2=Math.floor((Math.random() * 10000) + 1);
-            $(this).find("#modalFooterDynamic"+random).append('<button id="' + random2 + 'Btn" type="button" class="btn btn-link">' + key + '</button>')
+            $(this).find("#modalFooterDynamic"+random).append('<button id="' + random2 + 'Btn" type="button" class="btn btn-link '+key.replaceAll(" ","")+'">' + key + '</button>')
             $("#" + random2 + "Btn").click(function () {
                 callbacks[key](thisModal);
                 thisModal.modal("hide");
