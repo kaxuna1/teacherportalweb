@@ -1,6 +1,18 @@
 /**
  * Created by kakha on 3/30/2017.
  */
+var colors={
+    1:"efefee",
+    2:"8fc9ea",
+    3:"274402",
+    4:"db2e2d",
+    5:"efefee",
+    6:"fdbb9c"
+};
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.split(search).join(replacement);
+};
 $(document).ready(function () {
     $("#logisignbtn").click(function () {
         showModalWithTableInside(function (head, body, modal, random, footer) {
@@ -116,8 +128,7 @@ $(document).ready(function () {
 
             },
             fitToElement: true,
-            items: 5,
-            showHintOnFocus: true
+            items: 5
         });
         cat.change(function () {
             var current = cat.typeahead("getActive");
@@ -143,7 +154,6 @@ $(document).ready(function () {
             },
             fitToElement: true,
             items: 5,
-            showHintOnFocus: true
         });
         city.change(function () {
             var current = cat.typeahead("getActive");
@@ -169,6 +179,7 @@ $(document).ready(function () {
         var data = result["content"];//
         var grid = $(".containerfortopcat");
         var left = true
+        var i=1;
         for (var key in data) {
             //categorylogo/"+item.id+"?"+new Date().getTime()+"
             var item = data[key];
@@ -178,16 +189,17 @@ $(document).ready(function () {
                 "</div>" +
                 "</div>";
             var txt="<div style='display: flex;justify-content: center;height: 70vh;width: 50%!important;' class='col-md-6 cattext mycol'>" +
-                "<div style='width: 70%;align-self: center;'>" +
-                "<span class='descriptionText' style='font-family: brix;color: #"+item.descriptionColor+";'>" + item.description + "</span>" +
+                "<div style='align-self: center;text-align: center'>" +
+                "<span class='descriptionText' style='font-family: brix;color: #"+item.descriptionColor+";'>" + item.description.replaceAll("*","<br/>") + "</span>" +
                 "</div>" +
                 "</div>";
 
             grid.append(
-                "<div class='row topCatRow' style='background-color: #" + item.color + ";'>" +
+                "<div class='row topCatRow' style='background-color: #" + colors[i] + ";'>" +
                 (left?img+txt:txt+img)+
                 "</div>")
             left = !left;
+            i++
         }
     })
 

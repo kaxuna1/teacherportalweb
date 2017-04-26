@@ -198,7 +198,7 @@ public class CategoryController {
     @RequestMapping("/topcategories")
     @ResponseBody
     public Page<Category> getTopCategories(@CookieValue(value = "lang", defaultValue = "1") int lang) {
-        Page<Category> cats = categoryRepo.findByActiveAndVisible(true, true, constructPageSpecification(0, 6));
+        Page<Category> cats = categoryRepo.findByActiveAndVisibleOrderByPlaceAsc(true, true, constructPageSpecification(0, 6));
         cats.forEach(category -> category.setLang(lang));
         return cats;
     }
@@ -206,7 +206,7 @@ public class CategoryController {
     @RequestMapping("/topcategoriesmobile")
     @ResponseBody
     public List<Category> getTopCategoriesMobile(@CookieValue(value = "lang", defaultValue = "1") int lang) {
-        Page<Category> cats = categoryRepo.findByActiveAndVisible(true, true, constructPageSpecification(0, 6));
+        Page<Category> cats = categoryRepo.findByActiveAndVisibleOrderByPlaceAsc(true, true, constructPageSpecification(0, 6));
         cats.forEach(category -> category.setLang(lang));
         return cats.getContent();
     }

@@ -17,7 +17,7 @@ public interface CategoryRepo extends JpaRepository<Category,Long> {
 
     List<Category> findByActiveAndVisible(boolean active,boolean visible);
 
-    Page<Category> findByActiveAndVisible(boolean active, boolean visible, Pageable pageable);
+    Page<Category> findByActiveAndVisibleOrderByPlaceAsc(boolean active, boolean visible, Pageable pageable);
 
     List<Category> findByActive(boolean active);
 }

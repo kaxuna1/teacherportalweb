@@ -211,21 +211,21 @@
 .form-wrapper input::-webkit-input-placeholder {
     color: black;
     font-weight: normal;
-
+    text-align: center;
     font-family: brix!important;
 }
 
 .form-wrapper input:-moz-placeholder {
     color: black;
     font-weight: normal;
-
+    text-align: center;
     font-family: brix!important;
 }
 
 .form-wrapper input:-ms-input-placeholder {
     color: black;
     font-weight: normal;
-
+    text-align: center;
     font-family: brix!important;
 }
 
@@ -281,14 +281,11 @@
 }
 
 .citySearchField {
-    border-right: 0px solid grey !important;
-    color: grey;
-    text-align: center !important;
+    color: black;
 }
 
 .categorySearchField {
-    color: grey;
-    text-align: center !important;
+    color: black;
 }
 
 .awLogoRight {
@@ -335,7 +332,7 @@
     background-position: center;
 }
 .social-buttons img{
-    width: 40px;
+    height: 25px;
     cursor: pointer;
     padding-bottom: 5px;
 }
@@ -599,9 +596,9 @@ ul{
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ff3d3c+0,ff3d3c+0,ff3d3c+58,2f7154+59,2f7154+100 */
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f6302f+0,f6302f+58,2f7154+58,2f7154+100 */
     /*cc2322-Red-rgba(246,48,47,1)*/
-    background: -moz-linear-gradient(left, #cc2322 0%, #cc2322 var(--widz), rgba(47,113,84,1) var(--widz), rgba(47,113,84,1) 100%);
-    background: -webkit-linear-gradient(left, #cc2322 0%,#cc2322 var(--widz),rgba(47,113,84,1) var(--widz),rgba(47,113,84,1) 100%);
-    background: linear-gradient(to right, #cc2322 0%,#cc2322 var(--widz),rgba(47,113,84,1) var(--widz),rgba(47,113,84,1) 100%);
+    background: -moz-linear-gradient(left, #DB2E2D 0%, #DB2E2D var(--widz), rgba(47,113,84,1) var(--widz), rgba(47,113,84,1) 100%);
+    background: -webkit-linear-gradient(left, #DB2E2D 0%,#DB2E2D var(--widz),rgba(47,113,84,1) var(--widz),rgba(47,113,84,1) 100%);
+    background: linear-gradient(to right, #DB2E2D 0%,#DB2E2D var(--widz),rgba(47,113,84,1) var(--widz),rgba(47,113,84,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6302f', endColorstr='#2f7154',GradientType=1 );
 
 }
@@ -639,7 +636,6 @@ ul{
 .containerfortopcat{
     width: 100%;
     overflow: hidden;
-    margin-top: 20px;
 }
 .navbar-brand{
     padding-top: 15px!important;
@@ -707,6 +703,10 @@ ul{
 
 }
 
+.row {
+    margin-right: 0px!important;
+    margin-left: 0px!important;
+}
 
 
 

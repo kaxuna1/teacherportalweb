@@ -62,7 +62,7 @@
 
 </head>
 
-<body id="page-top" class="index">
+<body style="min-width: 600px" id="page-top" class="index">
 
 <!-- Navigation -->
 <nav style="background-color: white;z-index: 500" id="mainNav"
@@ -92,6 +92,16 @@
                     <a class="page-scroll" th:text="${strings.main_login_signup}" href="#"
                        style="color: black;font-family: font1"></a>
                 </li>
+                <li class="dropdown" id="langbtn">
+
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       role="button" aria-haspopup="true"
+                       aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><img style="height: 20px" src="png/us.png"></span></a>
+                    <ul class="dropdown-menu">
+                        <li class="profileBtn"><a href="#" style="font-size: 15px"><img style="height: 15px" src="png/us.png"><span style="padding-left: 10px">English</span></a></li>
+                        <li class="profileBtn"><a href="#" style="font-size: 15px"><img style="height: 15px" src="png/us.png"><span style="padding-left: 10px">English</span></a></li>
+                    </ul>
+                </li>
             </ul>
             <ul th:if="${loggedIn}" class="nav navbar-nav navbar-right">
                 <li class="dropdown" id="userBtn">
@@ -105,6 +115,16 @@
                         <li class="settingsBtn"><a href="#" th:text="${strings.main_menu_settings}"></a></li>
                         <li role="separator" class="divider"></li>
                         <li><a class="logoutBtn" href="#" th:text="${strings.main_menu_log_out}"></a></li>
+                    </ul>
+                </li>
+                <li class="dropdown" id="langbtn">
+
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       role="button" aria-haspopup="true"
+                       aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><img style="height: 20px" src="png/us.png"></span></a>
+                    <ul class="dropdown-menu">
+                        <li class="profileBtn"><a href="#" style="font-size: 15px"><img style="height: 15px" src="png/us.png"><span style="padding-left: 10px">English</span></a></li>
+                        <li class="profileBtn"><a href="#" style="font-size: 15px"><img style="height: 15px" src="png/us.png"><span style="padding-left: 10px">English</span></a></li>
                     </ul>
                 </li>
 
@@ -131,15 +151,17 @@
                     <span style="display:-webkit-box;font-family: brixBold">I WANT</span>
                     <form style="background-color: white" class="cf">
 
-                        <input class="categorySearchField" type="text"
+                        <input style="padding-left: 50px" class="categorySearchField" type="text"
                                th:placeholder="${strings.main_search_placeholder_search}">
-                        <input class="citySearchField" type="text"
+                        <input style="padding-left: 50px" class="citySearchField" type="text"
                                th:placeholder="${strings.main_search_placeholder_city}">
                         <button id="searchBtn" class="searchButton" type="button"></button>
 
                     </form>
+
                 </div>
                 <div class="containerForRect form-wrapper">
+                    <span style="display:-webkit-box;font-family: brix;margin-left: 80px;    font-weight: 100; position: absolute;color:black">TO LEARN</span>
                     <div class="paralLeft"></div>
                     <div class="paralRight"></div>
                 </div>
@@ -157,7 +179,7 @@
 <!-- About Section -->
 <!-- Portfolio Grid Section -->
 <section id="topCategories" class="bg-light-gray">
-    <div style="border-bottom: 2px solid black;">
+    <div style=";">
         <div style="padding-left: 30px;" class="row">
             <div class="col-lg-12">
                 <h4 class="section-subheading text-muted" style="font-family: brix;color: black;font-size: 20px">Popular Classes</h4>
@@ -176,38 +198,11 @@
 
 
 <footer>
-    <div class="container">
+    <div style="margin-right: auto;
+    margin-left: auto;">
         <div class="row">
-            <div class="col-md-3">
-
-            </div>
-            <div class="col-md-6">
-                <ul class="list-inline social-buttons">
-
-                    <li><a><img src="png/fb.png">
-                    </a></li>
-                    <li><a><img src="png/tweeter.png">
-                    </a></li>
-                    <li><a><img src="png/instagram.png">
-                    </a></li>
-                    <li><a><img src="png/pinterest.png">
-                    </a></li>
-                    <li><a><img src="png/g.png">
-                    </a></li>
-                    <li><a><img src="png/skype.png">
-                    </a></li>
-
-                </ul>
-            </div>
-            <div class="col-md-3">
-            </div>
-        </div>
-        <div class="row botomMenuLinksRow">
             <div class="col-md-4">
-
-            </div>
-            <div class="col-md-4">
-                <ul class="list-inline">
+                <ul style="font-size: 17px;color:black;font-family:brixNorm!important;margin-bottom: 0px;    padding-top: 10px;" class="list-inline">
                     <li>
                         <a>
                             About Us
@@ -232,23 +227,37 @@
                 </ul>
             </div>
             <div class="col-md-4">
+                <ul style="padding-top: 10px;" class="list-inline ">
 
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <span class="copyright">Created By &copy; <a href="#">Technonet</a></span>
-            </div>
-            <div class="col-md-4">
-                <span>Copyright 2017 Allwitz</span>
+                    <li><a><img style="height: 20px" src="png/f.png">
+                    </a></li>
+                    <li><a><img style="height: 20px" src="png/t.png">
+                    </a></li>
+                    <li><a><img style="height: 20px" src="png/i.png">
+                    </a></li>
+                    </a></li>
+
+                </ul>
             </div>
             <div class="col-md-4">
                 <ul class="list-inline quicklinks">
-                    <li><a href="#" style="font-family: font1">Accepting:</a>
+                    <li><a href="#" style="font-family: font1"></a>
                     </li>
                     <li><a href="#" style="font-family: font1"><img class="paymentsLogosImg" src="png/payments.png"></a>
                     </li>
                 </ul>
+            </div>
+        </div>
+
+        <div style="padding-top: 10px" class="row">
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-4">
+                <span style="font-family: brix">Copyright 2017 Allwitz</span>
+            </div>
+            <div class="col-md-4">
+
             </div>
         </div>
     </div>

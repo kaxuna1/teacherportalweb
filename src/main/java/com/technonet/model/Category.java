@@ -54,6 +54,9 @@ public class Category {
 
     public int lang=1;
 
+    @Column
+    private Integer place;
+
 
 
     @ManyToMany
@@ -180,5 +183,14 @@ public class Category {
 
     public void setDescriptionColor(String descriptionColor) {
         this.descriptionColor = descriptionColor;
+    }
+
+
+    public Integer getPlace() {
+        return place;
+    }
+
+    public void setPlace(Integer place) {
+        this.place = place;
     }
 }
