@@ -35,7 +35,7 @@ $(document).ready(function () {
                 '</form>');
 
             $(".modal-cancele-btn").remove()
-            console.log(footer[0].lastChild);
+            footer.prepend("<div style='float: left;font-family: brixNorm;color: dimgrey;font-size: 1.2em;padding-top: 5px'>Don't have an account?</div>")
 
             $("#signInGoogle").click(function () {
                 gapi.load('auth2', function () {

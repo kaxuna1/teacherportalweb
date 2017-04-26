@@ -555,7 +555,7 @@ button{
     margin-bottom: 15px;
 }
 .modal .modal-content {
-    padding: 0 20px 5px;
+    padding: 0 20px 15px;
     border-bottom: 1px solid #eeeeee;
 
 
@@ -566,7 +566,7 @@ button{
     line-height: 30px;
 }
 .modal .modal-footer {
-    padding: 10px 5px;
+    padding: 10px 15px
 }
 .modal .modal-footer .btn-flat {
     padding: 0 15px;
@@ -725,13 +725,13 @@ ul{
     background-size: 18px;
     background-repeat: no-repeat;
 }
-.signup{
+.Signup{
     background-color: #ef2c2c;
     color: white;
     font-family: brixNorm!important;
     border-radius: 4px;
 }
-.signup:hover{
+.Signup:hover{
     background-color: #ef2c2c;
     color: white;
     border-radius: 4px;
