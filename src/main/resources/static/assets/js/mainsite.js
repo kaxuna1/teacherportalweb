@@ -59,7 +59,7 @@ $(document).ready(function () {
             })
 
         }, {
-            "sign up": function () {
+            "Sign up": function () {
                 showModalWithTableInside(function (head, body, modal, random, footer) {
                     //graph.facebook.com/10202582199151436/picture?type=normal
 

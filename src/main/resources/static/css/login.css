@@ -725,8 +725,16 @@ ul{
     background-size: 18px;
     background-repeat: no-repeat;
 }
-
-
-
+.signup{
+    background-color: #ef2c2c;
+    color: white;
+    font-family: brixNorm!important;
+    border-radius: 4px;
+}
+.signup:hover{
+    background-color: #ef2c2c;
+    color: white;
+    border-radius: 4px;
+}
 
 
