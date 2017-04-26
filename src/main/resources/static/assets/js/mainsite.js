@@ -17,13 +17,21 @@ $(document).ready(function () {
     $("#logisignbtn").click(function () {
         showModalWithTableInside(function (head, body, modal, random, footer) {
             //$(".modal-header").remove();
-            body.append(' <form action="loginapi" method="post" class="form-signin">' +
-                '<a id="signInFB" onclick="loginWithFace()" class="btn btn-block btn-social btn-facebook"> <span class="fa fa-facebook"></span> Log in with Facebook </a>' +
-                '<input style="margin-top: 5px;" type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />' +
-                '<input style="margin-top: 5px;" type="password" class="form-control" name="password" placeholder="Password" required=""/>' +
-                '<button style="margin-top: 5px;background-color: #33cccc;color: white;" id="signInBtn" class="btn btn-block btn-social">  Log in </button>' +
-
-                '<a id="signInGoogle" class="g-signin2 btn btn-block btn-social btn-google" data-onsuccess="onSignIn"> <span class="fa fa-google"></span> Sign in with Google </a>' +
+            body.append(' <form style="padding-top: 30px;" action="loginapi" method="post" class="form-signin">' +
+                '<a id="signInFB" onclick="loginWithFace()" class="btn btn-block btn-social btn-facebook" style="height: 40px;    padding-top: 8px;color: #000;font-family:brixNorm!important;"> <span style="color: white;" class="fa fa-facebook"></span> Log in with Facebook </a>' +
+                '<a id="signInGoogle" class="g-signin2 btn btn-block btn-social" style="height: 40px;    padding-top: 8px;border: 1px solid black;color: #000;font-family:brixNorm!important;margin-top: 10px" data-onsuccess="onSignIn"> <img style="    padding-bottom: 4px" src="png/login/g.png"> Log in with Google </a>' +
+                '<div style="height: 10px;margin-top: 15px;padding-bottom: 20px;margin-bottom: 15px;" class="row"><div style="height: 13px;width: 42.5%;border-bottom: 1px solid black;float: left;"></div><div style="width: 15%;float: left;text-align: center;font-family: brixNorm;font-size: 1.2em">or</div><div style="height: 13px;width: 42.5%;border-bottom: 1px solid black;float: left;"></div></div>' +
+                '<input id="emailFieldLogin" type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />' +
+                '<input id="passwordFieldLogin" type="password" class="form-control" name="password" placeholder="Password" required=""/>' +
+                '<div class="row" style="margin-top: 10px">' +
+                '<div style="width: 50%;float: left">' +
+                '<input type="checkbox"><span style="margin-left: 10px;font-family: brixNorm">Remember me</span>' +
+                '</div>' +
+                '<div style="width: 50%;float: right;text-align: right">' +
+                '<span><a style="cursor: pointer;font-family: brixNorm!important;color: #2a8055">Forgot password?</a></span>' +
+                '</div>' +
+                '</div>' +
+                '<button style="margin-top: 10px;background-color: #33cccc;color: white;" id="signInBtn" class="btn btn-block btn-social">  Log in </button>' +
                 '</form>');
             $("#signInBtn").click(function () {
 
@@ -114,9 +122,9 @@ $(document).ready(function () {
                         }
 
                     })
-                }, {}, 400, true)
+                }, {}, 500, true)
             }
-        }, 400, true)
+        }, 500, true)
     })
     var cat = $(".categorySearchField");
     var city = $(".citySearchField");

@@ -707,9 +707,19 @@ ul{
     margin-right: 0px!important;
     margin-left: 0px!important;
 }
-
-
-
+#emailFieldLogin{
+    margin-top: 10px;
+    height: 40px;
+    background: url(../png/login/1.png);
+    background-position: right;
+    background-origin: content-box;
+    background-size: 25px;
+    background-repeat: no-repeat;
+}
+#passwordFieldLogin{
+    margin-top: 10px;
+    height: 40px
+}
 
 
 
