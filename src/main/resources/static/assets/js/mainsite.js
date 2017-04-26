@@ -18,11 +18,11 @@ $(document).ready(function () {
         showModalWithTableInside(function (head, body, modal, random, footer) {
             //$(".modal-header").remove();
             body.append(' <form action="loginapi" method="post" class="form-signin">' +
-                ' <h2 class="form-signin-heading">Please login</h2>' +
+                '<a id="signInFB" onclick="loginWithFace()" class="btn btn-block btn-social btn-facebook"> <span class="fa fa-facebook"></span> Log in with Facebook </a>' +
                 '<input style="margin-top: 5px;" type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />' +
                 '<input style="margin-top: 5px;" type="password" class="form-control" name="password" placeholder="Password" required=""/>' +
-                '<button style="margin-top: 5px;background-color: #ee9cac;color: white;" id="signInBtn" class="btn btn-block btn-social"> <span class="fa fa-sign-in"></span> Sign in </button>' +
-                '<a id="signInFB" onclick="loginWithFace()" class="btn btn-block btn-social btn-facebook"> <span class="fa fa-facebook"></span> Sign in with Facebook </a>' +
+                '<button style="margin-top: 5px;background-color: #33cccc;color: white;" id="signInBtn" class="btn btn-block btn-social">  Log in </button>' +
+
                 '<a id="signInGoogle" class="g-signin2 btn btn-block btn-social btn-google" data-onsuccess="onSignIn"> <span class="fa fa-google"></span> Sign in with Google </a>' +
                 '</form>');
             $("#signInBtn").click(function () {
