@@ -1,15 +1,15 @@
 /**
  * Created by kakha on 3/30/2017.
  */
-var colors={
-    1:"efefee",
-    2:"8fc9ea",
-    3:"274402",
-    4:"db2e2d",
-    5:"efefee",
-    6:"fdbb9c"
+var colors = {
+    1: "efefee",
+    2: "8fc9ea",
+    3: "274402",
+    4: "db2e2d",
+    5: "efefee",
+    6: "fdbb9c"
 };
-String.prototype.replaceAll = function(search, replacement) {
+String.prototype.replaceAll = function (search, replacement) {
     var target = this;
     return target.split(search).join(replacement);
 };
@@ -28,10 +28,10 @@ $(document).ready(function () {
                 '<input type="checkbox"><span style="margin-left: 10px;font-family: brixNorm">Remember me</span>' +
                 '</div>' +
                 '<div style="width: 50%;float: right;text-align: right">' +
-                '<span><a style="cursor: pointer;font-family: brixNorm!important;color: #2a8055">Forgot password?</a></span>' +
+                '<span><a style="cursor: pointer;font-family: brixNorm!important;color: #218769">Forgot password?</a></span>' +
                 '</div>' +
                 '</div>' +
-                '<button style="margin-top: 10px;background-color: #33cccc;color: white;" id="signInBtn" class="btn btn-block btn-social">  Log in </button>' +
+                '<button style="margin-top: 10px;background-color: #46c3bf;color: white;" id="signInBtn" class="btn btn-block btn-social">  Log in </button>' +
                 '</form>');
 
             $(".modal-cancele-btn").remove()
@@ -64,20 +64,72 @@ $(document).ready(function () {
                     //graph.facebook.com/10202582199151436/picture?type=normal
 
 
-                    body.append(' <form id="regForm" class="form-signin">' +
-                        ' <h2 class="form-signin-heading">Sign Up</h2>' +
-                        '<div id="imagePlace" style="text-align: center;padding-bottom: 10px" class="row"></div>' +
-                        '<input type="text" id="nameReg" class="form-control reg-control " placeholder="Name" required="" autofocus="" />' +
-                        '<input type="text" id="surnameReg" class="form-control reg-control"  placeholder="Surname" required="" autofocus="" />' +
-                        '<input type="text" id="emailReg" class="form-control reg-control"  placeholder="Email Address" required="" autofocus="" />' +
-                        '<input type="password" id="passwordReg" class="form-control reg-control"  placeholder="Password" required=""/>' +
-                        '<input type="hidden" id="fbToken">' +
-                        '<input type="hidden" id="googleToken">' +
-                        '<a id="registerBtn" style="background-color: #ee9cac;color: white;" class="btn btn-block btn-social"> <span class="fa fa-sign-in"></span> Sign up </a>' +
-                        '<a id="connectFB" class="btn btn-block btn-social btn-facebook"> <span class="fa fa-facebook"></span> Connect Facebook </a>' +
-                        '<a id="connectGoogle" class="btn btn-block btn-social btn-google"> <span class="fa fa-google"></span> Connect Google </a>' +
-                        '<div id="errorMessage"></div>' +
-                        '</form>');
+                    body.append('<div style="padding-top: 30px;" method="" class="form-signin">' +
+                        '<a id="signInFB" onclick="loginWithFace()"                                                                  class="btn btn-block btn-social btn-facebook"                                                                  style="height: 40px;    padding-top: 8px;color: #000;font-family:brixNorm!important;">    <span style="color: white;" class="fa fa-facebook"></span> Log in with Facebook </a>' +
+                        '<a id="signInGoogle"                                                                                           class="g-signin2 btn btn-block btn-social"                                                                                           style="height: 40px;    padding-top: 8px;border: 1px solid black;color: #000;font-family:brixNorm!important;margin-top: 10px"                                                                                           data-onsuccess="onSignIn">    <img style="    padding-bottom: 4px" src="png/login/g.png"> Log in with Google </a>    ' +
+                        '<div style="height: 10px;margin-top: 15px;padding-bottom: 20px;margin-bottom: 15px;" class="row">        <div style="height: 13px;width: 42.5%;border-bottom: 1px solid black;float: left;"></div>        <div style="width: 15%;float: left;text-align: center;font-family: brixNorm;font-size: 1.2em">or</div>        <div style="height: 13px;width: 42.5%;border-bottom: 1px solid black;float: left;"></div>    </div>    ' +
+                        '<button style="margin-top: 10px;background-color: #46c3bf;color: white;" id="singUpWithEmailBtn"            class="btn btn-block btn-social">Sign up with Email    </button>    ' +
+                        '<div class="row"><p style="    line-height: 17px;font-size: 0.87em;padding-top: 10px;font-family: brixNorm;">' +
+                        'By        signing up, I agree to Allwitz’s ' +
+                        '<a href="#" style="color:#218769;font-family: brixNorm!important;">Terms os            Service, Nondiscrimination Policy, ' +
+                        'Payments Terms of Service, Privacy Policy, ' +
+                        'Guest Refund Policy, and Host            Guarantee Terms.</a></p></div>' +
+                        '</div>')
+
+                    $("#singUpWithEmailBtn").click(function () {
+                        modal.modal("hide")
+                        showModalWithTableInside(function (head, body, modal, random, footer) {
+                            $(".modal-cancele-btn").remove()
+                            footer.prepend("<div style='float: left;font-family: brixNorm;color: dimgrey;font-size: 1.2em;padding-top: 5px'>Already have an Allwitz account?</div>")
+
+                            $(".modal-cancele-btn").remove()
+                            body.append('<div style="padding-top: 30px;" method="" class="form-signin">' +
+                                '<div style="text-align: center" class="row"><span style="text-align: center;font-family: brixnorm!important;">Sign up with <a style="color:#218769;font-family: brixNorm!important;" href="#">Facebook</a> or <a style="color:#218769;font-family: brixNorm!important;" href="#">Google</a></span></div>' +
+                                '<div style="height: 10px;margin-top: 15px;padding-bottom: 20px;margin-bottom: 15px;" class="row">        <div style="height: 13px;width: 42.5%;border-bottom: 1px solid black;float: left;"></div>        <div style="width: 15%;float: left;text-align: center;font-family: brixNorm;font-size: 1.2em">or</div>        <div style="height: 13px;width: 42.5%;border-bottom: 1px solid black;float: left;"></div>    </div>    ' +
+                                '<input id="emailFieldLogin" type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />' +
+                                '<input id="nameField" type="text" class="form-control" name="username" placeholder="First name" required="" autofocus="" />' +
+                                '<input id="nameField" type="text" class="form-control" name="username" placeholder="Last name" required="" autofocus="" />' +
+                                '<input id="passwordFieldLogin" type="password" class="form-control" name="password" placeholder="Password" required=""/>' +
+                                '<div class="row">' +
+                                '<p style="font-family: brixnorm!important;margin-bottom: 0px;font-size: 1.3em;padding-top: 20px">Birthday</p>' +
+                                '<p style="font-family: brixnorm!important;font-size: 0.9em;    line-height: 12px;">To sign up, you must be 18 or older. Other people won’t see your birthday.</p></div>' +
+                                '<div class="row">' +
+                                '<div style="width: 35%;float: left"><select class="form-custom" style="width: 80%"></select></div>' +
+                                '<div style="width: 30%;float: left;text-align: center"><select class="form-custom"  style="width: 80%"></select></div>' +
+                                '<div style="width: 35%;float: left;text-align: right"><select class="form-custom"  style="width: 80%"></select></div>' +
+                                '</div>' +
+                                '<button style="margin-top: 10px;background-color: #46c3bf;color: white;" id="singUpWithEmailBtn"            class="btn btn-block btn-social">Sign up</button>    ' +
+                                '<div class="row"><p style="    line-height: 17px;font-size: 0.87em;padding-top: 10px;font-family: brixNorm;">' +
+                                'By      signing up, I agree to Allwitz’s ' +
+                                '<a href="#" style="color:#218769;font-family: brixNorm!important;">Terms os Service, Nondiscrimination Policy, ' +
+                                'Payments Terms of Service, Privacy Policy, ' +
+                                'Guest Refund Policy, and Host            Guarantee Terms.</a></p></div>' +
+                                '</div>')
+
+                        }, {
+                            "Log in": function () {
+                                $("#logisignbtn").click()
+                            }
+                        }, 500,true)
+                    })
+
+                    /*body.append(' <form id="regForm" class="form-signin">' +
+                     ' <h2 class="form-signin-heading">Sign Up</h2>' +
+                     '<div id="imagePlace" style="text-align: center;padding-bottom: 10px" class="row"></div>' +
+                     '<input type="text" id="nameReg" class="form-control reg-control " placeholder="Name" required="" autofocus="" />' +
+                     '<input type="text" id="surnameReg" class="form-control reg-control"  placeholder="Surname" required="" autofocus="" />' +
+                     '<input type="text" id="emailReg" class="form-control reg-control"  placeholder="Email Address" required="" autofocus="" />' +
+                     '<input type="password" id="passwordReg" class="form-control reg-control"  placeholder="Password" required=""/>' +
+                     '<input type="hidden" id="fbToken">' +
+                     '<input type="hidden" id="googleToken">' +
+                     '<a id="registerBtn" style="background-color: #ee9cac;color: white;" class="btn btn-block btn-social"> <span class="fa fa-sign-in"></span> Sign up </a>' +
+                     '<a id="connectFB" class="btn btn-block btn-social btn-facebook"> <span class="fa fa-facebook"></span> Connect Facebook </a>' +
+                     '<a id="connectGoogle" class="btn btn-block btn-social btn-google"> <span class="fa fa-google"></span> Connect Google </a>' +
+                     '<div id="errorMessage"></div>' +
+                     '</form>');*/
+
+                    $(".modal-cancele-btn").remove()
+                    footer.prepend("<div style='float: left;font-family: brixNorm;color: dimgrey;font-size: 1.2em;padding-top: 5px'>Already have an Allwitz account?</div>")
 
                     $("#emailReg").change(function () {
                         $.getJSON("emailexists?email=" + $(this).val(), function (result) {
@@ -123,7 +175,11 @@ $(document).ready(function () {
                         }
 
                     })
-                }, {}, 500, true)
+                }, {
+                    "Log in": function () {
+                        $("#logisignbtn").click()
+                    }
+                }, 500, true)
             }
         }, 500, true)
     })
@@ -188,24 +244,24 @@ $(document).ready(function () {
         var data = result["content"];//
         var grid = $(".containerfortopcat");
         var left = true
-        var i=1;
+        var i = 1;
         for (var key in data) {
             //categorylogo/"+item.id+"?"+new Date().getTime()+"
             var item = data[key];
-            var img= "<div style='display: flex;justify-content: center; height: 70vh;width: 50%!important;' class='col-md-6 mycol'>" +
+            var img = "<div style='display: flex;justify-content: center; height: 70vh;width: 50%!important;' class='col-md-6 mycol'>" +
                 "<div style='align-self: center;display: flex;justify-content: center;height: 100%;'>" +
                 "<img class='catimg' src='categorylogo/" + item.id + "?" + new Date().getTime() + "'/>" +
                 "</div>" +
                 "</div>";
-            var txt="<div style='display: flex;justify-content: center;height: 70vh;width: 50%!important;' class='col-md-6 cattext mycol'>" +
+            var txt = "<div style='display: flex;justify-content: center;height: 70vh;width: 50%!important;' class='col-md-6 cattext mycol'>" +
                 "<div style='align-self: center;text-align: center'>" +
-                "<span class='descriptionText' style='font-family: brix;color: #"+item.descriptionColor+";'>" + item.description.replaceAll("*","<br/>") + "</span>" +
+                "<span class='descriptionText' style='font-family: brix;color: #" + item.descriptionColor + ";'>" + item.description.replaceAll("*", "<br/>") + "</span>" +
                 "</div>" +
                 "</div>";
 
             grid.append(
                 "<div class='row topCatRow' style='background-color: #" + colors[i] + ";'>" +
-                (left?img+txt:txt+img)+
+                (left ? img + txt : txt + img) +
                 "</div>")
             left = !left;
             i++
@@ -214,21 +270,21 @@ $(document).ready(function () {
 
     $(window).resize(function () {
         //document.documentElement.style.setProperty("--widz",k+"%");
-        var com=cumulativeOffset(document.getElementById("searchBtn"))
-        var l=com.left;
-        l=l/50;
+        var com = cumulativeOffset(document.getElementById("searchBtn"))
+        var l = com.left;
+        l = l / 50;
 
 
         //document.documentElement.style.setProperty("--widz",(100-)+"%");
         console.log(l);
     })
-    var cumulativeOffset = function(element) {
+    var cumulativeOffset = function (element) {
         var top = 0, left = 0;
         do {
-            top += element.offsetTop  || 0;
+            top += element.offsetTop || 0;
             left += element.offsetLeft || 0;
             element = element.offsetParent;
-        } while(element);
+        } while (element);
 
         return {
             top: top,
