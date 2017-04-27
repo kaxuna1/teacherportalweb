@@ -163,13 +163,12 @@
     clear: both;
 }
 
-.cf{
+.cf {
     border-top-right-radius: 7px;
     border-bottom-right-radius: 7px;
     border-top-left-radius: 7px;
     border-bottom-left-radius: 7px;
 }
-
 
 /* Form wrapper styling */
 .form-wrapper {
@@ -179,9 +178,7 @@
     margin: 0 auto 0 auto;
     z-index: 10000;
 
-
-
-    font-family: brix!important;
+    font-family: brix !important;
 }
 
 /* Form text input */
@@ -199,7 +196,7 @@
     border-top: 0px solid grey;
     border-bottom: 0px solid grey;
 
-    font-family: brix!important;
+    font-family: brix !important;
 
 }
 
@@ -212,21 +209,21 @@
     color: black;
     font-weight: normal;
     text-align: center;
-    font-family: brix!important;
+    font-family: brix !important;
 }
 
 .form-wrapper input:-moz-placeholder {
     color: black;
     font-weight: normal;
     text-align: center;
-    font-family: brix!important;
+    font-family: brix !important;
 }
 
 .form-wrapper input:-ms-input-placeholder {
     color: black;
     font-weight: normal;
     text-align: center;
-    font-family: brix!important;
+    font-family: brix !important;
 }
 
 /* Form submit button */
@@ -257,7 +254,8 @@
     border-top-right-radius: 7px;
     border-bottom-right-radius: 7px;
 }
-.categorySearchField{
+
+.categorySearchField {
     border-top-left-radius: 7px;
     border-bottom-left-radius: 7px;
 }
@@ -291,19 +289,24 @@
 .awLogoRight {
     display: none;
 }
-.palmaLogoRight{
+
+.palmaLogoRight {
     display: none;
 }
-.zolebiRight{
+
+.zolebiRight {
     display: none;
 }
-.yviteliZolebiRight{
+
+.yviteliZolebiRight {
     display: none;
 }
-.lampLeft{
+
+.lampLeft {
     display: none;
 }
-#topCategories{
+
+#topCategories {
     padding-top: 20px;
     padding-bottom: 0px;
 }
@@ -314,10 +317,9 @@
     width: 90%;
 }
 
-
 .categoriesContainer .row {
-    margin-right:-15px;
-    margin-left:-15px;
+    margin-right: -15px;
+    margin-left: -15px;
 }
 
 .categoriesContainer .row .col {
@@ -325,29 +327,34 @@
     padding-left: 15px;
 }
 
-.gridItem{
+.gridItem {
     /*background-image: url("../png/guli.png");*/
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 }
-.social-buttons img{
+
+.social-buttons img {
     height: 25px;
     cursor: pointer;
     padding-bottom: 5px;
 }
-.footerMenu{
+
+.footerMenu {
     list-style-type: none;
 }
-.footerMenu li{
+
+.footerMenu li {
     float: left;
     padding: 10px;
     cursor: pointer;
 }
-.paymentsLogosImg{
+
+.paymentsLogosImg {
     height: 40px;
 }
-.botomMenuLinksRow{
+
+.botomMenuLinksRow {
     padding-top: 20px;
 }
 
@@ -355,36 +362,45 @@
     font-family: brix;
     src: url("../assets/font/brix3.otf") format("opentype");
 }
+
 @font-face {
     font-family: brixBold;
     src: url("../assets/font/brixBold.otf") format("opentype");
 }
+
 @font-face {
     font-family: brixNorm;
     src: url("../assets/font/brix4.otf") format("opentype");
 }
-.brand{
-    font-family: brixNorm!important;
-}
-.list-inline li a{
-    font-family: brix!important;
-}
-h1{
 
-    font-family: brix!important;
+.brand {
+    font-family: brixNorm !important;
 }
-h2{
 
-    font-family: brix!important;
+.list-inline li a {
+    font-family: brix !important;
 }
-a{
 
-    font-family: brix!important;
-}
-button{
+h1 {
 
-    font-family: brix!important;
+    font-family: brix !important;
 }
+
+h2 {
+
+    font-family: brix !important;
+}
+
+a {
+
+    font-family: brix !important;
+}
+
+button {
+
+    font-family: brix !important;
+}
+
 .portfolio-wrap {
     padding-bottom: 120px;
 }
@@ -399,11 +415,14 @@ button{
     margin-bottom: 60px;
 }
 
-.portfolio-category {}
+.portfolio-category {
+}
+
 .portfolio-category li {
     float: left;
     margin-right: 25px;
 }
+
 .portfolio-category li a {
     display: block;
     color: #fff;
@@ -421,12 +440,13 @@ button{
 
 .portfolio-category li.active a,
 .portfolio-category li a:hover {
-    border-color : #fff;
+    border-color: #fff;
 }
 
 .protfolio-item {
     margin-bottom: 50px;
 }
+
 .protfolio-item li {
     float: left;
     width: 33%;
@@ -457,14 +477,14 @@ button{
     width: 100%;
     height: 100%;
     padding: 20px;
-    vertical-align:middle;
+    vertical-align: middle;
     text-align: center;
     z-index: 5;
     -webkit-transform: scale(0);
     -ms-transform: scale(0);
     transform: scale(0);
-    -webkit-transition: -webkit-transform 0.25s cubic-bezier(.4,0,.2,1), opacity 0.25s;
-    transition: transform 0.25s cubic-bezier(.4,0,.2,1), opacity 0.25s;
+    -webkit-transition: -webkit-transform 0.25s cubic-bezier(.4, 0, .2, 1), opacity 0.25s;
+    transition: transform 0.25s cubic-bezier(.4, 0, .2, 1), opacity 0.25s;
 }
 
 .p-overlay {
@@ -522,7 +542,6 @@ button{
     transform: scale(1);
 }
 
-
 .load-more:hover,
 .load-more {
     background-color: #fff;
@@ -530,12 +549,12 @@ button{
     padding-left: 20px;
     color: #727272;
     font-size: 17px;
-    font-weight:600;
+    font-weight: 600;
 }
 
 .portfolio-wrap .modal {
     padding: 0;
-    max-height : 85%;
+    max-height: 85%;
     width: 550px;
 }
 
@@ -548,31 +567,36 @@ button{
     width: 100%;
     height: auto;
 }
+
 .modal .title {
     font-size: 25px;
     color: #444444;
     line-height: 1.2;
     margin-bottom: 15px;
 }
+
 .modal .modal-content {
     padding: 0 20px 15px;
     border-bottom: 1px solid #eeeeee;
 
-
 }
+
 .modal .modal-content p {
     color: #727272;
     font-size: 14px;
     line-height: 30px;
 }
+
 .modal .modal-footer {
     padding: 10px 15px
 }
+
 .modal .modal-footer .btn-flat {
     padding: 0 15px;
     font-weight: 500;
     font-size: 14px;
 }
+
 .clearfix:before,
 .clearfix:after {
     content: " "; /* 1 */
@@ -582,77 +606,89 @@ button{
 .clearfix:after {
     clear: both;
 }
+
 .clearfix {
     *zoom: 1;
 }
-ul{
+
+ul {
     list-style: none;
 }
-.protfolio-image img{
+
+.protfolio-image img {
     width: 100%;
 }
-#mycarousel{
+
+#mycarousel {
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#c32f2e+0,c32f2e+58,2f7154+58,2f7154+100 */
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ff3d3c+0,ff3d3c+0,ff3d3c+58,2f7154+59,2f7154+100 */
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f6302f+0,f6302f+58,2f7154+58,2f7154+100 */
     /*cc2322-Red-rgba(246,48,47,1)*/
-    background: -moz-linear-gradient(left, #DB2E2D 0%, #DB2E2D var(--widz), rgba(47,113,84,1) var(--widz), rgba(47,113,84,1) 100%);
-    background: -webkit-linear-gradient(left, #DB2E2D 0%,#DB2E2D var(--widz),rgba(47,113,84,1) var(--widz),rgba(47,113,84,1) 100%);
-    background: linear-gradient(to right, #DB2E2D 0%,#DB2E2D var(--widz),rgba(47,113,84,1) var(--widz),rgba(47,113,84,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6302f', endColorstr='#2f7154',GradientType=1 );
+    background: -moz-linear-gradient(left, #DB2E2D 0%, #DB2E2D var(--widz), rgba(47, 113, 84, 1) var(--widz), rgba(47, 113, 84, 1) 100%);
+    background: -webkit-linear-gradient(left, #DB2E2D 0%, #DB2E2D var(--widz), rgba(47, 113, 84, 1) var(--widz), rgba(47, 113, 84, 1) 100%);
+    background: linear-gradient(to right, #DB2E2D 0%, #DB2E2D var(--widz), rgba(47, 113, 84, 1) var(--widz), rgba(47, 113, 84, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6302f', endColorstr='#2f7154', GradientType=1);
 
 }
-
 
 .navbar {
     border-bottom: 1px solid black;
 }
-#wrapperDiv{
+
+#wrapperDiv {
     max-width: 400px;
     min-width: 300px;
     width: 300px;
     margin: 0 auto;
     overflow: hidden;
 }
-@media  (min-width: 400px){
-    #wrapperDiv{
+
+@media (min-width: 400px) {
+    #wrapperDiv {
         overflow: visible;
         width: 400px;
     }
-    .form-wrapper{
+
+    .form-wrapper {
         width: 400px;
     }
-    .paralLeft{
 
-        border-left: 397px solid transparent!important;
+    .paralLeft {
+
+        border-left: 397px solid transparent !important;
         float: left;
     }
-    .paralRight{
-        border-right: 397px solid transparent!important;
-        margin-left: 396px!important;
+
+    .paralRight {
+        border-right: 397px solid transparent !important;
+        margin-left: 396px !important;
 
     }
 }
-.containerfortopcat{
+
+.containerfortopcat {
     width: 100%;
     overflow: hidden;
 }
-.navbar-brand{
-    padding-top: 15px!important;
-    font-family: brix!important
+
+.navbar-brand {
+    padding-top: 15px !important;
+    font-family: brix !important
 }
 
-.containerForRect{
+.containerForRect {
     padding-left: 3px;
 }
-.paralLeft{
+
+.paralLeft {
     width: 0;
     height: 0;
     border-top: 60vh solid #46c3bf;
     border-left: 297px solid transparent;
     float: left;
 }
-.paralRight{
+
+.paralRight {
     width: 0;
     height: 0;
     border-bottom: 60vh solid #46c3bf;
@@ -661,24 +697,27 @@ ul{
 
 }
 
-.cattext{
+.cattext {
     height: auto;
 }
-.catimg{
+
+.catimg {
     height: 25vh;
     max-width: 25vh;
     align-self: center
 }
 
-@media (min-width: 992px){
-    .cattext{
+@media (min-width: 992px) {
+    .cattext {
         height: 100%;
     }
-    .catimg{
+
+    .catimg {
         width: 100%;
     }
 }
-.mycol{
+
+.mycol {
     position: relative;
     min-height: 1px;
     padding-right: 15px;
@@ -686,28 +725,33 @@ ul{
     width: 50%;
     float: left;
 }
-@media  (min-width: 600px){
-    .catimg{
+
+@media (min-width: 600px) {
+    .catimg {
         height: 50vh;
         max-width: 50vh;
         align-self: center
     }
-    .descriptionText{
+
+    .descriptionText {
         font-size: 30px;
     }
 }
-.topCatRow{
+
+.topCatRow {
     height: 70vh;
 }
-.descriptionText{
+
+.descriptionText {
 
 }
 
 .row {
-    margin-right: 0px!important;
-    margin-left: 0px!important;
+    margin-right: 0px !important;
+    margin-left: 0px !important;
 }
-#emailFieldLogin{
+
+#emailFieldLogin {
     margin-top: 10px;
     height: 40px;
     background: url(../png/login/1.png);
@@ -716,7 +760,8 @@ ul{
     background-size: 22px;
     background-repeat: no-repeat;
 }
-#nameField{
+
+#nameField {
     margin-top: 10px;
     height: 40px;
     background: url(../png/login/3.png);
@@ -726,7 +771,7 @@ ul{
     background-repeat: no-repeat;
 }
 
-#passwordFieldLogin{
+#passwordFieldLogin {
     margin-top: 10px;
     height: 40px;
     background: url(../png/login/2.png);
@@ -735,29 +780,34 @@ ul{
     background-size: 18px;
     background-repeat: no-repeat;
 }
-.Signup{
+
+.Signup {
     background-color: #db2e2d;
     color: white;
-    font-family: brixNorm!important;
+    font-family: brixNorm !important;
     border-radius: 4px;
 }
-.Signup:hover{
-    background-color: #db2e2d;
-    color: white;
-    border-radius: 4px;
-}
-.Login{
-    background-color: #db2e2d;
-    color: white;
-    font-family: brixNorm!important;
-    border-radius: 4px;
-}
-.Login:hover{
+
+.Signup:hover {
     background-color: #db2e2d;
     color: white;
     border-radius: 4px;
 }
-.form-custom{
+
+.Login {
+    background-color: #db2e2d;
+    color: white;
+    font-family: brixNorm !important;
+    border-radius: 4px;
+}
+
+.Login:hover {
+    background-color: #db2e2d;
+    color: white;
+    border-radius: 4px;
+}
+
+.form-custom {
     height: 40px;
     padding: 6px 12px;
     font-size: 14px;
@@ -774,4 +824,62 @@ ul{
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .1
 }
 
+.modal {
+    overflow: scroll !important;
+}
 
+.styled-checkbox {
+    position: inherit;
+    opacity: 0;
+}
+
+.styled-checkbox + label {
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+}
+
+.styled-checkbox + label:before {
+    content: '';
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: text-top;
+    width: 20px;
+    height: 20px;
+    background: white;
+}
+
+.styled-checkbox:hover{
+    background: #218769!important;
+}
+
+.styled-checkbox:focus {
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12)!important;
+}
+
+.styled-checkbox:checked {
+    background: #218769!important;
+}
+
+.styled-checkbox:disabled  {
+    color: #b8b8b8;
+    cursor: auto;
+}
+
+.styled-checkbox:disabled  {
+    box-shadow: none;
+    background: #ddd;
+}
+
+.styled-checkbox:checked  {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 9px;
+    background: white;
+    width: 2px;
+    height: 2px;
+    box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
