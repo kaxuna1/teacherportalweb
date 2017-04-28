@@ -962,7 +962,7 @@ ul {
 
 #searchview {
     height: 100vh;
-    width: 100vw;
+    width: 100%;
 }
 
 .onSearchPage {
@@ -985,7 +985,7 @@ ul {
 }
 
 .mapDiv {
-    display: block !important;
+    display: none !important;
     left: auto !important;
     width: 40% !important;
     background-color: white;
@@ -996,9 +996,27 @@ ul {
     padding-right: 30px;
     padding-bottom: 15px;
 }
+@media (min-width: 900px) {
+    .mapDiv {
+        display: block !important;
+        left: auto !important;
+        width: calc(100% - 800px) !important;
+        background-color: white;
+        position: fixed !important;
+        top: 64px !important;
+        bottom: 0px !important;
+        right: 0px !important;
+        padding-right: 30px;
+        padding-bottom: 15px;
+    }
+    .results {
+        width: 800px!important;
+    }
+}
+
 
 .results {
-    width: 60%
+    width: 100%
 }
 
 .searchFieldsRow {
@@ -1035,15 +1053,16 @@ ul {
     padding: 0;
     vertical-align: baseline;
     outline: 0;
+    min-height: 100vh;
 }
 
 .searchResultItem {
     position: relative;
-    display: table;
+    display: inherit;
     table-layout: fixed;
     padding-left: 5vw;
     padding-right: 3vw;
-    height: 25vh;
+    height: 300px;
     width: 100%;
     margin-bottom: 47px;
     background-color: white;
@@ -1051,17 +1070,69 @@ ul {
 
 .searchResultItemTop {
     width: 100%;
-    height: 70%;
-    background-color: #0A8CC3;
+    height: 210px;
+    background-color: white;
     border-top: 1px solid black;
     border-right: 1px solid black;
     border-left: 1px solid black;
 }
 
+.searchResultItemTopImg {
+    padding: 7%;
+    height: 100%;
+}
+
+.searchResultItemTopImgDiv {
+    float: left;
+    height: 100%;
+    width: 210px;
+    max-height: 100%;
+
+}
+
+.searchResultItemTopTextDiv {
+    width: 45%;
+    float: left;
+    padding-left: 20px;
+    height: 100%;
+    display: flex;
+
+    flex-direction: column;
+    justify-content: center;
+}
+
+.searchResultItemTopTextDivChild {
+
+}
+
+.searchResultItemTopPriceDiv {
+    width: 20%;
+    height: 100%;
+    float: left;
+    text-align: center;
+    padding-top: 70px;
+}
+
+.priceLabelClass {
+    color: black;
+    font-family: brix!important;
+    font-size: 11pt;
+}
+
+.priceTag {
+    color: #218769;
+    font-size: 15pt;
+}
+
+.delimiter {
+    color: black;
+    font-size: 13pt;
+}
+
 .searchResultItemBottom {
     width: 100%;
-    height: 30%;
-    background-color: #0a568c;
+    height: 90px;
+    background-color: white;
     border-bottom: 1px solid black;
     border-right: 1px solid black;
     border-left: 1px solid black;
@@ -1076,6 +1147,34 @@ footer {
     left: 0;
 }
 
+.nameLabel {
+    font-family: brix, serif !important;
+    color: #218769;
+    font-size: 15pt;
+}
+
+.classLabel {
+    color: black;
+    font-family: brix, serif !important;
+    margin-bottom: 0;
+    font-size: 11pt!important;
+}
+
+.degreeLabel {
+    color: black;
+    font-family: brix, serif !important;
+    font-size: 11pt!important;
+    line-height: 3pt!important;
+}
+.starRating{
+    color: #46c3bf;
+    margin: auto;
+}
+.starRatingDiv{
+    width: 210px;
+    height: 100%;
+    text-align: center;
+}
 
 
 
