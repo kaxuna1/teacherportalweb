@@ -196,7 +196,7 @@
     border-top: 0px solid grey;
     border-bottom: 0px solid grey;
 
-    font-family: brix !important;
+    font-family: brixnorm !important;
 
 }
 
@@ -206,24 +206,24 @@
 }
 
 .form-wrapper input::-webkit-input-placeholder {
-    color: black;
+    color: black!important;
     font-weight: normal;
     text-align: center;
-    font-family: brix !important;
+    font-family: brixnorm !important;
 }
 
 .form-wrapper input:-moz-placeholder {
-    color: black;
+    color: black!important;
     font-weight: normal;
     text-align: center;
-    font-family: brix !important;
+    font-family: brixnorm !important;
 }
 
 .form-wrapper input:-ms-input-placeholder {
-    color: black;
+    color: black!important;
     font-weight: normal;
     text-align: center;
-    font-family: brix !important;
+    font-family: brixnorm !important;
 }
 
 /* Form submit button */
@@ -661,7 +661,7 @@ ul {
 
     .paralRight {
         border-right: 397px solid transparent !important;
-        margin-left: 396px !important;
+        margin-left: 393px !important;
 
     }
 }
@@ -677,7 +677,7 @@ ul {
 }
 
 .containerForRect {
-    padding-left: 3px;
+    padding-left: -1px;
 }
 
 .paralLeft {
@@ -693,7 +693,7 @@ ul {
     height: 0;
     border-bottom: 60vh solid #46c3bf;
     border-right: 297px solid transparent;
-    margin-left: 296px;
+    margin-left: 293px;
 
 }
 
@@ -821,65 +821,165 @@ ul {
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
     -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
     -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s, box-shadow ease-in-out .1
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
 .modal {
     overflow: scroll !important;
 }
 
-.styled-checkbox {
-    position: inherit;
-    opacity: 0;
+@-webkit-keyframes check {
+    0% {
+        height: 0;
+        width: 0;
+    }
+    25% {
+        height: 0;
+        width: 10px;
+    }
+    50% {
+        height: 20px;
+        width: 10px;
+    }
+}
+@-moz-keyframes check {
+    0% {
+        height: 0;
+        width: 0;
+    }
+    25% {
+        height: 0;
+        width: 10px;
+    }
+    50% {
+        height: 20px;
+        width: 10px;
+    }
+}
+@-ms-keyframes check {
+    0% {
+        height: 0;
+        width: 0;
+    }
+    25% {
+        height: 0;
+        width: 10px;
+    }
+    50% {
+        height: 20px;
+        width: 10px;
+    }
+}
+@keyframes check {
+    0% {
+        height: 0;
+        width: 0;
+    }
+    25% {
+        height: 0;
+        width: 10px;
+    }
+    50% {
+        height: 20px;
+        width: 10px;
+    }
 }
 
-.styled-checkbox + label {
-    position: relative;
-    cursor: pointer;
-    padding: 0;
-}
-
-.styled-checkbox + label:before {
-    content: '';
-    margin-right: 10px;
+.checkbox, .checkbox-alt {
+    background-color: #fff;
     display: inline-block;
-    vertical-align: text-top;
-    width: 20px;
-    height: 20px;
-    background: white;
+    height: 50px;
+    margin: 0 0.25em;
+    width: 50px;
 }
-
-.styled-checkbox:hover{
-    background: #218769!important;
+.checkbox label, .checkbox-alt label {
+    display: block;
+    height: 50px;
+    position: relative;
+    width: 50px;
 }
-
-.styled-checkbox:focus {
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12)!important;
-}
-
-.styled-checkbox:checked {
-    background: #218769!important;
-}
-
-.styled-checkbox:disabled  {
-    color: #b8b8b8;
-    cursor: auto;
-}
-
-.styled-checkbox:disabled  {
-    box-shadow: none;
-    background: #ddd;
-}
-
-.styled-checkbox:checked  {
+.checkbox label:after, .checkbox-alt label:after {
+    /*
+    This element has a border on the right, and top. By rotating it looks like a check symbol, but the wrong way. That's why I'm flipping it with scaleX(-1)
+    */
+    -moz-transform: scaleX(-1) rotate(135deg);
+    -ms-transform: scaleX(-1) rotate(135deg);
+    -webkit-transform: scaleX(-1) rotate(135deg);
+    transform: scaleX(-1) rotate(135deg);
+    /*
+    I want to position the symbol using the left top, because when increasing the width and height of an object, it expands from the top left corner as well. That is what makes it looks like it's being drawn.
+    */
+    -moz-transform-origin: left top;
+    -ms-transform-origin: left top;
+    -webkit-transform-origin: left top;
+    transform-origin: left top;
+    border-right: 4px solid #cee;
+    border-top: 4px solid #cee;
     content: '';
+    display: block;
+    height: 20px;
+    left: 14px;
     position: absolute;
-    left: 5px;
-    top: 9px;
-    background: white;
-    width: 2px;
-    height: 2px;
-    box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
+    top: 26px;
+    width: 10px;
+}
+.checkbox label:hover:after, .checkbox-alt label:hover:after {
+    border-color: #bdd;
+}
+.checkbox input, .checkbox-alt input {
+    display: none;
+}
+.checkbox input:checked + label:after, .checkbox-alt input:checked + label:after {
+    -webkit-animation: check 0.8s;
+    -moz-animation: check 0.8s;
+    -o-animation: check 0.8s;
+    animation: check 0.8s;
+    border-color: #6aa;
+}
+.checkbox.checkbox-alt label:hover:after, .checkbox-alt.checkbox-alt label:hover:after {
+    -webkit-animation: check 0.8s ease infinite;
+    -moz-animation: check 0.8s ease infinite;
+    -o-animation: check 0.8s ease infinite;
+    animation: check 0.8s ease infinite;
+}
+.checkbox.checkbox-alt input:checked + label:after, .checkbox-alt.checkbox-alt input:checked + label:after {
+    -webkit-animation: none;
+    -moz-animation: none;
+    -o-animation: none;
+    animation: none;
+}
+#searchview{
+    height: 100vh;
+    width: 100vw;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+.onSearchPage{
+    border-radius: 4px;
+    border: 1px solid black;
+    height: 40px;
+    width: 95%;
+
+}
+.myCol25{
+    width: 30%;
+    max-width: 350px;
+    height: 40px;
+    float: left;
+    text-align: center;
+}
+.mainCont{
+
+}
+.mapDiv{
+    position: fixed;
+    width: 40%;
+    height: 100vh;
+    background-color: #00a2d9;
+    top: 0;
+    bottom: 0;
+    float: right;
+}
+.results{
+    width: 60%
 }

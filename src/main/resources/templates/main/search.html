@@ -3,8 +3,7 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -146,61 +145,37 @@
 </nav>
 
 <!-- Header -->
-<header id="" class="carousel slide" style=" min-height: 100vh; height: auto;">
-
-    <div style="height: 100vh;overflow: hidden " id="mycarousel" class="carousel slide" data-ride="carousel">
-        <div class="intro-text">
-            <div class="intro-heading">
-                <!--   <a id="mainSearchBtn" href="#" style="font-family: font1" class="page-scroll btn btn-xl"><i
-                           class="fa fa-search" aria-hidden="true"></i>
-                   </a>
-                   <input placeholder="Search" class="categoryInputSearch" type="text">
-                   <input placeholder="City" class="cityInputSearch" type="text">-->
-
-                <div style="position:relative;" class="form-wrapper">
-                    <span style="display:-webkit-box;font-family: brixBold;font-size: 1.25em;">I WANT</span>
-                    <form style="background-color: white" class="cf">
-
-                        <input style="padding-left: 50px" class="categorySearchField" type="text"
-                               th:placeholder="${strings.main_search_placeholder_search}">
-                        <input style="padding-left: 50px" class="citySearchField" type="text"
-                               th:placeholder="${strings.main_search_placeholder_city}">
-                        <button id="searchBtn" class="searchButton" type="button"></button>
-
-                    </form>
-
-                </div>
-                <div style="   position: relative;  z-index: 1;  top: -5px;" class="containerForRect form-wrapper">
-                    <span style="display:-webkit-box;font-family: brix;margin-left: 80px;font-size: 87px;font-weight: 900;white-space: nowrap ; position: absolute;color:black">TO LEARN</span>
-                    <div class="paralLeft"></div>
-                    <div class="paralRight"></div>
-                </div>
-
-
-            </div>
+<section id="searchview">
+    <div class="row searchFieldsRow">
+        <div class="myCol25">
+            <input style="padding-left: 50px" class="categorySearchField onSearchPage" type="text"
+                   th:placeholder="${strings.main_search_placeholder_search}">
 
         </div>
+        <div class="myCol25">
+            <input style="padding-left: 50px" class="citySearchField onSearchPage" type="text"
+                   th:placeholder="${strings.main_search_placeholder_city}">
+        </div>
+        <div class="myCol25">
+            <select style="padding-left: 40px" class="onSearchPage">
+                <option>
+                    Meeting Point
+                </option>
+            </select>
+        </div>
+        <div class="myCol25">
 
-
-        <!-- Controls -->
+        </div>
     </div>
-</header>
-<!-- Services Section -->
-<!-- About Section -->
-<!-- Portfolio Grid Section -->
-<section id="topCategories" class="bg-light-gray">
-    <div style=";">
-        <div style="padding-left: 30px;" class="row">
-            <div class="col-lg-12">
-                <h4 class="section-subheading text-muted" style="font-family: brix;color: black;font-size: 20px">Popular
-                    Classes</h4>
-            </div>
+    <div class="mainCont">
+        <div class="results">
+
+        </div>
+        <div class="mapDiv">
+
         </div>
     </div>
 
-    <div class='containerfortopcat'>
-
-    </div>
 </section>
 
 <!-- Clients Aside -->

@@ -99,7 +99,7 @@ $(document).ready(function () {
                                 '<div style="width: 35%;float: left;text-align: right"><select class="form-custom"  style="width: 80%"></select></div>' +
                                 '</div>' +
                                 '<div class="row" style="padding-top: 10px">' +
-                                '<input type="checkbox" value="value1" class="styled-checkbox"/>' +
+                                '<input type="checkbox" value="value1" />' +
                                 '<span style="font-size: 0.9em;font-family: brixnorm">' +
                                 'I’d like to receive coupons, promotions, surveys, and updates via email aboutAllwitz and its partners </span></div>' +
                                 '<button style="margin-top: 10px;background-color: #46c3bf;color: white;" id="singUpWithEmailBtn"            class="btn btn-block btn-social">Sign up</button>    ' +

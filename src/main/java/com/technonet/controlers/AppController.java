@@ -66,6 +66,38 @@ public class AppController {
 
         return "main/index";
     }
+    @GetMapping(value = "/search", produces = "text/html")
+    public String search(Model model,
+                        @CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
+                        @CookieValue(value = "lang", defaultValue = "1") int lang) {
+        Session sessiona;
+        Map<String, String> stringMap = Variables.stringsMap.get(lang);
+        model.addAttribute("strings", stringMap);
+        if (sessionId != 0) {
+            sessiona = sessionRepository.findOne(sessionId);
+            if (sessiona.isIsactive()) {
+                model.addAttribute("sessionobj", sessiona);
+                model.addAttribute("userNameSurname", sessiona.getUser().getNameSurname());
+                model.addAttribute("userId", sessiona.getUser().getId());
+                String profilePicUrl = "/profilePic/" + sessiona.getUser().getId() + "?" + Math.random();
+
+                if (!sessiona.getUser().getFacebookId().isEmpty()) {
+                    profilePicUrl = "http://graph.facebook.com/" + sessiona.getUser().getFacebookId() + "/picture?type=large";
+                }
+                model.addAttribute("profilePicUrl", profilePicUrl);
+
+                model.addAttribute("loggedIn", true);
+
+
+            } else {
+                model.addAttribute("loggedIn", false);
+            }
+        } else {
+            model.addAttribute("loggedIn", false);
+        }
+
+        return "main/search";
+    }
 
     @GetMapping(value = "/confirmtoken", produces = "text/html")
     public String confirmToken(Model model, @RequestParam(name = "token", defaultValue = "") String token) {
