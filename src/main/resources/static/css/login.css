@@ -207,21 +207,21 @@
 }
 
 .form-wrapper input::-webkit-input-placeholder {
-    color: black!important;
+    color: black !important;
     font-weight: normal;
     text-align: center;
     font-family: brixnorm !important;
 }
 
 .form-wrapper input:-moz-placeholder {
-    color: black!important;
+    color: black !important;
     font-weight: normal;
     text-align: center;
     font-family: brixnorm !important;
 }
 
 .form-wrapper input:-ms-input-placeholder {
-    color: black!important;
+    color: black !important;
     font-weight: normal;
     text-align: center;
     font-family: brixnorm !important;
@@ -843,6 +843,7 @@ ul {
         width: 10px;
     }
 }
+
 @-moz-keyframes check {
     0% {
         height: 0;
@@ -857,6 +858,7 @@ ul {
         width: 10px;
     }
 }
+
 @-ms-keyframes check {
     0% {
         height: 0;
@@ -871,6 +873,7 @@ ul {
         width: 10px;
     }
 }
+
 @keyframes check {
     0% {
         height: 0;
@@ -893,12 +896,14 @@ ul {
     margin: 0 0.25em;
     width: 50px;
 }
+
 .checkbox label, .checkbox-alt label {
     display: block;
     height: 50px;
     position: relative;
     width: 50px;
 }
+
 .checkbox label:after, .checkbox-alt label:after {
     /*
     This element has a border on the right, and top. By rotating it looks like a check symbol, but the wrong way. That's why I'm flipping it with scaleX(-1)
@@ -924,12 +929,15 @@ ul {
     top: 26px;
     width: 10px;
 }
+
 .checkbox label:hover:after, .checkbox-alt label:hover:after {
     border-color: #bdd;
 }
+
 .checkbox input, .checkbox-alt input {
     display: none;
 }
+
 .checkbox input:checked + label:after, .checkbox-alt input:checked + label:after {
     -webkit-animation: check 0.8s;
     -moz-animation: check 0.8s;
@@ -937,39 +945,46 @@ ul {
     animation: check 0.8s;
     border-color: #6aa;
 }
+
 .checkbox.checkbox-alt label:hover:after, .checkbox-alt.checkbox-alt label:hover:after {
     -webkit-animation: check 0.8s ease infinite;
     -moz-animation: check 0.8s ease infinite;
     -o-animation: check 0.8s ease infinite;
     animation: check 0.8s ease infinite;
 }
+
 .checkbox.checkbox-alt input:checked + label:after, .checkbox-alt.checkbox-alt input:checked + label:after {
     -webkit-animation: none;
     -moz-animation: none;
     -o-animation: none;
     animation: none;
 }
-#searchview{
+
+#searchview {
     height: 100vh;
     width: 100vw;
 }
-.onSearchPage{
+
+.onSearchPage {
     border-radius: 4px;
     border: 1px solid black;
     height: 38px;
     width: 95%;
 
 }
-.myCol25{
+
+.myCol25 {
     width: 30%;
     max-width: 350px;
     height: 40px;
     float: left;
 }
-.mainCont{
+
+.mainCont {
 
 }
-.mapDiv{
+
+.mapDiv {
     display: block !important;
     left: auto !important;
     width: 40% !important;
@@ -981,10 +996,12 @@ ul {
     padding-right: 30px;
     padding-bottom: 15px;
 }
+
 .results {
     width: 60%
 }
-.searchFieldsRow{
+
+.searchFieldsRow {
     position: relative;
     z-index: 100;
     padding-bottom: 15px;
@@ -993,21 +1010,25 @@ ul {
     padding-top: 20px;
 
 }
-.searchElementsContainer{
+
+.searchElementsContainer {
     padding-right: 5%;
     padding-left: 5%;
 
 }
-.classOnSearch{
+
+.classOnSearch {
 }
-.cityOnSearch{
+
+.cityOnSearch {
     background-image: url("../png/search/2.png");
     background-position: left;
     background-origin: border-box;
     background-size: 15px;
     background-repeat: no-repeat;
 }
-.searchResultDiv{
+
+.searchResultDiv {
     background: 0 0;
     border: 0;
     margin: 0;
@@ -1015,10 +1036,44 @@ ul {
     vertical-align: baseline;
     outline: 0;
 }
-footer{
+
+.searchResultItem {
+    position: relative;
+    display: table;
+    table-layout: fixed;
+    padding-left: 5vw;
+    padding-right: 3vw;
+    height: 25vh;
+    width: 100%;
+    margin-bottom: 47px;
+    background-color: white;
+}
+
+.searchResultItemTop {
+    width: 100%;
+    height: 70%;
+    background-color: #0A8CC3;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+}
+
+.searchResultItemBottom {
+    width: 100%;
+    height: 30%;
+    background-color: #0a568c;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+}
+
+footer {
     background-color: white;
     z-index: 10000;
     position: relative;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 
 
