@@ -3,7 +3,8 @@
 
 <head>
 
-    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -74,7 +75,9 @@
                     data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand page-scroll brand" style="padding-top: 5px;    font-size: 30px;" href="#page-top">ALLWITZ</a>
+            <a class="navbar-brand page-scroll brand"
+               style="padding-top: 5px;    font-size: 30px;font-family: brixnorm!important;"
+               href="#page-top">ALLWITZ</a>
         </div>
 
 
@@ -145,34 +148,59 @@
 </nav>
 
 <!-- Header -->
-<section id="searchview">
+<section style="padding: 60px 0!important;" id="searchview">
     <div class="row searchFieldsRow">
-        <div class="myCol25">
-            <input style="padding-left: 50px" class="categorySearchField onSearchPage" type="text"
-                   th:placeholder="${strings.main_search_placeholder_search}">
+        <div class="searchElementsContainer">
 
-        </div>
-        <div class="myCol25">
-            <input style="padding-left: 50px" class="citySearchField onSearchPage" type="text"
-                   th:placeholder="${strings.main_search_placeholder_city}">
-        </div>
-        <div class="myCol25">
-            <select style="padding-left: 40px" class="onSearchPage">
-                <option>
-                    Meeting Point
-                </option>
-            </select>
-        </div>
-        <div class="myCol25">
+            <div class="myCol25">
+                <input style="padding-left: 50px;font-family: brixnorm!important;"
+                       class="citySearchField onSearchPage cityOnSearch" type="text"
+                       th:placeholder="${strings.main_search_placeholder_city}">
+            </div>
+            <div class="myCol25">
+                <input style="padding-left: 50px;font-family: brixnorm!important;"
+                       class="categorySearchField onSearchPage classOnSearch" type="text"
+                       th:placeholder="${strings.main_search_placeholder_search}">
+
+            </div>
+
+            <div class="myCol25">
+                <select style="padding-left: 40px;font-family: brixnorm!important; background-color: white"
+                        class="onSearchPage">
+                    <option>
+                        Meeting Point
+                    </option>
+                </select>
+            </div>
 
         </div>
     </div>
+    <div style="padding-left: 10%;padding-top: 10px" class="row">
+        <ul class="list-inline quicklinks">
+            <li><a href="#" style="font-family: brix!important;">Sort by<img style="width: 18px;padding-left: 4px"
+                                                                             src="png/login/9.png"></a>
+            </li>
+            <li><a href="#" style="font-family: brix!important;">Price range<img style="width: 18px;padding-left: 4px"
+                                                                                 src="png/login/9.png"></a>
+            </li>
+            <li><a href="#" style="font-family: brix!important;">More filters<img style="width: 18px;padding-left: 4px"
+                                                                                  src="png/login/9.png"></a>
+            </li>
+        </ul>
+    </div>
     <div class="mainCont">
         <div class="results">
+            <a style=""><p style="font-family: brix!important;color: black;padding-left: 5vw">
+                120 results
+            </p>
+            </a>
+            <div class="searchResultDiv">
 
+            </div>
         </div>
         <div class="mapDiv">
-
+            <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d33111.09406324017!2d44.77846125597866!3d41.725010699918016!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sge!4v1493398316680"
+                    width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
         </div>
     </div>
 

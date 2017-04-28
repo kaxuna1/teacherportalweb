@@ -97,6 +97,7 @@
     left: 50%;
     margin-left: -50px !important; /* 50% of your logo width */
     display: block;
+    font-family: brixnorm;
 }
 
 .carousel,
@@ -951,13 +952,11 @@ ul {
 #searchview{
     height: 100vh;
     width: 100vw;
-    padding-left: 5%;
-    padding-right: 5%;
 }
 .onSearchPage{
     border-radius: 4px;
     border: 1px solid black;
-    height: 40px;
+    height: 38px;
     width: 95%;
 
 }
@@ -966,20 +965,69 @@ ul {
     max-width: 350px;
     height: 40px;
     float: left;
-    text-align: center;
 }
 .mainCont{
 
 }
 .mapDiv{
-    position: fixed;
-    width: 40%;
-    height: 100vh;
-    background-color: #00a2d9;
-    top: 0;
-    bottom: 0;
-    float: right;
+    display: block !important;
+    left: auto !important;
+    width: 40% !important;
+    background-color: white;
+    position: fixed !important;
+    top: 64px !important;
+    bottom: 0px !important;
+    right: 0px !important;
+    padding-right: 30px;
+    padding-bottom: 15px;
 }
-.results{
+.results {
     width: 60%
 }
+.searchFieldsRow{
+    position: relative;
+    z-index: 100;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #5c5c5c;
+    background-color: white;
+    padding-top: 20px;
+
+}
+.searchElementsContainer{
+    padding-right: 5%;
+    padding-left: 5%;
+
+}
+.classOnSearch{
+}
+.cityOnSearch{
+    background-image: url("../png/search/2.png");
+    background-position: left;
+    background-origin: border-box;
+    background-size: 15px;
+    background-repeat: no-repeat;
+}
+.searchResultDiv{
+    background: 0 0;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+    outline: 0;
+}
+footer{
+    background-color: white;
+    z-index: 10000;
+    position: relative;
+}
+
+
+
+
+
+
+
+
+
+
+
