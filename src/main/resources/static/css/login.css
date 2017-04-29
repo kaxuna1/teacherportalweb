@@ -1039,10 +1039,10 @@ ul {
 }
 
 .cityOnSearch {
-    background-image: url("../png/search/2.png");
+    background-image: url("../png/search/2_1.png");
     background-position: left;
     background-origin: border-box;
-    background-size: 15px;
+    background-size: 25px;
     background-repeat: no-repeat;
 }
 
@@ -1091,7 +1091,7 @@ ul {
 }
 
 .searchResultItemTopTextDiv {
-    width: 45%;
+    width: 260px;
     float: left;
     padding-left: 20px;
     height: 100%;
@@ -1106,9 +1106,9 @@ ul {
 }
 
 .searchResultItemTopPriceDiv {
-    width: 20%;
+
     height: 100%;
-    float: left;
+    float: right;
     text-align: center;
     padding-top: 70px;
 }
@@ -1117,6 +1117,8 @@ ul {
     color: black;
     font-family: brix!important;
     font-size: 11pt;
+    float: right;
+    padding-right: 50px;
 }
 
 .priceTag {
@@ -1131,7 +1133,7 @@ ul {
 
 .searchResultItemBottom {
     width: 100%;
-    height: 90px;
+    height: 50px;
     background-color: white;
     border-bottom: 1px solid black;
     border-right: 1px solid black;
@@ -1150,20 +1152,20 @@ footer {
 .nameLabel {
     font-family: brix, serif !important;
     color: #218769;
-    font-size: 15pt;
+    font-size: 1.8em;
 }
 
 .classLabel {
     color: black;
     font-family: brix, serif !important;
     margin-bottom: 0;
-    font-size: 11pt!important;
+    font-size: 1.35em!important;
 }
 
 .degreeLabel {
     color: black;
     font-family: brix, serif !important;
-    font-size: 11pt!important;
+    font-size: 1.35em!important;
     line-height: 3pt!important;
 }
 .starRating{
@@ -1171,9 +1173,35 @@ footer {
     margin: auto;
 }
 .starRatingDiv{
-    width: 210px;
+    /* width: 300px; */
+    width: 100%;
     height: 100%;
-    text-align: center;
+    /* text-align: center; */
+    padding-left: 70px;
+    padding-right: 50px;
+}
+.reviewsLabel{
+    font-family: brix!important;
+    padding-left: 10px;
+}
+.viewsLabel{
+
+    font-family: brix!important;
+    padding-left: 10px;
+}
+.viewsLabel img{
+    vertical-align: middle;
+    width: 19px;
+    padding-right: 5px;
+    padding-bottom: 3px;
+}
+.readMoreBtn{
+    float: right;
+    font-family: brix!important;
+    font-size: 9pt;
+    border-radius: 2px!important;
+    background-color: #46c3bf;
+    color:white;
 }
 
 
