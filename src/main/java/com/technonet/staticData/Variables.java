@@ -30,6 +30,7 @@ public class Variables {
             TransportStrategy.SMTP_TLS
     );
     static {
+
     }
 
     public static BufferedImage getScaledInstance(BufferedImage img, int targetWidth, int targetHeight, Object hint,
