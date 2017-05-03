@@ -308,7 +308,7 @@
 }
 
 #topCategories {
-    padding-top: 20px;
+    padding-top: 0px;
     padding-bottom: 0px;
 }
 
@@ -994,11 +994,11 @@ ul {
     right: 0px !important;
     padding-bottom: 15px;
 }
-@media (min-width: 900px) {
+@media (min-width: 1128px) {
     .mapDiv {
         display: block !important;
         left: auto !important;
-        width: calc(100% - 750px) !important;
+        width: 40%;
         background-color: white;
         position: fixed !important;
         top: 64px !important;
@@ -1008,7 +1008,7 @@ ul {
         padding-bottom: 15px;
     }
     .results {
-        width: 750px!important;
+        width: 60%!important;
     }
 }
 
@@ -1226,7 +1226,20 @@ footer {
 .navlabel{
     color: white;
 }
-
+.footerRight{
+    text-align: center;
+}
+.footerLeft{
+    text-align: center;
+}
+@media (min-width: 992px){
+    .footerRight{
+        text-align: right!important;
+    }
+    .footerLeft{
+        text-align: left!important;
+    }
+}
 
 
 

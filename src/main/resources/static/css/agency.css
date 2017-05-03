@@ -104,7 +104,7 @@ a.active, a:active, a:focus, a:hover {
 }
 
 .navbar-custom {
-    background-color: #222;
+    background-color: transparent;
     border-color: transparent
 }
 
@@ -127,13 +127,14 @@ a.active, a:active, a:focus, a:hover {
 }
 
 .navbar-custom .navbar-toggle {
-    background-color: grey;
+    background-color: transparent;
     border-color: grey;
+    color: black;
     font-size: 12px
 }
 
 .navbar-custom .navbar-toggle:focus, .navbar-custom .navbar-toggle:hover {
-    background-color: grey
+    background-color: transparent;
 }
 
 .navbar-custom .nav li a {

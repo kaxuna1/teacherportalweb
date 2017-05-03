@@ -75,7 +75,7 @@
                     data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand page-scroll brand navlabel" style="padding-top: 5px; ;   font-size: 30px;font-family: brixnorm!important; color: white" href="#page-top">Allwitz</a>
+            <a class="navbar-brand page-scroll brand navlabel" style="padding-top: 5px; ;   font-size: 40px;font-family: brixnorm!important; color: white" href="#page-top">Allwitz</a>
         </div>
 
 
@@ -83,12 +83,12 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul th:if="${!loggedIn}" class="nav navbar-nav navbar-left">
                 <li id="becometeacherbtn">
-                    <a class="page-scroll navlabel" style="color: white;font-family: brixnorm!important;" th:text="${strings.main_become_a_teacher}" href="#"></a>
+                    <a class="page-scroll navlabel" style="font-size: 18px;color: white;font-family: brixnorm!important;" th:text="${strings.main_become_a_teacher}" href="#"></a>
                 </li>
             </ul>
             <ul th:if="${!loggedIn}" class="nav navbar-nav navbar-right">
                 <li id="logisignbtn">
-                    <a class="page-scroll navlabel" style="color: white;font-family: brixnorm!important;" th:text="${strings.main_login_signup}" href="#"></a>
+                    <a class="page-scroll navlabel" style="color: white;font-family: brixnorm!important;font-size: 18px" th:text="${strings.main_login_signup}" href="#"></a>
                 </li>
                 <li class="dropdown" id="langbtn">
 
@@ -112,7 +112,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                        role="button" aria-haspopup="true"
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><span
-                            th:text="${userNameSurname}"></span></span></a>
+                            th:text="${userNameSurname}" style="font-size: 18px"></span></span></a>
                     <ul class="dropdown-menu">
                         <li class="profileBtn"><a href="#" th:text="${strings.main_menu_profile}"></a></li>
                         <li class="settingsBtn"><a href="#" th:text="${strings.main_menu_settings}"></a></li>
@@ -187,10 +187,10 @@
 <!-- About Section -->
 <!-- Portfolio Grid Section -->
 <section id="topCategories" class="bg-light-gray">
-    <div style=";">
+    <div style="border-bottom: 2px solid black;margin-bottom: 8px">
         <div style="padding-left: 30px;" class="row">
             <div class="col-lg-12">
-                <h4 class="section-subheading text-muted" style="font-family: brix;color: black;font-size: 20px">Popular
+                <h4 class="section-subheading text-muted" style="font-family: brixNorm!important;color: black;font-size: 20px">Popular
                     Classes</h4>
             </div>
         </div>
@@ -206,37 +206,37 @@
 <!-- Contact Section -->
 
 
-<footer>
+<footer style="padding-left: 4%;padding-right: 4%">
     <div style="margin-right: auto;
     margin-left: auto;">
         <div class="row">
-            <div style="padding-left: 0" class="col-md-4">
-                <ul style="font-size: 17px;color:black;font-family:brixNorm!important;margin-bottom: 0px;    padding-top: 10px;"
-                    class="list-inline">
+            <div class="col-md-5">
+                <ul style="font-size: 18px;color:black;font-family:brix!important;margin-bottom: 0px;    padding-top: 10px;"
+                    class="list-inline footerLeft">
                     <li>
-                        <a>
+                        <a style="color: black">
                             About Us
                         </a>
                     </li>
                     <li>
-                        <a>
+                        <a style="color: black">
                             Terms & Conditions
                         </a>
                     </li>
                     <li>
-                        <a>
+                        <a style="color: black">
                             Press
                         </a>
                     </li>
                     <li>
-                        <a>
+                        <a style="color: black">
 
                             Contact
                         </a>
                     </li>
                 </ul>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <ul style="padding-top: 10px;" class="list-inline ">
 
                     <li><a><img style="height: 20px" src="png/f.png">
@@ -249,8 +249,8 @@
 
                 </ul>
             </div>
-            <div class="col-md-4">
-                <ul class="list-inline quicklinks">
+            <div class="col-md-5">
+                <ul class="list-inline quicklinks footerRight">
                     <li><a href="#" style="font-family: font1"></a>
                     </li>
                     <li><a href="#" style="font-family: font1"><img class="paymentsLogosImg" src="png/payments.png"></a>
@@ -264,7 +264,7 @@
 
             </div>
             <div class="col-md-4">
-                <span style="font-family: brix">Copyright 2017 Allwitz</span>
+                <span style="font-family: brix!important;font-size: 1em">Copyright 2017 Allwitz</span>
             </div>
             <div class="col-md-4">
 
