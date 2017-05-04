@@ -1,6 +1,7 @@
 package com.technonet.controlers;
 
 import com.technonet.Repository.SessionRepository;
+import com.technonet.Repository.UserRepository;
 import com.technonet.model.Session;
 import com.technonet.staticData.PermisionChecks;
 import org.apache.tomcat.util.security.PermissionCheck;
@@ -46,4 +47,8 @@ public class AdminController {
     }
     @Autowired
     private SessionRepository sessionRepository;
+
+
+    @Autowired
+    private UserRepository userRepository;
 }

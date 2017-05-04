@@ -58,6 +58,7 @@ public class StringsController {
     @RequestMapping("strings")
     @ResponseBody
     public Map<String, String> getStringsMap(@CookieValue(value = "lang", defaultValue = "1") int lang) {
+        Variables.myThreadLocal.set(lang);
         return Variables.stringsMap.get(lang);
     }
 
@@ -82,6 +83,7 @@ public class StringsController {
                                           @RequestParam(value = "name", defaultValue = "") String name,
                                           @RequestParam(value = "value", defaultValue = "") String value,
                                           @RequestParam(value = "lang", defaultValue = "0") int lang){
+        Variables.myThreadLocal.set(lang);
 
         if(uuid.isEmpty()||value.isEmpty()||lang==0||getLangsAddableToSysString(sessionId,uuid).stream().noneMatch(idNameData -> idNameData.getId()==lang)){
             return false;

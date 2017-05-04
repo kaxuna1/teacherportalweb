@@ -142,4 +142,7 @@ public class Variables {
 
     public static Map<Integer,Map<String,String>> stringsMap=new HashMap<>();
 
+    public static final ThreadLocal<Integer> myThreadLocal = new ThreadLocal<Integer>();
+
+
 }

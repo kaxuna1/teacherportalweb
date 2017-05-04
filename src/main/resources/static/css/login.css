@@ -197,7 +197,7 @@
     border-top: 0px solid grey;
     border-bottom: 0px solid grey;
 
-    font-family: brix !important;
+    font-family: brixLight !important;
 
 }
 
@@ -372,6 +372,10 @@
 @font-face {
     font-family: brixNorm;
     src: url("../assets/font/brix4.otf") format("opentype");
+}
+@font-face {
+    font-family: brixLight;
+    src: url("../assets/font/brixLight.otf") format("opentype");
 }
 
 .brand {

@@ -4,6 +4,7 @@ import com.technonet.Enums.JsonReturnCodes;
 import com.technonet.Repository.*;
 import com.technonet.model.*;
 import com.technonet.staticData.PermisionChecks;
+import com.technonet.staticData.Variables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -78,7 +79,9 @@ public class UserCategoryController {
     @RequestMapping("/usercategories/{id}")
     @ResponseBody
     public List<UserCategoryJoin> getUserCategories(@CookieValue("projectSessionId") long sessionId,
-                                                    @PathVariable("id") long id) {
+                                                    @PathVariable("id") long id,
+                                                    @CookieValue(value = "lang", defaultValue = "1") int lang) {
+        Variables.myThreadLocal.set(lang);
         Session session = sessionRepository.findOne(sessionId);
         User user = userRepository.findOne(id);
         return user.getUserCategoryJoins();
@@ -87,20 +90,29 @@ public class UserCategoryController {
     @RequestMapping("/usercategoriescats/{id}")
     @ResponseBody
     public List<Category> getUserCategoriesCats(@CookieValue("projectSessionId") long sessionId,
-                                                @PathVariable("id") long id) {
+                                                @PathVariable("id") long id,
+                                                @CookieValue(value = "lang", defaultValue = "1") int lang) {
+        Variables.myThreadLocal.set(lang);
         Session session = sessionRepository.findOne(sessionId);
         User user = userRepository.findOne(id);
-        return user.getUserCategoryJoins().stream().map(userCategoryJoin -> userCategoryJoin.getCategory()).collect(Collectors.toList());
+        List<Category> cats= user.getUserCategoryJoins().stream().map(UserCategoryJoin::getCategory)
+                .collect(Collectors.toList());
+        cats.forEach(category -> category.setLang(lang));
+
+        return cats;
     }
 
     @RequestMapping("/getcategoriesforuseradding/{id}")
     @ResponseBody
     public List<Category> getCategotiesForUserAdding(@CookieValue("projectSessionId") long sessionId,
-                                                     @PathVariable("id") long id) {
+                                                     @PathVariable("id") long id,
+                                                     @CookieValue(value = "lang", defaultValue = "1") int lang) {
+        Variables.myThreadLocal.set(lang);
         Session session = sessionRepository.findOne(sessionId);
         List<Category> categories = categoryRepo.findByActiveAndVisible(true, true);
         User user = userRepository.findOne(id);
         user.getUserCategoryJoins().stream().forEach(userCategoryJoin -> categories.remove(userCategoryJoin.getCategory()));
+        categories.forEach(category -> category.setLang(lang));
         return categories;
     }
 

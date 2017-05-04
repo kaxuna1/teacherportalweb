@@ -88,7 +88,7 @@ public class Category {
     }
 
     public String getName() {
-        return Variables.stringsMap.get(lang).get(this.name);
+        return Variables.stringsMap.get(Variables.myThreadLocal.get()).get(this.name);
     }
 
     public void setName(String name) {

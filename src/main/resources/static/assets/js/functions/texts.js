@@ -21,7 +21,9 @@ function loadTexts(index, search) {
                 dataLoading();
                 modal.modal("hide");
             })
-        }, {}, 500)
+        }, {
+
+        }, 500)
     });
     dataLoading()
     function dataLoading() {

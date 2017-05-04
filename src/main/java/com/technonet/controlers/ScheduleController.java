@@ -62,7 +62,7 @@ public class ScheduleController {
                                               @RequestParam(value = "category", required = true, defaultValue = "") long category) {
         HashMap<Integer, WeekDay> weekdays = Variables.getWeekDays();
 
-        Session session= sessionRepository.findOne(sessionId);
+        Session session = sessionRepository.findOne(sessionId);
 
         UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(category);
         List<Schedule> schedules = scheduleRepo.findByUserCategoryJoinAndActive(userCategoryJoin, true);
@@ -180,7 +180,7 @@ public class ScheduleController {
             try {
                 FreeBusyResponse freeBusyResponse = client.freebusy().query(freeBusyRequest).execute();
                 List<TimePeriod> busyPeriods = freeBusyResponse.getCalendars().get(calendarItem.getId()).getBusy();
-                busyPeriods.forEach(timePeriod -> intervalsBusy.add(new Interval(timePeriod.getStart().getValue(),timePeriod.getEnd().getValue())));
+                busyPeriods.forEach(timePeriod -> intervalsBusy.add(new Interval(timePeriod.getStart().getValue(), timePeriod.getEnd().getValue())));
             } catch (IOException e) {
                 e.printStackTrace();
 
@@ -238,8 +238,8 @@ public class ScheduleController {
                 freeIntervalToAdd.setStart(freeInterval.getStarting_time());
                 Date intervalEndDate = new DateTime(freeInterval.getStarting_time()).plusMinutes(userCategoryJoin.getDuration()).toDate();
                 freeIntervalToAdd.setEnd(intervalEndDate);
-                if(intervalsBusy.stream().noneMatch(interval ->
-                        interval.overlap(new Interval(freeIntervalToAdd.getStarting_time().getTime(),freeIntervalToAdd.getEnding_time().getTime()))!=null)){
+                if (intervalsBusy.stream().noneMatch(interval ->
+                        interval.overlap(new Interval(freeIntervalToAdd.getStarting_time().getTime(), freeIntervalToAdd.getEnding_time().getTime())) != null)) {
                     returnList.add(freeIntervalToAdd);
                 }
                 freeInterval.setStart(intervalEndDate);
@@ -269,10 +269,17 @@ public class ScheduleController {
     @ResponseBody
     public List<BookedTime> getScheduledLessons(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                                                 @PathVariable(value = "id") long id,
-                                                @PathVariable(value = "days") int days) {
+                                                @PathVariable(value = "days") int days,
+                                                @CookieValue(value = "lang", defaultValue = "1") int lang) {
+
+        Variables.myThreadLocal.set(lang);
         Session session = sessionRepository.findOne(sessionId);
         if (PermisionChecks.isAdmin(session)) {
-            return bookedTimeRepo.findInsideIntervalWithUser(new DateTime().minusDays(days).toDate(), new DateTime().plusDays(days).toDate(), userDao.findOne(id));
+
+
+            List<BookedTime> k = bookedTimeRepo.findInsideIntervalWithUser(new DateTime().minusDays(days).toDate(), new DateTime().plusDays(days).toDate(), userDao.findOne(id));
+            k.forEach(bookedTime -> bookedTime.getUserCategoryJoin().getCategory().setLang(lang));
+            return k;
         } else {
             return null;
         }

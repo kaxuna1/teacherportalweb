@@ -39,6 +39,7 @@ public class AppController {
                         @CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                         @CookieValue(value = "lang", defaultValue = "1") int lang) {
         Session sessiona;
+        Variables.myThreadLocal.set(lang);
         Map<String, String> stringMap = Variables.stringsMap.get(lang);
         model.addAttribute("strings", stringMap);
         if (sessionId != 0) {
@@ -71,6 +72,7 @@ public class AppController {
                         @CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                         @CookieValue(value = "lang", defaultValue = "1") int lang) {
         Session sessiona;
+        Variables.myThreadLocal.set(lang);
         Map<String, String> stringMap = Variables.stringsMap.get(lang);
         model.addAttribute("strings", stringMap);
         if (sessionId != 0) {
