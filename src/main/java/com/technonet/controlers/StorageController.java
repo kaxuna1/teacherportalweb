@@ -221,7 +221,7 @@ public class StorageController {
 
     @RequestMapping("profilePic/{id}")
     @ResponseBody
-    public byte[] profilePic(HttpServletResponse response, @CookieValue("projectSessionId") long sessionId, @PathVariable("id") long id) {
+    public byte[] profilePic(HttpServletResponse response, @PathVariable("id") long id) {
         User user = userRepository.findOne(id);
         Path path;
         if(user.getProfilePic()==null){
