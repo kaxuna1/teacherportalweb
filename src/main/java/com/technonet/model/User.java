@@ -135,6 +135,8 @@ public class User {
         this.calendarRefreshToken="";
         this.calendarId="";
         this.mobile="";
+        this.facebookId="";
+        this.googleId="";
 
     }
 
@@ -173,6 +175,8 @@ public class User {
         this.language=1;
         this.calendarRefreshToken="";
         this.calendarId="";
+        this.facebookId="";
+        this.googleId="";
     }
 
 
