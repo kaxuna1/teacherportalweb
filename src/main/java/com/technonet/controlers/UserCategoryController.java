@@ -1,5 +1,6 @@
 package com.technonet.controlers;
 
+import com.google.common.base.Strings;
 import com.technonet.Enums.JsonReturnCodes;
 import com.technonet.Repository.*;
 import com.technonet.model.*;
@@ -12,7 +13,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 /**
@@ -24,18 +28,24 @@ public class UserCategoryController {
     @Autowired
     private CityRepo cityRepo;
 
-    @RequestMapping("search/{cat}/{city}/{page}")
+    @RequestMapping("searchapi")
     @ResponseBody
-    public Page<UserCategoryJoin> search(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
-                                         @PathVariable(value = "page", required = true) int page,
-                                         @PathVariable(value = "category", required = true) long cat,
-                                         @PathVariable(value = "city", required = true) long city) {
+    public Page<UserCategoryJoin> searchByCategoryAndCity(@RequestParam(value = "page", required = true) int page,
+                                                          @RequestParam(value = "category", required = true) String cat,
+                                                          @RequestParam(value = "city", required = true) String city,
+                                                          @CookieValue(value = "lang", defaultValue = "1") int lang) {
 
+        Variables.myThreadLocal.set(lang);
+        List<String> categories = new ArrayList<>();
+        List<String> cities = new ArrayList<>();
+        Variables.stringsMap.forEach((integer, stringStringMap) ->
+                stringStringMap.forEach((s, s2) -> {
+                    if (s2.toLowerCase().contains(cat.toLowerCase())) categories.add(s);
+                }));
 
-
-        return userCategoryJoinRepo.findByCategoryAndCity(categoryRepo.getOne(cat),
-                cityRepo.getOne(city),constructPageSpecification(page,20));
+        return userCategoryJoinRepo.findByCategoryAndCity(categories,city,constructPageSpecification(page,20));
     }
+
 
     @RequestMapping("/addcategorytouser")
     @ResponseBody
@@ -95,7 +105,7 @@ public class UserCategoryController {
         Variables.myThreadLocal.set(lang);
         Session session = sessionRepository.findOne(sessionId);
         User user = userRepository.findOne(id);
-        List<Category> cats= user.getUserCategoryJoins().stream().map(UserCategoryJoin::getCategory)
+        List<Category> cats = user.getUserCategoryJoins().stream().map(UserCategoryJoin::getCategory)
                 .collect(Collectors.toList());
         cats.forEach(category -> category.setLang(lang));
 

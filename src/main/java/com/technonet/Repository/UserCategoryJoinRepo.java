@@ -21,6 +21,6 @@ public interface UserCategoryJoinRepo extends JpaRepository<UserCategoryJoin,Lon
     List<UserCategoryJoin> findByUserAndCategoryAndActive(User user, Category category, boolean active);
 
     @Query("select u from UserCategoryJoin u join u.user us " +
-            "where u.category=:category and us.city=:city")
-    Page<UserCategoryJoin> findByCategoryAndCity(@Param("category") Category category, @Param("city") City city, Pageable pageable);
+            "where u.category.name in :category and us.city.name=:city")
+    Page<UserCategoryJoin> findByCategoryAndCity(@Param("category") List<String> category, @Param("city") String city, Pageable pageable);
 }

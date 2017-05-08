@@ -998,7 +998,7 @@ ul {
     right: 0px !important;
     padding-bottom: 15px;
 }
-@media (min-width: 1128px) {
+@media (min-width: 1200px) {
     .mapDiv {
         display: block !important;
         left: auto !important;
