@@ -75,7 +75,8 @@
                     data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand page-scroll brand navlabel" style="padding-top: 5px; ;   font-size: 40px;font-family: brixnorm!important; color: white" href='/'>Allwitz</a>
+            <a class="navbar-brand page-scroll brand navlabel"
+               style="padding-top: 5px; ;   font-size: 40px;font-family: brixnorm!important; color: white" href='/'>Allwitz</a>
         </div>
 
 
@@ -83,12 +84,15 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul th:if="${!loggedIn}" class="nav navbar-nav navbar-left">
                 <li id="becometeacherbtn">
-                    <a class="page-scroll navlabel" style="font-size: 18px;color: white;font-family: brixnorm!important;" th:text="${strings.main_become_a_teacher}" href="#"></a>
+                    <a class="page-scroll navlabel"
+                       style="font-size: 18px;color: white;font-family: brixnorm!important;"
+                       th:text="${strings.main_become_a_teacher}" href="#"></a>
                 </li>
             </ul>
             <ul th:if="${!loggedIn}" class="nav navbar-nav navbar-right">
                 <li id="logisignbtn">
-                    <a class="page-scroll navlabel" style="color: white;font-family: brixnorm!important;font-size: 18px" th:text="${strings.main_login_signup}" href="#"></a>
+                    <a class="page-scroll navlabel" style="color: white;font-family: brixnorm!important;font-size: 18px"
+                       th:text="${strings.main_login_signup}" href="#"></a>
                 </li>
                 <li class="dropdown" id="langbtn">
 
@@ -112,7 +116,8 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                        role="button" aria-haspopup="true"
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><span
-                            th:text="${userNameSurname}" style="font-size: 18px;color: white;font-family: brixnorm!important;"></span></span></a>
+                            th:text="${userNameSurname}"
+                            style="font-size: 18px;color: white;font-family: brixnorm!important;"></span></span></a>
                     <ul class="dropdown-menu">
                         <li class="profileBtn"><a href="#" th:text="${strings.main_menu_profile}"></a></li>
                         <li class="settingsBtn"><a href="#" th:text="${strings.main_menu_settings}"></a></li>
@@ -161,7 +166,8 @@
 
                         <input autocomplete="off" style="padding-left: 50px" class="categorySearchField" type="text"
                                name="class" th:placeholder="${strings.main_search_placeholder_search}">
-                        <input autocomplete="off" name="city" style="padding-left: 50px" class="citySearchField" type="text"
+                        <input autocomplete="off" name="city" style="padding-left: 50px" class="citySearchField"
+                               type="text"
                                th:placeholder="${strings.main_search_placeholder_city}">
                         <button id="searchBtn" class="searchButton" type="submit"></button>
 
@@ -190,14 +196,81 @@
     <div style="border-bottom: 2px solid black;margin-bottom: 8px">
         <div style="padding-left: 30px;" class="row">
             <div class="col-lg-12">
-                <h4 class="section-subheading text-muted" style="font-family: brixNorm!important;color: black;font-size: 20px;margin-bottom: 0px;">Popular
+                <h4 class="section-subheading text-muted"
+                    style="font-family: brixNorm!important;color: black;font-size: 20px;margin-bottom: 0px;">Popular
                     Classes</h4>
             </div>
         </div>
     </div>
 
-    <div class='containerfortopcat'>
+    <div class="containerfortopcat">
+        <div class="row" style="height: 70vh;background-color: #efefee">
+            <div class="col-md-6 imgDivLeft">
+                <img class="imgRight imgHeart" src="png/new/1.png">
+            </div>
+            <div class="col-md-6 textDivRight">
 
+                <div class="descriptionText">How do I see this text?
+                    <br> Learn all about how your brain learns, from
+                    <br> fellow peers or medical doctors.
+                </div>
+            </div>
+        </div>
+        <div class="row" style="height: 70vh;background-color: #8fc9ea">
+            <div class="col-md-6 imgDivRight">
+                <img class="imgRight" src="png/new/2.png">
+            </div>
+            <div class="col-md-6 textDivLeft">
+
+                <div class="descriptionTextLeft" style="color: white">Want to understand nature’s imagination?
+                    <br> Find someone who can show you its mind.
+                </div>
+            </div>
+        </div>
+        <div class="row" style="height: 70vh;background-color: #274402">
+            <div class="col-md-6 imgDivLeft">
+                <img class="imgRight" src="png/new/4.png">
+            </div>
+            <div class="col-md-6 textDivRight">
+
+                <div class="descriptionText" style="color: white">Can I be the next Serena Williams?
+                    <br> Probably not. But you can learn how to play tennis like a pro,
+                    <br> find your teacher here.
+                </div>
+            </div>
+        </div>
+        <div class="row" style="height: 70vh;background-color: #db2e2d">
+            <div class="col-md-6 imgDivRight">
+                <img class="imgRight" src="png/new/3.png">
+            </div>
+            <div class="col-md-6 textDivLeft">
+
+                <div class="descriptionTextLeft" style="color: white">Creativity comes from unlikely
+                    juxtapositions.<br/> – Nicholas Negroponte
+                    <br> Find your perfect pairing here.
+                </div>
+            </div>
+        </div>
+        <div class="row" style="height: 70vh;background-color: #efefee">
+            <div style="" class="col-md-6 imgDivLeft imgDivCar">
+                <img class="imgRight imgCar" src="png/new/6.png">
+            </div>
+            <div class="col-md-6 textDivRight">
+
+                <div class="descriptionText" style="color: black">DMV in a week? <br> Go find your driving teacher now.
+                </div>
+            </div>
+        </div>
+        <div class="row" style="height: 70vh;background-color: #fdbb9c">
+            <div class="col-md-6 imgDivRight">
+                <img class="imgRight" src="png/new/5.png">
+            </div>
+            <div class="col-md-6 textDivLeft">
+
+                <div class="descriptionTextLeft" style="color: black">Alternative facts are not facts. Or are they?
+                    <br> Learn how to look at current events through lens of history.</div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -303,18 +376,19 @@
 <script>
 
     $(document).ready(function () {
-        function checkScroll(){
+        function checkScroll() {
             var startY = $('.navbar').height() * 2; //The point where the navbar changes in px
 
-            if($(window).scrollTop() > startY){
+            if ($(window).scrollTop() > startY) {
                 $('.navbar').addClass("scrolled");
                 $(".navlabel").addClass("navlabelScroled")
-            }else{
+            } else {
                 $('.navbar').removeClass("scrolled");
                 $(".navlabel").removeClass("navlabelScroled")
             }
         }
-        $(window).on("scroll load resize", function(){
+
+        $(window).on("scroll load resize", function () {
             checkScroll();
         });
     })

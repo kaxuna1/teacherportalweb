@@ -246,7 +246,7 @@ $(document).ready(function () {
     $("#mycarousel").resize(function () {
         alert("resize");
     })
-    $.getJSON("/topcategories", function (result) {
+   /* $.getJSON("/topcategories", function (result) {
         var data = result["content"];//
         var grid = $(".containerfortopcat");
         var left = true
@@ -272,7 +272,7 @@ $(document).ready(function () {
             left = !left;
             i++
         }
-    })
+    })*/
 
     $(window).resize(function () {
         //document.documentElement.style.setProperty("--widz",k+"%");
