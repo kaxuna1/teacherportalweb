@@ -243,36 +243,34 @@ $(document).ready(function () {
             }
         });
     });
-    $("#mycarousel").resize(function () {
-        alert("resize");
-    })
-   /* $.getJSON("/topcategories", function (result) {
-        var data = result["content"];//
-        var grid = $(".containerfortopcat");
-        var left = true
-        var i = 1;
-        for (var key in data) {
-            //categorylogo/"+item.id+"?"+new Date().getTime()+"
-            var item = data[key];
-            var img = "<div style='display: flex;justify-content: center; height: 70vh;width: 50%!important;' class='col-md-6 mycol'>" +
-                "<div style='align-self: center;display: flex;justify-content: center;height: 100%;'>" +
-                "<img class='catimg' src='categorylogo/" + item.id + "?" + new Date().getTime() + "'/>" +
-                "</div>" +
-                "</div>";
-            var txt = "<div style='display: flex;justify-content: center;height: 70vh;width: 50%!important;' class='col-md-6 cattext mycol'>" +
-                "<div style='align-self: center;text-align: center'>" +
-                "<span class='descriptionText' style='font-family: brix;color: #" + item.descriptionColor + ";'>" + item.description.replaceAll("*", "<br/>") + "</span>" +
-                "</div>" +
-                "</div>";
 
-            grid.append(
-                "<div class='row topCatRow' style='background-color: #" + colors[i] + ";'>" +
-                (left ? img + txt : txt + img) +
-                "</div>")
-            left = !left;
-            i++
-        }
-    })*/
+    /* $.getJSON("/topcategories", function (result) {
+     var data = result["content"];//
+     var grid = $(".containerfortopcat");
+     var left = true
+     var i = 1;
+     for (var key in data) {
+     //categorylogo/"+item.id+"?"+new Date().getTime()+"
+     var item = data[key];
+     var img = "<div style='display: flex;justify-content: center; height: 70vh;width: 50%!important;' class='col-md-6 mycol'>" +
+     "<div style='align-self: center;display: flex;justify-content: center;height: 100%;'>" +
+     "<img class='catimg' src='categorylogo/" + item.id + "?" + new Date().getTime() + "'/>" +
+     "</div>" +
+     "</div>";
+     var txt = "<div style='display: flex;justify-content: center;height: 70vh;width: 50%!important;' class='col-md-6 cattext mycol'>" +
+     "<div style='align-self: center;text-align: center'>" +
+     "<span class='descriptionText' style='font-family: brix;color: #" + item.descriptionColor + ";'>" + item.description.replaceAll("*", "<br/>") + "</span>" +
+     "</div>" +
+     "</div>";
+
+     grid.append(
+     "<div class='row topCatRow' style='background-color: #" + colors[i] + ";'>" +
+     (left ? img + txt : txt + img) +
+     "</div>")
+     left = !left;
+     i++
+     }
+     })*/
 
     $(window).resize(function () {
         //document.documentElement.style.setProperty("--widz",k+"%");
@@ -618,6 +616,31 @@ $(".settingsBtn").click(function () {
     })
 
 });
+$(".profileBtn").click(function () {
+    $.getJSON("/mydata", function (result) {
+        console.log(result);
+        showModalWithTableInside(function (head, body, modal, rand) {
+            body.html("<div class=\"container-fluid\">\n    <div class=\"row\">\n        <div class=\"col-md-12\">\n            <div class=\"row\">\n                <div style=\'text-align: center\' class=\"col-md-12\">\n                    <img alt=\"Bootstrap Image Preview\" src=\"http://lorempixel.com/140/140/\" class=\"img-circle\"/>\n                    <h3>\n                        Kakha Gelashvili\n                    </h3>\n                </div>\n            </div>\n            <div class=\"row\">\n                <div class=\"col-md-5\">\n                    <div class=\"jumbotron\">\n                        <h2>\n                            About me\n                        </h2>\n                        <p>\n                            Little Text About Me And What I want to say about classes i give and expereance i have!\n                        </p>\n                        <p>\n                            <a class=\"btn btn-primary btn-large\" href=\"#\">Edit</a>\n                        </p>\n                    </div>\n                </div>\n                <div class=\"col-md-7\">\n                    <div class=\'row\'>\n                        <div class=\'col-md-12\'>\n                        </div>\n                    </div>\n                    <div class=\"row\">\n                        <div class=\"col-md-12\">\n\n                            <div class=\"panel panel-default\">\n                                <div class=\"panel-heading\">\n                                    <h3 class=\"panel-title\">\n                                        My Classes\n                                    </h3>\n                                </div>\n                                <div style=\'padding: 0\' class=\"panel-body\">\n                                    <div style=\'padding: 0\' class=\"row\">\n                                        <div style=\'padding-left: 0px;    padding-right: 0px;\' class=\"col-md-12\">\n                                            <div style=\'width: 100%\' \">\n                                            <div style=\'padding: 0\' class=\"row\">\n                                                <div style=\'width: 100%;padding: 0\' class=\"col-lg-5 col-md-5 col-sm-8 col-xs-9 bhoechie-tab-container\">\n                                                    <div style=\'padding: 0;overflow-y: scroll;height: 500px;border-right: solid 1px black;\' class=\"col-lg-3 col-md-3 col-sm-3 col-xs-3 bhoechie-tab-menu\">\n                                                        <div style=\'\' class=\"list-group\">\n                                                            <a href=\"#\" class=\"list-group-item active text-center\">\n                                                                <h4 class=\"glyphicon glyphicon-plane\"></h4><br/>Flight\n                                                            </a>\n                                                            <a href=\"#\" class=\"list-group-item text-center\">\n                                                                <h4 class=\"glyphicon glyphicon-road\"></h4><br/>Train\n                                                            </a>\n                                                            <a href=\"#\" class=\"list-group-item active text-center\">\n                                                                <h4 class=\"glyphicon glyphicon-plane\"></h4><br/>Flight\n                                                            </a>\n                                                            <a href=\"#\" class=\"list-group-item text-center\">\n                                                                <h4 class=\"glyphicon glyphicon-road\"></h4><br/>Train\n                                                            </a>\n                                                            <a href=\"#\" class=\"list-group-item active text-center\">\n                                                                <h4 class=\"glyphicon glyphicon-plane\"></h4><br/>Flight\n                                                            </a>\n                                                            <a href=\"#\" class=\"list-group-item text-center\">\n                                                                <h4 class=\"glyphicon glyphicon-road\"></h4><br/>Train\n                                                            </a>\n                                                            <a href=\"#\" class=\"list-group-item active text-center\">\n                                                                <h4 class=\"glyphicon glyphicon-plane\"></h4><br/>Flight\n                                                            </a>\n                                                            <a href=\"#\" class=\"list-group-item text-center\">\n                                                                <h4 class=\"glyphicon glyphicon-road\"></h4><br/>Train\n                                                            </a>\n                                                            <a href=\"#\" class=\"list-group-item active text-center\">\n                                                                <h4 class=\"glyphicon glyphicon-plane\"></h4><br/>Flight\n                                                            </a>\n                                                            <a href=\"#\" class=\"list-group-item text-center\">\n                                                                <h4 class=\"glyphicon glyphicon-road\"></h4><br/>Train\n                                                            </a>\n                                                        </div>\n                                                    </div>\n                                                    <div style=\'height: 500px\' class=\"col-lg-9 col-md-9 col-sm-9 col-xs-9 bhoechie-tab\">\n                                                        kaxa\n                                                    </div>\n                                                </div>\n                                            </div>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n\n\n                    </div>\n                </div>\n            </div>\n            </div>\n        </div>\n    </div>\n</div>");
+
+            $("div.bhoechie-tab-menu>div.list-group>a").click(function(e) {
+                e.preventDefault();
+                $(this).siblings('a.active').removeClass("active");
+                $(this).addClass("active");
+                var index = $(this).index();
+                $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
+                $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+            });
+        }, {}, 900, true);
+
+
+    })
+
+});
+
+
+
+
+
 function getMailStringForValue(user) {
     return user.email + (user.confirmedEmail ? "" : "(Not Confirmed)")
 }
