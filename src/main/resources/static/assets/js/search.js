@@ -32,12 +32,12 @@ function loadSearch(city, clas, page) {
                 '                <p class="nameLabel">'+
                 '                    '+item.user.nameSurname+
                 '                </p>'+
-                '                <p class="classLabel">'+
+                '                <div class="degreeAndClass"><p class="classLabel">'+
                 '                   '+item["categoryName"]+
                 '                </p>'+
                 '                <p class="degreeLabel">'+
                 '                   Bachelor Degree'+
-                '                </p>'+
+                '                </p></div>'+
                 '            </div>'+
                 '        </div>'+
                 '        <div class="searchResultItemTopPriceDiv">'+
