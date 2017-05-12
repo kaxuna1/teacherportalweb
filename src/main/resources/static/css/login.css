@@ -1647,3 +1647,119 @@ div.bhoechie-tab-content{
     padding-top: 10px;
 }
 /*verticalTavsEnd*/
+
+/*classPage*/
+
+
+
+@media (min-width: 992px) {
+
+    .namecityrowclass{
+        text-align: left;
+        padding-left: 0;
+    }
+    .namecityrowclass .col-md-12{
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .nameLabelClass{
+        color: #46c3bf;
+        font-size: 25px;
+        font-family: brixNorm, serif !important;
+    }
+    .cityLabelClass{
+        color: white;
+        font-size: 20px;
+        margin-top: 5px;
+        font-family: brix, serif !important;
+    }
+    .classLabelClass{
+        color: white;
+        font-size: 18px;
+
+        margin-top: 5px;
+        font-family: brix, serif !important;
+    }
+
+    .classHeader {
+        min-height: 55vh;
+        height: auto;
+        background-color: #99CCFF
+    }
+
+    .headerDivTeacher {
+        padding: 6%;
+        margin-top: 60px;
+
+    }
+
+    .starRatingDivClass {
+        width: 100%;
+        height: 100%;
+        padding-top: 50px;
+        /* text-align: center; */
+        padding-left: 23px;
+        padding-right: 0;
+        text-align: left;
+        display: flex;
+    }
+    .classPageContainer{
+        text-align: left;
+    }
+    .reviewsLabelClass{
+        font-family: brix !important;
+        padding-left: 15px;
+        font-size: 20px;
+    }
+    .viewsLabelClass {
+
+        font-family: brix !important;
+        padding-left: 10px;
+        align-self: center;
+    }
+
+    .viewsLabelClass img {
+        vertical-align: middle;
+        width: 19px;
+        padding-right: 5px;
+        padding-bottom: 3px;
+    }
+    .starRatingClass{
+        color: #46c3bf;
+        margin: auto;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+}
+@media (max-width: 991px) {
+
+    .nameLabelClass{
+        margin-top: 10px;
+        color: #46c3bf;
+        font-size: 30px;
+        font-family: brixNorm, serif !important;
+    }
+    .classHeader{
+        min-height: 55vh;
+        height: auto;
+        background-color: #99CCFF
+    }
+
+    .headerDivTeacher{
+        padding: 6%;
+        margin-top: 50px;
+
+    }
+    .starRatingDivClass{
+        width: 100%;
+        height: 100%;
+        /* text-align: center; */
+        padding-left: 20px;
+        padding-right: 50px;
+    }
+
+}
+
+/*classPage*/
