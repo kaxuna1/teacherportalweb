@@ -1799,6 +1799,7 @@ div.bhoechie-tab-content{
     }
     .infoCol{
         border-top: rgba(128, 128, 128, 0.38) solid 1px;
+
     }
     .infoRow{
         margin-top: 25px;
@@ -1806,6 +1807,7 @@ div.bhoechie-tab-content{
     }
     .infoLogoName{
         height: 100%;
+        display: grid;
     }
     .noLeftPadding{
         padding-left: 0!important;
@@ -1816,14 +1818,60 @@ div.bhoechie-tab-content{
     .infoContent{
         height: 100%;
         border-bottom: rgba(128, 128, 128, 0.38) solid 1px;
+
+    }
+    .lastInfoContent{
+        border-bottom: none!important;
+    }
+    .infoP{
+        height: 100%;
         font-family: brix!important;
-        font-size: 17px;
+        font-size: 18px;
+        color: black;
+        line-height: 1.4;
     }
     .infoTitle{
         font-family: brixNorm!important;
         font-size: 18px;
     }
+    .mapDivClass{
+        height: 400px;
+        width: 100%;
+        padding-top: 10px;
+    }
+    .mapCol{
+        border-top: rgba(128, 128, 128, 0.38) solid 1px;
+        margin-top: 20px;
+        padding-top: 20px;
+    }
+    .mapTitle{
+        font-family: brixNorm!important;
+        font-size: 18px;
+        padding-top: 10px;
+    }
+    .ratingsTitle{
+        font-family: brixNorm!important;
+        font-size: 18px;
+        padding-top: 10px;
+    }
+    .reviewsCol{
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: rgba(128, 128, 128, 0.38) solid 1px;
+    }
+    .floatRightClassRating{
+        float: right;
+    }
+    .ratingStarsTable{
+        width: 300px;
+    }
+    .ratingLeftTd{
+        width: 60%;
+    }
+    .ratingRightTd{
+        width: 40%;
 
+    }
 }
 @media (max-width: 991px) {
 
