@@ -213,6 +213,7 @@
     font-family: brix !important;
 }
 
+
 .form-wrapper input:-moz-placeholder {
     color: black !important;
     font-weight: normal;
@@ -225,6 +226,10 @@
     font-weight: normal;
     text-align: center;
     font-family: brix !important;
+}
+
+input:focus::-webkit-input-placeholder {
+    opacity: 0;
 }
 
 /* Form submit button */
@@ -1651,7 +1656,6 @@ div.bhoechie-tab-content{
 /*classPage*/
 
 
-
 @media (min-width: 992px) {
 
     .teacherNameRowClass{
@@ -1765,6 +1769,59 @@ div.bhoechie-tab-content{
         font-size: 20px;
         margin-top: 5px;
         font-family: brix, serif !important;
+    }
+    .classBodySection{
+        padding-top: 10px;
+    }
+    .classBodyContainer{
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+    .classBodyCol{
+        padding: 0;
+    }
+    .classNav{
+    }
+    .classNav li{
+        padding: 10px;
+
+    }
+    .classNav a{
+        font-size: 20px;
+        font-family: brix!Important;
+    }
+    .classNav>li>a:focus{
+        background-color: transparent;
+    }
+
+    .classNav > li > a:hover {
+        background-color: transparent;
+    }
+    .infoCol{
+        border-top: rgba(128, 128, 128, 0.38) solid 1px;
+    }
+    .infoRow{
+        margin-top: 25px;
+        height: 120px;
+    }
+    .infoLogoName{
+        height: 100%;
+    }
+    .noLeftPadding{
+        padding-left: 0!important;
+    }
+    .noRightPadding{
+        padding-right: 0!important;
+    }
+    .infoContent{
+        height: 100%;
+        border-bottom: rgba(128, 128, 128, 0.38) solid 1px;
+        font-family: brix!important;
+        font-size: 17px;
+    }
+    .infoTitle{
+        font-family: brixNorm!important;
+        font-size: 18px;
     }
 
 }
