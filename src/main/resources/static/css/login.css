@@ -1866,11 +1866,31 @@ div.bhoechie-tab-content{
         width: 300px;
     }
     .ratingLeftTd{
-        width: 60%;
+        padding-top: 2px;
+        width: 50%;
     }
     .ratingRightTd{
-        width: 40%;
+        width: 50%;
 
+    }
+    .ratingStarsTable td{
+        font-family: brix;
+        font-size: 11pt;
+    }
+    .reviewsColDetailed{
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: rgba(128, 128, 128, 0.38) solid 1px;
+    }
+    .reviewsSecondRow{
+        padding-top: 20px;
+    }
+    .rightSide{
+        text-align: right;
+    }
+    .reviewsColList{
+        margin-top: 20px;
+        padding-top: 20px;
     }
 }
 @media (max-width: 991px) {
