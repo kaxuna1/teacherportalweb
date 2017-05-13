@@ -1654,9 +1654,14 @@ div.bhoechie-tab-content{
 
 @media (min-width: 992px) {
 
+    .teacherNameRowClass{
+        height: 40px;
+    }
+
     .namecityrowclass{
         text-align: left;
-        padding-left: 0;
+        padding: 0;
+
     }
     .namecityrowclass .col-md-12{
         padding-left: 0;
@@ -1683,13 +1688,15 @@ div.bhoechie-tab-content{
     }
 
     .classHeader {
-        min-height: 55vh;
+        min-height: 57vh;
+        max-height: 57vh;
         height: auto;
         background-color: #99CCFF
     }
 
     .headerDivTeacher {
-        padding: 6%;
+        padding: 10%;
+        padding-top: 70px;
         margin-top: 60px;
 
     }
@@ -1699,7 +1706,7 @@ div.bhoechie-tab-content{
         height: 100%;
         padding-top: 50px;
         /* text-align: center; */
-        padding-left: 23px;
+        padding-left: 26px;
         padding-right: 0;
         text-align: left;
         display: flex;
@@ -1709,7 +1716,7 @@ div.bhoechie-tab-content{
     }
     .reviewsLabelClass{
         font-family: brix !important;
-        padding-left: 15px;
+        padding-left: 20px;
         font-size: 20px;
     }
     .viewsLabelClass {
@@ -1730,6 +1737,34 @@ div.bhoechie-tab-content{
         margin: auto;
         margin-left: 0;
         margin-right: 0;
+    }
+    .profileImageClass{
+        width: 100%;
+    }
+    .profilePicContainerClass{
+        padding: 0;
+    }
+    .namecityrowclass .row{
+        padding-left: 25px;
+    }
+    .headerStarsTopDiv{
+        padding: 0;
+    }
+    .profilePicContainerClass{
+        max-width: 140px;
+        min-width: 110px;
+    }
+    .classAbout{
+        color: white;
+        font-size: 20px;
+        margin-top: 40px;
+        font-family: brix, serif !important;
+    }
+    .classAboutText{
+        color: white;
+        font-size: 20px;
+        margin-top: 5px;
+        font-family: brix, serif !important;
     }
 
 }
