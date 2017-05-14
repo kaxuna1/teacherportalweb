@@ -28,6 +28,7 @@ nbdist/
 gradle/
 gradlew
 gradlew.bat
+out
 
 androidApp/Allwitz/app/libs/
 plugins/

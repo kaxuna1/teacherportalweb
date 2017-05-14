@@ -1,7 +1,11 @@
 /**
  * Created by vakhtanggelashvili on 5/14/17.
  */
-function calendarInit() {
+
+var timesForBook={};
+
+function calendarInit(data) {
+    //console.log(data)
     !function() {
 
         var today = moment();
@@ -181,9 +185,11 @@ function calendarInit() {
         }
 
         Calendar.prototype.openDay = function(el) {
+            var self=this;
             var details, arrow;
             var dayNumber = +el.querySelectorAll('.day-number')[0].innerText || +el.querySelectorAll('.day-number')[0].textContent;
             var day = this.current.clone().date(dayNumber);
+            //console.log(day.date())
 
             var currentOpened = document.querySelector('.details');
 
@@ -222,36 +228,67 @@ function calendarInit() {
                 el.parentNode.appendChild(details);
             }
 
-            var todaysEvents = this.events.reduce(function(memo, ev) {
-                if(ev.date.isSame(day, 'day')) {
-                    memo.push(ev);
+            var todayDates = data.reduce(function (memo, item) {
+                if(moment(item.starting_time).isSame(day,'day')&&!timesForBook[item.starting_time]){
+                    memo.push(item);
                 }
                 return memo;
-            }, []);
+            },[]);
 
-            this.renderEvents(todaysEvents, details);
+            //console.log(todayDates);
+
+
+
+
+            this.renderEvents(todayDates, details);
 
             arrow.style.left = el.offsetLeft - el.parentNode.offsetLeft + 16 + 'px';
-        }
+
+
+            window.setTimeout(function() {
+                //self.openDay(current);
+                var timeItemButtons=$(".addIntervalBtn");
+
+                timeItemButtons.unbind();
+                //console.log(timeItemButtons);
+                timeItemButtons.click(function () {
+                    timesForBook[$(this).attr("value")]=$(this).attr("value");
+                    self.openDay(el)
+                })
+            }, 1000);
+
+
+
+        };
 
         Calendar.prototype.renderEvents = function(events, ele) {
+
+            //console.log(events);
             //Remove any events in the current details element
             var currentWrapper = ele.querySelector('.events');
             var wrapper = createElement('div', 'events in' + (currentWrapper ? ' new' : ''));
 
             events.forEach(function(ev) {
+                //console.log(ev);
+                //console.log(new Date(ev.starting_time));
                 var div = createElement('div', 'event');
-                var square = createElement('div', 'event-category ' + ev.color);
-                var span = createElement('span', '', ev.eventName);
+                var square = createElement('div', 'event-category ' + "black");
+                var span = createElement('span', 'timeIntervalItem', moment(ev.starting_time).locale("ka").format("HH:mm")+"-"+moment(ev.ending_time).locale("ka").format("HH:mm"));
+                var buttonForThis = createElement("button","btn addIntervalBtn","+");
+
+
+                span.setAttribute("value",ev.starting_time);
+                buttonForThis.setAttribute("value",ev.starting_time);
 
                 div.appendChild(square);
                 div.appendChild(span);
+                div.appendChild(buttonForThis);
                 wrapper.appendChild(div);
             });
 
             if(!events.length) {
                 var div = createElement('div', 'event empty');
-                var span = createElement('span', '', 'No Events');
+                var span = createElement('span', '', 'Empty');
 
                 div.appendChild(span);
                 wrapper.appendChild(div);
