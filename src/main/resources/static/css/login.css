@@ -1865,6 +1865,9 @@ div.bhoechie-tab-content{
     .ratingStarsTable{
         width: 300px;
     }
+    .ratingStarsTable>td{
+        font-size: 15pt;
+    }
     .ratingLeftTd{
         padding-top: 2px;
         width: 50%;
@@ -1891,6 +1894,44 @@ div.bhoechie-tab-content{
     .reviewsColList{
         margin-top: 20px;
         padding-top: 20px;
+    }
+    .reviewrImage{
+        height: 80px;
+    }
+    .reviewerNameTd{
+        height: 100%;
+        padding-top: 60px;
+        padding-left: 10px;
+    }
+    .reviewrNameImageRow{
+        height: 90px;
+    }
+    .noPaddingTop{
+        padding-top: 0!important;
+    }
+    .reviewItemDiv{
+        padding-top: 20px;
+    }
+    .reviewItemDivHead{
+        height: 90px;
+    }
+    .reviewItemDivHead table{
+        height: 90px;
+    }
+    .reviewItemDivHead table tbody{
+        height: 90px;
+    }
+    .reviewerNameSpan{
+        font-family: brix!important;
+        font-size: 15pt;
+    }
+    .borderBotom{
+        border-bottom: rgba(128, 128, 128, 0.38) solid 1px;
+    }
+    .reviewsMoreButton{
+        font-size: 15pt;
+        color: #46c3bf;
+        font-family: brix!important;
     }
 }
 @media (max-width: 991px) {
