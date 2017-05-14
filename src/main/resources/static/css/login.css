@@ -1934,7 +1934,7 @@ div.bhoechie-tab-content{
         font-family: brix!important;
     }
     .callendarTopDiv{
-        height: 300px;
+        height: 400px;
         border: rgba(128, 128, 128, 0.38) solid 1px;;
     }
     .calendarHeader{
@@ -1942,6 +1942,9 @@ div.bhoechie-tab-content{
         height: 60px;
         background-color: #46c3bf;
         display: flex;
+    }
+    .calendarBody{
+        height: 340px;
     }
     .calendarHeader h2{
         color: white;
