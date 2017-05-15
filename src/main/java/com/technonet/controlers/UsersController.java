@@ -89,6 +89,36 @@ public class UsersController {
     }
 
 
+    @RequestMapping("/addinfotouser")
+    @ResponseBody
+    public JsonMessage addInfo(@CookieValue("projectSessionId") long sessionId, long userId, int type, String value) {
+        Session session = sessionDao.findOne(sessionId);
+        if (PermisionChecks.isAdmin(session)) {
+            InfoRecord infoRecord = new InfoRecord();
+            infoRecord.setValue(value);
+            infoRecord.setType(type);
+            infoRecord.setUser(userDao.findOne(userId));
+
+            try {
+                infoRecordRepo.save(infoRecord);
+                return new JsonMessage(JsonReturnCodes.Ok);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new JsonMessage(JsonReturnCodes.ERROR);
+            }
+
+        } else {
+            return new JsonMessage(JsonReturnCodes.DONTHAVEPERMISSION);
+        }
+
+    }
+    @RequestMapping("/getuserinforecords/{id}")
+    @ResponseBody
+    public List<InfoRecord> getUserInfoRecords(@PathVariable("id") long id){
+        return userDao.findOne(id).getInfoRecords();
+    }
+
+
     @RequestMapping("/getusers")
     @ResponseBody
     public Page<User> getusers(@CookieValue("projectSessionId") String sessionId, int index, String search) {
@@ -252,7 +282,7 @@ public class UsersController {
         if (type == 2) {
             if (userDao.findByGoogleIdAndActive(value, true).size() == 0) {
                 session.getUser().setGoogleId(value);
-            }else{
+            } else {
                 return false;
             }
         }
@@ -260,62 +290,64 @@ public class UsersController {
 
         return true;
     }
+
     @RequestMapping("/editme")
     @ResponseBody
     public boolean editMe(@CookieValue("projectSessionId") long sessionId,
-                          @RequestParam(name = "name",defaultValue = "") String name,
-                          @RequestParam(name = "surname",defaultValue = "") String surname,
-                          @RequestParam(name = "email",defaultValue = "") String email,
-                          @RequestParam(name = "pn",defaultValue = "") String pn,
-                          @RequestParam(name = "phone",defaultValue = "") String phone,
-                          @RequestParam(name = "cal",defaultValue = "") String cal,
-                          @RequestParam(name = "birthDate",defaultValue = "0") long birthDate,
-                          @RequestParam(name = "lang",defaultValue = "0") int lang,
-                          @RequestParam(name = "city",defaultValue = "0") long city){
+                          @RequestParam(name = "name", defaultValue = "") String name,
+                          @RequestParam(name = "surname", defaultValue = "") String surname,
+                          @RequestParam(name = "email", defaultValue = "") String email,
+                          @RequestParam(name = "pn", defaultValue = "") String pn,
+                          @RequestParam(name = "phone", defaultValue = "") String phone,
+                          @RequestParam(name = "cal", defaultValue = "") String cal,
+                          @RequestParam(name = "birthDate", defaultValue = "0") long birthDate,
+                          @RequestParam(name = "lang", defaultValue = "0") int lang,
+                          @RequestParam(name = "city", defaultValue = "0") long city) {
 
-        Session session= sessionDao.findOne(sessionId);
-        User user= session.getUser();
-        if(!name.isEmpty())
+        Session session = sessionDao.findOne(sessionId);
+        User user = session.getUser();
+        if (!name.isEmpty())
             user.setName(name);
-        if(!surname.isEmpty())
+        if (!surname.isEmpty())
             user.setSurname(surname);
-        if(!email.isEmpty()){
-            if(emailExists(email)&&!user.getEmail().equals(email))
+        if (!email.isEmpty()) {
+            if (emailExists(email) && !user.getEmail().equals(email))
                 return false;
 
-            ConfirmationToken confirmationToken = new ConfirmationToken(ConfirmationTypes.EMAIL.getCODE(),user);
+            ConfirmationToken confirmationToken = new ConfirmationToken(ConfirmationTypes.EMAIL.getCODE(), user);
             confirmationToken.setMailForConfirmation(email);
-            try{
+            try {
                 confirmationTokenRepo.save(confirmationToken);
                 user.setConfirmedEmail(false);
                 user.setEmail(email);
                 confirmationToken.sendMail();
-            }catch (Exception e){
+            } catch (Exception e) {
                 return false;
             }
         }
-        if(!cal.isEmpty())
+        if (!cal.isEmpty())
             user.setCalendarId(cal);
-        if(!phone.isEmpty())
+        if (!phone.isEmpty())
             user.setMobile(phone);
-        if(!pn.isEmpty())
+        if (!pn.isEmpty())
             user.setPersonalNumber(pn);
-        if(birthDate!=0)
+        if (birthDate != 0)
             user.setBirthDate(new Date(birthDate));
-        if(lang!=0&&Languages.valueOf(lang)!=null)
+        if (lang != 0 && Languages.valueOf(lang) != null)
             user.setLanguage(lang);
-        if(city!=0)
+        if (city != 0)
             user.setCity(cityRepo.findOne(city));
 
         userDao.save(user);
         return true;
     }
+
     @RequestMapping("getlanguages")
     @ResponseBody
-    public List<IdNameData> getLanguages(){
-        List<IdNameData> data=new ArrayList<>();
-        for(int i=0; i<Languages.values().length;i++){
-            data.add(new IdNameData(Languages.values()[i].getCODE(),Languages.values()[i].name()));
+    public List<IdNameData> getLanguages() {
+        List<IdNameData> data = new ArrayList<>();
+        for (int i = 0; i < Languages.values().length; i++) {
+            data.add(new IdNameData(Languages.values()[i].getCODE(), Languages.values()[i].name()));
         }
         return data;
     }
@@ -339,4 +371,6 @@ public class UsersController {
     private CityRepo cityRepo;
     @Autowired
     private CountryRepo countryRepo;
+    @Autowired
+    private InfoRecordRepo infoRecordRepo;
 }

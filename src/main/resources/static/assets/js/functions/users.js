@@ -55,8 +55,8 @@ function loadUsersData(index, search) {
         });
 
 
-        $("#addNewDiv").html('<button id="addNewButton" data-target="#myModal" class="btn btn-sm btn-dark">'+
-            strings["admin_button_newuser"]+'</button>');
+        $("#addNewDiv").html('<button id="addNewButton" data-target="#myModal" class="btn btn-sm btn-dark">' +
+            strings["admin_button_newuser"] + '</button>');
         $("#addNewButton").click(function () {
             showModalWithTableInside(function (head, body, modal) {
                 dynamicCreateForm(body, "/createuser", {
@@ -134,13 +134,15 @@ function loadUsersData(index, search) {
 
             drawLessons(DOMElements);
 
+            drawActionsPanel(DOMElements);
+
 
             permissions.append('<div style="display:inline-flex;width: 100%">' +
                 '    <div style="width: 45%">' +
                 '        <table class="table">' +
                 '            <thead>' +
                 '            <tr>' +
-                '                <th class="text-left">'+strings['admin_label_user_permissions']+'</th>' +
+                '                <th class="text-left">' + strings['admin_label_user_permissions'] + '</th>' +
                 '            </tr>' +
                 '            </thead>' +
                 '            <tbody id="userpermissions">' +
@@ -156,7 +158,7 @@ function loadUsersData(index, search) {
                 '        <table class="table">' +
                 '            <thead>' +
                 '            <tr>' +
-                '                <th class="text-left">'+strings['admin_label_permissions_to_add']+'</th>' +
+                '                <th class="text-left">' + strings['admin_label_permissions_to_add'] + '</th>' +
                 '            </tr>' +
                 '            </thead>' +
                 '            <tbody id="notuserspermissions">' +
@@ -216,6 +218,41 @@ function loadUsersData(index, search) {
         }, 1024);
     };
 
+
+    function drawActionsPanel(DOMElements) {
+        DOMElements.actions.append("<button id='infoDataBtn'>Info Data</button>")
+        $("#infoDataBtn").click(function () {
+            showModalWithTableInside(function (head, body, modal, rand) {
+                body.append("<button id='addInfoData'>add info</button>");
+
+                $("#addInfoData").click(function () {
+
+                });
+                $.getJSON("/getuserinforecords/" + DOMElements.currentElement.id, function (result) {
+                    createTable(body, {
+                        type: {name: "Type"},
+                        value: {name: "Value"}
+                    }, function (table) {
+                        for (key in result) {
+                            var item = result[key];
+
+                            table.append("<tr>" +
+                                "<td>" +
+                                    infoTypes[item.type]+
+                                "</td>" +
+                                "<td>" +
+                                    item.value+
+                                "</td>" +
+                                "</tr>")
+
+
+                        }
+                    })
+                })
+            }, {}, 600)
+        })
+    }
+
     function drawLessons(DOMElements) {
         DOMElements.lessons.html("<div id='callAllLessons'></div>")
         $.getJSON("getscheduledtimeforuser/" + DOMElements.currentElement.id + "/60", function (result) {
@@ -254,17 +291,17 @@ function loadUsersData(index, search) {
 
         DOMElements.categories.append('<div id="categoryPageActions" class="row">' +
             '</div>');
-        createTable(DOMElements.categories,{
-            category:{
-                name:strings["admin_label_category"]
+        createTable(DOMElements.categories, {
+            category: {
+                name: strings["admin_label_category"]
             },
-            duration:{
-                name:strings["admin_label_duration"]
+            duration: {
+                name: strings["admin_label_duration"]
             },
-            price:{
-                name:strings["admin_label_price"]
+            price: {
+                name: strings["admin_label_price"]
             }
-        },function (table) {
+        }, function (table) {
             DOMElements.CategoriesDataTableBody = table;
             loadCategiries(DOMElements, currentElement);
             createButtonWithHandlerr($("#categoryPageActions"), strings['admin_button_add_category'], function () {
@@ -297,7 +334,6 @@ function loadUsersData(index, search) {
                 }, {}, 600)
             })
         });
-
 
 
     }
@@ -479,9 +515,9 @@ function loadUsersData(index, search) {
             table.append("<tr>" +
                 "<td></td>" +
                 "<td></td>" +
-                "<td>"+strings["admin_label_sum"]+":</td>" +
+                "<td>" + strings["admin_label_sum"] + ":</td>" +
                 "<td>" + (parseFloat(DOMElements.categoryPageDom.currentCategory.price) * parseFloat(len)) + " ₾</td>" +
-                "<td><button id='bookBtn' class='btn btn-primary'>"+strings["admin_button_book"]+"</button></td>" +
+                "<td><button id='bookBtn' class='btn btn-primary'>" + strings["admin_button_book"] + "</button></td>" +
                 "</tr>")
             $(".removeDateFromBooking").click(function () {
                 delete DOMElements.booking.bookData.dates[$(this).attr("value")]
@@ -499,7 +535,7 @@ function loadUsersData(index, search) {
                         loadCategorySchedules(DOMElements);
                         loadFreeSchedule(DOMElements);
                         loadScheduledLessons(DOMElements);
-                        openOrderGlobal(result.message,DOMElements);
+                        openOrderGlobal(result.message, DOMElements);
                     } else {
                         alert("მოხდა შეცდომა დაუკავშირდით ადმინისტრაციას!")
                     }
@@ -668,7 +704,7 @@ function loadUsersData(index, search) {
                 $("<div id='timeIntervalChooserDiv'>" +
                     '<input style="" type="time" id="fromTime" class=" floating-label" placeholder="Time"/>' +
                     '<input style="" type="time" id="toTime" class=" floating-label" placeholder="Time"/>' +
-                    '<button id="addTimeToSchedule" class="btn btn-primary">'+strings["admin_button_add"]+'</button>' +
+                    '<button id="addTimeToSchedule" class="btn btn-primary">' + strings["admin_button_add"] + '</button>' +
                     "</div>").insertAfter(createScheduleIntervalBtn.obj);
                 var fromTime = $('#fromTime').bootstrapMaterialDatePicker
                 ({

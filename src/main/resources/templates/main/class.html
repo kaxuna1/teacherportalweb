@@ -156,22 +156,21 @@
                     <div class="col-md-5 rightContainer">
                         <div class="row">
                             <div class="col-md-5 profilePicContainerClass">
-                                <img alt="Bootstrap Image Preview" src="http://lorempixel.com/140/140/"
+                                <img alt="Bootstrap Image Preview" th:src="${teacherPic}"
                                      class="img-circle profileImageClass"/>
                             </div>
                             <div class="col-md-7 namecityrowclass">
                                 <div class="row teacherNameRowClass">
-                                    <div class="col-md-12  nameLabelClass">
-                                        Kakha
+                                    <div th:text="${teacherName}" class="col-md-12  nameLabelClass">
+
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12 cityLabelClass">
-                                        New York, USA
+                                    <div th:text="${city}" class="col-md-12 cityLabelClass">
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12 classLabelClass">
+                                    <div th:text="${className}" class="col-md-12 classLabelClass">
                                         Interior Designer
                                     </div>
                                 </div>
@@ -203,10 +202,7 @@
                         <p class="classAbout">
                             About
                         </p>
-                        <p class="classAboutText">
-                            High School hight school moof bhiod akjrea tyold porty y fhskmobooku oir jhfvslh uyjkafh
-                            tyuo dgtod dbnjkzloon. erty bood moodhy
-                            reep mosi mdgu wertio.
+                        <p th:text="${classAbout}" class="classAboutText">
                         </p>
                     </div>
                 </div>
@@ -233,42 +229,74 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12 infoCol noLeftPadding noRightPadding">
-                                <div class="row infoRow">
+                                <div th:if="${academic}" class="row infoRow">
                                     <div class="col-md-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
                                             Academic Credentials
                                         </span>
                                         <img style="height: 80px" alt="Bootstrap Image Preview"
-                                             src="http://lorempixel.com/140/140/"/>
+                                             src="png/class/1.png"/>
                                     </div>
                                     <div class="col-md-8 infoContent noLeftPadding noRightPadding">
-                                        <p class="infoP">
-                                            High School hight school moof bhiod akjrea tyold porty yuoir jhfv slh
-                                            nbmjdgui lauiduo hfuydguy jkafhk tyuo dgtod erty bood moo dhy reep mosi mdgu
-                                            wertio mahnj hoteruap magty.
-                                            kfjkjkod mkodyuao modo mtod moa.
-                                            sdhnfjk bodo area more is mafj.
-                                        </p>
+                                        <ul th:utext="academicString" class="infoP">
+                                        </ul>
                                     </div>
                                 </div>
-                                <div class="row infoRow ">
+                                <div th:if="${employment}" class="row infoRow">
                                     <div class="col-md-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
-                                            Academic Credentials
+                                            Current Employment
                                         </span>
                                         <img style="height: 80px" alt="Bootstrap Image Preview"
-                                             src="http://lorempixel.com/140/140/"/>
+                                             src="png/class/2.png"/>
                                     </div>
                                     <div class="col-md-8 infoContent lastInfoContent noLeftPadding noRightPadding">
-                                        <p class="infoP">
-                                            High School hight school moof bhiod akjrea tyold porty yuoir jhfv slh
-                                            nbmjdgui lauiduo hfuydguy jkafhk tyuo dgtod erty bood moo dhy reep mosi mdgu
-                                            wertio mahnj hoteruap magty.
-                                            kfjkjkod mkodyuao modo mtod moa.
-                                            sdhnfjk bodo area more is mafj.
-                                        </p>
+                                        <ul th:utext="employmentString" class="infoP">
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div th:if="${succeed}" class="row infoRow">
+                                    <div class="col-md-4 infoLogoName noLeftPadding">
+
+                                        <span class="infoTitle">
+                                            Succeed
+                                        </span>
+                                        <img style="height: 80px" alt="Bootstrap Image Preview"
+                                             src="png/class/3.png"/>
+                                    </div>
+                                    <div class="col-md-8 infoContent lastInfoContent noLeftPadding noRightPadding">
+                                        <ul th:utext="succeedString" class="infoP">
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div th:if="${skills}" class="row infoRow">
+                                    <div class="col-md-4 infoLogoName noLeftPadding">
+
+                                        <span class="infoTitle">
+                                            Skills
+                                        </span>
+                                        <img style="height: 80px" alt="Bootstrap Image Preview"
+                                             src="png/class/4.png"/>
+                                    </div>
+                                    <div class="col-md-8 infoContent lastInfoContent noLeftPadding noRightPadding">
+                                        <ul th:utext="skillsString" class="infoP">
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div th:if="${attachments}" class="row infoRow">
+                                    <div class="col-md-4 infoLogoName noLeftPadding">
+
+                                        <span class="infoTitle">
+                                            Attachment
+                                        </span>
+                                        <img style="height: 80px" alt="Bootstrap Image Preview"
+                                             src="png/class/5.png"/>
+                                    </div>
+                                    <div class="col-md-8 infoContent lastInfoContent noLeftPadding noRightPadding">
+                                        <ul th:utext="attachmentsString" class="infoP">
+                                        </ul>
                                     </div>
                                 </div>
                             </div>

@@ -1,11 +1,11 @@
 package com.technonet.controlers;
 
+import com.technonet.Enums.InfoRecordTypes;
 import com.technonet.Repository.ConfirmationTokenRepo;
 import com.technonet.Repository.SessionRepository;
 import com.technonet.Repository.SysStringRepo;
-import com.technonet.model.ConfirmationToken;
-import com.technonet.model.Session;
-import com.technonet.model.SysString;
+import com.technonet.Repository.UserCategoryJoinRepo;
+import com.technonet.model.*;
 import com.technonet.staticData.Variables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.ConnectionRepository;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -108,6 +109,79 @@ public class AppController {
                             @RequestParam("id") long id,
                             @CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                             @CookieValue(value = "lang", defaultValue = "1") int lang) {
+
+        Variables.myThreadLocal.set(lang);
+
+        UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(id);
+        String teacherName = userCategoryJoin.getUser().getName();
+        String cityCountry = userCategoryJoin.getUser().getCity().getName() + ", "
+                + userCategoryJoin.getUser().getCity().getCountry().getName();
+        String className = userCategoryJoin.getCategory().getName();
+        String classAbout = userCategoryJoin.getAbout();
+        String teacherPic = "/profilePic/" + userCategoryJoin.getUser().getId();
+
+
+        model.addAttribute("teacherName", teacherName);
+        model.addAttribute("city", cityCountry);
+        model.addAttribute("className", className);
+        model.addAttribute("classAbout", classAbout);
+        model.addAttribute("teacherPic", teacherPic);
+
+
+        final boolean[] academic = {false};
+        final boolean[] employment = {false};
+        final boolean[] succeed = {false};
+        final boolean[] skills = {false};
+        final boolean[] attachments = {false};
+
+        final String[] academicString = {""};
+        final String[] employmentString = {""};
+        final String[] succeedString = {""};
+        final String[] skillsString = {""};
+        String attachmentsString = "";
+
+
+
+
+        List<InfoRecord> infoRecordList = userCategoryJoin.getUser().getInfoRecords();
+
+        infoRecordList.forEach(infoRecord -> {
+            if(infoRecord.getType()==InfoRecordTypes.academic.getCODE()){
+                academic[0] = true;
+                academicString[0] +="<li>"+infoRecord.getValue()+"</li>";
+            }
+            if(infoRecord.getType()==InfoRecordTypes.employment.getCODE()){
+                employment[0] = true;
+                employmentString[0] +="<li>"+infoRecord.getValue()+"</li>";
+            }
+            if(infoRecord.getType()==InfoRecordTypes.succeed.getCODE()){
+                succeed[0] = true;
+                succeedString[0] +="<li>"+infoRecord.getValue()+"</li>";
+            }
+            if(infoRecord.getType()==InfoRecordTypes.skills.getCODE()){
+                skills[0] = true;
+                skillsString[0] +="<li>"+infoRecord.getValue()+"</li>";
+            }
+            if(infoRecord.getType()==InfoRecordTypes.attachment.getCODE()){
+                attachments[0] = true;
+            }
+        });
+
+
+
+        model.addAttribute("academic", academic[0]);
+        model.addAttribute("employment", employment[0]);
+        model.addAttribute("succeed", succeed[0]);
+        model.addAttribute("skills", skills[0]);
+        model.addAttribute("attachments", attachments[0]);
+
+
+        model.addAttribute("academicString", academicString[0]);
+        model.addAttribute("employmentString", employmentString[0]);
+        model.addAttribute("succeedString", succeedString[0]);
+        model.addAttribute("skillsString", skillsString[0]);
+        model.addAttribute("attachmentsString",attachmentsString);
+
         Session sessiona;
         Variables.myThreadLocal.set(lang);
         Map<String, String> stringMap = Variables.stringsMap.get(lang);
@@ -135,6 +209,7 @@ public class AppController {
             model.addAttribute("loggedIn", false);
         }
 
+
         return "main/class";
     }
 
@@ -161,4 +236,6 @@ public class AppController {
     private SysStringRepo sysStringRepo;
     @Autowired
     private ConfirmationTokenRepo confirmationTokenRepo;
+    @Autowired
+    private UserCategoryJoinRepo userCategoryJoinRepo;
 }

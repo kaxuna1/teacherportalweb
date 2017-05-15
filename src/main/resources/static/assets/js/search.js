@@ -60,9 +60,9 @@ function loadSearch(city, clas, page) {
                 '            <span class="viewsLabel">'+
                 '                                <img src="png/search/4.png">450'+
                 '                            </span>'+
-                '            <button class="btn readMoreBtn">'+
+                '            <a href="class?id='+item.id+'"><button class="btn readMoreBtn">'+
                 '                Read More'+
-                '            </button>'+
+                '            </button></a>'+
                 '        </div>'+
                 ''+
                 '    </div>'+

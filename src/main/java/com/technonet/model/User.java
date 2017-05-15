@@ -109,6 +109,10 @@ public class User {
     @JoinColumn(name = "cityId")
     private City city;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<InfoRecord> infoRecords;
+
 
     public User(long id) {
         this.id = id;
@@ -137,6 +141,7 @@ public class User {
         this.mobile="";
         this.facebookId="";
         this.googleId="";
+        this.infoRecords = new ArrayList<>();
 
     }
 
@@ -436,5 +441,13 @@ public class User {
     }
     public boolean isCalendarConnected(){
         return !this.calendarRefreshToken.isEmpty();
+    }
+
+    public List<InfoRecord> getInfoRecords() {
+        return infoRecords;
+    }
+
+    public void setInfoRecords(List<InfoRecord> infoRecords) {
+        this.infoRecords = infoRecords;
     }
 }

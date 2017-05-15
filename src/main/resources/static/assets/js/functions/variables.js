@@ -32,6 +32,15 @@ var loanStatuses = {
     6: "გასაყიდად გაგზავნილი"
 };
 
+
+var infoTypes = {
+    0:"Academic Credentials",
+    1:"Employment",
+    2:"Succeed",
+    3:"Skills",
+    4:"Attachment"
+};
+
 var clientColumns = ["სახელი", "გვარი", "პირადი ნომერი", "საკონტაქტო ნომერი", "სესხების რაოდენობა"];
 var categoryColumns = [strings["admin_label_name"], strings["admin_label_action"]];
 var elementColumns = ["კოდი", 'სახელი'];

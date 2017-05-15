@@ -5,8 +5,8 @@
 var timesForBook = {};
 
 
-var currentDay=null;
-var currentSelf=null;
+var currentDay = null;
+var currentSelf = null;
 
 function calendarInit(data) {
     //console.log(data)
@@ -266,8 +266,8 @@ function calendarInit(data) {
 
             arrow.style.left = el.offsetLeft - el.parentNode.offsetLeft + 16 + 'px';
 
-            currentDay=el;
-            currentSelf=self;
+            currentDay = el;
+            currentSelf = self;
 
             window.setTimeout(function () {
                 //self.openDay(current);
@@ -420,10 +420,16 @@ function calendarInit(data) {
     }();
 }
 function drawItemsToBook() {
-    var itemsNum=0;
+    var itemsNum = 0;
     var table = $(".tableForItemsToBook")
     table.html("")
-    for (key in timesForBook) {
+    var keys = Object.keys(timesForBook),
+        i, len = keys.length;
+
+    keys.sort();
+
+    for (i = 0; i < len; i++) {
+        var key = keys[i];
         table.append("<tr><td>" +
             moment(parseInt(key)).locale("us").format("LL") +
             "</td>" +
@@ -431,19 +437,22 @@ function drawItemsToBook() {
             moment(parseInt(key)).locale("us").format("HH:mm") +
             "</td>" +
             "<td>" +
-            "<a class='removeDateFromItems' value='"+key+"' >X</a>" +
+            "<a class='removeDateFromItems' value='" + key + "' >X</a>" +
             "</td>" +
             "</tr>")
         console.log(key);
         itemsNum++;
     }
-    if(itemsNum==0){
+
+
+
+    if (itemsNum == 0) {
         $(".bookedTimesDiv").addClass("hide");
-    }else{
+    } else {
         $(".bookedTimesDiv").removeClass("hide");
     }
     $(".removeDateFromItems").click(function () {
-        var val=$(this).attr("value");
+        var val = $(this).attr("value");
         delete timesForBook[val];
         drawItemsToBook();
         currentSelf.openDay(currentDay);

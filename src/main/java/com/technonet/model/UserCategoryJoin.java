@@ -53,11 +53,16 @@ public class UserCategoryJoin {
     @JsonIgnore
     private List<Schedule> schedules;
 
+
+
     @Column
     private float price;
 
     @Column
     private int duration;
+
+    @Column
+    private String about;
 
 
     public UserCategoryJoin(User user, Category categoryId, float price, int duration) {
@@ -73,6 +78,7 @@ public class UserCategoryJoin {
         this.schedules = new ArrayList<>();
         this.price = price;
         this.bookedTimes = new ArrayList<>();
+
     }
 
     public UserCategoryJoin() {
@@ -211,5 +217,13 @@ public class UserCategoryJoin {
 
     public String getCategoryName() {
         return this.category.getName();
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
     }
 }

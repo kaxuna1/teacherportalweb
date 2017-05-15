@@ -3,8 +3,15 @@
  */
 $(document).ready(function () {
     var id=getParameterByName("id")
-    $.getJSON("schedulefordays/"+id+"/30",function (result) {
+    $.getJSON("schedulefordays/"+id+"/45",function (result) {
         calendarInit(result);
+        $(".bookButton").click(function () {
+            if(readCookie("projectSessionId")){
+
+            }else{
+                $("#logisignbtn").click();
+            }
+        })
     });
 
 });
