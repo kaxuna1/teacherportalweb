@@ -226,7 +226,35 @@ function loadUsersData(index, search) {
                 body.append("<button id='addInfoData'>add info</button>");
 
                 $("#addInfoData").click(function () {
+                    showModalWithTableInside(function (head, body, modal, rand) {
+                        dynamicCreateForm(body,"addinfotouser",
+                            {
 
+                                type: {
+                                    type: "comboBox",
+                                    valueField: "id",
+                                    nameField: "name",
+                                    name: "Type",
+                                    data: [
+                                        {id: "0", name: "Academic Credentials"},
+                                        {id: "1", name: "Employment"},
+                                        {id: "2", name: "Succeed"},
+                                        {id: "3", name: "Skills"},
+                                        {id: "4", name: "Attachment"}
+                                    ]
+                                },
+                                value: {
+                                    name: "Value",
+                                    type: "text"
+                                },
+                                userId: {
+                                    type: "hidden",
+                                    value: "" + DOMElements.currentElement.id
+                                }
+                            }, function () {
+                                modal.modal("hide");
+                        })
+                    },{},500)
                 });
                 $.getJSON("/getuserinforecords/" + DOMElements.currentElement.id, function (result) {
                     createTable(body, {
