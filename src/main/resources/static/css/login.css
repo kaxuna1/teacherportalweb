@@ -2011,17 +2011,22 @@ div.bhoechie-tab-content {
 
     .calendarTopDiv {
         height: 300px;
+        max-width: 275px;
         border: rgba(128, 128, 128, 0.38) solid 1px;;
         overflow: hidden;
+        margin: auto;
     }
     .calendarTopDivItems {
         height: 300px;
-        border: rgba(128, 128, 128, 0.38) solid 1px;;
+        border: rgba(128, 128, 128, 0.38) solid 1px;
+        margin: auto;
     }
 
     .calendarHeader {
         width: 100%;
         height: 60px;
+        max-width: 275px;
+
         background-color: #46c3bf;
         display: flex;
     }
