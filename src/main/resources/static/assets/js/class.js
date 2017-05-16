@@ -4,7 +4,13 @@
 $(document).ready(function () {
     var id=getParameterByName("id")
     $.getJSON("schedulefordays/"+id+"/45",function (result) {
-        calendarInit(result);
+        //calendarInit(result);
+
+
+        $('#calendar').datepicker();
+
+
+
         $(".bookButton").click(function () {
             if(readCookie("projectSessionId")){
 

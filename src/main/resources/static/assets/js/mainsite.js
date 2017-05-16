@@ -410,17 +410,17 @@ $(".settingsBtn").click(function () {
                 "<li class='settingsItem'>" +
                 "<a class='settingsItemA'>" +
                 "<h3 class='settingsItemH'>" + strings.main_settings_field_facebook + "</h3>" +
-                "<span class='settingsItemValue'>" + getFacebookFieldForSettings(result) + "</span>" +
+                "<span class='settingsItemValue floatRight'>" + getFacebookFieldForSettings(result) + "</span>" +
                 "<span><span class='settingsItemEditButton'></span></span></a> </li>" +
                 "<li class='settingsItem'>" +
                 "<a class='settingsItemA'>" +
                 "<h3 class='settingsItemH'>" + strings.main_settings_field_google + "</h3>" +
-                "<span class='settingsItemValue'>" + getGoogleFieldForSettings(result) + "</span>" +
+                "<span class='settingsItemValue floatRight'>" + getGoogleFieldForSettings(result) + "</span>" +
                 "<span><span class='settingsItemEditButton'></span></span></a> </li>" +
                 "<li class='settingsItem'>" +
                 "<a class='settingsItemA'>" +
                 "<h3 class='settingsItemH'>" + strings.main_settings_field_calendar + "</h3>" +
-                "<span class='settingsItemValue'>" + getCalendarFieldForSettings(result) + "</span>" +
+                "<span class='settingsItemValue floatRight'>" + getCalendarFieldForSettings(result) + "</span>" +
                 "<span><span class='settingsItemEditButton'></span></span></a> </li>" +
                 getCalendarChooserField(result));
             $(".disconnectFbButton").click(function () {
@@ -610,7 +610,7 @@ $(".settingsBtn").click(function () {
 
             });
 
-        }, {}, 500, true);
+        }, {}, 450, true);
 
 
     })
@@ -646,23 +646,23 @@ function getMailStringForValue(user) {
 }
 function getFacebookFieldForSettings(user) {
     if (user.facebookConnected) {
-        return "connected<button class='disconnectFbButton' style='margin-left: 5px'>Disconnect</button>";
+        return "connected<button class='disconnectFbButton btn' style='margin-left: 5px'>Disconnect</button>";
     } else {
-        return "<button class='connectFbButton'>connect</button>"
+        return "<button class='connectFbButton btn'>connect</button>"
     }
 }
 function getGoogleFieldForSettings(user) {
     if (user.googleConnected) {
-        return "connected<button class='disconnectGoogleButton' style='margin-left: 5px'>Disconnect</button>";
+        return "connected<button class='disconnectGoogleButton btn' style='margin-left: 5px'>Disconnect</button>";
     } else {
-        return "<button class='connectGoogleButton'>connect</button>";
+        return "<button class='connectGoogleButton btn'>connect</button>";
     }
 }
 function getCalendarFieldForSettings(user) {
     if (user.calendarConnected) {
-        return "connected<button class='disconnectCalendarButton' style='margin-left: 5px'>Disconnect</button>";
+        return "connected<button class='disconnectCalendarButton btn' style='margin-left: 5px'>Disconnect</button>";
     } else {
-        return "<button class='connectCalendarButton'>connect</button>";
+        return "<button class='connectCalendarButton btn'>connect</button>";
     }
 }
 function getCalendarChooserField(user) {

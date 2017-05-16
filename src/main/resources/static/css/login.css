@@ -33,16 +33,16 @@
 }
 
 .settingsList {
-    border-top: 1px solid #aaa;
-    border-bottom: 1px solid #aaa;
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
 
 .settingsItem {
-    border-color: #e9ebee;
-    border-style: solid;
+
+    margin-top: 10px;
+    border: solid 1px black;
+    border-radius: 5px;
     word-wrap: break-word;
 }
 
@@ -56,6 +56,7 @@
     padding-right: 5px;
     zoom: 1;
     cursor: pointer;
+    height: 44px;
 }
 
 .settingsItemA:hover {
@@ -64,24 +65,48 @@
 
 .settingsItemH {
     margin: 0;
-    padding: 0;
-    color: #333;
+    padding: 5px 0 0 5px;
+    color: #4D4D4D;
+    font-family: brixnorm;
     float: left;
     font-size: 11px;
     width: 100px;
 }
 
 .settingsItemEditButton {
-    color: #365899;
+    padding-top: 2px;
+    color: #218769;
+    font-family: brix!important;
     float: right;
     padding-left: 25px;
     padding-right: 5px;
     text-align: right;
 }
+.modal-cancele-btn{
+    color: #218769;
+    font-family: brixnorm!important;
+}
 
 .settingsItemValue {
-    color: #90949c;
+    color: #808080;
     padding-left: 0;
+    font-size: 11px;
+    font-family: brixnorm!important;
+}
+.floatRight{
+    float: right;
+}
+
+.settingsList button{
+    color: white!important;
+    background-color: #46c3bf;
+    height: 25px;
+    padding: 0 2px;
+    font-size: 11px;
+    margin: 0;
+    border-radius: 2px;
+    font-family: brixnorm!important;
+
 }
 
 .disconectFbButton {
@@ -586,7 +611,7 @@ button {
 }
 
 .modal .modal-content {
-    padding: 0 20px 15px;
+    padding: 10px;
     border-bottom: 1px solid #eeeeee;
 
 }
