@@ -76,36 +76,38 @@
 .settingsItemEditButton {
     padding-top: 2px;
     color: #218769;
-    font-family: brix!important;
+    font-family: brix !important;
     float: right;
     padding-left: 25px;
     padding-right: 5px;
     text-align: right;
 }
-.modal-cancele-btn{
+
+.modal-cancele-btn {
     color: #218769;
-    font-family: brixnorm!important;
+    font-family: brixnorm !important;
 }
 
 .settingsItemValue {
     color: #808080;
     padding-left: 0;
     font-size: 11px;
-    font-family: brixnorm!important;
+    font-family: brixnorm !important;
 }
-.floatRight{
+
+.floatRight {
     float: right;
 }
 
-.settingsList button{
-    color: white!important;
+.settingsList button {
+    color: white !important;
     background-color: #46c3bf;
     height: 25px;
     padding: 0 2px;
     font-size: 11px;
     margin: 0;
     border-radius: 2px;
-    font-family: brixnorm!important;
+    font-family: brixnorm !important;
 
 }
 
@@ -156,6 +158,13 @@
 
 .navbar-custom .nav li a {
     font-size: 20px;
+    padding-right: 30px;
+
+
+
+
+
+
 }
 
 .portfolio-item {
@@ -1747,8 +1756,7 @@ div.bhoechie-tab-content {
 
     .headerDivTeacher {
         padding: 10%;
-        padding-top: 70px;
-        margin-top: 60px;
+        padding-top: 130px;
 
     }
 
@@ -1827,6 +1835,7 @@ div.bhoechie-tab-content {
         font-size: 20px;
         margin-top: 5px;
         font-family: brix, serif !important;
+        line-height: 1.3;
     }
 
     .classBodySection {
@@ -1876,6 +1885,10 @@ div.bhoechie-tab-content {
     .infoLogoName {
         height: 100%;
         display: grid;
+    }
+
+    .infoLogoName img {
+        width: 70px;
     }
 
     .noLeftPadding {
@@ -2021,7 +2034,7 @@ div.bhoechie-tab-content {
 
     .reviewerNameSpan {
         font-family: brix !important;
-        font-size: 15pt;
+        font-size: 12pt;
     }
 
     .borderBotom {
@@ -2029,20 +2042,20 @@ div.bhoechie-tab-content {
     }
 
     .reviewsMoreButton {
-        font-size: 15pt;
+        font-size: 12pt;
         color: #46c3bf;
         font-family: brix !important;
     }
 
     .calendarTopDiv {
-        height: 300px;
+
         max-width: 275px;
         border: rgba(128, 128, 128, 0.38) solid 1px;;
         overflow: hidden;
         margin: auto;
     }
+
     .calendarTopDivItems {
-        height: 300px;
         border: rgba(128, 128, 128, 0.38) solid 1px;
         margin: auto;
     }
@@ -2057,6 +2070,19 @@ div.bhoechie-tab-content {
     }
 
     .calendarBody {
+
+        height: 200px;
+        display: flex;
+    }
+    .calendarBodyTimes {
+
+        border: solid black 1px;
+        margin: 10px;
+
+        height: 200px;
+    }
+    .calendarBodyTimes .header{
+        border-bottom: solid black 1px;
     }
 
     .calendarHeader h2 {
@@ -2072,6 +2098,100 @@ div.bhoechie-tab-content {
 
     .bookedTimesDiv {
         padding-top: 20px;
+    }
+
+    .timesForBookTableDiv {
+        height: 170px;
+        padding: 5px;
+        overflow: scroll;
+    }
+
+    .timesForBookTableDiv tr {
+        border: 1px solid grey;
+    }
+
+    .bookButton {
+        background-color: #46c3bf;
+        width: 100%;
+        font-size: 15pt;
+        color: white;
+        font-family: brix !important;
+    }
+
+    .bookButtonPlace {
+        padding-left: 10px;
+        padding-right: 10px;
+        text-align: center;
+        padding-bottom: 30px;
+    }
+
+    .clasTypeButtonPlace{
+        padding-left: 10px;
+        padding-right: 10px;
+        text-align: center;
+        padding-bottom: 30px;
+    }
+    .classTypeText{
+        font-family: brix !important;
+        color: grey;
+        font-size: 12pt;
+    }
+
+    .withDates {
+        background-color: #46c3bf !important;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    .warningWontBeCharged {
+        font-family: brix !important;
+        color: grey;
+        font-size: 8pt;
+    }
+
+    .removeDateFromItems {
+        cursor: pointer;
+    }
+    .classTypeLabel{
+        font-family: brix !important;
+        color: grey;
+        font-size: 10pt;
+        float: left;
+    }
+    .classTypeInput{
+        float: right;
+    }
+    .classTypeDiv{
+        width: 90%;
+        margin: auto;
+    }
+    .calendarBodyTimesDiv{
+        overflow: scroll;
+        height: calc(100%  - 40px);
+    }
+    .timesPlaceTableBody tr{
+        border-bottom: solid black 1px;
+    }
+    .timeTd{
+        padding: 5px!important;
+        font-family: brix!important;
+        cursor: pointer;
+        padding-left: 10px!important;
+    }
+    .timesPlaceTableBody :last-child{
+        border-bottom: none;
+    }
+    .addTimeButton{
+        color: white;
+        background-color: #46c3bf;
+        padding: 3px 6px;
+        font-size: 12px;
+    }
+    .reviewItemDivBody p{
+        font-family: brix!important;
+        font-size: 12pt;
     }
 
 }
@@ -2106,43 +2226,6 @@ div.bhoechie-tab-content {
     }
 
 }
-.timesForBookTableDiv{
-    height: 170px;
-    padding: 5px;
-    overflow: scroll;
-}
-.timesForBookTableDiv tr{
-    border: 1px solid grey;
-}
-.bookButton {
-    background-color: #46c3bf;
-    width: 100%;
-    font-size: 15pt;
-    color: white;
-    font-family: brix!important;
-}
-.bookButtonPlace{
-    padding-left: 10px;
-    padding-right: 10px;
-    text-align: center;
-}
-.withDates{
-    background-color: #46c3bf!important;
-}
-.withDates div{
-    color: white;
-}
 
-.hide {
-    display: none;
-}
-.warningWontBeCharged{
-    font-family: brix!important;
-    color: grey;
-    font-size: 8pt;
-}
-.removeDateFromItems{
-    cursor: pointer;
-}
 
 /*classPage*/

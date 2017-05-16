@@ -67,7 +67,7 @@
 <body style="overflow: visible!important;" id="page-top" class="index">
 
 <!-- Navigation -->
-<nav style="background-color: white;z-index: 500" id="mainNav"
+<nav style=";z-index: 500" id="mainNav"
      class="navbar navbar-default navbar-custom navbar-fixed-top">
 
     <div style="width: 100%;" class="container">
@@ -77,8 +77,9 @@
                     data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand page-scroll brand"
-               style="padding-top: 5px;    font-size: 30px;font-size: 40px;font-family: brixnorm!important; "
+            <a class="navbar-brand page-scroll brand navlabel"
+
+               style="padding-top: 5px;    font-size: 30px;padding:0;font-size: 40px;font-family: brixnorm!important; color: white"
                href="/">Allwitz</a>
         </div>
 
@@ -87,14 +88,14 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul th:if="${!loggedIn}" class="nav navbar-nav navbar-left">
                 <li id="becometeacherbtn">
-                    <a class="page-scroll" th:text="${strings.main_become_a_teacher}" href="#"
-                       style="font-size: 18px;color: black;font-family: brixnorm!important;"></a>
+                    <a class="page-scroll navlabel" th:text="${strings.main_become_a_teacher}" href="#"
+                       style="font-size: 18px;color: black;font-family: brixnorm!important;color: white"></a>
                 </li>
             </ul>
             <ul th:if="${!loggedIn}" class="nav navbar-nav navbar-right">
                 <li id="logisignbtn">
-                    <a class="page-scroll" th:text="${strings.main_login_signup}" href="#"
-                       style="font-size: 18px;color: black;font-family: brixnorm!important;"></a>
+                    <a class="page-scroll navlabel" th:text="${strings.main_login_signup}" href="#"
+                       style="font-size: 18px;color: black;padding-right: 0px;font-family: brixnorm!important;color: white"></a>
                 </li>
                 <li class="dropdown" id="langbtn">
 
@@ -115,11 +116,11 @@
             <ul th:if="${loggedIn}" class="nav navbar-nav navbar-right">
                 <li class="dropdown" id="userBtn">
 
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                    <a href="#" class="dropdown-toggle navlabel" data-toggle="dropdown"
                        role="button" aria-haspopup="true"
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><span
                             th:text="${userNameSurname}"
-                            style="font-size: 18px;color: black;font-family: brixnorm!important;"></span></span></a>
+                            style="font-size: 18px;color: white;font-family: brixnorm!important;"></span></span></a>
                     <ul class="dropdown-menu">
                         <li class="profileBtn"><a href="#" th:text="${strings.main_menu_profile}"></a></li>
                         <li class="settingsBtn"><a href="#" th:text="${strings.main_menu_settings}"></a></li>
@@ -237,7 +238,7 @@
                                         <span class="infoTitle">
                                             Academic Credentials
                                         </span>
-                                        <img style="height: 80px" alt="Bootstrap Image Preview"
+                                        <img style="" alt="Bootstrap Image Preview"
                                              src="png/class/1.png"/>
                                     </div>
                                     <div class="col-md-8 infoContent noLeftPadding noRightPadding">
@@ -251,10 +252,10 @@
                                         <span class="infoTitle">
                                             Current Employment
                                         </span>
-                                        <img style="height: 80px" alt="Bootstrap Image Preview"
+                                        <img style="" alt="Bootstrap Image Preview"
                                              src="png/class/2.png"/>
                                     </div>
-                                    <div class="col-md-8 infoContent lastInfoContent noLeftPadding noRightPadding">
+                                    <div class="col-md-8 infoContent  noLeftPadding noRightPadding">
                                         <ul th:utext="${employmentString}" class="infoP">
                                         </ul>
                                     </div>
@@ -265,10 +266,10 @@
                                         <span class="infoTitle">
                                             Succeed
                                         </span>
-                                        <img style="height: 80px" alt="Bootstrap Image Preview"
+                                        <img style="" alt="Bootstrap Image Preview"
                                              src="png/class/3.png"/>
                                     </div>
-                                    <div class="col-md-8 infoContent lastInfoContent noLeftPadding noRightPadding">
+                                    <div class="col-md-8 infoContent  noLeftPadding noRightPadding">
                                         <ul th:utext="${succeedString}" class="infoP">
                                         </ul>
                                     </div>
@@ -279,10 +280,10 @@
                                         <span class="infoTitle">
                                             Skills
                                         </span>
-                                        <img style="height: 80px" alt="Bootstrap Image Preview"
+                                        <img style="width: 50px" alt="Bootstrap Image Preview"
                                              src="png/class/4.png"/>
                                     </div>
-                                    <div class="col-md-8 infoContent lastInfoContent noLeftPadding noRightPadding">
+                                    <div class="col-md-8 infoContent noLeftPadding noRightPadding">
                                         <ul th:utext="${skillsString}" class="infoP">
                                         </ul>
                                     </div>
@@ -293,7 +294,7 @@
                                         <span class="infoTitle">
                                             Attachment
                                         </span>
-                                        <img style="height: 80px" alt="Bootstrap Image Preview"
+                                        <img style="" alt="Bootstrap Image Preview"
                                              src="png/class/5.png"/>
                                     </div>
                                     <div class="col-md-8 infoContent lastInfoContent noLeftPadding noRightPadding">
@@ -511,32 +512,34 @@
                                     <div class="calendarBody">
                                         <div id="calendar"></div>
                                     </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="bookedTimesDiv col-md-12 noRightPadding noLeftPadding hide">
-                                <div class="calendarTopDivItems">
-                                    <div class="calendarHeader">
-                                        <h2>
-                                            100$ / class
-                                        </h2>
-                                    </div>
-                                    <div class="calendarBody">
-                                        <div class="timesForBookTableDiv">
-                                            <table class="table">
-                                                <tbody class="tableForItemsToBook">
+                                    <div class="calendarBodyTimes hide">
+                                        <div class="header">
+                                            <div class="goback"></div>
+                                            <h1 id="dayname"></h1>
+                                        </div>
+                                        <div class="calendarBodyTimesDiv">
+                                            <table style="height: 100%;width: 100%">
+                                                <tbody class="timesPlaceTableBody" style="height: 100%;
+                                                width: 100%;
+                                                display: table-header-group">
 
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <div class="bookButtonPlace">
-                                            <button class="btn bookButton">Book</button>
-                                            <span class="warningWontBeCharged">You won’t be charged yet</span>
+                                    </div>
+                                    <div class="clasTypeButtonPlace">
+                                        <span class="classTypeText">Class Type</span>
+                                        <div class="classTypeDiv">
+                                            <span class="classTypeLabel">
+                                                Group
+                                            </span>
+                                            <input class="classTypeInput" type="checkbox">
                                         </div>
                                     </div>
-
+                                    <div class="bookButtonPlace">
+                                        <button class="btn bookButton">Book</button>
+                                        <span class="warningWontBeCharged">You won’t be charged yet</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -613,6 +616,8 @@
         </div>
     </div>
 </footer>
+
+<div id="duration" style="display: none" th:text="${duration}"></div>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>

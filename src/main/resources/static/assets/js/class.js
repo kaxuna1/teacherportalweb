@@ -4,10 +4,10 @@
 $(document).ready(function () {
     var id=getParameterByName("id")
     $.getJSON("schedulefordays/"+id+"/45",function (result) {
-        //calendarInit(result);
+        calendarInit(result);
 
 
-        $('#calendar').datepicker();
+        //$('#calendar').datepicker();
 
 
 
@@ -19,6 +19,23 @@ $(document).ready(function () {
             }
         })
     });
+    $(document).ready(function () {
+        function checkScroll() {
+            var startY = $('.navbar').height() * 2; //The point where the navbar changes in px
+
+            if ($(window).scrollTop() > startY) {
+                $('.navbar').addClass("scrolled");
+                $(".navlabel").addClass("navlabelScroled")
+            } else {
+                $('.navbar').removeClass("scrolled");
+                $(".navlabel").removeClass("navlabelScroled")
+            }
+        }
+
+        $(window).on("scroll load resize", function () {
+            checkScroll();
+        });
+    })
 
 });
 

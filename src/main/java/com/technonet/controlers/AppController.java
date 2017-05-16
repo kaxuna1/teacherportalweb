@@ -182,6 +182,8 @@ public class AppController {
         model.addAttribute("skillsString", skillsString[0]);
         model.addAttribute("attachmentsString",attachmentsString);
 
+        model.addAttribute("duration",userCategoryJoin.getDuration());
+
         Session sessiona;
         Variables.myThreadLocal.set(lang);
         Map<String, String> stringMap = Variables.stringsMap.get(lang);

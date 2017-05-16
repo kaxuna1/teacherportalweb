@@ -3,7 +3,7 @@
  */
 
 var timesForBook = {};
-
+var k = 1;
 
 var currentDay = null;
 var currentSelf = null;
@@ -24,7 +24,7 @@ function calendarInit(data) {
                 var self = this;
                 window.setTimeout(function () {
                     //self.openDay(current);
-                    $(".calendarTopDiv").height(parseInt($("#calendar").height()) + 60);
+                    //$(".calendarTopDiv").height(parseInt($("#calendar").height()) + 60);
                 }, 500);
             }
         }
@@ -82,13 +82,14 @@ function calendarInit(data) {
                 this.oldMonth.addEventListener('webkitAnimationEnd', function () {
                     self.oldMonth.parentNode.removeChild(self.oldMonth);
                     self.month = createElement('div', 'month');
+                    k = 1;
                     self.backFill();
                     self.currentMonth();
                     self.fowardFill();
                     self.el.appendChild(self.month);
                     window.setTimeout(function () {
                         self.month.className = 'month in ' + (self.next ? 'next' : 'prev');
-                        $(".calendarTopDiv").height(parseInt($("#calendar").height()) + 60);
+
                     }, 16);
                 });
             } else {
@@ -132,10 +133,11 @@ function calendarInit(data) {
 
         Calendar.prototype.currentMonth = function () {
             var clone = this.current.clone();
-
+            var k = 1;
             while (clone.month() === this.current.month()) {
-                this.drawDay(clone);
+                this.drawDay(clone, k);
                 clone.add('days', 1);
+                //k++;
             }
         }
 
@@ -147,6 +149,7 @@ function calendarInit(data) {
         }
 
         Calendar.prototype.drawDay = function (day) {
+
             var self = this;
             this.getWeek(day);
 
@@ -160,26 +163,40 @@ function calendarInit(data) {
             var withDates = itemsToday.length > 0 ? " withDates" : "";
 
             //Outer Day
-            var outer = createElement('div', this.getDayClass(day) + withDates);
+            var outer = createElement('div', this.getDayClass(day) );
             outer.addEventListener('click', function () {
                 self.openDay(this);
+
+
+                $(".calendarBodyTimes").removeClass("hide");
+                $(".calendarBody").addClass("hide");
+
+                $(".goback").unbind().click(function () {
+                    $(".calendarBodyTimes").addClass("hide");
+                    $(".calendarBody").removeClass("hide");
+                });
+
+
+                console.log(this);
             });
 
             //Day Name
             var name = createElement('div', 'day-name', day.format('ddd'));
 
             //Day Number
-            var number = createElement('div', 'day-number', day.format('DD'));
+            var number = createElement('div', 'day-number'+withDates, day.format('DD'));
 
 
             //Events
             //var events = createElement('div', 'day-events');
             //this.drawEvents(day, events);
 
-            outer.appendChild(name);
+            if (k < 8)
+                outer.appendChild(name);
             outer.appendChild(number);
             //outer.appendChild(events);
             this.week.appendChild(outer);
+            k++;
         }
 
         Calendar.prototype.drawEvents = function (day, element) {
@@ -215,75 +232,29 @@ function calendarInit(data) {
             var day = this.current.clone().date(dayNumber);
             //console.log(day.date())
 
-            var currentOpened = document.querySelector('.details');
+            $("#dayname").html(day.format("ddd, MMM DD"));
 
-            //Check to see if there is an open detais box on the current row
-            if (currentOpened && currentOpened.parentNode === el.parentNode) {
-                details = currentOpened;
-                arrow = document.querySelector('.arrow');
-            } else {
-                //Close the open events on differnt week row
-                //currentOpened && currentOpened.parentNode.removeChild(currentOpened);
-                if (currentOpened) {
-                    currentOpened.addEventListener('webkitAnimationEnd', function () {
-                        currentOpened.parentNode.removeChild(currentOpened);
-                    });
-                    currentOpened.addEventListener('oanimationend', function () {
-                        currentOpened.parentNode.removeChild(currentOpened);
-                    });
-                    currentOpened.addEventListener('msAnimationEnd', function () {
-                        currentOpened.parentNode.removeChild(currentOpened);
-                    });
-                    currentOpened.addEventListener('animationend', function () {
-                        currentOpened.parentNode.removeChild(currentOpened);
-                    });
-                    currentOpened.className = 'details out';
-                }
-
-                //Create the Details Container
-                details = createElement('div', 'details in');
-
-                //Create the arrow
-                var arrow = createElement('div', 'arrow');
-
-                //Create the event wrapper
-
-                details.appendChild(arrow);
-                el.parentNode.appendChild(details);
-            }
-
+            $(".timesPlaceTableBody").html("");
             var todayDates = data.reduce(function (memo, item) {
                 if (moment(item.starting_time).isSame(day, 'day') && !timesForBook[item.starting_time]) {
-                    memo.push(item);
+                    $(".timesPlaceTableBody").append("<tr>" +
+                        "<td class='timeTd'>" +
+                        moment(item.starting_time).format("HH:mm") +
+                        "-" +
+                        moment(item.starting_time).add(parseInt($("#duration").html()),"minutes").format("HH:mm") +
+                        "</td>" +
+                        "<td>" +
+                        "<button value='"+item.starting_time+"' class='btn addTimeButton'>+" +
+                        "</button></td>" +
+                        "</tr>")
                 }
                 return memo;
             }, []);
-
-            //console.log(todayDates);
-
-
-            this.renderEvents(todayDates, details);
-
-            arrow.style.left = el.offsetLeft - el.parentNode.offsetLeft + 16 + 'px';
-
-            currentDay = el;
-            currentSelf = self;
-
-            window.setTimeout(function () {
-                //self.openDay(current);
-
-                $(".calendarTopDiv").height(parseInt($("#calendar").height()) + 60);
-
-                var timeItemButtons = $(".addIntervalBtn");
-
-                timeItemButtons.unbind();
-                //console.log(timeItemButtons);
-                timeItemButtons.click(function () {
-                    timesForBook[$(this).attr("value")] = $(this).attr("value");
-                    drawItemsToBook();
-                    self.openDay(el)
-                })
-            }, 500);
+            console.log(todayDates);
+            $(".addTimeButton").click(function () {
+                timesForBook[$(this).attr("value")]=$(this).attr("value");
+                self.openDay(el);
+            })
         };
 
         Calendar.prototype.renderEvents = function (events, ele) {
@@ -370,7 +341,7 @@ function calendarInit(data) {
             this.current.subtract('months', 1);
             this.next = false;
             this.draw();
-            $(".calendarTopDiv").height(parseInt($("#calendar").height()) + 60);
+            //$(".calendarTopDiv").height(parseInt($("#calendar").height()) + 60);
         }
 
         window.Calendar = Calendar;
@@ -445,7 +416,6 @@ function drawItemsToBook() {
     }
 
 
-
     if (itemsNum == 0) {
         $(".bookedTimesDiv").addClass("hide");
     } else {
@@ -455,6 +425,6 @@ function drawItemsToBook() {
         var val = $(this).attr("value");
         delete timesForBook[val];
         drawItemsToBook();
-        currentSelf.openDay(currentDay);
+        //currentSelf.openDay(currentDay);
     })
 }
