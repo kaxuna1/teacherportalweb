@@ -1,0 +1,209 @@
+@media only screen
+and (min-width : 320px)
+and (max-width : 480px) {
+    /* Styles */
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen
+and (min-width : 321px) {
+    /* Styles */
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen
+and (max-width : 320px) {
+    /* Styles */
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen
+and (min-width : 768px)
+and (max-width : 1224px) {
+    /* Styles */
+}
+
+/* iPads (landscape) ----------- */
+@media only screen
+and (min-width : 768px)
+and (max-width : 1224px)
+and (orientation : landscape) {
+    /* Styles */
+    header .intro-text{
+        top: 51%;
+    }
+    .paralLeft {
+        border-top: 80vh solid #46c3bf!important;
+        border-left: 517px solid transparent !important;
+        float: left;
+    }
+
+    .paralRight {
+        border-right: 517px solid transparent !important;
+        margin-left: 513px !important;
+        border-bottom: 80vh solid #46c3bf!important;
+
+    }
+    .form-wrapper {
+        max-width: 520px;
+        min-width: 300px;
+        width: 520px;
+        margin: 0 auto 0 auto;
+        z-index: 10000;
+        font-family: brix !important;
+    }
+    .tolearn{
+        font-size: 112px!important;
+        margin-left: 110px;
+        padding-top: 25px;
+    }
+    .iwant{
+        font-size: 104px!important;
+    }
+}
+
+/* iPads (portrait) ----------- */
+@media only screen
+and (min-width : 768px)
+and (max-width : 1224px)
+and (orientation : portrait) {
+    /* Styles */
+    header .intro-text{
+        top: 60%;
+    }
+    .paralLeft {
+        border-top: 80vh solid #46c3bf!important;
+        border-left:  calc(517px - 120px)solid transparent !important;
+        float: left;
+    }
+
+    .paralRight {
+        border-right:  calc(517px  - 120px) solid transparent !important;
+        margin-left: calc(513px - 120px)!important;
+        border-bottom: 80vh solid #46c3bf!important;
+
+    }
+    .form-wrapper {
+        max-width: 520px;
+        min-width: 300px;
+        width: 400px;
+        margin: 0 auto 0 auto;
+        z-index: 10000;
+        font-family: brix !important;
+    }
+    .tolearn{
+        font-size: 88px!important;
+        margin-left: 60px;
+        padding-top: 10px;
+    }
+    .iwant{
+        font-size: 79px!important;
+    }
+}
+
+/* Desktops and laptops ----------- */
+@media only screen
+and (min-width : 1224px) {
+    /* Styles */
+    header .intro-text{
+        top: 55%;
+    }
+    .tolearn {
+        display: -webkit-box;
+        font-family: brixLight !important;
+        margin-left: 80px!important;
+        padding-top: 13px!important;
+        font-size: 93px !important;;
+        font-weight: 100;
+        white-space: nowrap;
+        position: absolute;
+        color: black
+    }
+    .iwant {
+        display: -webkit-box;
+        font-family: brixBold;
+        font-size: 97px!important;
+        padding-bottom: 15px!important;
+    }
+    .navbar-brand{
+        padding: 0;
+        font-size: 54px!important;
+        font-family: brixnorm!important;
+    }
+    .becometeacherbtn a{
+        font-size: 25px;
+        padding-top: 22px;
+    }
+    .logisignbtn a{
+        font-size: 25px;
+        padding-top: 22px;
+    }
+    .paralLeft {
+        border-top: 60vh solid #46c3bf!important;
+        border-left: 417px solid transparent !important;
+        float: left;
+    }
+
+    .paralRight {
+
+        border-right: 417px solid transparent !important;
+        margin-left: 413px !important;
+        border-bottom: 60vh solid #46c3bf!important;
+
+
+    }
+
+    .form-wrapper {
+        width: 420px!important;
+    }
+}
+
+/* Large screens ----------- */
+@media only screen
+and (min-width : 1824px) {
+    /* Styles */
+    .tolearn {
+        display: -webkit-box;
+        font-family: brixLight !important;
+        margin-left: 70px;
+        padding-top: 18px!important;
+        font-size: 124px !important;;
+        font-weight: 100;
+        white-space: nowrap;
+        position: absolute;
+        color: black
+    }
+    .iwant {
+        display: -webkit-box;
+        font-family: brixBold;
+        font-size: 124px!important;
+        padding-bottom: 15px!important;
+    }
+    .navbar-brand{
+        padding: 0;
+        font-size: 62px!important;
+        font-family: brixnorm!important;
+    }
+    .becometeacherbtn a{
+        font-size: 25px;
+        padding-top: 22px;
+    }
+    .logisignbtn a{
+        font-size: 25px;
+        padding-top: 22px;
+    }
+    .paralLeft {
+
+        border-left: 517px solid transparent !important;
+        float: left;
+    }
+
+    .paralRight {
+        border-right: 517px solid transparent !important;
+        margin-left: 513px !important;
+
+    }
+    .form-wrapper {
+        width: 520px!important;
+    }
+}

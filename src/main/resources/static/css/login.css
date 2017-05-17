@@ -685,33 +685,33 @@ ul {
     margin: 0 auto;
     overflow: hidden;
 }
-@media (min-width: 1280px) {
-    .form-wrapper {
-        width: 520px!important;
-    }
-}
-@media (min-width: 400px) {
-    #wrapperDiv {
-        overflow: visible;
-        width: 400px;
-    }
+/*@media (min-width: 1280px) {*/
+    /*.form-wrapper {*/
+        /*width: 520px!important;*/
+    /*}*/
+/*}*/
+/*@media (min-width: 400px) {*/
+    /*#wrapperDiv {*/
+        /*overflow: visible;*/
+        /*width: 400px;*/
+    /*}*/
 
-    .form-wrapper {
-        width: 400px;
-    }
+    /*.form-wrapper {*/
+        /*width: 400px;*/
+    /*}*/
 
-    .paralLeft {
+    /*.paralLeft {*/
 
-        border-left: 517px solid transparent !important;
-        float: left;
-    }
+        /*border-left: 517px solid transparent !important;*/
+        /*float: left;*/
+    /*}*/
 
-    .paralRight {
-        border-right: 517px solid transparent !important;
-        margin-left: 513px !important;
+    /*.paralRight {*/
+        /*border-right: 517px solid transparent !important;*/
+        /*margin-left: 513px !important;*/
 
-    }
-}
+    /*}*/
+/*}*/
 
 .containerfortopcat {
     width: 100%;
@@ -1455,6 +1455,9 @@ footer {
 .footerLeft {
     text-align: center;
 }
+.footerLeft li{
+    font-size: 25px;
+}
 
 @media (min-width: 992px) {
     .footerRight {
@@ -1567,36 +1570,10 @@ footer {
     padding-top: 20px;
 }
 @media (min-width: 1600px) {
-    .tolearn {
-        display: -webkit-box;
-        font-family: brixLight !important;
-        margin-left: 70px;
-        padding-top: 18px!important;
-        font-size: 124px !important;;
-        font-weight: 100;
-        white-space: nowrap;
-        position: absolute;
-        color: black
-    }
-    .iwant {
-        display: -webkit-box;
-        font-family: brixBold;
-        font-size: 124px!important;
-        padding-bottom: 15px!important;
-    }
-    .navbar-brand{
-        padding: 0;
-        font-size: 62px!important;
-        font-family: brixnorm!important;
-    }
-    .becometeacherbtn a{
-        font-size: 25px;
-        padding-top: 22px;
-    }
-    .logisignbtn a{
-        font-size: 25px;
-        padding-top: 22px;
-    }
+
+}
+@media (min-width: 1200px) and (max-width: 1599px) {
+
 }
 
 
@@ -1619,26 +1596,26 @@ footer {
     color: black
 }
 
-@media (min-width: 700px) {
-    .iwant {
-        display: -webkit-box;
-        font-family: brixBold;
-        font-size: 80px;
-        padding-bottom: 10px;
-    }
+/*@media (min-width: 700px) {*/
+    /*.iwant {*/
+        /*display: -webkit-box;*/
+        /*font-family: brixBold;*/
+        /*font-size: 80px;*/
+        /*padding-bottom: 10px;*/
+    /*}*/
 
-    .tolearn {
-        display: -webkit-box;
-        font-family: brixLight !important;
-        margin-left: 70px;
-        padding-top: 5px;
-        font-size: 60px;;
-        font-weight: 100;
-        white-space: nowrap;
-        position: absolute;
-        color: black
-    }
-}
+    /*.tolearn {*/
+        /*display: -webkit-box;*/
+        /*font-family: brixLight !important;*/
+        /*margin-left: 70px;*/
+        /*padding-top: 5px;*/
+        /*font-size: 60px;;*/
+        /*font-weight: 100;*/
+        /*white-space: nowrap;*/
+        /*position: absolute;*/
+        /*color: black*/
+    /*}*/
+/*}*/
 
 .descriptionText {
     font-family: brix;

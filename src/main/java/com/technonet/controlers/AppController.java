@@ -104,6 +104,41 @@ public class AppController {
         return "main/search";
     }
 
+
+    @GetMapping(value = "/order", produces = "text/html")
+    public String order(Model model,
+                         @CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
+                         @CookieValue(value = "lang", defaultValue = "1") int lang) {
+        Session sessiona;
+        Variables.myThreadLocal.set(lang);
+        Map<String, String> stringMap = Variables.stringsMap.get(lang);
+        model.addAttribute("strings", stringMap);
+        if (sessionId != 0) {
+            sessiona = sessionRepository.findOne(sessionId);
+            if (sessiona.isIsactive()) {
+                model.addAttribute("sessionobj", sessiona);
+                model.addAttribute("userNameSurname", sessiona.getUser().getNameSurname());
+                model.addAttribute("userId", sessiona.getUser().getId());
+                String profilePicUrl = "/profilePic/" + sessiona.getUser().getId() + "?" + Math.random();
+
+                if (!sessiona.getUser().getFacebookId().isEmpty()) {
+                    profilePicUrl = "http://graph.facebook.com/" + sessiona.getUser().getFacebookId() + "/picture?type=large";
+                }
+                model.addAttribute("profilePicUrl", profilePicUrl);
+
+                model.addAttribute("loggedIn", true);
+
+
+            } else {
+                model.addAttribute("loggedIn", false);
+            }
+        } else {
+            model.addAttribute("loggedIn", false);
+        }
+
+        return "main/order";
+    }
+
     @GetMapping(value = "/class", produces = "text/html")
     public String classPage(Model model,
                             @RequestParam("id") long id,
