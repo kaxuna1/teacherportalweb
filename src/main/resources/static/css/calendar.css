@@ -110,7 +110,6 @@
 .day {
     display: inline-block;
     width: 14%;
-    padding: 2px;
     text-align: center;
     vertical-align: top;
     cursor: pointer;
@@ -141,13 +140,12 @@
     text-transform: uppercase;
     margin-bottom: 10px;
     color: black;
-    letter-spacing: .7px;
+
 }
 
 .day-number {
     font-size: 12px;
-    letter-spacing: 1.5px;
-
+    font-family: brix!important;
 }
 
 

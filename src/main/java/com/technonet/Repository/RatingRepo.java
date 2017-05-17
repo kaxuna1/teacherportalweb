@@ -17,15 +17,15 @@ import java.util.List;
 @Transactional
 public interface RatingRepo extends JpaRepository<Rating,Long> {
     @Query("select avg(a.score) from Rating a join a.userCategoryJoin ucj where ucj.id=:cid")
-    float getrating(@Param("cid") long cid);
+    Float getrating(@Param("cid") long cid);
     @Query("select avg(a.scorepunctual) from Rating a join a.userCategoryJoin ucj where ucj.id=:cid")
-    float getratingPunctual(@Param("cid") long cid);
+    Float getratingPunctual(@Param("cid") long cid);
     @Query("select avg(a.scorebalanced) from Rating a join a.userCategoryJoin ucj where ucj.id=:cid")
-    float getratingBalanced(@Param("cid") long cid);
+    Float getratingBalanced(@Param("cid") long cid);
     @Query("select avg(a.scoreresolved) from Rating a join a.userCategoryJoin ucj where ucj.id=:cid")
-    float getratingResolved(@Param("cid") long cid);
+    Float getratingResolved(@Param("cid") long cid);
     @Query("select count (a.scoreresolved) from Rating a join a.userCategoryJoin ucj where ucj.id=:cid")
-    int getratingCount(@Param("cid") long cid);
+    Integer getratingCount(@Param("cid") long cid);
     @Query("select a from Rating a join a.userCategoryJoin ucj where ucj.id=:cid")
-    List findByJoin(@Param("cid")long id, Pageable pageable);
+    List<Rating> findByJoin(@Param("cid")long id, Pageable pageable);
 }

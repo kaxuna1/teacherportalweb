@@ -1,8 +1,5 @@
 package com.technonet.controlers;
 
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.*;
 import com.technonet.Enums.JsonReturnCodes;
@@ -20,8 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.sql.Time;
 import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
+
+import com.google.api.services.calendar.Calendar;
 
 /**
  * Created by kakha on 3/11/2017.
@@ -90,7 +87,9 @@ public class ScheduleController {
     @RequestMapping("/getusercategoryscheduledays/{category}")
     @ResponseBody
     public List<Schedule> getUserCategoryScheduleDays(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
-                                                      @PathVariable(value = "category", required = true) long category) {
+                                                      @PathVariable(value = "category", required = true) long category,
+                                                      @CookieValue(value = "lang", defaultValue = "1") int lang) {
+        Variables.myThreadLocal.set(lang);
         return scheduleRepo.findByUserCategoryJoinAndActive(userCategoryJoinRepo.findOne(category), true);
     }
 
@@ -256,7 +255,9 @@ public class ScheduleController {
     public List<BookedTime> getScheduledLessons(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                                                 @PathVariable(value = "id") long id,
                                                 @PathVariable(value = "cat") long cat,
-                                                @PathVariable(value = "days") int days) {
+                                                @PathVariable(value = "days") int days,
+                                                @CookieValue(value = "lang") int lang) {
+        Variables.myThreadLocal.set(lang);
         Session session = sessionRepository.findOne(sessionId);
         if (PermisionChecks.isAdmin(session)) {
             return bookedTimeRepo.findInsideIntervalWithCat(new DateTime().minusDays(days).toDate(), new DateTime().plusDays(days).toDate(), userCategoryJoinRepo.findOne(cat));

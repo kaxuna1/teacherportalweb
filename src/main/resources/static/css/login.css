@@ -157,7 +157,7 @@
 }
 
 .navbar-custom .nav li a {
-    font-size: 20px;
+    font-size: 22px;
     padding-right: 30px;
 
 
@@ -207,7 +207,7 @@
 
 /* Form wrapper styling */
 .form-wrapper {
-    max-width: 400px;
+    max-width: 520px;
     min-width: 300px;
     width: 300px;
     margin: 0 auto 0 auto;
@@ -220,7 +220,7 @@
 
 .form-wrapper input {
     width: 40%;
-    height: 85px;
+    height: 90px;
     min-height: 70px;
     padding: 10px 5px;
     float: left;
@@ -275,7 +275,7 @@ input:focus::-webkit-input-placeholder {
     padding: 0;
     cursor: pointer;
     min-height: 70px;
-    height: 85px;
+    height: 90px;
     width: 20%;
     font: bold 15px/40px 'lucida sans', 'trebuchet MS', 'Tahoma';
     color: #fff;
@@ -685,7 +685,11 @@ ul {
     margin: 0 auto;
     overflow: hidden;
 }
-
+@media (min-width: 1280px) {
+    .form-wrapper {
+        width: 520px!important;
+    }
+}
 @media (min-width: 400px) {
     #wrapperDiv {
         overflow: visible;
@@ -698,13 +702,13 @@ ul {
 
     .paralLeft {
 
-        border-left: 397px solid transparent !important;
+        border-left: 517px solid transparent !important;
         float: left;
     }
 
     .paralRight {
-        border-right: 397px solid transparent !important;
-        margin-left: 393px !important;
+        border-right: 517px solid transparent !important;
+        margin-left: 513px !important;
 
     }
 }
@@ -726,7 +730,7 @@ ul {
 .paralLeft {
     width: 0;
     height: 0;
-    border-top: 60vh solid #46c3bf;
+    border-top: 55vh solid #46c3bf;
     border-left: 297px solid transparent;
     float: left;
 }
@@ -734,7 +738,7 @@ ul {
 .paralRight {
     width: 0;
     height: 0;
-    border-bottom: 60vh solid #46c3bf;
+    border-bottom: 55vh solid #46c3bf;
     border-right: 297px solid transparent;
     margin-left: 293px;
 
@@ -1559,6 +1563,42 @@ footer {
         color: black
     }
 }
+.navbar{
+    padding-top: 20px;
+}
+@media (min-width: 1600px) {
+    .tolearn {
+        display: -webkit-box;
+        font-family: brixLight !important;
+        margin-left: 70px;
+        padding-top: 18px!important;
+        font-size: 124px !important;;
+        font-weight: 100;
+        white-space: nowrap;
+        position: absolute;
+        color: black
+    }
+    .iwant {
+        display: -webkit-box;
+        font-family: brixBold;
+        font-size: 124px!important;
+        padding-bottom: 15px!important;
+    }
+    .navbar-brand{
+        padding: 0;
+        font-size: 62px!important;
+        font-family: brixnorm!important;
+    }
+    .becometeacherbtn a{
+        font-size: 25px;
+        padding-top: 22px;
+    }
+    .logisignbtn a{
+        font-size: 25px;
+        padding-top: 22px;
+    }
+}
+
 
 .iwant {
     display: -webkit-box;

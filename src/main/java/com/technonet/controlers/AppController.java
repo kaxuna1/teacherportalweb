@@ -147,10 +147,17 @@ public class AppController {
 
         model.addAttribute("scoreCount",scoreCount+" Reviews");
 
-        int pro=(int)Math.ceil(ratingRepo.getrating(id));
-        int punct =  (int)Math.ceil(ratingRepo.getratingPunctual(id));
-        int bal = (int)Math.ceil(ratingRepo.getratingBalanced(id));
-        int resol = (int)Math.ceil(ratingRepo.getratingResolved(id));
+
+
+        Float proF=ratingRepo.getrating(id);
+        Float punctF = ratingRepo.getratingPunctual(id);
+        Float balF =ratingRepo.getratingBalanced(id);
+        Float resolF = ratingRepo.getratingResolved(id);
+
+        int pro=(int)Math.ceil(proF==null?5:proF);
+        int punct =  (int)Math.ceil((punctF==null?5:punctF));
+        int bal = (int)Math.ceil(balF==null?5:balF);
+        int resol = (int)Math.ceil(resolF==null?5:resolF);
         int score=(int)Math.ceil((pro+punct+bal+resol)/4);
 
 
