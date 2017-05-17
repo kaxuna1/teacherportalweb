@@ -1,13 +1,13 @@
 package com.technonet.controlers;
 
 import com.technonet.Enums.InfoRecordTypes;
-import com.technonet.Repository.ConfirmationTokenRepo;
-import com.technonet.Repository.SessionRepository;
-import com.technonet.Repository.SysStringRepo;
-import com.technonet.Repository.UserCategoryJoinRepo;
+import com.technonet.Repository.*;
 import com.technonet.model.*;
 import com.technonet.staticData.Variables;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.stereotype.Controller;
@@ -142,6 +142,31 @@ public class AppController {
 
 
 
+        int scoreCount = ratingRepo.getratingCount(id);
+
+
+        model.addAttribute("scoreCount",scoreCount+" Reviews");
+
+        int pro=(int)Math.ceil(ratingRepo.getrating(id));
+        int punct =  (int)Math.ceil(ratingRepo.getratingPunctual(id));
+        int bal = (int)Math.ceil(ratingRepo.getratingBalanced(id));
+        int resol = (int)Math.ceil(ratingRepo.getratingResolved(id));
+        int score=(int)Math.ceil((pro+punct+bal+resol)/4);
+
+
+        List<Rating> reviews = ratingRepo.findByJoin(id,constructPageSpecification(0,5));
+
+
+        model.addAttribute("reviews",reviews);
+
+        model.addAttribute("scoreProfessional", pro);
+        model.addAttribute("scorePunctual",punct);
+        model.addAttribute("scoreBalanced", bal);
+        model.addAttribute("scoreResolved",resol );
+        model.addAttribute("scoreMain", score);
+
+
+
 
         List<InfoRecord> infoRecordList = userCategoryJoin.getUser().getInfoRecords();
 
@@ -231,6 +256,9 @@ public class AppController {
         return "redirect:/";
     }
 
+    private Pageable constructPageSpecification(int pageIndex, int size) {
+        return new PageRequest(pageIndex, size);
+    }
 
     @Autowired
     private SessionRepository sessionRepository;
@@ -240,4 +268,6 @@ public class AppController {
     private ConfirmationTokenRepo confirmationTokenRepo;
     @Autowired
     private UserCategoryJoinRepo userCategoryJoinRepo;
+    @Autowired
+    private RatingRepo ratingRepo;
 }

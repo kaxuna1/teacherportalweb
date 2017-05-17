@@ -87,6 +87,9 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Order> orders;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Rating> ratings;
 
     @JsonIgnore
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -120,28 +123,30 @@ public class User {
 
     public User() {
     }
+
     public User(String password,
                 String email,
                 String name,
-                String surname){
+                String surname) {
         this.password = password;
         this.email = email;
         this.name = name;
         this.surname = surname;
-        this.username="";
-        this.active=true;
-        this.confirmedEmail=false;
-        this.confirmedSMS=false;
-        this.personalNumber="";
-        this.facebookId="";
-        this.googleId="";
-        this.language=1;
-        this.calendarRefreshToken="";
-        this.calendarId="";
-        this.mobile="";
-        this.facebookId="";
-        this.googleId="";
+        this.username = "";
+        this.active = true;
+        this.confirmedEmail = false;
+        this.confirmedSMS = false;
+        this.personalNumber = "";
+        this.facebookId = "";
+        this.googleId = "";
+        this.language = 1;
+        this.calendarRefreshToken = "";
+        this.calendarId = "";
+        this.mobile = "";
+        this.facebookId = "";
+        this.googleId = "";
         this.infoRecords = new ArrayList<>();
+        this.ratings = new ArrayList<>();
 
     }
 
@@ -174,14 +179,15 @@ public class User {
         this.confirmedEmail = false;
         this.confirmedSMS = false;
         this.confirmationTokens = new ArrayList<>();
-        this.bookedTimesStudent=new ArrayList<>();
-        this.orders=new ArrayList<>();
-        this.active=true;
-        this.language=1;
-        this.calendarRefreshToken="";
-        this.calendarId="";
-        this.facebookId="";
-        this.googleId="";
+        this.bookedTimesStudent = new ArrayList<>();
+        this.orders = new ArrayList<>();
+        this.active = true;
+        this.language = 1;
+        this.calendarRefreshToken = "";
+        this.calendarId = "";
+        this.facebookId = "";
+        this.googleId = "";
+        this.ratings = new ArrayList<>();
     }
 
 
@@ -430,16 +436,20 @@ public class User {
     public void setLanguage(int language) {
         this.language = language;
     }
-    public String getLangName(){
-        return  Languages.valueOf(this.language).name();
+
+    public String getLangName() {
+        return Languages.valueOf(this.language).name();
     }
-    public boolean isFacebookConnected(){
+
+    public boolean isFacebookConnected() {
         return !this.facebookId.isEmpty();
     }
-    public boolean isGoogleConnected(){
+
+    public boolean isGoogleConnected() {
         return !this.googleId.isEmpty();
     }
-    public boolean isCalendarConnected(){
+
+    public boolean isCalendarConnected() {
         return !this.calendarRefreshToken.isEmpty();
     }
 
@@ -449,5 +459,13 @@ public class User {
 
     public void setInfoRecords(List<InfoRecord> infoRecords) {
         this.infoRecords = infoRecords;
+    }
+
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
     }
 }

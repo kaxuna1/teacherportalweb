@@ -1395,6 +1395,9 @@ ul {
         background-color: #46c3bf;
         color: white;
     }
+    .reviewsColList:first-child{
+        border: none!important;
+    }
 }
 
 /*

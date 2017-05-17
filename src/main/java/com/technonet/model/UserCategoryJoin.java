@@ -43,6 +43,10 @@ public class UserCategoryJoin {
     @OneToMany(mappedBy = "userCategoryJoin", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BookedTime> bookedTimes;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "userCategoryJoin", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Rating> ratings;
+
     @Column
     private Date date;
 
@@ -78,6 +82,7 @@ public class UserCategoryJoin {
         this.schedules = new ArrayList<>();
         this.price = price;
         this.bookedTimes = new ArrayList<>();
+        this.ratings = new ArrayList<>();
 
     }
 
@@ -225,5 +230,13 @@ public class UserCategoryJoin {
 
     public void setAbout(String about) {
         this.about = about;
+    }
+
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
     }
 }

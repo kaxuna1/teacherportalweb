@@ -184,14 +184,9 @@
                                 <div class="row">
                                     <div class="starRatingDivClass">
                                         <span class="starRatingClass">
-                                            <img class="staricon" src="png/search/v.png">
-                                            <img class="staricon" src="png/search/v.png">
-                                            <img class="staricon" src="png/search/v.png">
-                                            <img class="staricon" src="png/search/v.png">
-                                            <img class="staricon" src="png/search/v.png">
+                                            <img class="staricon" th:each="i : ${#numbers.sequence( 1, scoreMain)}" src="png/search/v.png">
                                         </span>
-                                        <span class="reviewsLabelClass">
-                                            37 reviews
+                                        <span class="reviewsLabelClass" th:text="${scoreCount}">
                                         </span>
                                         <span class="viewsLabelClass">
                                             <img src="png/search/4.png">450
@@ -323,17 +318,12 @@
                                         <tbody>
                                         <tr>
                                             <td class="ratingLeftTd">
-                                                <span class="ratingsTitle">
-                                                37 Reviews
+                                                <span th:text="${scoreCount}" class="ratingsTitle">
                                                 </span>
                                             </td>
                                             <td class="ratingRightTd">
                                             <span class="starRatingClass">
-                                            <img class="staricon" src="png/search/v.png">
-                                            <img class="staricon" src="png/search/v.png">
-                                            <img class="staricon" src="png/search/v.png">
-                                            <img class="staricon" src="png/search/v.png">
-                                            <img class="staricon" src="png/search/v.png">
+                                            <img class="staricon" th:each="i : ${#numbers.sequence( 1, scoreMain)}" src="png/search/v.png">
                                         </span>
                                             </td>
                                         </tr>
@@ -354,11 +344,8 @@
                                                 </td>
                                                 <td class="ratingRightTd">
                                             <span class="starRatingClass">
-                                            <img class="staricon" src="png/search/v.png">
-                                            <img class="staricon" src="png/search/v.png">
-                                            <img class="staricon" src="png/search/v.png">
-                                            <img class="staricon" src="png/search/v.png">
-                                            <img class="staricon" src="png/search/v.png">
+                                            <img th:each="i : ${#numbers.sequence( 1, scoreProfessional)}" class="staricon" src="png/search/v.png">
+
                                         </span>
                                                 </td>
                                             </tr>
@@ -375,11 +362,8 @@
                                                 </td>
                                                 <td class="ratingRightTd">
                                             <span class="starRatingClass floatRightClassRating">
-                                            <img class="staricon" src="png/search/v.png">
-                                            <img class="staricon" src="png/search/v.png">
-                                            <img class="staricon" src="png/search/v.png">
-                                            <img class="staricon" src="png/search/v.png">
-                                            <img class="staricon" src="png/search/v.png">
+                                            <img class="staricon" th:each="i : ${#numbers.sequence( 1, scorePunctual)}" src="png/search/v.png">
+
                                         </span>
                                                 </td>
                                             </tr>
@@ -397,11 +381,7 @@
                                                 </td>
                                                 <td class="ratingRightTd">
                                             <span class="starRatingClass">
-                                            <img class="staricon" src="png/search/v.png">
-                                            <img class="staricon" src="png/search/v.png">
-                                            <img class="staricon" src="png/search/v.png">
-                                            <img class="staricon" src="png/search/v.png">
-                                            <img class="staricon" src="png/search/v.png">
+                                            <img class="staricon" th:each="i : ${#numbers.sequence( 1, scoreBalanced)}"  src="png/search/v.png">
                                         </span>
                                                 </td>
                                             </tr>
@@ -417,11 +397,8 @@
                                                 </td>
                                                 <td class="ratingRightTd">
                                             <span class="starRatingClass floatRightClassRating">
-                                            <img class="staricon" src="png/search/v.png">
-                                            <img class="staricon" src="png/search/v.png">
-                                            <img class="staricon" src="png/search/v.png">
-                                            <img class="staricon" src="png/search/v.png">
-                                            <img class="staricon" src="png/search/v.png">
+                                            <img class="staricon" th:each="i : ${#numbers.sequence( 1, scoreResolved)}" src="png/search/v.png">
+
                                         </span>
                                                 </td>
                                             </tr>
@@ -432,9 +409,9 @@
 
                             </div>
                         </div>
-                        <div class="row noLeftPadding noRightPadding">
+                        <div style="display: block" class="row noLeftPadding noRightPadding">
                             <div class="col-md-12 reviewsColList noLeftPadding noRightPadding">
-                                <div class="reviewItemDiv borderBotom noPaddingTop">
+                                <div th:each="review: ${reviews}" class="reviewItemDiv borderBotom noPaddingTop">
                                     <div class="reviewItemDivHead">
 
                                         <table>
@@ -446,37 +423,8 @@
                                                          src="http://lorempixel.com/140/140/"/>
                                                 </td>
                                                 <td class="reviewerNameTd" style=" ">
-                                                    <span class="reviewerNameSpan">
-                                                        Kaxa
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="reviewItemDivBody">
-                                        <p style="color: black">
-                                            High School hight school moof bhiod akjrea tyold porty yuoir jhfvslh
-                                            nbmjdgui lauiduo hfuydguy jkafhk tyuo dgtod erty bood moo dhy reep mosi mdgu
-                                            wertio mahnj hoteruap magty. kfjkjko mko dyuao modo mtod moa. sdhnfjk bodo
-                                            area more is mafj.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="reviewItemDiv">
-                                    <div class="reviewItemDivHead">
+                                                    <span th:text="${review.user.name}" class="reviewerNameSpan">
 
-                                        <table>
-                                            <tbody>
-                                            <tr class="reviewrNameImageRow">
-                                                <td>
-                                                    <img alt="Bootstrap Image Preview"
-                                                         class="img-circle reviewrImage"
-                                                         src="http://lorempixel.com/140/140/"/>
-                                                </td>
-                                                <td class="reviewerNameTd" style=" ">
-                                                    <span class="reviewerNameSpan">
-                                                        Kaxa
                                                     </span>
                                                 </td>
                                             </tr>
@@ -484,19 +432,17 @@
                                         </table>
                                     </div>
                                     <div class="reviewItemDivBody">
-                                        <p style="color: black">
-                                            High School hight school moof bhiod akjrea tyold porty yuoir jhfvslh
-                                            nbmjdgui lauiduo hfuydguy jkafhk tyuo dgtod erty bood moo dhy reep mosi mdgu
-                                            wertio mahnj hoteruap magty. kfjkjko mko dyuao modo mtod moa. sdhnfjk bodo
-                                            area more is mafj.
+                                        <p th:text="${review.comment}" style="color: black">
+
                                         </p>
                                     </div>
                                 </div>
-                                <div class="reviewsMoreButtonDiv">
-                                    <a class="reviewsMoreButton">
-                                        + More
-                                    </a>
-                                </div>
+
+                            </div>
+                            <div class="reviewsMoreButtonDiv">
+                                <a class="reviewsMoreButton">
+                                    + More
+                                </a>
                             </div>
                         </div>
                     </div>

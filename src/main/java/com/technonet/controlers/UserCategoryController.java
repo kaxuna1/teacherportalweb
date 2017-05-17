@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -159,6 +160,45 @@ public class UserCategoryController {
         }
     }
 
+    @RequestMapping("/giverating")
+    @ResponseBody
+    public JsonMessage giveRating(@CookieValue("projectSessionId") long sessionId,
+                                  @RequestParam("id") long id, @RequestParam("score") int score,
+                                  @RequestParam("comment") String comment){
+
+        Session session = sessionRepository.findOne(id);
+        User user = session.getUser();
+        UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(id);
+
+        Rating rating = new Rating(userCategoryJoin,user,comment,score);
+
+        try {
+
+            ratingRepo.save(rating);
+
+            return new JsonMessage(JsonReturnCodes.Ok);
+
+        }catch (Exception e){
+            e.printStackTrace();
+
+            return new JsonMessage(JsonReturnCodes.ERROR);
+        }
+    }
+    @RequestMapping("/getrating/{id}")
+    @ResponseBody
+    public Map<String,Float> getRating(@PathVariable("id")long id){
+
+        Map<String,Float> ratings = new HashMap<>();
+
+        ratings.put("profesional",ratingRepo.getrating(id));
+        ratings.put("balanced",ratingRepo.getratingBalanced(id));
+        ratings.put("punctual",ratingRepo.getratingPunctual(id));
+        ratings.put("resolved",ratingRepo.getratingResolved(id));
+
+
+        return ratings;
+    }
+
     private Pageable constructPageSpecification(int pageIndex, int size) {
         return new PageRequest(pageIndex, size);
     }
@@ -171,4 +211,6 @@ public class UserCategoryController {
     private UserCategoryJoinRepo userCategoryJoinRepo;
     @Autowired
     private CategoryRepo categoryRepo;
+    @Autowired
+    private RatingRepo ratingRepo;
 }
