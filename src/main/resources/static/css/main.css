@@ -162,12 +162,15 @@ and (min-width : 1224px) {
 @media only screen
 and (min-width : 1824px) {
     /* Styles */
+    header .intro-text{
+        top: 58%;
+    }
     .tolearn {
         display: -webkit-box;
         font-family: brixLight !important;
         margin-left: 70px;
         padding-top: 18px!important;
-        font-size: 124px !important;;
+        font-size: 120px !important;;
         font-weight: 100;
         white-space: nowrap;
         position: absolute;

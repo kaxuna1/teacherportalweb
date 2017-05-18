@@ -54,6 +54,8 @@
     <!-- Theme CSS -->
     <link href="css/agency.css" rel="stylesheet">
     <link href="css/login.css" rel="stylesheet">
+
+    <link href="css/main.css" rel="stylesheet">
     <link href="css/calendar.css" rel="stylesheet" type="text/css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -67,7 +69,7 @@
 <body style="overflow: visible!important;" id="page-top" class="index">
 
 <!-- Navigation -->
-<nav style=";z-index: 500" id="mainNav"
+<nav style="background-color: white;z-index: 500" id="mainNav"
      class="navbar navbar-default navbar-custom navbar-fixed-top">
 
     <div style="width: 100%;" class="container">
@@ -77,9 +79,8 @@
                     data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand page-scroll brand navlabel"
-
-               style="padding-top: 5px;    font-size: 30px;padding:0;font-size: 40px;font-family: brixnorm!important; color: white"
+            <a class="navbar-brand page-scroll brand"
+               style="padding-top: 5px;  padding:0;  font-size: 30px;font-size: 40px;font-family: brixnorm!important; "
                href="/">Allwitz</a>
         </div>
 
@@ -88,14 +89,14 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul th:if="${!loggedIn}" class="nav navbar-nav navbar-left">
                 <li id="becometeacherbtn">
-                    <a class="page-scroll navlabel" th:text="${strings.main_become_a_teacher}" href="#"
-                       style="font-size: 18px;color: black;font-family: brixnorm!important;color: white"></a>
+                    <a class="page-scroll" th:text="${strings.main_become_a_teacher}" href="#"
+                       style="font-size: 18px;color: black;font-family: brixnorm!important;"></a>
                 </li>
             </ul>
             <ul th:if="${!loggedIn}" class="nav navbar-nav navbar-right">
                 <li id="logisignbtn">
-                    <a class="page-scroll navlabel" th:text="${strings.main_login_signup}" href="#"
-                       style="font-size: 18px;color: black;padding-right: 0px;font-family: brixnorm!important;color: white"></a>
+                    <a class="page-scroll" th:text="${strings.main_login_signup}" href="#"
+                       style="font-size: 18px;color: black;font-family: brixnorm!important;padding-right: 0px;"></a>
                 </li>
                 <li class="dropdown" id="langbtn">
 
@@ -116,11 +117,11 @@
             <ul th:if="${loggedIn}" class="nav navbar-nav navbar-right">
                 <li class="dropdown" id="userBtn">
 
-                    <a href="#" class="dropdown-toggle navlabel" data-toggle="dropdown"
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                        role="button" aria-haspopup="true"
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><span
                             th:text="${userNameSurname}"
-                            style="font-size: 18px;color: white;font-family: brixnorm!important;"></span></span></a>
+                            style="font-size: 18px;color: black;font-family: brixnorm!important;"></span></span></a>
                     <ul class="dropdown-menu">
                         <li class="profileBtn"><a href="#" th:text="${strings.main_menu_profile}"></a></li>
                         <li class="settingsBtn"><a href="#" th:text="${strings.main_menu_settings}"></a></li>
@@ -151,7 +152,7 @@
     <!-- /.container-fluid -->
 </nav>
 <!-- Header -->
-<section class="classBodySection">
+<section class="orderBodySection">
     <div class="container-fluid classBodyContainer">
         <div class="row">
             <div class="col-md-12 classBodyCol">
