@@ -46,6 +46,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -68,13 +69,14 @@ public class SessionController {
 
 
     @RequestMapping("/loginapi")
-    public String login(String username, String password,HttpServletResponse response){
+    public String login(String username, String password,HttpServletResponse response,HttpServletRequest request){
         Session session;
         User user;
         List<User> users=userDao.findByEmailAndPassword(username,password);
 
+        String referer = request.getHeader("Referer");
         if(users.size()==0){
-            return "redirect:/";
+            return "redirect:"+referer;
         }else{
             user=users.get(0);
             session=new Session(new Date(),user);
@@ -83,7 +85,7 @@ public class SessionController {
             response.addCookie(new Cookie("userId", session.getUser().getId()+""));
             response.addCookie(new Cookie("lang", session.getUser().getLanguage()+""));
 
-            return "redirect:/";
+            return "redirect:"+referer;
         }
     }
     @RequestMapping("/loginmobileapi")

@@ -406,6 +406,8 @@ function drawItemsToBook() {
             "</td>" +
             "<td class='timeTd'>" +
             moment(parseInt(key)).locale("us").format("HH:mm") +
+            "-" +
+            moment(parseInt(key)).add(parseInt($("#duration").html()),"minutes").format("HH:mm")+
             "</td>" +
             "<td class='removeTd'>" +
             "<a class='removeDateFromItems' value='" + key + "' >X</a>" +

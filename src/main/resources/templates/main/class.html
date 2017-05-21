@@ -223,8 +223,8 @@
                                 <ul class="nav nav-pills classNav">
                                     <li class="noLeftPadding" role="presentation"><a class="noLeftPadding" href="#">Location</a>
                                     </li>
-                                    <li role="presentation"><a href="#">Reviews</a></li>
-                                    <li role="presentation"><a href="#">Map</a></li>
+                                    <li role="presentation"><a href="#rews">Reviews</a></li>
+                                    <li role="presentation"><a href="#map">Map</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -307,7 +307,7 @@
                                 <span class="mapTitle">
                                     Map
                                 </span>
-                                <div class="mapDivClass">
+                                <div id="map" class="mapDivClass">
                                     <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d33111.09406324017!2d44.77846125597866!3d41.725010699918016!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sge!4v1493398316680"
                                             width="100%" height="100%" frameborder="0" style="border:0"
                                             allowfullscreen></iframe>
@@ -412,7 +412,7 @@
 
                             </div>
                         </div>
-                        <div style="display: block" class="row noLeftPadding noRightPadding">
+                        <div id="rews" style="display: block" class="row noLeftPadding noRightPadding">
                             <div class="col-md-12 reviewsColList noLeftPadding noRightPadding">
                                 <div th:each="review: ${reviews}" class="reviewItemDiv borderBotom noPaddingTop">
                                     <div class="reviewItemDivHead">
@@ -455,7 +455,7 @@
                                 <div class="calendarTopDiv">
                                     <div class="calendarHeader">
                                         <h2>
-                                            100$ / class
+                                            <span th:text="${#numbers.formatDecimal(price, 0, 0)}"></span>$/ class
                                         </h2>
                                     </div>
                                     <div class="calendarBody">
@@ -509,15 +509,6 @@
 
                                                 </tbody>
                                             </table>
-                                        </div>
-                                    </div>
-                                    <div class="clasTypeButtonPlace">
-                                        <span class="classTypeText">Class Type</span>
-                                        <div class="classTypeDiv">
-                                            <span class="classTypeLabel">
-                                                Group
-                                            </span>
-                                            <input class="classTypeInput" type="checkbox">
                                         </div>
                                     </div>
                                     <div class="bookButtonPlace">
@@ -607,6 +598,7 @@
 </footer>
 
 <div id="duration" style="display: none" th:text="${duration}"></div>
+<div id="price" style="display: none" th:text="${#numbers.formatDecimal(price, 0, 0)}"></div>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>

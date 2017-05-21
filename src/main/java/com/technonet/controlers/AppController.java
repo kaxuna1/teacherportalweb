@@ -130,6 +130,7 @@ public class AppController {
         model.addAttribute("className", className);
         model.addAttribute("classAbout", classAbout);
         model.addAttribute("teacherPic", teacherPic);
+        model.addAttribute("price",userCategoryJoin.getPrice());
 
 
         final boolean[] academic = {false};
@@ -271,7 +272,7 @@ public class AppController {
         model.addAttribute("className", className);
         model.addAttribute("classAbout", classAbout);
         model.addAttribute("teacherPic", teacherPic);
-
+        model.addAttribute("price",userCategoryJoin.getPrice());
 
         final boolean[] academic = {false};
         final boolean[] employment = {false};

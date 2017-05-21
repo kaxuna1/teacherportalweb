@@ -432,7 +432,7 @@ and (max-width : 1224px) {
         padding-left: 10px;
         padding-right: 10px;
         text-align: center;
-        padding-bottom: 30px;
+        padding-bottom: 20px;
     }
 
     .clasTypeButtonPlace{
@@ -921,7 +921,7 @@ and (orientation : landscape) {
         padding-left: 10px;
         padding-right: 10px;
         text-align: center;
-        padding-bottom: 30px;
+        padding-bottom: 20px;
     }
 
     .clasTypeButtonPlace{
@@ -1428,7 +1428,7 @@ and (orientation : portrait) {
         padding-left: 10px;
         padding-right: 10px;
         text-align: center;
-        padding-bottom: 30px;
+        padding-bottom: 20px;
     }
 
     .clasTypeButtonPlace{

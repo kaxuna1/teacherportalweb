@@ -13,6 +13,25 @@ $(document).ready(function () {
 
         $(".bookButton").click(function () {
             if(readCookie("projectSessionId")){
+                var timesString="";
+                var keys = Object.keys(timesForBook),
+                    i, len = keys.length;
+
+                keys.sort();
+                if(len<1)
+                    return 0;
+
+                for (i = 0; i < len; i++) {
+                    var key = keys[i];
+                    timesString+=key+",";
+
+                }
+                timesString=timesString.slice(0,-1)
+
+                var url="/order?id="+id+"&times="+timesString;
+
+                window.location=url;
+
 
             }else{
                 $("#logisignbtn").click();

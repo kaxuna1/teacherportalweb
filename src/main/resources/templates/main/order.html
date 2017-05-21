@@ -74,7 +74,7 @@
 <body style="overflow: visible!important;" id="page-top" class="index">
 
 <!-- Navigation -->
-<nav style="background-color: white;z-index: 500" id="mainNav"
+<nav style="background-color: white;z-index: 500;border-bottom: 1px solid black" id="mainNav"
      class="navbar navbar-default navbar-custom navbar-fixed-top">
 
     <div style="width: 100%;" class="container">
@@ -167,13 +167,14 @@
                         <div class="row">
                             <div class="col-md-12 noLeftPadding">
                                 <ul class="nav nav-pills classNav">
-                                    <li class="noLeftPadding orderYourClasses" role="presentation"><a class="noLeftPadding" href="#">Your Classes</a>
+                                    <li class="noLeftPadding orderYourClasses" role="presentation"><a
+                                            class="noLeftPadding" href="#">Your Classes</a>
                                 </ul>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12 infoCol noLeftPadding noRightPadding">
-                                <div  class="row infoRowOrder">
+                                <div class="row infoRowOrder">
                                     <div class="col-md-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
@@ -181,11 +182,12 @@
                                         </span>
 
                                     </div>
-                                    <div th:text="${teacherName}" class="col-md-8 infoContentOrder noLeftPadding noRightPadding">
+                                    <div th:text="${teacherName}"
+                                         class="col-md-8 infoContentOrder noLeftPadding noRightPadding">
 
                                     </div>
                                 </div>
-                                <div  class="row infoRowOrder">
+                                <div class="row infoRowOrder">
                                     <div class="col-md-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
@@ -193,11 +195,12 @@
                                         </span>
 
                                     </div>
-                                    <div th:text="${className}" class="col-md-8 infoContentOrder  noLeftPadding noRightPadding">
+                                    <div th:text="${className}"
+                                         class="col-md-8 infoContentOrder  noLeftPadding noRightPadding">
 
                                     </div>
                                 </div>
-                                <div  class="row infoRowOrder">
+                                <div class="row infoRowOrder">
                                     <div class="col-md-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
@@ -209,7 +212,7 @@
                                         Individual
                                     </div>
                                 </div>
-                                <div  class="row infoRowOrder">
+                                <div class="row infoRowOrder">
                                     <div class="col-md-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
@@ -221,7 +224,7 @@
 
                                     </div>
                                 </div>
-                                <div  class="row infoRowOrder">
+                                <div class="row infoRowOrder">
                                     <div class="col-md-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
@@ -229,10 +232,10 @@
                                         </span>
                                     </div>
                                     <div class="col-md-8 infoContentOrder noLeftPadding noRightPadding">
-
+                                        At Teacher’s Place
                                     </div>
                                 </div>
-                                <div  class="row infoRowOrder">
+                                <div class="row infoRowOrder">
                                     <div class="col-md-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
@@ -266,12 +269,67 @@
                                         <img th:src="${teacherPic}"
                                              class="img-circle orderProfilePic">
 
-                                        <h2>
-                                            100$ / class
+                                        <h2 th:text="${teacherName}">
+
                                         </h2>
                                     </div>
                                     <div class="orderSumBody">
+                                        <div class="row cityAndClassTypeOrder">
+                                            <div th:text="${city}" class="col-sx-6 orderCity"></div>
+                                            <div th:text="${className}" class="col-sx-6 orderClassRight"></div>
+                                        </div>
+                                        <div class="row classScoreOrder">
+                                            <div class="col-sx-3">
+                                                <span class="starRatingClassOrder">
+                                                    <img class="stariconOrder"
+                                                         th:each="i : ${#numbers.sequence( 1, scoreMain)}"
+                                                         src="png/search/v.png">
+                                                </span>
+                                            </div>
+                                            <div th:text="${scoreCount}" class="col-sx-3 orderScoreCountRight"></div>
+                                            <div class="col-sx-6">
+                                                <span class="viewsLabelOrder">
+                                                   <i style="padding-right: 3px" class="fa fa-eye"
+                                                      aria-hidden="true"></i>450
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="orderSummary row">
+                                            <div class="col-md-12">
+                                                <table class="table">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td style="border: none">
+                                                            100$ x 4 classes
+                                                        </td>
+                                                        <td style="text-align: right;border: none">
+                                                            400$
+                                                        </td>
 
+                                                    </tr>
+                                                    <tr>
+                                                        <td >
+                                                            Service fee
+                                                        </td>
+                                                        <td style="text-align: right">
+                                                            10$
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Total
+                                                        </td>
+                                                        <td style="text-align: right;font-family: brixnorm!important;">
+                                                            400$
+                                                        </td>
+
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
                                     </div>
                                     <div class="bookButtonPlace">
                                         <button class="btn bookButton">Book</button>
@@ -359,6 +417,7 @@
 </footer>
 
 <div id="duration" style="display: none" th:text="${duration}"></div>
+<div id="price" style="display: none" th:text="${#numbers.formatDecimal(price, 0, 0)}"></div>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -380,7 +439,7 @@
 <script src="/assets/js/widgets/dynamicCreateForm.js"></script>
 <script src="/assets/js/mainsite.js"></script>
 <script src="/assets/js/calendar.js"></script>
-<script src="/assets/js/class.js"></script>
+<script src="/assets/js/order.js"></script>
 <script>
 
 
