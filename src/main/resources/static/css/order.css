@@ -13,7 +13,7 @@
 
 .infoRowOrder {
     margin-top: 25px;
-    min-height: 60px;
+    min-height: 50px;
 }
 
 .infoContentOrder {
@@ -42,7 +42,7 @@
     align-self: center;
     padding-left: 20px;
     padding-top: 15px;
-    font-family: brixnorm !important;
+    font-family: brix!important;
     font-size: 15pt;
     margin: 0;
 }
@@ -60,7 +60,7 @@
 }
 
 .orderCity {
-    font-family: brix !important;
+    font-family: brix!important;
     font-size: 14px;
     color: #333333;
 }
@@ -108,4 +108,7 @@
 }
 .expandDates{
     color: #46c3bf;
+}
+.hideOrder{
+    display: none!important;
 }

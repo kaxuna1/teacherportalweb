@@ -39,8 +39,9 @@ $(document).ready(function () {
 
     $(".numberOfClasses").html("<div class='numberOfClassesName'>" + numberOfTimes + " Classes</div>");
     $(".numberOfClasses").append("<div class='numberOfClassesAB'>" + firstLastDates.a + "-" + firstLastDates.b + "</div>")
-    $(".numberOfClasses").append("<div><a style='cursor:pointer;float: right;' class='expandDates'>See Detaials</a>" +
-        "<table style='padding-top: 10px'><tbody class='timesExpanded'></tbody></table></div>")
+    $(".numberOfClasses").append("<div style='margin-top: 10px'>" +
+        "<a style='cursor:pointer;float: right;margin-bottom: 15px;' class='expandDates'>See Detaials</a>" +
+        "<table id='hiddenTimeTable' class='hideOrder' style='padding-top: 10px;    margin-bottom: 20px;'><tbody class='timesExpanded'></tbody></table></div>")
 
     for(var key in timesObject ){
         var item = timesObject[key];
@@ -53,6 +54,9 @@ $(document).ready(function () {
 
 
     }
+    $(".expandDates").click(function () {
+        $("#hiddenTimeTable").toggleClass("hideOrder");
+    })
 
 
 });
