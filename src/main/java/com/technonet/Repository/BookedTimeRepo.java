@@ -41,4 +41,14 @@ public interface BookedTimeRepo extends JpaRepository<BookedTime, Long> {
     List<BookedTime> findInsideIntervalWithUser(@Param("start") Date start,
                                                @Param("end") Date end,
                                                @Param("user") User user);
+    @Query("select bt from BookedTime bt " +
+            "join bt.userCategoryJoin ucj " +
+            "where bt.student=:user " +
+            "and bt.startDate < :end " +
+            "and bt.startDate > :start " +
+            "and bt.active = true " +
+            "order by bt.startDate")
+    List<BookedTime> findInsideIntervalWithStudent(@Param("start") Date start,
+                                               @Param("end") Date end,
+                                               @Param("user") User user);
 }

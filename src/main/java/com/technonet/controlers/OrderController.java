@@ -5,6 +5,7 @@ import com.technonet.model.BookedTime;
 import com.technonet.model.Order;
 import com.technonet.model.Session;
 import com.technonet.staticData.PermisionChecks;
+import com.technonet.staticData.Variables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,7 +27,9 @@ public class OrderController {
     @RequestMapping("/order/{uuid}")
     @ResponseBody
     public Order getOrderById(@CookieValue("projectSessionId") long sessionId,
-                              @PathVariable("uuid") String uuid) {
+                              @PathVariable("uuid") String uuid,
+                              @CookieValue(value = "lang", defaultValue = "1") int lang) {
+        Variables.myThreadLocal.set(lang);
         Session session = sessionRepository.findOne(sessionId);
         Order order = orderRepo.findByUuidAndActive(uuid, true);
         if (PermisionChecks.isAdmin(session) || PermisionChecks.ownOrder(session, order)) {

@@ -250,6 +250,101 @@ public class AppController {
         return "main/order";
     }
 
+
+    @GetMapping(value = "/profile", produces = "text/html")
+    public String profile(Model model,
+                         @CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
+                         @CookieValue(value = "lang", defaultValue = "1") int lang) {
+        Session sessiona;
+        Variables.myThreadLocal.set(lang);
+
+
+
+
+
+
+        Map<String, String> stringMap = Variables.stringsMap.get(lang);
+        model.addAttribute("strings", stringMap);
+        if (sessionId != 0) {
+            sessiona = sessionRepository.findOne(sessionId);
+            if (sessiona.isIsactive()) {
+                String profilePicUrl = "/profilePic/" + sessiona.getUser().getId() + "?" + Math.random();
+                model.addAttribute("sessionobj", sessiona);
+                model.addAttribute("userNameSurname", sessiona.getUser().getNameSurname());
+                model.addAttribute("userId", sessiona.getUser().getId());
+
+
+
+                model.addAttribute("about",sessiona.getUser().getAbout());
+                model.addAttribute("city",sessiona.getUser().getCity().getName() + ", "
+                        + sessiona.getUser().getCity().getCountry().getName());
+                model.addAttribute("address",sessiona.getUser().getAddress());
+                model.addAttribute("email",sessiona.getUser().getEmail());
+                model.addAttribute("phone",sessiona.getUser().getMobile());
+
+
+                model.addAttribute("profilePicUrl", profilePicUrl);
+
+                model.addAttribute("loggedIn", true);
+
+
+            } else {
+                model.addAttribute("loggedIn", false);
+            }
+        } else {
+            model.addAttribute("loggedIn", false);
+        }
+
+        return "main/profile";
+    }
+
+    @GetMapping(value = "/myclasses", produces = "text/html")
+    public String myclasses(Model model,
+                         @CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
+                         @CookieValue(value = "lang", defaultValue = "1") int lang) {
+        Session sessiona;
+        Variables.myThreadLocal.set(lang);
+
+
+
+
+
+
+        Map<String, String> stringMap = Variables.stringsMap.get(lang);
+        model.addAttribute("strings", stringMap);
+        if (sessionId != 0) {
+            sessiona = sessionRepository.findOne(sessionId);
+            if (sessiona.isIsactive()) {
+                String profilePicUrl = "/profilePic/" + sessiona.getUser().getId() + "?" + Math.random();
+                model.addAttribute("sessionobj", sessiona);
+                model.addAttribute("userNameSurname", sessiona.getUser().getNameSurname());
+                model.addAttribute("userId", sessiona.getUser().getId());
+
+
+
+                model.addAttribute("about",sessiona.getUser().getAbout());
+                model.addAttribute("city",sessiona.getUser().getCity().getName() + ", "
+                        + sessiona.getUser().getCity().getCountry().getName());
+                model.addAttribute("address",sessiona.getUser().getAddress());
+                model.addAttribute("email",sessiona.getUser().getEmail());
+                model.addAttribute("phone",sessiona.getUser().getMobile());
+
+
+                model.addAttribute("profilePicUrl", profilePicUrl);
+
+                model.addAttribute("loggedIn", true);
+
+
+            } else {
+                model.addAttribute("loggedIn", false);
+            }
+        } else {
+            model.addAttribute("loggedIn", false);
+        }
+
+        return "main/myclasses";
+    }
+
     @GetMapping(value = "/class", produces = "text/html")
     public String classPage(Model model,
                             @RequestParam("id") long id,

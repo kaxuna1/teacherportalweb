@@ -82,35 +82,62 @@ public class BookingController {
                 }
 
 
-            return new JsonMessage(JsonReturnCodes.Ok.getCODE(),order.getUuid());
+            return new JsonMessage(JsonReturnCodes.Ok.getCODE(), order.getUuid());
         }
         return new JsonMessage(JsonReturnCodes.DONTHAVEPERMISSION);
-
     }
 
     @RequestMapping("/bookforuser/{usercat}")
     @ResponseBody
     public JsonMessage book(@CookieValue("projectSessionId") long sessionId,
                             @PathVariable("usercat") long usercat,
+                            @RequestParam(value = "comment", defaultValue = "") String comment,
                             @RequestParam(value = "times") ArrayList<Long> times) {
 
         Session session = sessionRepository.findOne(sessionId);
-        if (PermisionChecks.student(session)) {
-            User user = session.getUser();
-            UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(usercat);
-            Order order = new Order(user);
-            order.setPrice(userCategoryJoin.getPrice() * times.size());
-            orderRepo.save(order);
-            for (Long time : times) {
-                BookedTime bookedTime = new BookedTime(new Date(time), new DateTime(time).plusMinutes(userCategoryJoin.getDuration()).toDate(), user, userCategoryJoin, order);
-                bookedTimeRepo.save(bookedTime);
-            }
-            Payment payment = new Payment(order.getOrderPrice(), order);
-            paymentsRepo.save(payment);
-            return new JsonMessage(JsonReturnCodes.Ok.getCODE(), payment.getUuid());
-        }
-        return new JsonMessage(JsonReturnCodes.DONTHAVEPERMISSION);
+        User user = session.getUser();
 
+
+        List<BookedTime> bookedTimes = new ArrayList<>();
+
+        UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(usercat);
+        Order order = new Order(user);
+        order.setComment(comment);
+        order.setPrice(userCategoryJoin.getPrice() * times.size());
+        orderRepo.save(order);
+        for (Long time : times) {
+            BookedTime bookedTime = new BookedTime(new DateTime(time).withSecondOfMinute(0).withMillisOfSecond(0).toDate(),
+                    new DateTime(time).plusMinutes(userCategoryJoin.getDuration()).withSecondOfMinute(0).withMillisOfSecond(0).toDate(), user, userCategoryJoin, order);
+            bookedTimeRepo.save(bookedTime);
+            bookedTimes.add(bookedTime);
+        }
+        Payment payment = new Payment(order.getOrderPrice(), order);
+        paymentsRepo.save(payment);
+
+        if (userCategoryJoin.getUser().getCalendarId() != null)
+            try {
+
+                Calendar client = Variables.getCalendarClient(userCategoryJoin.getUser());
+                CalendarListEntry calendar = client.calendarList().get(userCategoryJoin.getUser().getCalendarId()).execute();
+
+                for (BookedTime bookedTime : bookedTimes) {
+                    Event event = new Event();
+                    event.setSummary(bookedTime.getCategoryName() + " " + bookedTime.getStudent().getNameSurname());
+                    Date startDate = bookedTime.getStartDate();
+                    Date endDate = bookedTime.getEndDate();
+                    com.google.api.client.util.DateTime start = new com.google.api.client.util.DateTime(startDate, TimeZone.getTimeZone(calendar.getTimeZone()));
+                    event.setStart(new EventDateTime().setDateTime(start));
+                    com.google.api.client.util.DateTime end = new com.google.api.client.util.DateTime(endDate, TimeZone.getTimeZone(calendar.getTimeZone()));
+                    event.setEnd(new EventDateTime().setDateTime(end));
+                    Event result = client.events().insert(userCategoryJoin.getUser().getCalendarId(),
+                            event).execute();
+                }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        return new JsonMessage(JsonReturnCodes.Ok.getCODE(), order.getUuid());
     }
 
 

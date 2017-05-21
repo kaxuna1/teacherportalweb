@@ -455,7 +455,7 @@
                                 <div class="calendarTopDiv">
                                     <div class="calendarHeader">
                                         <h2>
-                                            <span th:text="${#numbers.formatDecimal(price, 0, 0)}"></span>$/ class
+                                            <span th:text="${#numbers.formatDecimal(price, 0, 0)}"></span> <span style="font-weight: 100">₾</span>/ class
                                         </h2>
                                     </div>
                                     <div class="calendarBody">
@@ -497,7 +497,7 @@
                                 <div class="calendarTopDiv">
                                     <div class="calendarHeader">
                                         <h2>
-                                            100$ / class
+                                            <span th:text="${#numbers.formatDecimal(price, 0, 0)}"></span> <span style="font-weight: 100">₾</span> / class
                                         </h2>
                                     </div>
                                     <div class="calendarBodyTimes">
@@ -617,6 +617,8 @@
 <!-- Theme JavaScript -->
 <script src="/js/agency.min.js"></script>
 <script src="/assets/js/widgets/showModalWithTableInside.js"></script>
+
+<script src="assets/js/widgets/tableCreator.js"></script>
 <script src="/assets/js/widgets/dynamicCreateForm.js"></script>
 <script src="/assets/js/mainsite.js"></script>
 <script src="/assets/js/calendar.js"></script>

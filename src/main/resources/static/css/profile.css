@@ -1,0 +1,21 @@
+.profilePicProfilePage{
+    width: 80px!important;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+.teacherNameNextToPic{
+    padding-top: 25px;
+}
+.profileBodyContainer{
+    padding: 0;
+}
+.infoContentOrder{
+    padding-bottom: 5px!important;
+}
+.myclassesbtn{
+    background-color: #46c3bf;
+    color: white;
+    font-family: brix;
+    font-size: 17px;
+    width: 100%;
+}

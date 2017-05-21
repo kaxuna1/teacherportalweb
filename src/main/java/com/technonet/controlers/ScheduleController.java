@@ -286,6 +286,15 @@ public class ScheduleController {
         }
     }
 
+    @RequestMapping("/mystudentschedule/{days}")
+    @ResponseBody
+    public List<BookedTime> getMyScheduleStudent(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
+                                          @PathVariable(value = "days") int days,
+                                          @CookieValue(value = "lang", defaultValue = "1") int lang) {
+        Variables.myThreadLocal.set(lang);
+        Session session = sessionRepository.findOne(sessionId);
+        return bookedTimeRepo.findInsideIntervalWithStudent(new DateTime().minusDays(days).toDate(), new DateTime().plusDays(days).toDate(), session.getUser());
+    }
 
     @Autowired
     private PermissionRepo permissionRepo;

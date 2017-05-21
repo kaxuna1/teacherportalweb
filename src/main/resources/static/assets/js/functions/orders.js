@@ -133,7 +133,7 @@ function loadOrders(index, search) {
 
         })
     }
-    openOrderGlobal=function (id,DOMElements) {
+    openOrderGlobal=function (id) {
         showModalWithTableInside(function (head, body, modal, rand) {
             $.getJSON("/order/" + id, function (result) {
                 console.log(result);

@@ -56,6 +56,9 @@ public class User {
     private boolean confirmedSMS;
 
     @Column
+    private String about;
+
+    @Column
     private int language;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -147,6 +150,7 @@ public class User {
         this.googleId = "";
         this.infoRecords = new ArrayList<>();
         this.ratings = new ArrayList<>();
+        this.about="";
 
     }
 
@@ -187,6 +191,7 @@ public class User {
         this.calendarId = "";
         this.facebookId = "";
         this.googleId = "";
+        this.about = "";
         this.ratings = new ArrayList<>();
     }
 
@@ -467,5 +472,13 @@ public class User {
 
     public void setRatings(List<Rating> ratings) {
         this.ratings = ratings;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
     }
 }

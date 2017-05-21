@@ -54,6 +54,9 @@ public class Order {
     @JsonIgnore
     private boolean active;
 
+    @Column
+    private String comment;
+
     @ManyToOne
     @JoinColumn(name = "userId")
     @JsonIgnore
@@ -82,6 +85,7 @@ public class Order {
         this.lastModifyDate = new Date();
         this.uuid = UUID.randomUUID().toString();
         this.payments = new ArrayList<>();
+        this.comment  = "";
     }
 
     public Order() {
@@ -233,5 +237,13 @@ public class Order {
 
     public void setLang(int lang) {
         this.lang = lang;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

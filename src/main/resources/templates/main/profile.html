@@ -4,13 +4,15 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <title>Allwitz</title>
 
     <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <link type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
     <script>
         var strings;
         $.ajax({
@@ -52,8 +54,15 @@
     <!-- Theme CSS -->
     <link href="css/agency.css" rel="stylesheet">
     <link href="css/login.css" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
 
+    <link href="css/class.css" rel="stylesheet">
+    <link href="css/classl.css" rel="stylesheet">
+    <link href="css/classm.css" rel="stylesheet">
+    <link href="css/order.css" rel="stylesheet">
+    <link href="css/profile.css" rel="stylesheet">
+
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/calendar.css" rel="stylesheet" type="text/css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -63,10 +72,10 @@
 
 </head>
 
-<body style="" id="page-top" class="index">
+<body style="overflow: visible!important;" id="page-top" class="index">
 
 <!-- Navigation -->
-<nav style="z-index: 500" id="mainNav"
+<nav style="background-color: white;z-index: 500;border-bottom: 1px solid black" id="mainNav"
      class="navbar navbar-default navbar-custom navbar-fixed-top">
 
     <div style="width: 100%;" class="container">
@@ -76,8 +85,9 @@
                     data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand page-scroll brand navlabel"
-               style="padding-top: 5px; ;  padding:0; font-size: 40px;font-family: brixnorm!important; color: white" href='/'>Allwitz</a>
+            <a class="navbar-brand page-scroll brand"
+               style="padding-top: 5px;  padding:0;  font-size: 30px;font-size: 40px;font-family: brixnorm!important; "
+               href="/">Allwitz</a>
         </div>
 
 
@@ -85,15 +95,14 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul th:if="${!loggedIn}" class="nav navbar-nav navbar-left">
                 <li id="becometeacherbtn">
-                    <a class="page-scroll navlabel"
-                       style="color: white;font-family: brixnorm!important;"
-                       th:text="${strings.main_become_a_teacher}" href="#"></a>
+                    <a class="page-scroll" th:text="${strings.main_become_a_teacher}" href="#"
+                       style="font-size: 18px;color: black;font-family: brixnorm!important;"></a>
                 </li>
             </ul>
             <ul th:if="${!loggedIn}" class="nav navbar-nav navbar-right">
                 <li id="logisignbtn">
-                    <a class="page-scroll navlabel" style="padding-right: 0px;color: white;font-family: brixnorm!important;"
-                       th:text="${strings.main_login_signup}" href="#"></a>
+                    <a class="page-scroll" th:text="${strings.main_login_signup}" href="#"
+                       style="font-size: 18px;color: black;font-family: brixnorm!important;padding-right: 0px;"></a>
                 </li>
                 <li class="dropdown" id="langbtn">
 
@@ -118,7 +127,7 @@
                        role="button" aria-haspopup="true"
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><span
                             th:text="${userNameSurname}"
-                            style="font-size: 18px;color: white;font-family: brixnorm!important;"></span></span></a>
+                            style="font-size: 18px;color: black;font-family: brixnorm!important;"></span></span></a>
                     <ul class="dropdown-menu">
                         <li class="profileBtn"><a href="#" th:text="${strings.main_menu_profile}"></a></li>
                         <li class="settingsBtn"><a href="#" th:text="${strings.main_menu_settings}"></a></li>
@@ -133,10 +142,10 @@
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><img
                             style="height: 20px" src="png/us.png"></span></a>
                     <ul class="dropdown-menu">
-                        <li class="langBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
+                        <li class="profileBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
                                                                                         src="png/us.png"><span
                                 style="padding-left: 10px">English</span></a></li>
-                        <li class="langBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
+                        <li class="profileBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
                                                                                         src="png/us.png"><span
                                 style="padding-left: 10px">English</span></a></li>
                     </ul>
@@ -148,144 +157,122 @@
     </div>
     <!-- /.container-fluid -->
 </nav>
-
 <!-- Header -->
-<header id="" class="carousel slide" style=" min-height: 100vh; height: auto;">
 
-    <div style="height: 100vh;overflow: hidden " id="mycarousel" class="carousel slide" data-ride="carousel">
-        <div class="intro-text">
-            <div class="intro-heading">
-                <!--   <a id="mainSearchBtn" href="#" style="font-family: font1" class="page-scroll btn btn-xl"><i
-                           class="fa fa-search" aria-hidden="true"></i>
-                   </a>
-                   <input placeholder="Search" class="categoryInputSearch" type="text">
-                   <input placeholder="City" class="cityInputSearch" type="text">-->
+<section class="classBodySection orderBody">
+    <div class="container-fluid profileBodyContainer">
+        <div class="row">
+            <div class="col-md-12 classBodyCol">
+                <div class="row">
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-12 noLeftPadding">
 
-                <div style="position:relative;" class="form-wrapper">
-                    <span class="iwant">I WANT</span>
-                    <form method="get" action="search.html" style="background-color: white" class="cf">
+                                <div class="row infoRowOrder">
+                                    <div class="col-md-4 infoLogoName noLeftPadding">
+                                        <img class="img-circle profilePicProfilePage" th:src="${profilePicUrl}">
+                                        <input type="file" id="profilePick" style="display:none">
+                                    </div>
+                                    <div th:text="${userNameSurname}"
+                                         class="col-md-8 infoContentOrder lastInfoContent noLeftPadding noRightPadding teacherNameNextToPic">
 
-                        <input autocomplete="off" style="padding-left: 50px" class="categorySearchField" type="text"
-                               name="class" th:placeholder="${strings.main_search_placeholder_search}">
-                        <input autocomplete="off" name="city" style="padding-left: 50px" class="citySearchField"
-                               type="text"
-                               th:placeholder="${strings.main_search_placeholder_city}">
-                        <button id="searchBtn" class="searchButton" type="submit"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 infoCol noLeftPadding noRightPadding">
+                                <div class="row infoRowOrder">
+                                    <div class="col-md-4 infoLogoName noLeftPadding">
 
-                    </form>
+                                        <span class="infoTitle">
+                                            About
+                                        </span>
 
+                                    </div>
+                                    <div th:text="${about}"
+                                         class="col-md-8 infoContentOrder noLeftPadding noRightPadding">
+
+                                    </div>
+                                </div>
+                                <div class="row infoRowOrder">
+                                    <div class="col-md-4 infoLogoName noLeftPadding">
+
+                                        <span class="infoTitle">
+                                            City
+                                        </span>
+
+                                    </div>
+                                    <div th:text="${city}"
+                                         class="col-md-8 infoContentOrder  noLeftPadding noRightPadding">
+
+                                    </div>
+                                </div>
+                                <div class="row infoRowOrder">
+                                    <div class="col-md-4 infoLogoName noLeftPadding">
+
+                                        <span class="infoTitle">
+                                            Address
+                                        </span>
+
+                                    </div>
+                                    <div th:text="${address}"
+                                         class="col-md-8 infoContentOrder  noLeftPadding noRightPadding">
+
+                                    </div>
+                                </div>
+                                <div class="row infoRowOrder">
+                                    <div class="col-md-4 infoLogoName noLeftPadding">
+
+                                        <span class="infoTitle">
+                                            Email
+                                        </span>
+
+                                    </div>
+                                    <div th:text="${email}"
+                                            class="col-md-8 numberOfClasses infoContentOrder noLeftPadding noRightPadding">
+
+                                    </div>
+                                </div>
+                                <div class="row infoRowOrder">
+                                    <div class="col-md-4 infoLogoName noLeftPadding">
+
+                                        <span class="infoTitle">
+                                            Phone
+                                        </span>
+                                    </div>
+                                    <div th:text="${phone}" class="col-md-8 infoContentOrder noLeftPadding noRightPadding">
+
+                                    </div>
+                                </div>
+                                <div class="row infoRowOrder">
+                                    <div class="col-md-4 infoLogoName noLeftPadding">
+
+                                        <span class="infoTitle">
+
+                                        </span>
+                                    </div>
+                                    <div class="col-md-8 infoContentOrder lastInfoContent noLeftPadding noRightPadding">
+                                        <a href="/myclasses"><button class="btn myclassesbtn">My Classes</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                    </div>
                 </div>
-                <div style="   position: relative;  z-index: 1;  top: -5px;" class="containerForRect form-wrapper">
-                    <span class="tolearn" style="">TO LEARN</span>
-                    <div class="paralLeft"></div>
-                    <div class="paralRight"></div>
-                </div>
-
-
-            </div>
-
-        </div>
-
-
-        <!-- Controls -->
-    </div>
-</header>
-<!-- Services Section -->
-<!-- About Section -->
-<!-- Portfolio Grid Section -->
-<section id="topCategories" class="bg-light-gray">
-    <div style="margin-bottom: 8px">
-        <div style="padding-left: 30px;" class="row">
-            <div class="col-lg-12">
-                <h4 class="section-subheading text-muted"
-                    style="font-family: brixNorm!important;color: black;font-size: 20px;margin-bottom: 0px;">Popular
-                    Classes</h4>
-            </div>
-        </div>
-    </div>
-
-    <div class="containerfortopcat">
-        <div class="row" style="height: 65vh;background-color: #efefee">
-            <div class="col-md-6 imgDivLeft">
-                <img class="imgRight imgHeart" src="png/new/1.png">
-            </div>
-            <div class="col-md-6 textDivRight">
-
-                <div class="descriptionText">How do I see this text?
-                    <br> Learn all about how your brain learns, from
-                    <br> fellow peers or medical doctors.
-                </div>
-            </div>
-        </div>
-        <div class="row" style="height: 65vh;background-color: #8fc9ea">
-            <div class="col-md-6 imgDivRight">
-                <img class="imgRight" src="png/new/2.png">
-            </div>
-            <div class="col-md-6 textDivLeft">
-
-                <div class="descriptionTextLeft" style="color: white">Want to understand nature’s imagination?
-                    <br> Find someone who can show you its mind.
-                </div>
-            </div>
-        </div>
-        <div class="row" style="height: 65vh;background-color: #274402">
-            <div class="col-md-6 imgDivLeft">
-                <img class="imgRight" src="png/new/4.png">
-            </div>
-            <div class="col-md-6 textDivRight">
-
-                <div class="descriptionText" style="color: white">Can I be the next Serena Williams?
-                    <br> -Probably not.
-                    <br> But you can learn how to play tennis like a pro,
-                    <br> find your teacher here.
-                </div>
-            </div>
-        </div>
-        <div class="row" style="height: 65vh;background-color: #db2e2d">
-            <div class="col-md-6 imgDivRight">
-                <img class="imgRight" src="png/new/3.png">
-            </div>
-            <div class="col-md-6 textDivLeft">
-
-                <div class="descriptionTextLeft" style="color: white">Creativity comes from unlikely
-                    juxtapositions.<br/> – Nicholas Negroponte
-                    <br> Find your perfect pairing here.
-                </div>
-            </div>
-        </div>
-        <div class="row" style="height: 65vh;background-color: #efefee">
-            <div style="" class="col-md-6 imgDivLeft imgDivCar">
-                <img class="imgRight imgCar" src="png/new/6.png">
-            </div>
-            <div class="col-md-6 textDivRight">
-
-                <div class="descriptionText" style="color: black">DMV in a week? <br> Go find your driving teacher now.
-                </div>
-            </div>
-        </div>
-        <div class="row" style="height: 65vh;background-color: #fdbb9c">
-            <div class="col-md-6 imgDivRight">
-                <img class="imgRight" src="png/new/5.png">
-            </div>
-            <div class="col-md-6 textDivLeft">
-
-                <div class="descriptionTextLeft" style="color: black">Alternative facts are not facts. Or are they?
-                    <br> Learn how to look at current events through lens of history.</div>
             </div>
         </div>
     </div>
 </section>
-
-<!-- Clients Aside -->
-
-<!-- Contact Section -->
-
-
 <footer style="padding-left: 4%;padding-right: 4%">
     <div style="margin-right: auto;
     margin-left: auto;">
         <div class="row">
-            <div class="col-md-5">
+            <div style="padding: 0" class="col-md-5">
                 <ul style="font-size: 18px;color:black;font-family:brix!important;margin-bottom: 0px;    padding-top: 2px;"
                     class="list-inline footerLeft">
                     <li>
@@ -312,7 +299,7 @@
                 </ul>
             </div>
             <div class="col-md-2">
-                <ul  class="list-inline socialFoot">
+                <ul class="list-inline socialFoot">
 
                     <li><a><i class="fa fa-facebook" aria-hidden="true"></i>
 
@@ -331,7 +318,8 @@
                     <li><a href="#" style="font-family: font1"><i class="fa fa-cc-visa" aria-hidden="true"></i>
                     </a>
                     </li>
-                    <li><a href="#" style="font-family: font1"><i class="fa fa-cc-mastercard" aria-hidden="true"></i>
+                    <li><a href="#" style="font-family: font1"><i class="fa fa-cc-mastercard"
+                                                                  aria-hidden="true"></i>
                     </a>
                     </li>
                 </ul>
@@ -352,56 +340,33 @@
     </div>
 </footer>
 
-<!-- Portfolio Modals -->
-<!-- Use the modals below to showcase details about your portfolio projects! -->
-
-<!-- Portfolio Modal 1 -->
-
-
-<!-- jQuery -->
 
 <!-- Bootstrap Core JavaScript -->
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="assets/js/bootstrap3-typeahead.js"></script>
-<script src="page/files/isotope.pkgd.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/assets/js/bootstrap3-typeahead.js"></script>
+<script src="/page/files/isotope.pkgd.min.js"></script>
 <!-- Plugin JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
 <!-- Contact Form JavaScript -->
-<script src="js/jqBootstrapValidation.js"></script>
-<script src="js/contact_me.js"></script>
+<script src="/js/jqBootstrapValidation.js"></script>
+<script src="/js/contact_me.js"></script>
 
-<script src="assets/js/moment-with-locales.min.js"></script>
-<script src="assets/js/functions/moment-timezone-with-data.min.js"></script>
+<script src="/assets/js/moment-with-locales.min.js"></script>
+<script src="/assets/js/functions/moment-timezone-with-data.min.js"></script>
 
 <!-- Theme JavaScript -->
-<script src="js/agency.min.js"></script>
-<script src="assets/js/widgets/showModalWithTableInside.js"></script>
-
+<script src="/js/agency.min.js"></script>
+<script src="/assets/js/widgets/showModalWithTableInside.js"></script>
 <script src="assets/js/widgets/tableCreator.js"></script>
-<script src="assets/js/widgets/dynamicCreateForm.js"></script>
-<script src="assets/js/mainsite.js"></script>
+<script src="/assets/js/widgets/dynamicCreateForm.js"></script>
+<script src="/assets/js/mainsite.js"></script>
+<script src="/assets/js/calendar.js"></script>
+<script src="/assets/js/profile.js"></script>
 <script>
 
-    $(document).ready(function () {
-        function checkScroll() {
-            var startY = $('.navbar').height() * 2; //The point where the navbar changes in px
 
-            if ($(window).scrollTop() > startY) {
-                $('.navbar').addClass("scrolled");
-                $(".navlabel").addClass("navlabelScroled")
-            } else {
-                $('.navbar').removeClass("scrolled");
-                $(".navlabel").removeClass("navlabelScroled")
-            }
-        }
-
-        $(window).on("scroll load resize", function () {
-            checkScroll();
-        });
-    })
 </script>
 
 </body>
-
 </html>

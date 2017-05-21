@@ -101,7 +101,7 @@ function loadSearch(city, clas, page) {
                 '            </div>'+
                 '        </div>'+
                 '        <div class="searchResultItemTopPriceDiv">'+
-                '                            <span class="priceLabelClass"><span class="priceTag">'+item.price+'$</span> <span'+
+                '                            <span class="priceLabelClass"><span class="priceTag">'+item.price+'₾</span> <span'+
                 '                                    class="delimiter">/</span>class</span>'+
                 '        </div>'+
                 '    </div>'+

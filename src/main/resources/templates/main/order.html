@@ -243,7 +243,7 @@
                                         </span>
                                     </div>
                                     <div class="col-md-8 infoContentOrder lastinfoContentOrder noLeftPadding noRightPadding">
-                                        <textarea style="height: 200px;width: 100%;border: 1px solid grey;"></textarea>
+                                        <textarea class="commentText" style="height: 200px;width: 100%;border: 1px solid grey;"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -299,11 +299,11 @@
                                                 <table class="table">
                                                     <tbody>
                                                     <tr>
-                                                        <td style="border: none">
-                                                            100$ x 4 classes
+                                                        <td class="pricextimes" style="border: none">
+
                                                         </td>
-                                                        <td style="text-align: right;border: none">
-                                                            400$
+                                                        <td class="pricextimesSum" style="text-align: right;border: none">
+
                                                         </td>
 
                                                     </tr>
@@ -311,8 +311,8 @@
                                                         <td >
                                                             Service fee
                                                         </td>
-                                                        <td style="text-align: right">
-                                                            10$
+                                                        <td class="feePlace" style="text-align: right">
+
                                                         </td>
 
                                                     </tr>
@@ -320,8 +320,8 @@
                                                         <td>
                                                             Total
                                                         </td>
-                                                        <td style="text-align: right;font-family: brixnorm!important;">
-                                                            400$
+                                                        <td class="totalPlace" style="text-align: right;font-family: brixnorm!important;">
+                                                            400 ₾
                                                         </td>
 
                                                     </tr>
@@ -436,6 +436,7 @@
 <!-- Theme JavaScript -->
 <script src="/js/agency.min.js"></script>
 <script src="/assets/js/widgets/showModalWithTableInside.js"></script>
+<script src="assets/js/widgets/tableCreator.js"></script>
 <script src="/assets/js/widgets/dynamicCreateForm.js"></script>
 <script src="/assets/js/mainsite.js"></script>
 <script src="/assets/js/calendar.js"></script>
