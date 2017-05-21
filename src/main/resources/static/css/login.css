@@ -157,7 +157,7 @@
 }
 
 .navbar-custom .nav li a {
-    padding-right: 30px;
+    padding-right: 5px;
 
 
 }
@@ -1806,11 +1806,11 @@ and (min-width : 1224px) {
     }
     #becometeacherbtn a{
         font-size: 20px!important;
-        padding-top: 22px;
+
     }
     #logisignbtn a{
         font-size: 20px!important;
-        padding-top: 22px;
+
     }
 
     .footerLeft li a{
@@ -1848,11 +1848,11 @@ and (min-width : 1824px) {
     }
     #becometeacherbtn a{
         font-size: 25px!important;
-        padding-top: 22px;
+
     }
     #logisignbtn a{
         font-size: 25px!important;
-        padding-top: 22px;
+
     }
 
     .footerLeft li a{

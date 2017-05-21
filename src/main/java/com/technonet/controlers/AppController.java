@@ -3,6 +3,7 @@ package com.technonet.controlers;
 import com.technonet.Enums.InfoRecordTypes;
 import com.technonet.Repository.*;
 import com.technonet.model.*;
+import com.technonet.staticData.PermisionChecks;
 import com.technonet.staticData.Variables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -275,6 +276,68 @@ public class AppController {
 
 
 
+
+
+
+                final boolean[] academic = {false};
+                final boolean[] employment = {false};
+                final boolean[] succeed = {false};
+                final boolean[] skills = {false};
+                final boolean[] attachments = {false};
+
+                final String[] academicString = {""};
+                final String[] employmentString = {""};
+                final String[] succeedString = {""};
+                final String[] skillsString = {""};
+                String attachmentsString = "";
+
+
+
+
+
+
+
+                List<InfoRecord> infoRecordList = sessiona.getUser().getInfoRecords();
+
+                infoRecordList.forEach(infoRecord -> {
+                    if(infoRecord.getType()==InfoRecordTypes.academic.getCODE()){
+                        academic[0] = true;
+                        academicString[0] +="<li>"+infoRecord.getValue()+"</li>";
+                    }
+                    if(infoRecord.getType()==InfoRecordTypes.employment.getCODE()){
+                        employment[0] = true;
+                        employmentString[0] +="<li>"+infoRecord.getValue()+"</li>";
+                    }
+                    if(infoRecord.getType()==InfoRecordTypes.succeed.getCODE()){
+                        succeed[0] = true;
+                        succeedString[0] +="<li>"+infoRecord.getValue()+"</li>";
+                    }
+                    if(infoRecord.getType()==InfoRecordTypes.skills.getCODE()){
+                        skills[0] = true;
+                        skillsString[0] +="<li>"+infoRecord.getValue()+"</li>";
+                    }
+                    if(infoRecord.getType()==InfoRecordTypes.attachment.getCODE()){
+                        attachments[0] = true;
+                    }
+                });
+
+
+
+                model.addAttribute("academic", academic[0]);
+                model.addAttribute("employment", employment[0]);
+                model.addAttribute("succeed", succeed[0]);
+                model.addAttribute("skills", skills[0]);
+                model.addAttribute("attachments", attachments[0]);
+
+
+                model.addAttribute("academicString", academicString[0]);
+                model.addAttribute("employmentString", employmentString[0]);
+                model.addAttribute("succeedString", succeedString[0]);
+                model.addAttribute("skillsString", skillsString[0]);
+                model.addAttribute("attachmentsString",attachmentsString);
+
+
+
                 model.addAttribute("about",sessiona.getUser().getAbout());
                 model.addAttribute("city",sessiona.getUser().getCity().getName() + ", "
                         + sessiona.getUser().getCity().getCountry().getName());
@@ -282,10 +345,18 @@ public class AppController {
                 model.addAttribute("email",sessiona.getUser().getEmail());
                 model.addAttribute("phone",sessiona.getUser().getMobile());
 
+                boolean isTeacher = PermisionChecks.teacher(sessiona);
+
+
 
                 model.addAttribute("profilePicUrl", profilePicUrl);
 
                 model.addAttribute("loggedIn", true);
+
+                model.addAttribute("isTeacher", isTeacher);
+
+
+
 
 
             } else {
@@ -319,6 +390,10 @@ public class AppController {
                 model.addAttribute("sessionobj", sessiona);
                 model.addAttribute("userNameSurname", sessiona.getUser().getNameSurname());
                 model.addAttribute("userId", sessiona.getUser().getId());
+
+
+
+
 
 
 

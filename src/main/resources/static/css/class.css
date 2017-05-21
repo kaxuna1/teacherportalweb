@@ -394,6 +394,16 @@ and (max-width : 1224px) {
     .calendarBodyTimes .header{
         border-bottom: solid black 1px;
     }
+    .calendarBodyTimes2 {
+
+        border: solid black 1px;
+        margin: 10px;
+
+        height: 200px;
+    }
+    .calendarBodyTimes2 .header{
+        border-bottom: solid black 1px;
+    }
 
     .calendarHeader h2 {
         color: white;

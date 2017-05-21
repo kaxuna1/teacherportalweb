@@ -476,31 +476,7 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="clasTypeButtonPlace">
-                                        <span class="classTypeText">Class Type</span>
-                                        <div class="classTypeDiv">
-                                            <span class="classTypeLabel">
-                                                Group
-                                            </span>
-                                            <input class="classTypeInput" type="checkbox">
-                                        </div>
-                                    </div>
-                                    <div class="bookButtonPlace">
-                                        <button class="btn bookButton">Book</button>
-                                        <span class="warningWontBeCharged">You won’t be charged yet</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="margin-top: 10px" class="row timesRow hide">
-                            <div class="col-md-12 noRightPadding noLeftPadding">
-                                <div class="calendarTopDiv">
-                                    <div class="calendarHeader">
-                                        <h2>
-                                            <span th:text="${#numbers.formatDecimal(price, 0, 0)}"></span> <span style="font-weight: 100">₾</span> / class
-                                        </h2>
-                                    </div>
-                                    <div class="calendarBodyTimes">
+                                    <div class="calendarBodyTimes2">
                                         <div class="calendarBodyTimesDiv">
                                             <table style="height: 100%;width: 100%">
                                                 <tbody class="timesChosenPlaceTableBody" style="height: 100%;
@@ -511,6 +487,18 @@
                                             </table>
                                         </div>
                                     </div>
+                                    <div class="clasTypeButtonPlace">
+                                        <span class="classTypeText">Class Type</span>
+                                        <div class="classTypeDiv">
+                                            <div>
+                                                <span class="classTypeLabel">
+                                                Group
+                                            </span>
+                                                <input class="classTypeInput" type="checkbox">
+                                            </div>
+
+                                        </div>
+                                    </div>
                                     <div class="bookButtonPlace">
                                         <button class="btn bookButton">Book</button>
                                         <span class="warningWontBeCharged">You won’t be charged yet</span>
@@ -518,6 +506,7 @@
                                 </div>
                             </div>
                         </div>
+
 
                     </div>
                 </div>

@@ -77,6 +77,7 @@ $(document).ready(function () {
         $.ajax({
             url: url,
             data: {
+                comment:$("#commentText").html(),
                 times: times.toString()
             }
         }).done(function (result) {

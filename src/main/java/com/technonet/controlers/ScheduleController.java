@@ -293,6 +293,9 @@ public class ScheduleController {
                                           @CookieValue(value = "lang", defaultValue = "1") int lang) {
         Variables.myThreadLocal.set(lang);
         Session session = sessionRepository.findOne(sessionId);
+        if(PermisionChecks.teacher(session)){
+            return bookedTimeRepo.findInsideIntervalWithUser(new DateTime().minusDays(days).toDate(), new DateTime().plusDays(days).toDate(), session.getUser());
+        }
         return bookedTimeRepo.findInsideIntervalWithStudent(new DateTime().minusDays(days).toDate(), new DateTime().plusDays(days).toDate(), session.getUser());
     }
 

@@ -247,6 +247,71 @@
 
                                     </div>
                                 </div>
+                                <div th:if="${isTeacher}" class="row infoRow">
+                                    <div class="col-md-4 infoLogoName noLeftPadding">
+
+                                        <span class="infoTitle">
+                                            Academic Credentials
+                                        </span>
+
+                                    </div>
+                                    <div class="col-md-8 infoContent noLeftPadding noRightPadding">
+                                        <ul th:utext="${academicString}" class="infoP">
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div th:if="${isTeacher}" class="row infoRow">
+                                    <div class="col-md-4 infoLogoName noLeftPadding">
+
+                                        <span class="infoTitle">
+                                            Current Employment
+                                        </span>
+
+                                    </div>
+                                    <div class="col-md-8 infoContent  noLeftPadding noRightPadding">
+                                        <ul th:utext="${employmentString}" class="infoP">
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div th:if="${isTeacher}" class="row infoRow">
+                                    <div class="col-md-4 infoLogoName noLeftPadding">
+
+                                        <span class="infoTitle">
+                                            Succeed
+                                        </span>
+
+                                    </div>
+                                    <div class="col-md-8 infoContent  noLeftPadding noRightPadding">
+                                        <ul th:utext="${succeedString}" class="infoP">
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div th:if="${isTeacher}" class="row infoRow">
+                                    <div class="col-md-4 infoLogoName noLeftPadding">
+
+                                        <span class="infoTitle">
+                                            Skills
+                                        </span>
+
+                                    </div>
+                                    <div class="col-md-8 infoContent noLeftPadding noRightPadding">
+                                        <ul th:utext="${skillsString}" class="infoP">
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div th:if="${isTeacher}" class="row infoRow">
+                                    <div class="col-md-4 infoLogoName noLeftPadding">
+
+                                        <span class="infoTitle">
+                                            Attachment
+                                        </span>
+
+                                    </div>
+                                    <div class="col-md-8 infoContent lastInfoContent noLeftPadding noRightPadding">
+                                        <ul th:utext="${attachmentsString}" class="infoP">
+                                        </ul>
+                                    </div>
+                                </div>
                                 <div class="row infoRowOrder">
                                     <div class="col-md-4 infoLogoName noLeftPadding">
 
