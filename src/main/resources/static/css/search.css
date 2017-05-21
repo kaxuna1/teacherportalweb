@@ -1,0 +1,71 @@
+.revileMenu{
+    position: absolute;
+    height: 90px;
+    width: 200px;
+    z-index: 100;
+    background: white;
+    border: 1px solid black;
+    border-radius: 8px;
+    display: none;
+}
+.revileMenuPrice{
+    position: absolute;
+    height: 165px;
+    display: none;
+    width: 300px;
+    z-index: 100;
+    background: white;
+    border: 1px solid black;
+    border-radius: 8px;
+
+}
+.activeItem div{
+    display: block!important;
+}
+.hr{
+    opacity: 0.3;
+}
+@media only screen
+and (min-width : 340px)
+and (max-width : 480px) {
+    /* Styles */
+    .revileMenuPrice{
+        left: 10%;
+    }
+}@media only screen
+and (min-width : 320px)
+and (max-width : 340px) {
+    /* Styles */
+    .revileMenuPrice{
+        left: 5%;
+    }
+}
+
+
+
+@media only screen
+and (min-width : 1024px) {
+
+}
+
+@media only screen
+and (min-width : 1500px) {
+    .filtersDiv,.searchFieldsRow,.mainCont{
+        zoom: 1.05;
+    }
+}
+
+@media only screen
+and (min-width : 1600px) {
+    .filtersDiv,.searchFieldsRow,.mainCont{
+        zoom: 1.111;
+    }
+}
+
+@media only screen
+and (min-width : 1824px) {
+    .filtersDiv,.searchFieldsRow,.mainCont{
+        zoom: 1.333;
+    }
+
+}

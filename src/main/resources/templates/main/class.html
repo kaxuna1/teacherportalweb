@@ -56,6 +56,7 @@
     <link href="css/login.css" rel="stylesheet">
     <link href="css/class.css" rel="stylesheet">
     <link href="css/classl.css" rel="stylesheet">
+    <link href="css/classm.css" rel="stylesheet">
     <link href="css/calendar.css" rel="stylesheet" type="text/css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -69,7 +70,8 @@
 <body style="overflow: visible!important;" id="page-top" class="index">
 
 <!-- Navigation -->
-<nav style=";z-index: 500" id="mainNav"
+
+<nav style="z-index: 500" id="mainNav"
      class="navbar navbar-default navbar-custom navbar-fixed-top">
 
     <div style="width: 100%;" class="container">
@@ -80,9 +82,7 @@
                 <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
             </button>
             <a class="navbar-brand page-scroll brand navlabel"
-
-               style="padding-top: 5px;    font-size: 30px;padding:0;font-size: 40px;font-family: brixnorm!important; color: white"
-               href="/">Allwitz</a>
+               style="padding-top: 5px; ;  padding:0; font-size: 40px;font-family: brixnorm!important; color: white" href='/'>Allwitz</a>
         </div>
 
 
@@ -90,14 +90,15 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul th:if="${!loggedIn}" class="nav navbar-nav navbar-left">
                 <li id="becometeacherbtn">
-                    <a class="page-scroll navlabel" th:text="${strings.main_become_a_teacher}" href="#"
-                       style="font-size: 18px;color: black;font-family: brixnorm!important;color: white"></a>
+                    <a class="page-scroll navlabel"
+                       style="color: white;font-family: brixnorm!important;"
+                       th:text="${strings.main_become_a_teacher}" href="#"></a>
                 </li>
             </ul>
             <ul th:if="${!loggedIn}" class="nav navbar-nav navbar-right">
                 <li id="logisignbtn">
-                    <a class="page-scroll navlabel" th:text="${strings.main_login_signup}" href="#"
-                       style="font-size: 18px;color: black;padding-right: 0px;font-family: brixnorm!important;color: white"></a>
+                    <a class="page-scroll navlabel" style="padding-right: 0px;color: white;font-family: brixnorm!important;"
+                       th:text="${strings.main_login_signup}" href="#"></a>
                 </li>
                 <li class="dropdown" id="langbtn">
 
@@ -118,7 +119,7 @@
             <ul th:if="${loggedIn}" class="nav navbar-nav navbar-right">
                 <li class="dropdown" id="userBtn">
 
-                    <a href="#" class="dropdown-toggle navlabel" data-toggle="dropdown"
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                        role="button" aria-haspopup="true"
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><span
                             th:text="${userNameSurname}"
@@ -137,11 +138,11 @@
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><img
                             style="height: 20px" src="png/us.png"></span></a>
                     <ul class="dropdown-menu">
-                        <li class="profileBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
-                                                                                        src="png/us.png"><span
+                        <li class="langBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
+                                                                                     src="png/us.png"><span
                                 style="padding-left: 10px">English</span></a></li>
-                        <li class="profileBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
-                                                                                        src="png/us.png"><span
+                        <li class="langBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
+                                                                                     src="png/us.png"><span
                                 style="padding-left: 10px">English</span></a></li>
                     </ul>
                 </li>
@@ -191,7 +192,7 @@
                                         <span class="reviewsLabelClass" th:text="${scoreCount}">
                                         </span>
                                         <span class="viewsLabelClass">
-                                            <img src="png/search/4.png">450
+                                            <img src="png/class/tvali.png">450
                                         </span>
                                     </div>
                                 </div>
@@ -491,19 +492,54 @@
                                 </div>
                             </div>
                         </div>
+                        <div style="margin-top: 10px" class="row timesRow hide">
+                            <div class="col-md-12 noRightPadding noLeftPadding">
+                                <div class="calendarTopDiv">
+                                    <div class="calendarHeader">
+                                        <h2>
+                                            100$ / class
+                                        </h2>
+                                    </div>
+                                    <div class="calendarBodyTimes">
+                                        <div class="calendarBodyTimesDiv">
+                                            <table style="height: 100%;width: 100%">
+                                                <tbody class="timesChosenPlaceTableBody" style="height: 100%;
+                                                width: 100%;
+                                                display: table-header-group">
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="clasTypeButtonPlace">
+                                        <span class="classTypeText">Class Type</span>
+                                        <div class="classTypeDiv">
+                                            <span class="classTypeLabel">
+                                                Group
+                                            </span>
+                                            <input class="classTypeInput" type="checkbox">
+                                        </div>
+                                    </div>
+                                    <div class="bookButtonPlace">
+                                        <button class="btn bookButton">Book</button>
+                                        <span class="warningWontBeCharged">You won’t be charged yet</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-<footer style="padding-left: 4%;padding-right: 4%;border-top: 1px solid black">
+<footer style="padding-left: 4%;padding-right: 4%">
     <div style="margin-right: auto;
     margin-left: auto;">
         <div class="row">
-            <div class="col-md-5">
-                <ul style="font-size: 18px;color:black;font-family:brix!important;margin-bottom: 0px;    padding-top: 10px;"
+            <div style="padding: 0" class="col-md-5">
+                <ul style="font-size: 18px;color:black;font-family:brix!important;margin-bottom: 0px;    padding-top: 2px;"
                     class="list-inline footerLeft">
                     <li>
                         <a style="color: black">
@@ -529,13 +565,15 @@
                 </ul>
             </div>
             <div class="col-md-2">
-                <ul style="padding-top: 10px;" class="list-inline ">
+                <ul class="list-inline socialFoot">
 
-                    <li><a><img style="height: 20px" src="png/f.png">
+                    <li><a><i class="fa fa-facebook" aria-hidden="true"></i>
+
                     </a></li>
-                    <li style="padding-left: 13px;padding-right: 10px"><a><img style="height: 20px;" src="png/t.png">
+                    <li style=""><a><i class="fa fa-twitter" aria-hidden="true"></i>
+
                     </a></li>
-                    <li><a><img style="height: 20px" src="png/i.png">
+                    <li><a><i class="fa fa-instagram" aria-hidden="true"></i>
                     </a></li>
                     </a></li>
 
@@ -543,9 +581,12 @@
             </div>
             <div class="col-md-5">
                 <ul class="list-inline quicklinks footerRight">
-                    <li><a href="#" style="font-family: font1"></a>
+                    <li><a href="#" style="font-family: font1"><i class="fa fa-cc-visa" aria-hidden="true"></i>
+                    </a>
                     </li>
-                    <li><a href="#" style="font-family: font1"><img class="paymentsLogosImg" src="png/payments.png"></a>
+                    <li><a href="#" style="font-family: font1"><i class="fa fa-cc-mastercard"
+                                                                  aria-hidden="true"></i>
+                    </a>
                     </li>
                 </ul>
             </div>

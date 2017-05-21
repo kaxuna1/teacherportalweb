@@ -250,10 +250,10 @@ function calendarInit(data) {
                 }
                 return memo;
             }, []);
-            console.log(todayDates);
             $(".addTimeButton").click(function () {
                 timesForBook[$(this).attr("value")]=$(this).attr("value");
                 self.openDay(el);
+                drawItemsToBook()
             })
         };
 
@@ -392,7 +392,7 @@ function calendarInit(data) {
 }
 function drawItemsToBook() {
     var itemsNum = 0;
-    var table = $(".tableForItemsToBook")
+    var table = $(".timesChosenPlaceTableBody")
     table.html("")
     var keys = Object.keys(timesForBook),
         i, len = keys.length;
@@ -401,13 +401,13 @@ function drawItemsToBook() {
 
     for (i = 0; i < len; i++) {
         var key = keys[i];
-        table.append("<tr><td>" +
+        table.append("<tr><td class='timeTd'>" +
             moment(parseInt(key)).locale("us").format("LL") +
             "</td>" +
-            "<td>" +
+            "<td class='timeTd'>" +
             moment(parseInt(key)).locale("us").format("HH:mm") +
             "</td>" +
-            "<td>" +
+            "<td class='removeTd'>" +
             "<a class='removeDateFromItems' value='" + key + "' >X</a>" +
             "</td>" +
             "</tr>")
@@ -417,9 +417,9 @@ function drawItemsToBook() {
 
 
     if (itemsNum == 0) {
-        $(".bookedTimesDiv").addClass("hide");
+        $(".timesRow").addClass("hide");
     } else {
-        $(".bookedTimesDiv").removeClass("hide");
+        $(".timesRow").removeClass("hide");
     }
     $(".removeDateFromItems").click(function () {
         var val = $(this).attr("value");

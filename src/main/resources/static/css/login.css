@@ -157,12 +157,7 @@
 }
 
 .navbar-custom .nav li a {
-    font-size: 22px;
     padding-right: 30px;
-
-
-
-
 
 
 }
@@ -786,9 +781,6 @@ ul {
     height: 70vh;
 }
 
-.descriptionText {
-
-}
 
 .row {
     margin-right: 0px !important;
@@ -1068,7 +1060,7 @@ ul {
     padding-bottom: 15px;
     border-bottom: 1px solid #5c5c5c;
     background-color: white;
-    padding-top: 20px;
+    padding-top: 40px;
 
 }
 
@@ -1218,7 +1210,7 @@ ul {
         width: 100%;
         height: 100%;
         /* text-align: center; */
-        padding-left: 70px;
+        padding-left: 60px;
         padding-right: 50px;
     }
 
@@ -1455,9 +1447,8 @@ footer {
 .footerLeft {
     text-align: center;
 }
-.footerLeft li{
-    font-size: 25px;
-}
+
+
 
 @media (min-width: 992px) {
     .footerRight {
@@ -1523,7 +1514,7 @@ footer {
         font-size: 30px !important;
         align-self: center;
         text-align: center;
-        margin-left: 15%;
+        margin-left: 20%;
     }
 
     .textDivRight {
@@ -1567,7 +1558,7 @@ footer {
     }
 }
 .navbar{
-    padding-top: 20px;
+    padding-top: 10px;
 }
 @media (min-width: 1600px) {
 
@@ -1739,3 +1730,147 @@ div.bhoechie-tab-content {
 }
 
 /*order*/
+
+
+
+/*global header*/
+
+@media only screen
+and (min-width : 320px)
+and (max-width : 480px) {
+    /* Styles */
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen
+and (min-width : 321px) {
+    /* Styles */
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen
+and (max-width : 320px) {
+    /* Styles */
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen
+and (min-width : 768px)
+and (max-width : 1224px) {
+    /* Styles */
+}
+
+/* iPads (landscape) ----------- */
+@media only screen
+and (min-width : 768px)
+and (max-width : 1224px)
+and (orientation : landscape) {
+    /* Styles */
+
+    .footerLeft li a{
+        font-size: 22px;
+        font-family: brixLight!important;
+        padding-right: 20px;
+    }
+    .socialFoot{
+        display: flex;
+    }
+    .socialFoot li{
+        width: 33%;
+    }
+    .socialFoot a{
+        font-size: 22px;
+    }
+    .footerRight a{
+        font-size: 22px;
+    }
+}
+
+/* iPads (portrait) ----------- */
+@media only screen
+and (min-width : 768px)
+and (max-width : 1224px)
+and (orientation : portrait) {
+    /* Styles */
+}
+
+/* Desktops and laptops ----------- */
+@media only screen
+and (min-width : 1224px) {
+    /* Styles */
+
+    .navbar-brand{
+        padding: 0;
+        font-size: 40px!important;
+        font-family: brixnorm!important;
+    }
+    #becometeacherbtn a{
+        font-size: 20px!important;
+        padding-top: 22px;
+    }
+    #logisignbtn a{
+        font-size: 20px!important;
+        padding-top: 22px;
+    }
+
+    .footerLeft li a{
+        font-size: 19px;
+        font-family: brixLight!important;
+        padding-right: 20px;
+    }
+    .socialFoot{
+        display: flex;
+    }
+    .socialFoot li{
+        width: 33%;
+    }
+    .socialFoot a{
+        font-size: 22px;
+    }
+    .footerRight a{
+        font-size: 22px;
+    }
+
+}
+
+/* Large screens ----------- */
+@media only screen
+and (min-width : 1824px) {
+    /* Styles */
+
+    .navbar{
+        padding-top: 20px;
+    }
+    .navbar-brand{
+        padding: 0;
+        font-size: 62px!important;
+        font-family: brixnorm!important;
+    }
+    #becometeacherbtn a{
+        font-size: 25px!important;
+        padding-top: 22px;
+    }
+    #logisignbtn a{
+        font-size: 25px!important;
+        padding-top: 22px;
+    }
+
+    .footerLeft li a{
+        font-size: 35px;
+        font-family: brixLight!important;
+        padding-right: 20px;
+    }
+    .socialFoot{
+        display: flex;
+    }
+    .socialFoot li{
+        width: 33%;
+    }
+    .socialFoot a{
+        font-size: 35px;
+    }
+    .footerRight a{
+        font-size: 35px;
+    }
+}
+

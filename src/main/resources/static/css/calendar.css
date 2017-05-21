@@ -67,7 +67,7 @@
     /*overflow: hidden;*/
     opacity: 1;
 
-    background-color: #cccccc;
+   /* background-color: #cccccc;*/
 }
 
 .month.new {
@@ -144,8 +144,12 @@
 }
 
 .day-number {
-    font-size: 12px;
+    font-size: 15px;
+    padding-bottom: 5px;
+    padding-left: 2px;
+    padding-right: 2px;
     font-family: brix!important;
+    background-color: #cccccc;
 }
 
 
