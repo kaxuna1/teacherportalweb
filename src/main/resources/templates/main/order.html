@@ -173,7 +173,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12 infoCol noLeftPadding noRightPadding">
-                                <div  class="row infoRow">
+                                <div  class="row infoRowOrder">
                                     <div class="col-md-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
@@ -181,11 +181,11 @@
                                         </span>
 
                                     </div>
-                                    <div th:text="${teacherName}" class="col-md-8 infoContent noLeftPadding noRightPadding">
+                                    <div th:text="${teacherName}" class="col-md-8 infoContentOrder noLeftPadding noRightPadding">
 
                                     </div>
                                 </div>
-                                <div  class="row infoRow">
+                                <div  class="row infoRowOrder">
                                     <div class="col-md-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
@@ -193,11 +193,11 @@
                                         </span>
 
                                     </div>
-                                    <div th:text="${className}" class="col-md-8 infoContent  noLeftPadding noRightPadding">
+                                    <div th:text="${className}" class="col-md-8 infoContentOrder  noLeftPadding noRightPadding">
 
                                     </div>
                                 </div>
-                                <div  class="row infoRow">
+                                <div  class="row infoRowOrder">
                                     <div class="col-md-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
@@ -205,11 +205,11 @@
                                         </span>
 
                                     </div>
-                                    <div class="col-md-8 infoContent  noLeftPadding noRightPadding">
+                                    <div class="col-md-8 infoContentOrder  noLeftPadding noRightPadding">
                                         Individual
                                     </div>
                                 </div>
-                                <div  class="row infoRow">
+                                <div  class="row infoRowOrder">
                                     <div class="col-md-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
@@ -217,30 +217,30 @@
                                         </span>
 
                                     </div>
-                                    <div class="col-md-8 numberOfClasses infoContent noLeftPadding noRightPadding">
+                                    <div class="col-md-8 numberOfClasses infoContentOrder noLeftPadding noRightPadding">
 
                                     </div>
                                 </div>
-                                <div  class="row infoRow">
+                                <div  class="row infoRowOrder">
                                     <div class="col-md-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
                                             Location
                                         </span>
                                     </div>
-                                    <div class="col-md-8 infoContent noLeftPadding noRightPadding">
+                                    <div class="col-md-8 infoContentOrder noLeftPadding noRightPadding">
 
                                     </div>
                                 </div>
-                                <div  class="row infoRow">
+                                <div  class="row infoRowOrder">
                                     <div class="col-md-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
                                             Message
                                         </span>
                                     </div>
-                                    <div class="col-md-8 infoContent lastInfoContent noLeftPadding noRightPadding">
-                                        <textarea style="height: 100px;width: 100%;border: 1px solid grey;"></textarea>
+                                    <div class="col-md-8 infoContentOrder lastinfoContentOrder noLeftPadding noRightPadding">
+                                        <textarea style="height: 200px;width: 100%;border: 1px solid grey;"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -262,37 +262,16 @@
                         <div class="row">
                             <div class="col-md-12 noRightPadding noLeftPadding">
                                 <div class="calendarTopDiv">
-                                    <div class="calendarHeader">
+                                    <div class="orderHeader">
+                                        <img th:src="${teacherPic}"
+                                             class="img-circle orderProfilePic">
+
                                         <h2>
                                             100$ / class
                                         </h2>
                                     </div>
-                                    <div class="calendarBody">
-                                        <div id="calendar"></div>
-                                    </div>
-                                    <div class="calendarBodyTimes hide">
-                                        <div class="header">
-                                            <div class="goback"></div>
-                                            <h1 id="dayname"></h1>
-                                        </div>
-                                        <div class="calendarBodyTimesDiv">
-                                            <table style="height: 100%;width: 100%">
-                                                <tbody class="timesPlaceTableBody" style="height: 100%;
-                                                width: 100%;
-                                                display: table-header-group">
+                                    <div class="orderSumBody">
 
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="clasTypeButtonPlace">
-                                        <span class="classTypeText">Class Type</span>
-                                        <div class="classTypeDiv">
-                                            <span class="classTypeLabel">
-                                                Group
-                                            </span>
-                                            <input class="classTypeInput" type="checkbox">
-                                        </div>
                                     </div>
                                     <div class="bookButtonPlace">
                                         <button class="btn bookButton">Book</button>
@@ -301,42 +280,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div style="margin-top: 10px" class="row timesRow hide">
-                            <div class="col-md-12 noRightPadding noLeftPadding">
-                                <div class="calendarTopDiv">
-                                    <div class="calendarHeader">
-                                        <h2>
-                                            100$ / class
-                                        </h2>
-                                    </div>
-                                    <div class="calendarBodyTimes">
-                                        <div class="calendarBodyTimesDiv">
-                                            <table style="height: 100%;width: 100%">
-                                                <tbody class="timesChosenPlaceTableBody" style="height: 100%;
-                                                width: 100%;
-                                                display: table-header-group">
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="clasTypeButtonPlace">
-                                        <span class="classTypeText">Class Type</span>
-                                        <div class="classTypeDiv">
-                                            <span class="classTypeLabel">
-                                                Group
-                                            </span>
-                                            <input class="classTypeInput" type="checkbox">
-                                        </div>
-                                    </div>
-                                    <div class="bookButtonPlace">
-                                        <button class="btn bookButton">Book</button>
-                                        <span class="warningWontBeCharged">You won’t be charged yet</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>

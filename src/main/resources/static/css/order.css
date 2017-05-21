@@ -5,3 +5,42 @@
     font-family: brixnorm!important;
 
 }
+.orderSumBody{
+    height: 250px;
+}
+.infoRowOrder{
+    margin-top: 25px;
+    min-height: 60px;
+}
+.infoContentOrder{
+    min-height: 50px;
+    border-bottom: rgba(128, 128, 128, 0.38) solid 1px;
+    font-family: brixLight!important;
+    font-size: 18px;
+}
+.lastinfoContentOrder{
+    border-bottom: none !important;
+}
+.orderHeader{
+    width: 100%;
+    height: 60px;
+    max-width: 275px;
+
+    background-color: #99CCFF;
+    display: flex;
+}
+.orderHeader h2{
+    color: #46c3bf;
+    padding: auto;
+    align-self: center;
+    padding-left: 20px;
+    padding-top: 8px;
+    font-family: brixnorm !important;
+    font-size: 15pt;
+    margin: 0;
+}
+.orderProfilePic{
+    height: 60px;
+    margin-top: 18px;
+    margin-left: 20px;
+}
