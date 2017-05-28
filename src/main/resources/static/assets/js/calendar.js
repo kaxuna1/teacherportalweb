@@ -419,9 +419,9 @@ function drawItemsToBook() {
 
 
     if (itemsNum == 0) {
-        $(".timesRow").addClass("hide");
+        $(".calendarBodyTimes2").addClass("hide");
     } else {
-        $(".timesRow").removeClass("hide");
+        $(".calendarBodyTimes2").removeClass("hide");
     }
     $(".removeDateFromItems").click(function () {
         var val = $(this).attr("value");

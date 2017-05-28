@@ -90,7 +90,7 @@ function loadSearch(city, clas, page) {
                 '        <div class="searchResultItemTopTextDiv">'+
                 '            <div class="searchResultItemTopTextDivChild">'+
                 '                <p class="nameLabel">'+
-                '                    '+item.user.nameSurname+
+                '                    '+item.user.name+
                 '                </p>'+
                 '                <div class="degreeAndClass"><p class="classLabel">'+
                 '                   '+item["categoryName"]+

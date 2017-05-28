@@ -6,6 +6,10 @@
     margin: 0 auto;
     overflow: hidden;
 }
+.withDates{
+    color: white;
+
+}
 .row{
     display: flex;
 }
@@ -24,6 +28,15 @@
     text-align: center;
     position:relative;
     z-index: 100;
+}
+.header2 {
+    height: 25px;
+    width: 100%;
+    background: white;
+    text-align: center;
+    position:relative;
+    z-index: 100;
+    border-bottom: solid black 1px;
 }
 
 .header h1 {
@@ -134,6 +147,13 @@
 
 }
 
+
+.calendarBodyTimes2 h2{
+    font-family: brix !important;
+    font-size: 15px;
+    margin: 5px;
+}
+
 .day-name {
     font-size: 11px;
     font-family: brix!important;
@@ -145,11 +165,12 @@
 
 .day-number {
     font-size: 15px;
-    padding-bottom: 5px;
-    padding-left: 2px;
-    padding-right: 2px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    margin-bottom: 5px;
+    margin-left: 2px;
+    margin-right: 2px;
     font-family: brix!important;
-    background-color: #cccccc;
 }
 
 

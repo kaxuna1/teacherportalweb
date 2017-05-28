@@ -82,7 +82,8 @@
                 <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
             </button>
             <a class="navbar-brand page-scroll brand navlabel"
-               style="padding-top: 5px; ;  padding:0; font-size: 40px;font-family: brixnorm!important; color: white" href='/'>Allwitz</a>
+               style="padding-top: 5px; ;  padding:0; font-size: 40px;font-family: brixnorm!important; color: white"
+               href='/'>Allwitz</a>
         </div>
 
 
@@ -97,7 +98,8 @@
             </ul>
             <ul th:if="${!loggedIn}" class="nav navbar-nav navbar-right">
                 <li id="logisignbtn">
-                    <a class="page-scroll navlabel" style="padding-right: 0px;color: white;font-family: brixnorm!important;"
+                    <a class="page-scroll navlabel"
+                       style="padding-right: 0px;color: white;font-family: brixnorm!important;"
                        th:text="${strings.main_login_signup}" href="#"></a>
                 </li>
                 <li class="dropdown" id="langbtn">
@@ -187,7 +189,8 @@
                                 <div class="row">
                                     <div class="starRatingDivClass">
                                         <span class="starRatingClass">
-                                            <img class="staricon" th:each="i : ${#numbers.sequence( 1, scoreMain)}" src="png/search/v.png">
+                                            <img class="staricon" th:each="i : ${#numbers.sequence( 1, scoreMain)}"
+                                                 src="png/search/v.png">
                                         </span>
                                         <span class="reviewsLabelClass" th:text="${scoreCount}">
                                         </span>
@@ -326,7 +329,8 @@
                                             </td>
                                             <td class="ratingRightTd">
                                             <span class="starRatingClass">
-                                            <img class="staricon" th:each="i : ${#numbers.sequence( 1, scoreMain)}" src="png/search/v.png">
+                                            <img class="staricon" th:each="i : ${#numbers.sequence( 1, scoreMain)}"
+                                                 src="png/search/v.png">
                                         </span>
                                             </td>
                                         </tr>
@@ -337,78 +341,7 @@
                         </div>
                         <div class="row  noLeftPadding noRightPadding">
                             <div class="col-md-12 reviewsColDetailed noLeftPadding noRightPadding">
-                                <div class="row">
-                                    <div class="col-md-6 noLeftPadding noRightPadding">
-                                        <table class="ratingStarsTable">
-                                            <tbody>
-                                            <tr>
-                                                <td class="ratingLeftTd">
-                                                    Professional
-                                                </td>
-                                                <td class="ratingRightTd">
-                                            <span class="starRatingClass">
-                                            <img th:each="i : ${#numbers.sequence( 1, scoreProfessional)}" class="staricon" src="png/search/v.png">
 
-                                        </span>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                    <div class="col-md-6 noLeftPadding noRightPadding">
-                                        <table class="ratingStarsTable floatRightClassRating">
-                                            <tbody>
-                                            <tr>
-                                                <td class="ratingLeftTd rightSide">
-                                                    Punctual
-                                                </td>
-                                                <td class="ratingRightTd">
-                                            <span class="starRatingClass floatRightClassRating">
-                                            <img class="staricon" th:each="i : ${#numbers.sequence( 1, scorePunctual)}" src="png/search/v.png">
-
-                                        </span>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="row reviewsSecondRow">
-                                    <div class="col-md-6 noLeftPadding noRightPadding">
-                                        <table class="ratingStarsTable">
-                                            <tbody>
-                                            <tr>
-                                                <td class="ratingLeftTd">
-                                                    Balanced
-                                                </td>
-                                                <td class="ratingRightTd">
-                                            <span class="starRatingClass">
-                                            <img class="staricon" th:each="i : ${#numbers.sequence( 1, scoreBalanced)}"  src="png/search/v.png">
-                                        </span>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6 noLeftPadding noRightPadding">
-                                        <table class="ratingStarsTable floatRightClassRating">
-                                            <tbody>
-                                            <tr>
-                                                <td class="ratingLeftTd rightSide">
-                                                    Resolved
-                                                </td>
-                                                <td class="ratingRightTd">
-                                            <span class="starRatingClass floatRightClassRating">
-                                            <img class="staricon" th:each="i : ${#numbers.sequence( 1, scoreResolved)}" src="png/search/v.png">
-
-                                        </span>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
 
                             </div>
                         </div>
@@ -455,7 +388,8 @@
                                 <div class="calendarTopDiv">
                                     <div class="calendarHeader">
                                         <h2>
-                                            <span th:text="${#numbers.formatDecimal(price, 0, 0)}"></span> <span style="font-weight: 100">₾</span>/ class
+                                            <span th:text="${#numbers.formatDecimal(price, 0, 0)}"></span> <span
+                                                style="font-weight: 100">₾</span>/ class
                                         </h2>
                                     </div>
                                     <div class="calendarBody">
@@ -476,7 +410,12 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="calendarBodyTimes2">
+                                    <div class="calendarBodyTimes2 hide">
+                                        <div class="header2">
+                                            <h2>
+                                                Selected Classes
+                                            </h2>
+                                        </div>
                                         <div class="calendarBodyTimesDiv">
                                             <table style="height: 100%;width: 100%">
                                                 <tbody class="timesChosenPlaceTableBody" style="height: 100%;
@@ -487,18 +426,31 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="clasTypeButtonPlace">
-                                        <span class="classTypeText">Class Type</span>
-                                        <div class="classTypeDiv">
-                                            <div>
+                                    <form>
+                                        <div class="clasTypeButtonPlace">
+                                            <span class="classTypeText">Class Type</span>
+                                            <div class="classTypeDiv">
+                                                <div>
+                                                <span class="classTypeLabel">
+                                                Individual
+                                            </span>
+                                                    <input class="classTypeInput" checked="true"name="classType"  value="1" type="radio">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="clasTypeButtonPlace">
+                                            <div class="classTypeDiv">
+                                                <div>
                                                 <span class="classTypeLabel">
                                                 Group
                                             </span>
-                                                <input class="classTypeInput" type="checkbox">
-                                            </div>
+                                                    <input class="classTypeInput" name="classType" value="2" type="radio">
+                                                </div>
 
+                                            </div>
                                         </div>
-                                    </div>
+                                    </form>
                                     <div class="bookButtonPlace">
                                         <button class="btn bookButton">Book</button>
                                         <span class="warningWontBeCharged">You won’t be charged yet</span>

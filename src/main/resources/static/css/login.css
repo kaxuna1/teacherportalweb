@@ -157,7 +157,7 @@
 }
 
 .navbar-custom .nav li a {
-    padding-right: 5px;
+    padding-right: 25px;
 
 
 }
@@ -215,8 +215,8 @@
 
 .form-wrapper input {
     width: 40%;
-    height: 90px;
-    min-height: 70px;
+    height: 75px;
+
     padding: 10px 5px;
     float: left;
     font: bold 24px brix, 'trebuchet MS', 'Tahoma';
@@ -269,8 +269,7 @@ input:focus::-webkit-input-placeholder {
     border: 0;
     padding: 0;
     cursor: pointer;
-    min-height: 70px;
-    height: 90px;
+    height: 75px;
     width: 20%;
     font: bold 15px/40px 'lucida sans', 'trebuchet MS', 'Tahoma';
     color: #fff;
@@ -1022,7 +1021,7 @@ ul {
 .mapDiv {
     display: none !important;
     left: auto !important;
-    width: 40% !important;
+    width: 50% !important;
     background-color: white;
     position: fixed !important;
     top: 64px !important;
@@ -1046,7 +1045,7 @@ ul {
     }
 
     .results {
-        width: 60% !important;
+        width: 50% !important;
     }
 }
 
@@ -1117,7 +1116,7 @@ ul {
     }
 
     .searchResultItemTopImg {
-        padding: 7% !important;
+        padding: 20% !important;
         height: 100% !important;
     }
 
@@ -1130,7 +1129,7 @@ ul {
     }
 
     .searchResultItemTopTextDiv {
-        width: 260px;
+        width: 185px;
         float: left;
         padding-left: 20px;
         height: 100%;
@@ -1146,6 +1145,7 @@ ul {
 
     .searchResultItemTopPriceDiv {
 
+        width: 100px;
         height: 100%;
         float: right;
         text-align: center;
@@ -1158,7 +1158,7 @@ ul {
         font-family: brix !important;
         font-size: 11pt;
         float: right;
-        padding-right: 50px;
+        padding-right: 30px;
     }
 
     .priceTag {
@@ -1529,7 +1529,7 @@ footer {
 
     .imgCar {
         margin: 0;
-        height: 75%;
+        height: 100%;
         position: absolute;
         bottom: 0;
     }

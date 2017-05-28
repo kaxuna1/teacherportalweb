@@ -381,7 +381,7 @@ and (max-width : 1224px) {
 
     .calendarBody {
 
-        height: 200px;
+        height: 230px;
         display: flex;
     }
     .calendarBodyTimes {
@@ -396,10 +396,11 @@ and (max-width : 1224px) {
     }
     .calendarBodyTimes2 {
 
-        border: solid black 1px;
         margin: 10px;
-
+        border: solid black 1px;
         height: 200px;
+        overflow: scroll;
+        color: black;
     }
     .calendarBodyTimes2 .header{
         border-bottom: solid black 1px;
@@ -894,6 +895,17 @@ and (orientation : landscape) {
         border-bottom: solid black 1px;
     }
 
+    .calendarBodyTimes2 {
+
+        margin: 10px;
+        border: solid black 1px;
+        height: 200px;
+        overflow: scroll;
+        color: black;
+    }
+    .calendarBodyTimes2 .header{
+        border-bottom: solid black 1px;
+    }
     .calendarHeader h2 {
         color: white;
         padding: auto;
@@ -1387,7 +1399,7 @@ and (orientation : portrait) {
 
     .calendarBody {
 
-        height: 200px;
+        height: 230px;
         display: flex;
     }
     .calendarBodyTimes {
