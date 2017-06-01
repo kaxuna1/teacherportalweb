@@ -42,8 +42,8 @@ $(document).ready(function () {
 
     $(".numberOfClasses").html("<div class='numberOfClassesName'>" + numberOfTimes + " Classes</div>");
     $(".numberOfClasses").append("<div class='numberOfClassesAB'>" + firstLastDates.a + "-" + firstLastDates.b + "</div>")
-    $(".numberOfClasses").append("<div style='margin-top: 25px'>" +
-        "<a style='cursor:pointer;float: right;margin-bottom: 15px;' class='expandDates'>See Detaials</a>" +
+    $(".numberOfClasses").append("<div style='margin-top: 25px;display: grid;'>" +
+        "<a style='cursor:pointer;float: right;margin-bottom: 15px;text-align: right;' class='expandDates'>See Detaials</a>" +
         "<table id='hiddenTimeTable' class='hideOrder' style='padding-top: 10px;    margin-bottom: 20px;'><tbody class='timesExpanded'></tbody></table></div>")
 
     for (var key in timesObject) {
@@ -116,36 +116,38 @@ var openOrderGlobal = function (id) {
             /** @namespace result.confirmed */
             /** @namespace result.canBePaid */
             body.append('<div class="row">' +
-                '<div class="col-md-4">Status: </div>' +
-                '<div class="col-md-4">' + (result.confirmed ? "Paid" : "Not Paid") + '</div>' +
-                '<div class="col-md-4">' + (result.canBePaid ? "<button class='btn'>Pay Now</button>" : "") + '</div>' +
+                '<div class="col-xs-4">Status: </div>' +
+                '<div class="col-xs-4">' + (result.confirmed ? "Paid" : "Not Paid") + '</div>' +
+                '<div class="col-xs-4" style="padding: 0;">' + (result.canBePaid ? "<button style='float: right;background-color: #46c3bf;color: white;' class='btn'>Pay Now</button>" : "") + '</div>' +
                 '</div>');
 
             body.append('<div class="row">' +
-                '<div class="col-md-4">Price: </div>' +
-                '<div class="col-md-4">' + result.orderPrice + '</div>' +
-                '<div class="col-md-4"></div>' +
+                '<div class="col-xs-4">Price: </div>' +
+                '<div class="col-xs-4">' + result.orderPrice + '</div>' +
+                '<div class="col-xs-4"></div>' +
                 '</div>');
             body.append('<div class="row">' +
-                '<div class="col-md-4">Category: </div>' +
-                '<div class="col-md-4">' + result.categoryName + '</div>' +
-                '<div class="col-md-4"></div>' +
+                '<div class="col-xs-4">Category: </div>' +
+                '<div class="col-xs-4">' + result.categoryName + '</div>' +
+                '<div class="col-xs-4"></div>' +
                 '</div>');
             body.append('<div class="row">' +
-                '<div class="col-md-4">Teacher: </div>' +
-                '<div class="col-md-4">' + result.teacherName + '</div>' +
-                '<div class="col-md-4"></div>' +
+                '<div class="col-xs-4">Teacher: </div>' +
+                '<div class="col-xs-4">' + result.teacherName + '</div>' +
+                '<div class="col-xs-4"></div>' +
                 '</div>');
             body.append('<div class="row">' +
-                '<div class="col-md-4">Student: </div>' +
-                '<div class="col-md-4">' + result.studentName + '</div>' +
-                '<div class="col-md-4"></div>' +
+                '<div class="col-xs-4">Student: </div>' +
+                '<div class="col-xs-4">' + result.studentName + '</div>' +
+                '<div class="col-xs-4"></div>' +
                 '</div>');
             body.append('<div class="row">' +
-                '<div class="col-md-4"><h4>Ordered Times: </h4></div>' +
-                '<div class="col-md-4"></div>' +
-                '<div class="col-md-4"></div>' +
+                '<div class="col-xs-6"><h4>Ordered Classes: </h4></div>' +
+                '<div class="col-xs-4"></div>' +
+                '<div class="col-xs-2"></div>' +
                 '</div>');
+
+            $(".modal-cancele-btn").remove();
             createTable(body, {
                 date: {
                     name: "Date"

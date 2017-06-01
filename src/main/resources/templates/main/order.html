@@ -54,8 +54,8 @@
     <!-- Theme CSS -->
     <link href="css/agency.css" rel="stylesheet">
     <link href="css/login.css" rel="stylesheet">
-
     <link href="css/class.css" rel="stylesheet">
+    <link href="css/classmob.css" rel="stylesheet">
     <link href="css/classl.css" rel="stylesheet">
     <link href="css/classm.css" rel="stylesheet">
     <link href="css/order.css" rel="stylesheet">
@@ -81,8 +81,7 @@
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header page-scroll">
             <button style=";z-index: 100000;" type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false"><i class="fa fa-bars"></i>
             </button>
             <a class="navbar-brand page-scroll brand"
                style="padding-top: 5px;  padding:0;  font-size: 30px;font-size: 40px;font-family: brixnorm!important; "
@@ -163,7 +162,87 @@
         <div class="row">
             <div class="col-md-12 classBodyCol">
                 <div class="row">
-                    <div class="col-md-9">
+
+                    <div class="col-md-3 col-md-push-9  noRightPadding noLeftPadding">
+                        <div class="row">
+                            <div class="col-md-12 noRightPadding noLeftPadding">
+                                <div class="calendarTopDiv">
+                                    <div class="orderHeader">
+                                        <img th:src="${teacherPic}"
+                                             class="img-circle orderProfilePic">
+
+                                        <h2 th:text="${teacherName}">
+
+                                        </h2>
+                                    </div>
+                                    <div class="orderSumBody">
+                                        <div class="row cityAndClassTypeOrder">
+                                            <div th:text="${city}" class="col-sx-6 orderCity"></div>
+                                            <div th:text="${className}" class="col-sx-6 orderClassRight"></div>
+                                        </div>
+                                        <div class="row classScoreOrder">
+                                            <div class="col-sx-3">
+                                                <span class="starRatingClassOrder">
+                                                    <img class="stariconOrder"
+                                                         th:each="i : ${#numbers.sequence( 1, scoreMain)}"
+                                                         src="png/search/v.png">
+                                                </span>
+                                            </div>
+                                            <div th:text="${scoreCount}" class="col-sx-3 orderScoreCountRight"></div>
+                                          <!--  <div class="col-sx-6">
+                                                <span class="viewsLabelOrder">
+                                                   <i style="padding-right: 3px" class="fa fa-eye"
+                                                      aria-hidden="true"></i>450
+                                                </span>
+                                            </div>-->
+                                        </div>
+                                        <div class="orderSummary row">
+                                            <div class="col-md-12">
+                                                <table class="table">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td class="pricextimes" style="border: none">
+
+                                                        </td>
+                                                        <td class="pricextimesSum" style="text-align: right;border: none">
+
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td >
+                                                            Service fee
+                                                        </td>
+                                                        <td class="feePlace" style="text-align: right">
+
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Total
+                                                        </td>
+                                                        <td class="totalPlace" style="text-align: right;font-family: brixnorm!important;">
+                                                            400 ₾
+                                                        </td>
+
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="bookButtonPlace">
+                                        <button class="btn bookButton">Book</button>
+                                        <span class="warningWontBeCharged">You won’t be charged yet</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-9 col-md-pull-3">
                         <div class="row">
                             <div class="col-md-12 noLeftPadding">
                                 <ul class="nav nav-pills classNav">
@@ -261,94 +340,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3 noRightPadding noLeftPadding">
-                        <div class="row">
-                            <div class="col-md-12 noRightPadding noLeftPadding">
-                                <div class="calendarTopDiv">
-                                    <div class="orderHeader">
-                                        <img th:src="${teacherPic}"
-                                             class="img-circle orderProfilePic">
 
-                                        <h2 th:text="${teacherName}">
-
-                                        </h2>
-                                    </div>
-                                    <div class="orderSumBody">
-                                        <div class="row cityAndClassTypeOrder">
-                                            <div th:text="${city}" class="col-sx-6 orderCity"></div>
-                                            <div th:text="${className}" class="col-sx-6 orderClassRight"></div>
-                                        </div>
-                                        <div class="row classScoreOrder">
-                                            <div class="col-sx-3">
-                                                <span class="starRatingClassOrder">
-                                                    <img class="stariconOrder"
-                                                         th:each="i : ${#numbers.sequence( 1, scoreMain)}"
-                                                         src="png/search/v.png">
-                                                </span>
-                                            </div>
-                                            <div th:text="${scoreCount}" class="col-sx-3 orderScoreCountRight"></div>
-                                            <div class="col-sx-6">
-                                                <span class="viewsLabelOrder">
-                                                   <i style="padding-right: 3px" class="fa fa-eye"
-                                                      aria-hidden="true"></i>450
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="orderSummary row">
-                                            <div class="col-md-12">
-                                                <table class="table">
-                                                    <tbody>
-                                                    <tr>
-                                                        <td class="pricextimes" style="border: none">
-
-                                                        </td>
-                                                        <td class="pricextimesSum" style="text-align: right;border: none">
-
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td >
-                                                            Service fee
-                                                        </td>
-                                                        <td class="feePlace" style="text-align: right">
-
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            Total
-                                                        </td>
-                                                        <td class="totalPlace" style="text-align: right;font-family: brixnorm!important;">
-                                                            400 ₾
-                                                        </td>
-
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="bookButtonPlace">
-                                        <button class="btn bookButton">Book</button>
-                                        <span class="warningWontBeCharged">You won’t be charged yet</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<footer style="padding-left: 4%;padding-right: 4%">
+<footer class="footerLarge" style="padding-left: 4%;padding-right: 4%">
     <div style="margin-right: auto;
     margin-left: auto;">
         <div class="row">
-            <div style="padding: 0" class="col-md-5">
+            <div class="col-md-5">
                 <ul style="font-size: 18px;color:black;font-family:brix!important;margin-bottom: 0px;    padding-top: 2px;"
                     class="list-inline footerLeft">
                     <li>
@@ -375,7 +377,7 @@
                 </ul>
             </div>
             <div class="col-md-2">
-                <ul class="list-inline socialFoot">
+                <ul  class="list-inline socialFoot">
 
                     <li><a><i class="fa fa-facebook" aria-hidden="true"></i>
 
@@ -394,8 +396,7 @@
                     <li><a href="#" style="font-family: font1"><i class="fa fa-cc-visa" aria-hidden="true"></i>
                     </a>
                     </li>
-                    <li><a href="#" style="font-family: font1"><i class="fa fa-cc-mastercard"
-                                                                  aria-hidden="true"></i>
+                    <li><a href="#" style="font-family: font1"><i class="fa fa-cc-mastercard" aria-hidden="true"></i>
                     </a>
                     </li>
                 </ul>
@@ -411,6 +412,46 @@
             </div>
             <div class="col-md-4">
 
+            </div>
+        </div>
+    </div>
+</footer>
+<footer class="footerMin" style="padding-left: 4%;padding-right: 4%">
+    <div style="margin-right: auto;
+    margin-left: auto;">
+
+
+        <div style="padding-top: 10px" class="row">
+
+            <div class="col-xs-4">
+                <ul  class="list-inline socialFoot">
+
+                    <li><a><i class="fa fa-facebook" aria-hidden="true"></i>
+
+                    </a></li>
+                    <li style=""><a><i class="fa fa-twitter" aria-hidden="true"></i>
+
+                    </a></li>
+                    <li><a><i class="fa fa-instagram" aria-hidden="true"></i>
+                    </a></li>
+                    </a></li>
+
+                </ul>
+            </div>
+            <div style="padding: 0;font-size: 10px;    padding-top: 3px;" class="col-xs-4">
+                <span style="font-family: brix!important;font-size: 1em">Copyright 2017 Allwitz</span>
+            </div>
+            <div class="col-xs-4">
+                <ul  class="list-inline socialFoot">
+
+                    <li><a><i class="fa fa-cc-mastercard" aria-hidden="true"></i>
+
+                    </a></li>
+                    <li style=""><a><i class="fa fa-cc-visa" aria-hidden="true"></i>
+                    </a></li>
+
+
+                </ul>
             </div>
         </div>
     </div>

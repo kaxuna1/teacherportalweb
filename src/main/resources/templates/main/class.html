@@ -54,7 +54,10 @@
     <!-- Theme CSS -->
     <link href="css/agency.css" rel="stylesheet">
     <link href="css/login.css" rel="stylesheet">
+
+    <link href="css/main.css" rel="stylesheet">
     <link href="css/class.css" rel="stylesheet">
+    <link href="css/classmob.css" rel="stylesheet">
     <link href="css/classl.css" rel="stylesheet">
     <link href="css/classm.css" rel="stylesheet">
     <link href="css/calendar.css" rel="stylesheet" type="text/css">
@@ -78,8 +81,7 @@
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header page-scroll">
             <button style=";z-index: 100000;" type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false"><i class="fa fa-bars"></i>
             </button>
             <a class="navbar-brand page-scroll brand navlabel"
                style="padding-top: 5px; ;  padding:0; font-size: 40px;font-family: brixnorm!important; color: white"
@@ -92,14 +94,14 @@
             <ul th:if="${!loggedIn}" class="nav navbar-nav navbar-left">
                 <li id="becometeacherbtn">
                     <a class="page-scroll navlabel"
-                       style="color: white;font-family: brixnorm!important;"
+                       style="color: black;font-family: brixnorm!important;"
                        th:text="${strings.main_become_a_teacher}" href="#"></a>
                 </li>
             </ul>
             <ul th:if="${!loggedIn}" class="nav navbar-nav navbar-right">
                 <li id="logisignbtn">
                     <a class="page-scroll navlabel"
-                       style="padding-right: 0px;color: white;font-family: brixnorm!important;"
+                       style="padding-right: 0px;color: black;font-family: brixnorm!important;"
                        th:text="${strings.main_login_signup}" href="#"></a>
                 </li>
                 <li class="dropdown" id="langbtn">
@@ -125,7 +127,7 @@
                        role="button" aria-haspopup="true"
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><span
                             th:text="${userNameSurname}"
-                            style="font-size: 18px;color: white;font-family: brixnorm!important;"></span></span></a>
+                            style="font-size: 18px;color: black;font-family: brixnorm!important;"></span></span></a>
                     <ul class="dropdown-menu">
                         <li class="profileBtn"><a href="#" th:text="${strings.main_menu_profile}"></a></li>
                         <li class="settingsBtn"><a href="#" th:text="${strings.main_menu_settings}"></a></li>
@@ -234,7 +236,7 @@
                         <div class="row">
                             <div class="col-md-12 infoCol noLeftPadding noRightPadding">
                                 <div th:if="${academic}" class="row infoRow">
-                                    <div class="col-md-4 infoLogoName noLeftPadding">
+                                    <div class="col-xs-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
                                             Academic Credentials
@@ -242,13 +244,13 @@
                                         <img style="" alt="Bootstrap Image Preview"
                                              src="png/class/1.png"/>
                                     </div>
-                                    <div class="col-md-8 infoContent noLeftPadding noRightPadding">
+                                    <div class="col-xs-8 infoContent noLeftPadding noRightPadding">
                                         <ul th:utext="${academicString}" class="infoP">
                                         </ul>
                                     </div>
                                 </div>
                                 <div th:if="${employment}" class="row infoRow">
-                                    <div class="col-md-4 infoLogoName noLeftPadding">
+                                    <div class="col-xs-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
                                             Current Employment
@@ -256,13 +258,13 @@
                                         <img class="emplLogo" style="" alt="Bootstrap Image Preview"
                                              src="png/class/2.png"/>
                                     </div>
-                                    <div class="col-md-8 infoContent  noLeftPadding noRightPadding">
+                                    <div class="col-xs-8 infoContent  noLeftPadding noRightPadding">
                                         <ul th:utext="${employmentString}" class="infoP">
                                         </ul>
                                     </div>
                                 </div>
                                 <div th:if="${succeed}" class="row infoRow">
-                                    <div class="col-md-4 infoLogoName noLeftPadding">
+                                    <div class="col-xs-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
                                             Succeed
@@ -270,13 +272,13 @@
                                         <img class="sucLogo" style="" alt="Bootstrap Image Preview"
                                              src="png/class/3.png"/>
                                     </div>
-                                    <div class="col-md-8 infoContent  noLeftPadding noRightPadding">
+                                    <div class="col-xs-8 infoContent  noLeftPadding noRightPadding">
                                         <ul th:utext="${succeedString}" class="infoP">
                                         </ul>
                                     </div>
                                 </div>
                                 <div th:if="${skills}" class="row infoRow">
-                                    <div class="col-md-4 infoLogoName noLeftPadding">
+                                    <div class="col-xs-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
                                             Skills
@@ -284,13 +286,13 @@
                                         <img style="width: 50px" alt="Bootstrap Image Preview"
                                              src="png/class/4.png"/>
                                     </div>
-                                    <div class="col-md-8 infoContent noLeftPadding noRightPadding">
+                                    <div class="col-xs-8 infoContent noLeftPadding noRightPadding">
                                         <ul th:utext="${skillsString}" class="infoP">
                                         </ul>
                                     </div>
                                 </div>
                                 <div th:if="${attachments}" class="row infoRow">
-                                    <div class="col-md-4 infoLogoName noLeftPadding">
+                                    <div class="col-xs-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
                                             Attachment
@@ -298,7 +300,7 @@
                                         <img style="" alt="Bootstrap Image Preview"
                                              src="png/class/5.png"/>
                                     </div>
-                                    <div class="col-md-8 infoContent lastInfoContent noLeftPadding noRightPadding">
+                                    <div class="col-xs-8 infoContent lastInfoContent noLeftPadding noRightPadding">
                                         <ul th:utext="${attachmentsString}" class="infoP">
                                         </ul>
                                     </div>
@@ -466,11 +468,12 @@
         </div>
     </div>
 </section>
-<footer style="padding-left: 4%;padding-right: 4%">
+
+<footer class="footerLarge" style="padding-left: 4%;padding-right: 4%">
     <div style="margin-right: auto;
     margin-left: auto;">
         <div class="row">
-            <div style="padding: 0" class="col-md-5">
+            <div class="col-md-5">
                 <ul style="font-size: 18px;color:black;font-family:brix!important;margin-bottom: 0px;    padding-top: 2px;"
                     class="list-inline footerLeft">
                     <li>
@@ -497,7 +500,7 @@
                 </ul>
             </div>
             <div class="col-md-2">
-                <ul class="list-inline socialFoot">
+                <ul  class="list-inline socialFoot">
 
                     <li><a><i class="fa fa-facebook" aria-hidden="true"></i>
 
@@ -516,8 +519,7 @@
                     <li><a href="#" style="font-family: font1"><i class="fa fa-cc-visa" aria-hidden="true"></i>
                     </a>
                     </li>
-                    <li><a href="#" style="font-family: font1"><i class="fa fa-cc-mastercard"
-                                                                  aria-hidden="true"></i>
+                    <li><a href="#" style="font-family: font1"><i class="fa fa-cc-mastercard" aria-hidden="true"></i>
                     </a>
                     </li>
                 </ul>
@@ -533,6 +535,46 @@
             </div>
             <div class="col-md-4">
 
+            </div>
+        </div>
+    </div>
+</footer>
+<footer class="footerMin" style="padding-left: 4%;padding-right: 4%">
+    <div style="margin-right: auto;
+    margin-left: auto;">
+
+
+        <div style="padding-top: 10px" class="row">
+
+            <div class="col-xs-4">
+                <ul  class="list-inline socialFoot">
+
+                    <li><a><i class="fa fa-facebook" aria-hidden="true"></i>
+
+                    </a></li>
+                    <li style=""><a><i class="fa fa-twitter" aria-hidden="true"></i>
+
+                    </a></li>
+                    <li><a><i class="fa fa-instagram" aria-hidden="true"></i>
+                    </a></li>
+                    </a></li>
+
+                </ul>
+            </div>
+            <div style="padding: 0;font-size: 10px;    padding-top: 3px;" class="col-xs-4">
+                <span style="font-family: brix!important;font-size: 1em">Copyright 2017 Allwitz</span>
+            </div>
+            <div class="col-xs-4">
+                <ul  class="list-inline socialFoot">
+
+                    <li><a><i class="fa fa-cc-mastercard" aria-hidden="true"></i>
+
+                    </a></li>
+                    <li style=""><a><i class="fa fa-cc-visa" aria-hidden="true"></i>
+                    </a></li>
+
+
+                </ul>
             </div>
         </div>
     </div>

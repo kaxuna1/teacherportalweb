@@ -1276,18 +1276,14 @@ ul {
         width: 100%;
         height: 260px;
         background-color: white;
-        border-top: 1px solid black;
-        border-right: 1px solid black;
-        border-left: 1px solid black;
+
     }
 
     .searchResultItemBottom {
         width: 100%;
         height: 70px;
         background-color: white;
-        border-bottom: 1px solid black;
-        border-right: 1px solid black;
-        border-left: 1px solid black;
+        border-bottom: 1px solid lightgrey;
     }
 
     .searchResultItemTopImgDiv {
@@ -1558,7 +1554,6 @@ footer {
     }
 }
 .navbar{
-    padding-top: 10px;
 }
 @media (min-width: 1600px) {
 
@@ -1739,6 +1734,17 @@ div.bhoechie-tab-content {
 and (min-width : 320px)
 and (max-width : 480px) {
     /* Styles */
+
+    .modal-dialog{
+        margin: 0;
+
+    }
+    .modal .modal-content{
+        padding:0;
+        min-height: 100vh;
+    }
+
+
 }
 
 /* Smartphones (landscape) ----------- */
@@ -1874,3 +1880,21 @@ and (min-width : 1824px) {
     }
 }
 
+.fc-content .fc-time{
+    display: none!important;
+}
+.myBtn{
+    color: black;
+    background-color: transparent!important;
+}
+.fc-agenda-view .fc-day-grid{
+    display: none;
+}
+.fc-day-header{
+    height: 50px;
+
+}
+.fc-day-header span{
+    line-height: 4;
+    margin: auto;
+}

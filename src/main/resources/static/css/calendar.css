@@ -10,9 +10,7 @@
     color: white;
 
 }
-.row{
-    display: flex;
-}
+
 .timeIntervalItem{
     color: black;
     align-self: center;

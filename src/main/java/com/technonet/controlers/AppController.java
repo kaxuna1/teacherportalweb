@@ -430,8 +430,7 @@ public class AppController {
 
         UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(id);
         String teacherName = userCategoryJoin.getUser().getName();
-        String cityCountry = userCategoryJoin.getUser().getCity().getName() + ", "
-                + userCategoryJoin.getUser().getCity().getCountry().getName();
+        String cityCountry = userCategoryJoin.getUser().getCity().getName();
         String className = userCategoryJoin.getCategory().getName();
         String classAbout = userCategoryJoin.getAbout();
         String teacherPic = "/profilePic/" + userCategoryJoin.getUser().getId();

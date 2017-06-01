@@ -181,10 +181,10 @@ function calendarInit(data) {
             });
 
             //Day Name
-            var name = createElement('div', 'day-name', day.format('ddd'));
+            var name = createElement('div', 'day-name', day.format('dd'));
 
             //Day Number
-            var number = createElement('div', 'day-number'+withDates, day.format('DD'));
+            var number = createElement('div', 'day-number'+withDates, day.format('D'));
 
 
             //Events

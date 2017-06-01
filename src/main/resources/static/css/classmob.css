@@ -1,15 +1,29 @@
 @media only screen
-and (min-width : 1224px) {
+and (min-width : 320px)
+and (max-width : 480px) {
     /* Styles */
 
+    .rightContainer{
+
+        padding: 0;
+        display: grid;
+    }
+
+
+    /* Styles */
     .teacherNameRowClass {
-        height: 40px;
+
     }
 
     .namecityrowclass {
         text-align: left;
         padding: 0;
+        display: flex;
 
+    }
+    .classBodyCol  .col-md-9{
+        padding-left: 0;
+        padding-right: 0;
     }
 
     .namecityrowclass .col-md-12 {
@@ -26,36 +40,54 @@ and (min-width : 1224px) {
     .cityLabelClass {
         color: white;
         font-size: 20px;
+        text-align: center;
         margin-top: 5px;
         font-family: brix, serif !important;
     }
 
     .classLabelClass {
         color: white;
-        font-size: 18px;
-
+        font-size: 20px;
+        text-align: right;
         margin-top: 5px;
         font-family: brix, serif !important;
     }
 
+    .dropdown-menu span{
+        color: black;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a{
+        color: black!important;
+    }
+    .in{
+        background-color: white;
+    }
+
+    .container:has(.in){
+        background-color: white;
+    }
+
     .classHeader {
-        height: 500px;
+
+        min-height: 500px;
         background-color: #99CCFF
     }
 
     .headerDivTeacher {
-        padding: 10%;
-        padding-top: 170px;
+        padding-top: 75px;
 
     }
+    .staricon{
+        width: 13px!important;
+    }
 
+    .starRatingDivClass span{
+        width: 33%;
+    }
     .starRatingDivClass {
         width: 100%;
         height: 100%;
-        padding-top: 50px;
         /* text-align: center; */
-        padding-left: 26px;
-        padding-right: 0;
         text-align: left;
         display: flex;
     }
@@ -63,18 +95,21 @@ and (min-width : 1224px) {
     .classPageContainer {
         text-align: left;
     }
+    .classPageContainer .col-md-7{
+        padding: 0;
+    }
 
     .reviewsLabelClass {
         font-family: brix !important;
-        padding-left: 20px;
+        text-align: center;
         font-size: 20px;
     }
 
     .viewsLabelClass {
 
         font-family: brix !important;
-        padding-left: 10px;
         align-self: center;
+        text-align: right;
     }
 
     .viewsLabelClass img {
@@ -97,10 +132,12 @@ and (min-width : 1224px) {
 
     .profilePicContainerClass {
         padding: 0;
+        margin: auto;
     }
 
     .namecityrowclass .row {
-        padding-left: 25px;
+        padding-left: 0px;
+        width: 33%;
     }
 
     .headerStarsTopDiv {
@@ -115,7 +152,6 @@ and (min-width : 1224px) {
     .classAbout {
         color: white;
         font-size: 20px;
-        margin-top: 40px;
         font-family: brix, serif !important;
     }
 
@@ -132,8 +168,8 @@ and (min-width : 1224px) {
     }
 
     .classBodyContainer {
-        padding-left: 10%;
-        padding-right: 10%;
+        padding-left: 5%;
+        padding-right: 5%;
     }
 
     .classBodyCol {
@@ -149,7 +185,7 @@ and (min-width : 1224px) {
     }
 
     .classNav a {
-        font-size: 20px;
+        font-size: 12px;
         font-family: brix !Important;
     }
 
@@ -201,14 +237,15 @@ and (min-width : 1224px) {
     .infoP {
         height: 100%;
         font-family: brix !important;
-        font-size: 18px;
+        font-size: 12px;
         color: black;
         line-height: 1.4;
+        padding-left: 5px;
     }
 
     .infoTitle {
         font-family: brixNorm !important;
-        font-size: 18px;
+        font-size: 12px;
     }
 
     .mapDivClass {
@@ -338,7 +375,6 @@ and (min-width : 1224px) {
 
     .calendarTopDiv {
 
-        max-width: 275px;
         border: rgba(128, 128, 128, 0.38) solid 1px;;
         overflow: hidden;
         margin: auto;
@@ -352,7 +388,6 @@ and (min-width : 1224px) {
     .calendarHeader {
         width: 100%;
         height: 60px;
-        max-width: 275px;
 
         background-color: #46c3bf;
         display: flex;
@@ -474,15 +509,6 @@ and (min-width : 1224px) {
     .timesPlaceTableBody tr{
         border-bottom: solid black 1px;
     }
-    .timesPlaceTableBody :last-child{
-        border-bottom: none;
-    }
-    .timesChosenPlaceTableBody tr{
-        border-bottom: solid black 1px;
-    }
-    .timesChosenPlaceTableBody :last-child{
-        border-bottom: none;
-    }
     .timeTd{
         padding: 5px!important;
         font-family: brix!important;
@@ -490,7 +516,9 @@ and (min-width : 1224px) {
         cursor: pointer;
         padding-left: 10px!important;
     }
-
+    .timesPlaceTableBody :last-child{
+        border-bottom: none;
+    }
     .addTimeButton{
         color: white;
         background-color: #46c3bf;
@@ -501,5 +529,4 @@ and (min-width : 1224px) {
         font-family: brix!important;
         font-size: 12pt;
     }
-
 }

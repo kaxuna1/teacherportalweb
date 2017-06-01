@@ -1,5 +1,5 @@
 .orderBody {
-    padding-top: 140px !important;
+    padding-top: 90px !important;
 }
 
 .orderYourClasses a {
@@ -19,7 +19,7 @@
 .infoContentOrder {
     min-height: 50px;
     border-bottom: rgba(128, 128, 128, 0.38) solid 1px;
-    font-family: brix!important;
+    font-family: brix !important;
     font-size: 18px;
 }
 
@@ -30,7 +30,6 @@
 .orderHeader {
     width: 100%;
     height: 60px;
-    max-width: 275px;
 
     background-color: #99CCFF;
     display: flex;
@@ -42,7 +41,7 @@
     align-self: center;
     padding-left: 20px;
     padding-top: 15px;
-    font-family: brix!important;
+    font-family: brix !important;
     font-size: 15pt;
     margin: 0;
 }
@@ -60,13 +59,12 @@
 }
 
 .orderCity {
-    font-family: brix!important;
+    font-family: brix !important;
     font-size: 14px;
     color: #333333;
 }
 
 .orderClassRight {
-    padding-left: 10px;
     font-family: brix !important;
     font-size: 14px;
     color: #333333;
@@ -84,18 +82,22 @@
     width: 10px;
     color: #333333;
 }
-.classScoreOrder{
+
+.classScoreOrder {
     padding-left: 20px;
+    display: flex;
     color: #333333;
 }
-.orderScoreCountRight{
-    font-family: brix!important;
+
+.orderScoreCountRight {
+    font-family: brix !important;
     font-weight: 900;
     font-size: 12px;
     padding-top: 2px;
     padding-left: 10px;
     color: #333333;
 }
+
 .viewsLabelOrder {
 
     color: #333333;
@@ -103,12 +105,26 @@
     padding-left: 10px;
     font-size: 10px;
 }
-.orderSummary{
+
+.orderSummary {
     padding-top: 25px;
 }
-.expandDates{
+
+.expandDates {
     color: #46c3bf;
 }
-.hideOrder{
-    display: none!important;
+
+.hideOrder {
+    display: none !important;
+}
+
+@media only screen
+and (min-width: 320px)
+and (max-width: 480px) {
+    .classBodyCol {
+        padding: 0;
+    }
+    .expandDates{
+        margin-top: 10px;
+    }
 }
