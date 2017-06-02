@@ -26,7 +26,7 @@ public class Variables {
     public static String appDir="C:/app";
 
     public static Mailer mailer=new Mailer(
-            new ServerConfig("smtp.gmail.com", 587, "kaxgel11@gmail.com", "dwrstn11"),
+            new ServerConfig("smtp.gmail.com", 587, "kaxgel11@gmail.com", "Gelashvili@123"),
             TransportStrategy.SMTP_TLS
     );
     static {

@@ -26,4 +26,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByGoogleIdAndActive(String googleId, boolean active);
 
     List<User> findByEmailAndActive(String email, boolean active);
+
+    Page<User> findByActive(boolean b, Pageable pageable);
 }

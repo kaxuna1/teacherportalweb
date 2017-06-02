@@ -25,6 +25,21 @@ import java.util.List;
 @Controller
 public class UsersController {
 
+
+
+    @RequestMapping("/getuserbyid/{page}")
+    @ResponseBody
+    public Page<User> getUserById(@CookieValue("projectSessionId") long sessionId,@PathVariable("page") int page){
+
+        Session session = sessionDao.findOne(sessionId);
+        boolean k = PermisionChecks.isAdmin(session);
+        if(k){
+            return userDao.findByActive(true,constructPageSpecification(page));
+        }else {
+            return null;
+        }
+    }
+
     @RequestMapping("/createuser")
     @ResponseBody
     public JsonMessage create(@CookieValue("projectSessionId") String sessionId,
@@ -225,7 +240,7 @@ public class UsersController {
     }
 
     private Pageable constructPageSpecification(int pageIndex) {
-        Pageable pageSpecification = new PageRequest(pageIndex, 10);
+        Pageable pageSpecification = new PageRequest(pageIndex, 1);
         return pageSpecification;
     }
 
