@@ -85,26 +85,27 @@ $(document).ready(function () {
                             footer.prepend("<div style='float: left;font-family: brixNorm;color: dimgrey;font-size: 1.2em;padding-top: 5px'>Already have an Allwitz account?</div>")
 
                             $(".modal-cancele-btn").remove()
-                            body.append('<div style="padding-top: 30px;" method="" class="form-signin">' +
+                            body.append(
+                                '<div style="padding-top: 30px;" method="" class="form-signin">' +
                                 '<div style="text-align: center" class="row"><span style="text-align: center;font-family: brixnorm!important;">Sign up with <a style="color:#218769;font-family: brixNorm!important;" href="#">Facebook</a> or <a style="color:#218769;font-family: brixNorm!important;" href="#">Google</a></span></div>' +
                                 '<div style="height: 10px;margin-top: 15px;padding-bottom: 20px;margin-bottom: 15px;" class="row">        <div style="height: 13px;width: 42.5%;border-bottom: 1px solid black;float: left;"></div>        <div style="width: 15%;float: left;text-align: center;font-family: brixNorm;font-size: 1.2em">or</div>        <div style="height: 13px;width: 42.5%;border-bottom: 1px solid black;float: left;"></div>    </div>    ' +
                                 '<input id="emailFieldLogin" type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />' +
                                 '<input id="nameField" type="text" class="form-control" name="username" placeholder="First name" required="" autofocus="" />' +
-                                '<input id="nameField" type="text" class="form-control" name="username" placeholder="Last name" required="" autofocus="" />' +
-                                '<input id="passwordFieldLogin" type="password" class="form-control" name="password" placeholder="Password" required=""/>' +
+                                '<input id="surnameField" type="text" class="form-control" name="username" placeholder="Last name" required="" autofocus="" />' +
+                                '<input id="passwordFieldLogin"  type="password" class="form-control" name="password" placeholder="Password" required=""/>' +
                                 '<div class="row">' +
                                 '<p style="font-family: brixnorm!important;margin-bottom: 0px;font-size: 1.3em;padding-top: 20px">Birthday</p>' +
                                 '<p style="font-family: brixnorm!important;font-size: 0.9em;    line-height: 12px;">To sign up, you must be 18 or older. Other people won’t see your birthday.</p></div>' +
                                 '<div class="row">' +
-                                '<div style="width: 35%;float: left"><select class="form-custom" style="width: 80%"></select></div>' +
-                                '<div style="width: 30%;float: left;text-align: center"><select class="form-custom"  style="width: 80%"></select></div>' +
-                                '<div style="width: 35%;float: left;text-align: right"><select class="form-custom"  style="width: 80%"></select></div>' +
+                                '<div style="width: 35%;float: left"><select class="form-custom" id="month" style="width: 80%"></select></div>' +
+                                '<div style="width: 30%;float: left;text-align: center"><select id="day" class="form-custom"  style="width: 80%"></select></div>' +
+                                '<div style="width: 35%;float: left;text-align: right"><select id="year" class="form-custom"  style="width: 80%"></select></div>' +
                                 '</div>' +
                                 '<div class="row" style="padding-top: 10px">' +
                                 '<input type="checkbox" value="value1" />' +
                                 '<span style="font-size: 0.9em;font-family: brixnorm">' +
                                 'I’d like to receive coupons, promotions, surveys, and updates via email aboutAllwitz and its partners </span></div>' +
-                                '<button style="margin-top: 10px;background-color: #46c3bf;color: white;" id="singUpWithEmailBtn"            class="btn btn-block btn-social">Sign up</button>    ' +
+                                '<button style="margin-top: 10px;background-color: #46c3bf;color: white;" id="singUpWithEmailBtn1" class="btn btn-block btn-social">Sign up</button>    ' +
                                 '<div class="row"><p style="    line-height: 17px;font-size: 0.87em;padding-top: 10px;font-family: brixNorm;">' +
                                 'By      signing up, I agree to Allwitz’s ' +
                                 '<a href="#" style="color:#218769;font-family: brixNorm!important;">Terms os Service, Nondiscrimination Policy, ' +
@@ -112,11 +113,46 @@ $(document).ready(function () {
                                 'Guest Refund Policy, and Host            Guarantee Terms.</a></p></div>' +
                                 '</div>')
 
+
+                            for (var i = 1; i < 13; i++) {
+                                $("#month").append("<option value='" + i + "'>" + moment().month(i).format('MMMM') + "</option>");
+                            }
+                            for (var i = 1; i < 32; i++) {
+                                $("#day").append("<option value='" + i + "'>" + i + "</option>");
+                            }
+                            for (var i = 1940; i < 2010; i++) {
+                                $("#year").append("<option value='" + i + "'>" + i + "</option>");
+                            }
+                            $("#singUpWithEmailBtn1").click(function () {
+                                var userModel = {
+                                    email:$("#emailFieldLogin").val().trim(),
+                                    name:$("#nameField").val().trim(),
+                                    surname:$("#surnameField").val().trim(),
+                                    password:$("#passwordFieldLogin").val().trim()
+                                };
+                                for(key in userModel){
+                                    var valid = true;
+                                    var item = userModel[key];
+
+                                    if(!item){
+                                        valid=false;
+                                    }
+
+
+                                    if(valid){
+                                        $.ajax("")
+                                    }
+
+                                }
+
+
+                            });
+
                         }, {
                             "Log in": function () {
                                 $("#logisignbtn").click()
                             }
-                        }, 500,true)
+                        }, 500, true)
                     })
 
                     /*body.append(' <form id="regForm" class="form-signin">' +
@@ -617,12 +653,9 @@ $(".settingsBtn").click(function () {
 
 });
 $(".profileBtn").click(function () {
-    window.location="/profile"
+    window.location = "/profile"
 
 });
-
-
-
 
 
 function getMailStringForValue(user) {
