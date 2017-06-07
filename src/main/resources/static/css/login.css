@@ -805,6 +805,15 @@ ul {
     background-size: 19px;
     background-repeat: no-repeat;
 }
+#surnameField {
+    margin-top: 10px;
+    height: 40px;
+    background: url(../png/login/3.png);
+    background-position: right;
+    background-origin: content-box;
+    background-size: 19px;
+    background-repeat: no-repeat;
+}
 
 #passwordFieldLogin {
     margin-top: 10px;

@@ -371,7 +371,7 @@ and (min-width : 1824px) {
     background-color:rgba(70, 195, 191, 0.69)!important;
 }
 .dropdown-menu a{
-    font-family: brixnorm!important;
+    font-family: brixLight!important;
     font-size: 20px;
 }
 .typeahead {
