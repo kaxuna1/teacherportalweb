@@ -795,6 +795,15 @@ ul {
     background-size: 22px;
     background-repeat: no-repeat;
 }
+#emailField {
+    margin-top: 10px;
+    height: 40px;
+    background: url(../png/login/1.png);
+    background-position: right;
+    background-origin: content-box;
+    background-size: 22px;
+    background-repeat: no-repeat;
+}
 
 #nameField {
     margin-top: 10px;
@@ -816,6 +825,15 @@ ul {
 }
 
 #passwordFieldLogin {
+    margin-top: 10px;
+    height: 40px;
+    background: url(../png/login/2.png);
+    background-position: right;
+    background-origin: content-box;
+    background-size: 18px;
+    background-repeat: no-repeat;
+}
+#passwordField {
     margin-top: 10px;
     height: 40px;
     background: url(../png/login/2.png);
@@ -1910,4 +1928,5 @@ and (min-width : 1824px) {
 
 input:focus{
     padding-left: 10px!important;
+    background-image: none;
 }

@@ -119,6 +119,14 @@ public class User {
     @JsonIgnore
     private List<InfoRecord> infoRecords;
 
+    @Column
+    private String cred;
+    @Column
+    private String emp;
+    @Column
+    private String suc;
+    @Column
+    private String skill;
 
     public User(long id) {
         this.id = id;
@@ -151,6 +159,10 @@ public class User {
         this.infoRecords = new ArrayList<>();
         this.ratings = new ArrayList<>();
         this.about="";
+        this.suc = "";
+        this.emp = "";
+        this.skill = "";
+        this.cred = "";
 
     }
 
@@ -480,5 +492,37 @@ public class User {
 
     public void setAbout(String about) {
         this.about = about;
+    }
+
+    public String getCred() {
+        return cred;
+    }
+
+    public void setCred(String cred) {
+        this.cred = cred;
+    }
+
+    public String getEmp() {
+        return emp;
+    }
+
+    public void setEmp(String emp) {
+        this.emp = emp;
+    }
+
+    public String getSuc() {
+        return suc;
+    }
+
+    public void setSuc(String suc) {
+        this.suc = suc;
+    }
+
+    public String getSkill() {
+        return skill;
+    }
+
+    public void setSkill(String skill) {
+        this.skill = skill;
     }
 }

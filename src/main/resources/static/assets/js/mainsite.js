@@ -9,6 +9,11 @@ var colors = {
     5: "efefee",
     6: "fdbb9c"
 };
+
+var emailValid = false;
+var googleToken = "";
+var fbToken = "";
+
 String.prototype.replaceAll = function (search, replacement) {
     var target = this;
     return target.split(search).join(replacement);
@@ -78,7 +83,7 @@ $(document).ready(function () {
                         'Guest Refund Policy, and Host            Guarantee Terms.</a></p></div>' +
                         '</div>')
 
-                    $("#singUpWithEmailBtn").click(function () {
+                    $("#singUpWithEmailBtn").unbind().click(function () {
                         modal.modal("hide")
                         showModalWithTableInside(function (head, body, modal, random, footer) {
                             $(".modal-cancele-btn").remove()
@@ -89,10 +94,11 @@ $(document).ready(function () {
                                 '<div style="padding-top: 30px;" method="" class="form-signin">' +
                                 '<div style="text-align: center" class="row"><span style="text-align: center;font-family: brixnorm!important;">Sign up with <a style="color:#218769;font-family: brixNorm!important;" href="#">Facebook</a> or <a style="color:#218769;font-family: brixNorm!important;" href="#">Google</a></span></div>' +
                                 '<div style="height: 10px;margin-top: 15px;padding-bottom: 20px;margin-bottom: 15px;" class="row">        <div style="height: 13px;width: 42.5%;border-bottom: 1px solid black;float: left;"></div>        <div style="width: 15%;float: left;text-align: center;font-family: brixNorm;font-size: 1.2em">or</div>        <div style="height: 13px;width: 42.5%;border-bottom: 1px solid black;float: left;"></div>    </div>    ' +
-                                '<input id="emailFieldLogin" type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />' +
+                                '<input id="emailField" type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />' +
                                 '<input id="nameField" type="text" class="form-control" name="username" placeholder="First name" required="" autofocus="" />' +
                                 '<input id="surnameField" type="text" class="form-control" name="username" placeholder="Last name" required="" autofocus="" />' +
-                                '<input id="passwordFieldLogin"  type="password" class="form-control" name="password" placeholder="Password" required=""/>' +
+                                '<input id="passwordField"  type="password" class="form-control" name="password" placeholder="Password" required=""/>' +
+                                '<div id="errorMessage"></div>' +
                                 '<div class="row">' +
                                 '<p style="font-family: brixnorm!important;margin-bottom: 0px;font-size: 1.3em;padding-top: 20px">Birthday</p>' +
                                 '<p style="font-family: brixnorm!important;font-size: 0.9em;    line-height: 12px;">To sign up, you must be 18 or older. Other people won’t see your birthday.</p></div>' +
@@ -123,29 +129,49 @@ $(document).ready(function () {
                             for (var i = 1940; i < 2010; i++) {
                                 $("#year").append("<option value='" + i + "'>" + i + "</option>");
                             }
+
+                            $("#emailField").change(function () {
+                                $.getJSON("emailexists?email=" + $(this).val(), function (result) {
+                                    $("#emailExistsError").remove();
+                                    if (result) {
+                                        $("#emailField").addClass("reg-invalid");
+                                        $("#errorMessage").append("<p id='emailExistsError'>Email exists</p>")
+                                    } else {
+                                        $("#emailField").removeClass("reg-invalid");
+                                    }
+                                })
+                            });
+
+
                             $("#singUpWithEmailBtn1").click(function () {
                                 var userModel = {
-                                    email:$("#emailFieldLogin").val().trim(),
-                                    name:$("#nameField").val().trim(),
-                                    surname:$("#surnameField").val().trim(),
-                                    password:$("#passwordFieldLogin").val().trim()
+                                    email: $("#emailField").val().trim(),
+                                    name: $("#nameField").val().trim(),
+                                    surname: $("#surnameField").val().trim(),
+                                    password: $("#passwordField").val().trim()
                                 };
-                                for(key in userModel){
+                                $('.form-control').removeClass("reg-invalid");
+                                for (key in userModel) {
                                     var valid = true;
                                     var item = userModel[key];
 
-                                    if(!item){
-                                        valid=false;
+                                    if (!item) {
+                                        valid = false;
+                                        $("#" + key + "Field").addClass("reg-invalid");
                                     }
-
-
-                                    if(valid){
-                                        $.ajax("")
+                                    if (valid) {
+                                        $.ajax({
+                                            url:"registerapi",
+                                            data:userModel
+                                        }).done(function (result) {
+                                            if(result.id){
+                                                createCookie("projectSessionId", result["id"], 365);
+                                                createCookie("lang", result["lang"], 365);
+                                                location.reload();
+                                            }
+                                        })
                                     }
-
                                 }
-
-
                             });
 
                         }, {
@@ -179,8 +205,10 @@ $(document).ready(function () {
                             if (result) {
                                 $("#emailReg").addClass("reg-invalid");
                                 $("#errorMessage").append("<p id='emailExistsError'>Email exists</p>")
+                                emailValid = false;
                             } else {
                                 $("#emailReg").removeClass("reg-invalid");
+                                emailValid = true;
                             }
                         })
                     });
@@ -205,7 +233,7 @@ $(document).ready(function () {
                         if ($("#connectFB").attr("value")) {
                             regData["fbId"] = $("#connectFB").attr("value");
                         }
-                        if (valid) {
+                        if (valid&&emailValid) {
                             $.ajax({
                                 url: "registerapi",
                                 data: regData

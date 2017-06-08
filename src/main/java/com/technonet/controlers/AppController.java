@@ -279,16 +279,16 @@ public class AppController {
 
 
 
-                final boolean[] academic = {false};
-                final boolean[] employment = {false};
-                final boolean[] succeed = {false};
-                final boolean[] skills = {false};
-                final boolean[] attachments = {false};
+                final boolean[] academic = {true};
+                final boolean[] employment = {true};
+                final boolean[] succeed = {true};
+                final boolean[] skills = {true};
+                final boolean[] attachments = {true};
 
-                final String[] academicString = {""};
-                final String[] employmentString = {""};
-                final String[] succeedString = {""};
-                final String[] skillsString = {""};
+                final String[] academicString = {sessiona.getUser().getCred()};
+                final String[] employmentString = {sessiona.getUser().getEmp()};
+                final String[] succeedString = {sessiona.getUser().getSuc()};
+                final String[] skillsString = {sessiona.getUser().getSkill()};
                 String attachmentsString = "";
 
 
@@ -297,29 +297,7 @@ public class AppController {
 
 
 
-                List<InfoRecord> infoRecordList = sessiona.getUser().getInfoRecords();
 
-                infoRecordList.forEach(infoRecord -> {
-                    if(infoRecord.getType()==InfoRecordTypes.academic.getCODE()){
-                        academic[0] = true;
-                        academicString[0] +="<li>"+infoRecord.getValue()+"</li>";
-                    }
-                    if(infoRecord.getType()==InfoRecordTypes.employment.getCODE()){
-                        employment[0] = true;
-                        employmentString[0] +="<li>"+infoRecord.getValue()+"</li>";
-                    }
-                    if(infoRecord.getType()==InfoRecordTypes.succeed.getCODE()){
-                        succeed[0] = true;
-                        succeedString[0] +="<li>"+infoRecord.getValue()+"</li>";
-                    }
-                    if(infoRecord.getType()==InfoRecordTypes.skills.getCODE()){
-                        skills[0] = true;
-                        skillsString[0] +="<li>"+infoRecord.getValue()+"</li>";
-                    }
-                    if(infoRecord.getType()==InfoRecordTypes.attachment.getCODE()){
-                        attachments[0] = true;
-                    }
-                });
 
 
 
