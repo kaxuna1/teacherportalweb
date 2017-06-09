@@ -92,7 +92,7 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul th:if="${!loggedIn}" class="nav navbar-nav navbar-left">
+            <ul th:if="${!isTeacher}" class="nav navbar-nav navbar-left">
                 <li id="becometeacherbtn">
                     <a class="page-scroll" th:text="${strings.main_become_a_teacher}" href="#"
                        style="font-size: 18px;color: black;font-family: brixnorm!important;"></a>
@@ -191,9 +191,17 @@
                                         </span>
 
                                     </div>
-                                    <div th:text="${about}"
+                                    <div
                                          class="col-md-8 infoContentOrder noLeftPadding noRightPadding">
+                                        <div class="row">
+                                            <div th:text="${about}" class="col-xs-11 noLeftPadding aboutText">
 
+                                            </div>
+                                            <div style="text-align: right" class="col-xs-1 noRightPadding">
+                                                <a class="profileEditButton">edit</a>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row infoRowOrder">
@@ -204,9 +212,17 @@
                                         </span>
 
                                     </div>
-                                    <div th:text="${city}"
+                                    <div
                                          class="col-md-8 infoContentOrder  noLeftPadding noRightPadding">
+                                        <div class="row">
+                                            <div th:text="${city}" class="col-xs-11 noLeftPadding cityText">
 
+                                            </div>
+                                            <div style="text-align: right" class="col-xs-1 noRightPadding">
+                                                <a class="profileEditButton">edit</a>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row infoRowOrder">
@@ -217,9 +233,17 @@
                                         </span>
 
                                     </div>
-                                    <div th:text="${address}"
+                                    <div
                                          class="col-md-8 infoContentOrder  noLeftPadding noRightPadding">
+                                        <div class="row">
+                                            <div th:text="${address}" class="col-xs-11 noLeftPadding addressText">
 
+                                            </div>
+                                            <div style="text-align: right" class="col-xs-1 noRightPadding">
+                                                <a class="profileEditButton">edit</a>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row infoRowOrder">
@@ -242,8 +266,16 @@
                                             Phone
                                         </span>
                                     </div>
-                                    <div th:text="${phone}" class="col-md-8 infoContentOrder noLeftPadding noRightPadding">
+                                    <div  class="col-md-8 infoContentOrder noLeftPadding noRightPadding">
+                                        <div class="row">
+                                            <div th:text="${address}" class="col-xs-11 noLeftPadding addressText">
 
+                                            </div>
+                                            <div style="text-align: right" class="col-xs-1 noRightPadding">
+                                                <a class="profileEditButton">edit</a>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
                                 <div th:if="${isTeacher}" class="row infoRow">
@@ -255,21 +287,34 @@
 
                                     </div>
                                     <div class="col-md-8 infoContent noLeftPadding noRightPadding">
-                                        <ul th:utext="${academicString}" class="infoP">
-                                        </ul>
+
+                                        <div class="row">
+                                            <div th:text="${academicString}" class="col-xs-11 noLeftPadding academicStringText">
+
+                                            </div>
+                                            <div style="text-align: right" class="col-xs-1 noRightPadding">
+                                                <a class="profileEditButton">edit</a>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
                                 <div th:if="${isTeacher}" class="row infoRow">
                                     <div class="col-md-4 infoLogoName noLeftPadding">
-
                                         <span class="infoTitle">
                                             Current Employment
                                         </span>
-
                                     </div>
                                     <div class="col-md-8 infoContent  noLeftPadding noRightPadding">
-                                        <ul th:utext="${employmentString}" class="infoP">
-                                        </ul>
+                                        <div class="row">
+                                            <div th:text="${academicString}" class="col-xs-11 noLeftPadding academicStringText">
+
+                                            </div>
+                                            <div style="text-align: right" class="col-xs-1 noRightPadding">
+                                                <a class="profileEditButton">edit</a>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
                                 <div th:if="${isTeacher}" class="row infoRow">

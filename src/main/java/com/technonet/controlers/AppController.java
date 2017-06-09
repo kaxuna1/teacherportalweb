@@ -41,6 +41,7 @@ public class AppController {
     public String admin(Model model,
                         @CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
                         @CookieValue(value = "lang", defaultValue = "1") int lang) {
+        boolean isTeacher = false;
         Session sessiona;
         Variables.myThreadLocal.set(lang);
         Map<String, String> stringMap = Variables.stringsMap.get(lang);
@@ -52,6 +53,8 @@ public class AppController {
                 model.addAttribute("userNameSurname", sessiona.getUser().getNameSurname());
                 model.addAttribute("userId", sessiona.getUser().getId());
                 String profilePicUrl = "/profilePic/" + sessiona.getUser().getId() + "?" + Math.random();
+
+                isTeacher = PermisionChecks.teacher(sessiona);
 
                 if (!sessiona.getUser().getFacebookId().isEmpty()) {
                     profilePicUrl = "http://graph.facebook.com/" + sessiona.getUser().getFacebookId() + "/picture?type=large";
@@ -67,7 +70,7 @@ public class AppController {
         } else {
             model.addAttribute("loggedIn", false);
         }
-
+        model.addAttribute("isTeacher", isTeacher);
         return "main/index";
     }
 
@@ -79,6 +82,7 @@ public class AppController {
         Variables.myThreadLocal.set(lang);
         Map<String, String> stringMap = Variables.stringsMap.get(lang);
         model.addAttribute("strings", stringMap);
+        boolean isTeacher = false;
         if (sessionId != 0) {
             sessiona = sessionRepository.findOne(sessionId);
             if (sessiona.isIsactive()) {
@@ -90,6 +94,9 @@ public class AppController {
                 if (!sessiona.getUser().getFacebookId().isEmpty()) {
                     profilePicUrl = "http://graph.facebook.com/" + sessiona.getUser().getFacebookId() + "/picture?type=large";
                 }
+
+                isTeacher = PermisionChecks.teacher(sessiona);
+
                 model.addAttribute("profilePicUrl", profilePicUrl);
 
                 model.addAttribute("loggedIn", true);
@@ -101,7 +108,7 @@ public class AppController {
         } else {
             model.addAttribute("loggedIn", false);
         }
-
+        model.addAttribute("isTeacher", isTeacher);
         return "main/search";
     }
 
@@ -178,7 +185,7 @@ public class AppController {
         model.addAttribute("scoreResolved",resol );
         model.addAttribute("scoreMain", score);
 
-
+        boolean isTeacher = false;
 
 
         List<InfoRecord> infoRecordList = userCategoryJoin.getUser().getInfoRecords();
@@ -238,6 +245,7 @@ public class AppController {
                 }
                 model.addAttribute("profilePicUrl", profilePicUrl);
 
+                isTeacher = PermisionChecks.teacher(sessiona);
                 model.addAttribute("loggedIn", true);
 
 
@@ -248,6 +256,7 @@ public class AppController {
             model.addAttribute("loggedIn", false);
         }
 
+        model.addAttribute("isTeacher", isTeacher);
         return "main/order";
     }
 
@@ -262,6 +271,7 @@ public class AppController {
 
 
 
+        boolean isTeacher = false;
 
 
         Map<String, String> stringMap = Variables.stringsMap.get(lang);
@@ -317,13 +327,14 @@ public class AppController {
 
 
                 model.addAttribute("about",sessiona.getUser().getAbout());
+                if(sessiona.getUser().getCity()!= null)
                 model.addAttribute("city",sessiona.getUser().getCity().getName() + ", "
                         + sessiona.getUser().getCity().getCountry().getName());
                 model.addAttribute("address",sessiona.getUser().getAddress());
                 model.addAttribute("email",sessiona.getUser().getEmail());
                 model.addAttribute("phone",sessiona.getUser().getMobile());
 
-                boolean isTeacher = PermisionChecks.teacher(sessiona);
+                isTeacher = PermisionChecks.teacher(sessiona);
 
 
 
@@ -331,7 +342,7 @@ public class AppController {
 
                 model.addAttribute("loggedIn", true);
 
-                model.addAttribute("isTeacher", isTeacher);
+
 
 
 
@@ -343,7 +354,7 @@ public class AppController {
         } else {
             model.addAttribute("loggedIn", false);
         }
-
+        model.addAttribute("isTeacher", isTeacher);
         return "main/profile";
     }
 
@@ -355,7 +366,7 @@ public class AppController {
         Variables.myThreadLocal.set(lang);
 
 
-
+        boolean isTeacher = false;
 
 
 
@@ -376,12 +387,15 @@ public class AppController {
 
 
                 model.addAttribute("about",sessiona.getUser().getAbout());
+
+                if(sessiona.getUser().getCity() != null)
                 model.addAttribute("city",sessiona.getUser().getCity().getName() + ", "
                         + sessiona.getUser().getCity().getCountry().getName());
                 model.addAttribute("address",sessiona.getUser().getAddress());
                 model.addAttribute("email",sessiona.getUser().getEmail());
                 model.addAttribute("phone",sessiona.getUser().getMobile());
 
+                isTeacher = PermisionChecks.teacher(sessiona);
 
                 model.addAttribute("profilePicUrl", profilePicUrl);
 
@@ -395,6 +409,7 @@ public class AppController {
             model.addAttribute("loggedIn", false);
         }
 
+        model.addAttribute("isTeacher", isTeacher);
         return "main/myclasses";
     }
 
@@ -509,6 +524,7 @@ public class AppController {
 
         model.addAttribute("duration",userCategoryJoin.getDuration());
 
+        boolean isTeacher = false;
         Session sessiona;
         Variables.myThreadLocal.set(lang);
         Map<String, String> stringMap = Variables.stringsMap.get(lang);
@@ -519,11 +535,16 @@ public class AppController {
                 model.addAttribute("sessionobj", sessiona);
                 model.addAttribute("userNameSurname", sessiona.getUser().getNameSurname());
                 model.addAttribute("userId", sessiona.getUser().getId());
+                isTeacher = PermisionChecks.teacher(sessiona);
                 String profilePicUrl = "/profilePic/" + sessiona.getUser().getId() + "?" + Math.random();
+
+
+
 
                 if (!sessiona.getUser().getFacebookId().isEmpty()) {
                     profilePicUrl = "http://graph.facebook.com/" + sessiona.getUser().getFacebookId() + "/picture?type=large";
                 }
+
                 model.addAttribute("profilePicUrl", profilePicUrl);
 
                 model.addAttribute("loggedIn", true);
@@ -536,7 +557,7 @@ public class AppController {
             model.addAttribute("loggedIn", false);
         }
 
-
+        model.addAttribute("isTeacher", isTeacher);
         return "main/class";
     }
 

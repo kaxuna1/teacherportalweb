@@ -86,7 +86,7 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul th:if="${!loggedIn}" class="nav navbar-nav navbar-left">
+            <ul th:if="${!isTeacher}" class="nav navbar-nav navbar-left">
                 <li id="becometeacherbtn">
                     <a class="page-scroll" th:text="${strings.main_become_a_teacher}" href="#"
                        style="font-size: 18px;color: black;font-family: brixnorm!important;"></a>

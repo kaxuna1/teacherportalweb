@@ -1930,3 +1930,9 @@ input:focus{
     padding-left: 10px!important;
     background-image: none;
 }
+.profileEditButton{
+    color: #46c3bf;
+    font-family: brixLight!important;
+    font-size: 18px;
+    cursor: pointer;
+}

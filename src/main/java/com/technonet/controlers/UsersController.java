@@ -90,7 +90,6 @@ public class UsersController {
             return new Session();
         }
         User user = new User(password, email, name, surname);
-        user.setCity(cityRepo.findOne(1l));
         if (!fbId.isEmpty()) {
             user.setFacebookId(fbId);
         }
