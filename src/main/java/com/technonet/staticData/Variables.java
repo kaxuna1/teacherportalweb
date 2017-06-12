@@ -22,7 +22,7 @@ import java.util.Map;
  * Created by kaxa on 3/8/17.
  */
 public class Variables {
-    //public static String appDir = "/Users/vakhtanggelashvili/IdeaProjects/teacherportalweb/build/app";
+    //  public static String appDir = "/Users/vakhtanggelashvili/IdeaProjects/teacherportalweb/build/app";
     public static String appDir="C:/app";
 
     public static Mailer mailer=new Mailer(
