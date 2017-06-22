@@ -72,7 +72,7 @@ $(document).ready(function () {
 
 
                     body.append('<div style="padding-top: 30px;" method="" class="form-signin">' +
-                        '<a id="signInFB" onclick="loginWithFace()"                                                                  class="btn btn-block btn-social btn-facebook"                                                                  style="height: 40px;    padding-top: 8px;color: #000;font-family:brixNorm!important;">    <span style="color: white;" class="fa fa-facebook"></span> Log in with Facebook </a>' +
+                        '<a id="signInFB"                                                                   class="btn btn-block btn-social btn-facebook"                                                                  style="height: 40px;    padding-top: 8px;color: #000;font-family:brixNorm!important;">    <span style="color: white;" class="fa fa-facebook"></span> Log in with Facebook </a>' +
                         '<a id="signInGoogle"                                                                                           class="g-signin2 btn btn-block btn-social"                                                                                           style="height: 40px;    padding-top: 8px;border: 1px solid darkgray;color: #000;font-family:brixNorm!important;margin-top: 10px"                                                                                           data-onsuccess="onSignIn">    <img style="    padding-bottom: 4px" src="png/login/g.png"> Log in with Google </a>    ' +
                         '<div style="height: 10px;margin-top: 15px;padding-bottom: 20px;margin-bottom: 15px;" class="row">        <div style="height: 13px;width: 42.5%;border-bottom: 1px solid black;float: left;"></div>        <div style="width: 15%;float: left;text-align: center;font-family: brixNorm;font-size: 1.2em">or</div>        <div style="height: 13px;width: 42.5%;border-bottom: 1px solid black;float: left;"></div>    </div>    ' +
                         '<button style="margin-top: 10px;background-color: #46c3bf;color: white;" id="singUpWithEmailBtn"            class="btn btn-block btn-social">Sign up with Email    </button>    ' +
@@ -82,6 +82,14 @@ $(document).ready(function () {
                         'Payments Terms of Service, Privacy Policy, ' +
                         'Guest Refund Policy, and Host            Guarantee Terms.</a></p></div>' +
                         '</div>')
+
+
+                    var gid = "";
+                    var fbid = "";
+                    var email = "";
+                    var name = "";
+                    var surname = "";
+
 
                     $("#singUpWithEmailBtn").unbind().click(function () {
                         modal.modal("hide")
@@ -94,9 +102,9 @@ $(document).ready(function () {
                                 '<div style="padding-top: 30px;" method="" class="form-signin">' +
                                 '<div style="text-align: center" class="row"><span style="text-align: center;font-family: brixnorm!important;">Sign up with <a style="color:#218769;font-family: brixNorm!important;" href="#">Facebook</a> or <a style="color:#218769;font-family: brixNorm!important;" href="#">Google</a></span></div>' +
                                 '<div style="height: 10px;margin-top: 15px;padding-bottom: 20px;margin-bottom: 15px;" class="row">        <div style="height: 13px;width: 42.5%;border-bottom: 1px solid black;float: left;"></div>        <div style="width: 15%;float: left;text-align: center;font-family: brixNorm;font-size: 1.2em">or</div>        <div style="height: 13px;width: 42.5%;border-bottom: 1px solid black;float: left;"></div>    </div>    ' +
-                                '<input id="emailField" type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />' +
-                                '<input id="nameField" type="text" class="form-control" name="username" placeholder="First name" required="" autofocus="" />' +
-                                '<input id="surnameField" type="text" class="form-control" name="username" placeholder="Last name" required="" autofocus="" />' +
+                                '<input id="emailField" value="' + email + '" type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />' +
+                                '<input id="nameField" value="' + name + '" type="text" class="form-control" name="username" placeholder="First name" required="" autofocus="" />' +
+                                '<input id="surnameField" value="' + surname + '" type="text" class="form-control" name="username" placeholder="Last name" required="" autofocus="" />' +
                                 '<input id="passwordField"  type="password" class="form-control" name="password" placeholder="Password" required=""/>' +
                                 '<div id="errorMessage"></div>' +
                                 '<div class="row">' +
@@ -120,6 +128,7 @@ $(document).ready(function () {
                                 '</div>')
 
 
+
                             for (var i = 1; i < 13; i++) {
                                 $("#month").append("<option value='" + i + "'>" + moment().month(i).format('MMMM') + "</option>");
                             }
@@ -141,14 +150,16 @@ $(document).ready(function () {
                                     }
                                 })
                             });
+                            $("#emailField").change();
 
-
-                            $("#singUpWithEmailBtn1").click(function () {
+                            $("#singUpWithEmailBtn1").unbind().click(function () {
                                 var userModel = {
                                     email: $("#emailField").val().trim(),
                                     name: $("#nameField").val().trim(),
                                     surname: $("#surnameField").val().trim(),
-                                    password: $("#passwordField").val().trim()
+                                    password: $("#passwordField").val().trim(),
+                                    googleId: gid,
+                                    fbId: fbid
                                 };
                                 $('.form-control').removeClass("reg-invalid");
                                 for (key in userModel) {
@@ -161,10 +172,10 @@ $(document).ready(function () {
                                     }
                                     if (valid) {
                                         $.ajax({
-                                            url:"registerapi",
-                                            data:userModel
+                                            url: "registerapi",
+                                            data: userModel
                                         }).done(function (result) {
-                                            if(result.id){
+                                            if (result.id) {
                                                 createCookie("projectSessionId", result["id"], 365);
                                                 createCookie("lang", result["lang"], 365);
                                                 location.reload();
@@ -180,6 +191,73 @@ $(document).ready(function () {
                             }
                         }, 500, true)
                     })
+
+
+                    $("#signInFB").unbind().click(function () {
+                        FB.login(function (response) {
+                            //https://graph.facebook.com/me?access_token=
+                            //10202582199151436
+                            if (response.status = "connected") {
+                                console.log(response)
+                                FB.api("/me?fields=id,name,email", function (result) {
+                                    console.log(result);
+                                    if (result) {
+                                        var token = response.authResponse.accessToken;
+                                        $.getJSON("/loginapifb/" + token, function (session) {
+                                            console.log(session)
+                                            if (session.id) {
+                                                createCookie("projectSessionId", session["id"], 365);
+                                                createCookie("lang", result["lang"], 365);
+                                                location.reload();
+                                            } else {
+                                                fbid = response.authResponse.userID
+                                                $("#singUpWithEmailBtn").click();
+                                                name = result.name.split(" ")[0];
+                                                surname = result.name.split(" ")[1];
+                                                $("#singUpWithEmailBtn").click();
+                                                email= result.email;
+
+                                            }
+                                        })
+
+
+                                    }
+                                });
+
+                            }
+                        });
+                    });
+
+                    $("#signInGoogle").click(function () {
+                        gapi.load('auth2', function () {
+                            gapi.auth2.init();
+                            var auth2 = gapi.auth2.getAuthInstance();
+                            //console.log(auth2);
+                            auth2.signIn().then(function (response) {//request to sign in
+                                console.log(response.getBasicProfile());
+                                var id_token = response.getBasicProfile().getId();
+
+
+                                gid = id_token;
+                                name = response.getBasicProfile().getGivenName();
+                                surname = response.getBasicProfile().getFamilyName();
+                                email = response.getBasicProfile().getEmail();
+                                console.log(id_token);
+                                $("#singUpWithEmailBtn").click();
+
+                                /*$.getJSON("/loginapigoogle?token=" + id_token, function (result) {
+                                 if (result) {
+                                 createCookie("projectSessionId", result["id"], 365);
+                                 createCookie("lang", result["lang"], 365);
+                                 location.reload();
+                                 } else {
+                                 alert("no such user")
+                                 }
+                                 })*/
+                            });
+                        });
+
+                    });
 
                     /*body.append(' <form id="regForm" class="form-signin">' +
                      ' <h2 class="form-signin-heading">Sign Up</h2>' +
@@ -233,7 +311,7 @@ $(document).ready(function () {
                         if ($("#connectFB").attr("value")) {
                             regData["fbId"] = $("#connectFB").attr("value");
                         }
-                        if (valid&&emailValid) {
+                        if (valid && emailValid) {
                             $.ajax({
                                 url: "registerapi",
                                 data: regData
@@ -436,9 +514,13 @@ function loginWithFace() {
             var token = response.authResponse.accessToken;
             $.getJSON("/loginapifb/" + token, function (result) {
                 if (result) {
-                    createCookie("projectSessionId", result["id"], 365);
-                    createCookie("lang", result["lang"], 365);
-                    location.reload();
+                    if (result["id"]) {
+                        createCookie("projectSessionId", result["id"], 365);
+                        createCookie("lang", result["lang"], 365);
+                        location.reload();
+                    } else {
+                        alert("no such user")
+                    }
                 } else {
                     alert("no such user")
                 }
