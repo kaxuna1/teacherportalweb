@@ -207,14 +207,13 @@ $(document).ready(function () {
                                             console.log(session)
                                             if (session.id) {
                                                 createCookie("projectSessionId", session["id"], 365);
-                                                createCookie("lang", result["lang"], 365);
+                                                createCookie("lang", session["lang"], 365);
                                                 location.reload();
                                             } else {
                                                 fbid = response.authResponse.userID
                                                 $("#singUpWithEmailBtn").click();
                                                 name = result.name.split(" ")[0];
                                                 surname = result.name.split(" ")[1];
-                                                $("#singUpWithEmailBtn").click();
                                                 email= result.email;
 
                                             }
@@ -638,7 +637,7 @@ $(".settingsBtn").click(function () {
                     "prompt=consent&" +
                     "include_granted_scopes=true&" +
                     "state=state_parameter_passthrough_value&" +
-                    "redirect_uri=http://localhost:8081/oauthcall&" +
+                    "redirect_uri=http://allwitz.com/oauthcall&" +
                     "response_type=code&" +
                     "client_id=55995473742-00obqav5bir1au4qdn4l1jgdvf7kbmv2.apps.googleusercontent.com", "_self");
             });
@@ -685,7 +684,21 @@ $(".settingsBtn").click(function () {
                         email: {
                             name: strings.main_label_email,
                             type: "text",
-                            value: result.email
+                            value: result.email,
+                            filter: function (val) {
+                                var valid = true;
+                                $.ajax({
+                                    type: 'GET',
+                                    url: "emailexists?email="+val,
+                                    dataType: 'json',
+                                    success: function(result) {
+                                        valid = !result;
+                                    },
+                                    data: {},
+                                    async: false
+                                });
+                                return valid;
+                            }
                         }
                     }, function () {
                         $("#emailSettingsFormDiv").slideUp().html("")

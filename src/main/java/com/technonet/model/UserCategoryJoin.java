@@ -63,6 +63,12 @@ public class UserCategoryJoin {
     private float price;
 
     @Column
+    private int ratingNum=0;
+
+    @Column
+    private int ratingSum=0;
+
+    @Column
     private int duration;
 
     @Column
@@ -238,5 +244,25 @@ public class UserCategoryJoin {
 
     public void setRatings(List<Rating> ratings) {
         this.ratings = ratings;
+    }
+
+    public int getRatingNum() {
+        return ratingNum;
+    }
+
+    public void setRatingNum(int ratingNum) {
+        this.ratingNum = ratingNum;
+    }
+
+    public int getRatingSum() {
+        return ratingSum;
+    }
+
+    public void setRatingSum(int ratingSum) {
+        this.ratingSum = ratingSum;
+    }
+    public void giveRating(int rating){
+        ratingSum+=rating;
+        ratingNum++;
     }
 }

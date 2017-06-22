@@ -32,9 +32,12 @@ public class UserCategoryController {
     @RequestMapping("searchapi")
     @ResponseBody
     public Page<UserCategoryJoin> searchByCategoryAndCity(@RequestParam(value = "page", required = true) int page,
+                                                          @RequestParam(value = "sort", required = true,defaultValue = "1") int sort,
                                                           @RequestParam(value = "category", required = true) String cat,
                                                           @RequestParam(value = "city", required = true) String city,
-                                                          @CookieValue(value = "lang", defaultValue = "1") int lang) {
+                                                          @CookieValue(value = "lang", defaultValue = "1") int lang,
+                                                          @RequestParam(value = "lower", defaultValue = "1") float lower,
+                                                          @RequestParam(value = "upper", defaultValue = "1") float upper) {
 
         Variables.myThreadLocal.set(lang);
         List<String> categories = new ArrayList<>();
@@ -44,7 +47,12 @@ public class UserCategoryController {
                     if (s2.toLowerCase().contains(cat.toLowerCase())) categories.add(s);
                 }));
 
-        return userCategoryJoinRepo.findByCategoryAndCity(categories,city,constructPageSpecification(page,20));
+        if(sort == 1){
+            return userCategoryJoinRepo.findByCategoryAndCityScoreSum(categories,city,upper,lower,constructPageSpecification(page,10));
+        }else{
+            return userCategoryJoinRepo.findByCategoryAndCityScoreNum(categories,city,upper,lower,constructPageSpecification(page,10));
+        }
+
     }
 
 
@@ -170,11 +178,17 @@ public class UserCategoryController {
         User user = session.getUser();
         UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(id);
 
+
+
         Rating rating = new Rating(userCategoryJoin,user,comment,score);
 
         try {
 
             ratingRepo.save(rating);
+
+            userCategoryJoin.giveRating(score);
+
+            userCategoryJoinRepo.save(userCategoryJoin);
 
             return new JsonMessage(JsonReturnCodes.Ok);
 

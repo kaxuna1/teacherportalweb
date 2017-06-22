@@ -193,7 +193,7 @@
                                 Rating
                             </td>
                             <td style="padding-left: 20px">
-                                <input type="checkbox">
+                                <input class="sortCheck" name="sort" checked="checked" value="1" type="radio">
                             </td>
                         </tr>
                         <tr>
@@ -201,7 +201,7 @@
                                 Most Reviewed
                             </td>
                             <td style="padding-left: 20px">
-                                <input type="checkbox">
+                                <input class="sortCheck" name="sort" value="2" type="radio">
                             </td>
                         </tr>
                         </tbody>
@@ -212,12 +212,12 @@
                                                                                  src="png/login/9.png"></a>
                 <div class="revileMenuPrice ">
                     <span style="width: 100%;height: 100%;display: grid;">
-                        <span style="margin: 20px;font-family: brixLight!important;">
-                        $10 - $1000+
+                        <span class="priceRangeClass" style="margin: 20px;font-family: brixLight!important;">
+                        0₾ - 1000₾
                     </span>
                         <span class="multi-range">
-                        <input style="margin-left: 20px" type="range" min="0" max="50" value="5" id="lower">
-                        <input style="margin-left: 20px" type="range" min="0" max="50" value="45" id="upper">
+                        <input style="margin-left: 20px" type="range" min="0" max="200" value="0" id="lower">
+                        <input style="margin-left: 20px" type="range" min="0" max="200" value="199" id="upper">
                     </span>
                         <span>
                         <a style="cursor:pointer;float:left; padding-left: 20px">
@@ -242,7 +242,7 @@
                 120 results
             </p>
             </a>
-            <div class="searchResultDiv">
+            <div style="display: grid" class="searchResultDiv">
 
             </div>
         </div>

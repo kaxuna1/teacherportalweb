@@ -142,7 +142,7 @@ public class ConfirmationToken {
         email.setSubject("Hello Confirm Your Email On ALLWITZ");
         email.setText("We should meet up! ;)");
         email.setTextHTML("please Confirm Account </br> " +
-                "<a href='http://localhost:8081/confirmtoken?token=" + token + "'>click here to confirm</a>");
+                "<a href='http://allwitz.com/confirmtoken?token=" + token + "'>click here to confirm</a>");
 
 
         mailer.sendMail(email, true);
