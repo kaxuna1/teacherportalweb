@@ -283,7 +283,7 @@ and (max-width : 480px) {
     }
 
     .ratingStarsTable {
-        width: 300px;
+        width: 400px;
     }
 
     .ratingStarsTable > td {
@@ -395,7 +395,6 @@ and (max-width : 480px) {
 
     .calendarBody {
 
-        height: 230px;
         display: flex;
     }
     .calendarBodyTimes {

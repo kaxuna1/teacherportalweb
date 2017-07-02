@@ -263,7 +263,7 @@ and (max-width : 1224px) {
     }
 
     .ratingStarsTable {
-        width: 300px;
+        width: 400px;
     }
 
     .ratingStarsTable > td {
@@ -377,7 +377,7 @@ and (max-width : 1224px) {
 
     .calendarBody {
 
-        height: 230px;
+
         display: flex;
     }
     .calendarBodyTimes {
@@ -763,7 +763,7 @@ and (orientation : landscape) {
     }
 
     .ratingStarsTable {
-        width: 300px;
+        width: 400px;
     }
 
     .ratingStarsTable > td {
@@ -877,7 +877,7 @@ and (orientation : landscape) {
 
     .calendarBody {
 
-        height: 200px;
+
         display: flex;
     }
     .calendarBodyTimes {
@@ -1281,7 +1281,7 @@ and (orientation : portrait) {
     }
 
     .ratingStarsTable {
-        width: 300px;
+        width: 400px;
     }
 
     .ratingStarsTable > td {
@@ -1395,7 +1395,7 @@ and (orientation : portrait) {
 
     .calendarBody {
 
-        height: 230px;
+
         display: flex;
     }
     .calendarBodyTimes {

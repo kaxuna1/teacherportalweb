@@ -1,6 +1,8 @@
 package com.technonet.Repository;
 
 import com.technonet.model.Rating;
+import com.technonet.model.User;
+import com.technonet.model.UserCategoryJoin;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -28,4 +30,6 @@ public interface RatingRepo extends JpaRepository<Rating,Long> {
     Integer getratingCount(@Param("cid") long cid);
     @Query("select a from Rating a join a.userCategoryJoin ucj where ucj.id=:cid")
     List<Rating> findByJoin(@Param("cid")long id, Pageable pageable);
+
+    List<Rating> findByUserAndUserCategoryJoin(User user, UserCategoryJoin userCategoryJoin);
 }

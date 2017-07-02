@@ -117,8 +117,8 @@ public class AppController {
     public String order(Model model,
 
                         @RequestParam("id") long id,
-                         @CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
-                         @CookieValue(value = "lang", defaultValue = "1") int lang) {
+                        @CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
+                        @CookieValue(value = "lang", defaultValue = "1") int lang) {
         Session sessiona;
         Variables.myThreadLocal.set(lang);
 
@@ -138,7 +138,7 @@ public class AppController {
         model.addAttribute("className", className);
         model.addAttribute("classAbout", classAbout);
         model.addAttribute("teacherPic", teacherPic);
-        model.addAttribute("price",userCategoryJoin.getPrice());
+        model.addAttribute("price", userCategoryJoin.getPrice());
 
 
         final boolean[] academic = {false};
@@ -154,35 +154,33 @@ public class AppController {
         String attachmentsString = "";
 
 
-
         int scoreCount = ratingRepo.getratingCount(id);
 
 
-        model.addAttribute("scoreCount",scoreCount+" Reviews");
+        model.addAttribute("scoreCount", scoreCount + " Reviews");
 
 
-
-        Float proF=ratingRepo.getrating(id);
+        Float proF = ratingRepo.getrating(id);
         Float punctF = ratingRepo.getratingPunctual(id);
-        Float balF =ratingRepo.getratingBalanced(id);
+        Float balF = ratingRepo.getratingBalanced(id);
         Float resolF = ratingRepo.getratingResolved(id);
 
-        int pro=(int)Math.ceil(proF==null?5:proF);
-        int punct =  (int)Math.ceil((punctF==null?5:punctF));
-        int bal = (int)Math.ceil(balF==null?5:balF);
-        int resol = (int)Math.ceil(resolF==null?5:resolF);
-        int score=(int)Math.ceil((pro+punct+bal+resol)/4);
+        int pro = (int) Math.ceil(proF == null ? 5 : proF);
+        int punct = (int) Math.ceil((punctF == null ? 5 : punctF));
+        int bal = (int) Math.ceil(balF == null ? 5 : balF);
+        int resol = (int) Math.ceil(resolF == null ? 5 : resolF);
+        int score = (int) Math.ceil(pro);
 
 
-        List<Rating> reviews = ratingRepo.findByJoin(id,constructPageSpecification(0,5));
+        List<Rating> reviews = ratingRepo.findByJoin(id, constructPageSpecification(0, 5));
 
 
-        model.addAttribute("reviews",reviews);
+        model.addAttribute("reviews", reviews);
 
         model.addAttribute("scoreProfessional", pro);
-        model.addAttribute("scorePunctual",punct);
+        model.addAttribute("scorePunctual", punct);
         model.addAttribute("scoreBalanced", bal);
-        model.addAttribute("scoreResolved",resol );
+        model.addAttribute("scoreResolved", resol);
         model.addAttribute("scoreMain", score);
 
         boolean isTeacher = false;
@@ -191,27 +189,26 @@ public class AppController {
         List<InfoRecord> infoRecordList = userCategoryJoin.getUser().getInfoRecords();
 
         infoRecordList.forEach(infoRecord -> {
-            if(infoRecord.getType()==InfoRecordTypes.academic.getCODE()){
+            if (infoRecord.getType() == InfoRecordTypes.academic.getCODE()) {
                 academic[0] = true;
-                academicString[0] +="<li>"+infoRecord.getValue()+"</li>";
+                academicString[0] += "<li>" + infoRecord.getValue() + "</li>";
             }
-            if(infoRecord.getType()==InfoRecordTypes.employment.getCODE()){
+            if (infoRecord.getType() == InfoRecordTypes.employment.getCODE()) {
                 employment[0] = true;
-                employmentString[0] +="<li>"+infoRecord.getValue()+"</li>";
+                employmentString[0] += "<li>" + infoRecord.getValue() + "</li>";
             }
-            if(infoRecord.getType()==InfoRecordTypes.succeed.getCODE()){
+            if (infoRecord.getType() == InfoRecordTypes.succeed.getCODE()) {
                 succeed[0] = true;
-                succeedString[0] +="<li>"+infoRecord.getValue()+"</li>";
+                succeedString[0] += "<li>" + infoRecord.getValue() + "</li>";
             }
-            if(infoRecord.getType()==InfoRecordTypes.skills.getCODE()){
+            if (infoRecord.getType() == InfoRecordTypes.skills.getCODE()) {
                 skills[0] = true;
-                skillsString[0] +="<li>"+infoRecord.getValue()+"</li>";
+                skillsString[0] += "<li>" + infoRecord.getValue() + "</li>";
             }
-            if(infoRecord.getType()==InfoRecordTypes.attachment.getCODE()){
+            if (infoRecord.getType() == InfoRecordTypes.attachment.getCODE()) {
                 attachments[0] = true;
             }
         });
-
 
 
         model.addAttribute("academic", academic[0]);
@@ -225,9 +222,9 @@ public class AppController {
         model.addAttribute("employmentString", employmentString[0]);
         model.addAttribute("succeedString", succeedString[0]);
         model.addAttribute("skillsString", skillsString[0]);
-        model.addAttribute("attachmentsString",attachmentsString);
+        model.addAttribute("attachmentsString", attachmentsString);
 
-        model.addAttribute("duration",userCategoryJoin.getDuration());
+        model.addAttribute("duration", userCategoryJoin.getDuration());
 
 
         Map<String, String> stringMap = Variables.stringsMap.get(lang);
@@ -263,12 +260,10 @@ public class AppController {
 
     @GetMapping(value = "/profile", produces = "text/html")
     public String profile(Model model,
-                         @CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
-                         @CookieValue(value = "lang", defaultValue = "1") int lang) {
+                          @CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
+                          @CookieValue(value = "lang", defaultValue = "1") int lang) {
         Session sessiona;
         Variables.myThreadLocal.set(lang);
-
-
 
 
         boolean isTeacher = false;
@@ -283,10 +278,6 @@ public class AppController {
                 model.addAttribute("sessionobj", sessiona);
                 model.addAttribute("userNameSurname", sessiona.getUser().getNameSurname());
                 model.addAttribute("userId", sessiona.getUser().getId());
-
-
-
-
 
 
                 final boolean[] academic = {true};
@@ -302,15 +293,6 @@ public class AppController {
                 String attachmentsString = "";
 
 
-
-
-
-
-
-
-
-
-
                 model.addAttribute("academic", academic[0]);
                 model.addAttribute("employment", employment[0]);
                 model.addAttribute("succeed", succeed[0]);
@@ -322,30 +304,23 @@ public class AppController {
                 model.addAttribute("employmentString", employmentString[0]);
                 model.addAttribute("succeedString", succeedString[0]);
                 model.addAttribute("skillsString", skillsString[0]);
-                model.addAttribute("attachmentsString",attachmentsString);
+                model.addAttribute("attachmentsString", attachmentsString);
 
 
-
-                model.addAttribute("about",sessiona.getUser().getAbout());
-                if(sessiona.getUser().getCity()!= null)
-                model.addAttribute("city",sessiona.getUser().getCity().getName() + ", "
-                        + sessiona.getUser().getCity().getCountry().getName());
-                model.addAttribute("address",sessiona.getUser().getAddress());
-                model.addAttribute("email",sessiona.getUser().getEmail());
-                model.addAttribute("phone",sessiona.getUser().getMobile());
+                model.addAttribute("about", sessiona.getUser().getAbout());
+                if (sessiona.getUser().getCity() != null)
+                    model.addAttribute("city", sessiona.getUser().getCity().getName() + ", "
+                            + sessiona.getUser().getCity().getCountry().getName());
+                model.addAttribute("address", sessiona.getUser().getAddress());
+                model.addAttribute("email", sessiona.getUser().getEmail());
+                model.addAttribute("phone", sessiona.getUser().getMobile());
 
                 isTeacher = PermisionChecks.teacher(sessiona);
-
 
 
                 model.addAttribute("profilePicUrl", profilePicUrl);
 
                 model.addAttribute("loggedIn", true);
-
-
-
-
-
 
 
             } else {
@@ -360,14 +335,13 @@ public class AppController {
 
     @GetMapping(value = "/myclasses", produces = "text/html")
     public String myclasses(Model model,
-                         @CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
-                         @CookieValue(value = "lang", defaultValue = "1") int lang) {
+                            @CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
+                            @CookieValue(value = "lang", defaultValue = "1") int lang) {
         Session sessiona;
         Variables.myThreadLocal.set(lang);
 
 
         boolean isTeacher = false;
-
 
 
         Map<String, String> stringMap = Variables.stringsMap.get(lang);
@@ -381,19 +355,14 @@ public class AppController {
                 model.addAttribute("userId", sessiona.getUser().getId());
 
 
+                model.addAttribute("about", sessiona.getUser().getAbout());
 
-
-
-
-
-                model.addAttribute("about",sessiona.getUser().getAbout());
-
-                if(sessiona.getUser().getCity() != null)
-                model.addAttribute("city",sessiona.getUser().getCity().getName() + ", "
-                        + sessiona.getUser().getCity().getCountry().getName());
-                model.addAttribute("address",sessiona.getUser().getAddress());
-                model.addAttribute("email",sessiona.getUser().getEmail());
-                model.addAttribute("phone",sessiona.getUser().getMobile());
+                if (sessiona.getUser().getCity() != null)
+                    model.addAttribute("city", sessiona.getUser().getCity().getName() + ", "
+                            + sessiona.getUser().getCity().getCountry().getName());
+                model.addAttribute("address", sessiona.getUser().getAddress());
+                model.addAttribute("email", sessiona.getUser().getEmail());
+                model.addAttribute("phone", sessiona.getUser().getMobile());
 
                 isTeacher = PermisionChecks.teacher(sessiona);
 
@@ -434,7 +403,7 @@ public class AppController {
         model.addAttribute("className", className);
         model.addAttribute("classAbout", classAbout);
         model.addAttribute("teacherPic", teacherPic);
-        model.addAttribute("price",userCategoryJoin.getPrice());
+        model.addAttribute("price", userCategoryJoin.getPrice());
 
         final boolean[] academic = {false};
         final boolean[] employment = {false};
@@ -449,64 +418,61 @@ public class AppController {
         String attachmentsString = "";
 
 
-
         int scoreCount = ratingRepo.getratingCount(id);
 
 
-        model.addAttribute("scoreCount",scoreCount+" Reviews");
+        model.addAttribute("scoreCount", scoreCount + " Reviews");
+
+        boolean canReview = false;
 
 
-
-        Float proF=ratingRepo.getrating(id);
+        Float proF = ratingRepo.getrating(id);
         Float punctF = ratingRepo.getratingPunctual(id);
-        Float balF =ratingRepo.getratingBalanced(id);
+        Float balF = ratingRepo.getratingBalanced(id);
         Float resolF = ratingRepo.getratingResolved(id);
 
-        int pro=(int)Math.ceil(proF==null?5:proF);
-        int punct =  (int)Math.ceil((punctF==null?5:punctF));
-        int bal = (int)Math.ceil(balF==null?5:balF);
-        int resol = (int)Math.ceil(resolF==null?5:resolF);
-        int score=(int)Math.ceil((pro+punct+bal+resol)/4);
+        int pro = (int) Math.ceil(proF == null ? 5 : proF);
+        int punct = (int) Math.ceil((punctF == null ? 5 : punctF));
+        int bal = (int) Math.ceil(balF == null ? 5 : balF);
+        int resol = (int) Math.ceil(resolF == null ? 5 : resolF);
+        int score = (int) Math.ceil(pro);
 
 
-        List<Rating> reviews = ratingRepo.findByJoin(id,constructPageSpecification(0,5));
+        List<Rating> reviews = ratingRepo.findByJoin(id, constructPageSpecification(0, 5));
 
 
-        model.addAttribute("reviews",reviews);
+        model.addAttribute("reviews", reviews);
 
         model.addAttribute("scoreProfessional", pro);
-        model.addAttribute("scorePunctual",punct);
+        model.addAttribute("scorePunctual", punct);
         model.addAttribute("scoreBalanced", bal);
-        model.addAttribute("scoreResolved",resol );
+        model.addAttribute("scoreResolved", resol);
         model.addAttribute("scoreMain", score);
-
-
 
 
         List<InfoRecord> infoRecordList = userCategoryJoin.getUser().getInfoRecords();
 
         infoRecordList.forEach(infoRecord -> {
-            if(infoRecord.getType()==InfoRecordTypes.academic.getCODE()){
+            if (infoRecord.getType() == InfoRecordTypes.academic.getCODE()) {
                 academic[0] = true;
-                academicString[0] +="<li>"+infoRecord.getValue()+"</li>";
+                academicString[0] += "<li>" + infoRecord.getValue() + "</li>";
             }
-            if(infoRecord.getType()==InfoRecordTypes.employment.getCODE()){
+            if (infoRecord.getType() == InfoRecordTypes.employment.getCODE()) {
                 employment[0] = true;
-                employmentString[0] +="<li>"+infoRecord.getValue()+"</li>";
+                employmentString[0] += "<li>" + infoRecord.getValue() + "</li>";
             }
-            if(infoRecord.getType()==InfoRecordTypes.succeed.getCODE()){
+            if (infoRecord.getType() == InfoRecordTypes.succeed.getCODE()) {
                 succeed[0] = true;
-                succeedString[0] +="<li>"+infoRecord.getValue()+"</li>";
+                succeedString[0] += "<li>" + infoRecord.getValue() + "</li>";
             }
-            if(infoRecord.getType()==InfoRecordTypes.skills.getCODE()){
+            if (infoRecord.getType() == InfoRecordTypes.skills.getCODE()) {
                 skills[0] = true;
-                skillsString[0] +="<li>"+infoRecord.getValue()+"</li>";
+                skillsString[0] += "<li>" + infoRecord.getValue() + "</li>";
             }
-            if(infoRecord.getType()==InfoRecordTypes.attachment.getCODE()){
+            if (infoRecord.getType() == InfoRecordTypes.attachment.getCODE()) {
                 attachments[0] = true;
             }
         });
-
 
 
         model.addAttribute("academic", academic[0]);
@@ -520,9 +486,9 @@ public class AppController {
         model.addAttribute("employmentString", employmentString[0]);
         model.addAttribute("succeedString", succeedString[0]);
         model.addAttribute("skillsString", skillsString[0]);
-        model.addAttribute("attachmentsString",attachmentsString);
+        model.addAttribute("attachmentsString", attachmentsString);
 
-        model.addAttribute("duration",userCategoryJoin.getDuration());
+        model.addAttribute("duration", userCategoryJoin.getDuration());
 
         boolean isTeacher = false;
         Session sessiona;
@@ -538,7 +504,15 @@ public class AppController {
                 isTeacher = PermisionChecks.teacher(sessiona);
                 String profilePicUrl = "/profilePic/" + sessiona.getUser().getId() + "?" + Math.random();
 
+                if (
+                        bookedTimeRepo
+                                .findByStudentAndUserCategoryJoinAndActive(sessiona.getUser(),
+                                        userCategoryJoin, true).size() > 0
+                                && ratingRepo
+                                .findByUserAndUserCategoryJoin(sessiona.getUser(), userCategoryJoin).size() == 0) {
 
+                    canReview = true;
+                }
 
 
                 if (!sessiona.getUser().getFacebookId().isEmpty()) {
@@ -557,7 +531,10 @@ public class AppController {
             model.addAttribute("loggedIn", false);
         }
 
+        model.addAttribute("canReview", canReview);
         model.addAttribute("isTeacher", isTeacher);
+        userCategoryJoin.setViews(userCategoryJoin.getViews()+1);
+        userCategoryJoinRepo.save(userCategoryJoin);
         return "main/class";
     }
 
@@ -591,4 +568,6 @@ public class AppController {
     private UserCategoryJoinRepo userCategoryJoinRepo;
     @Autowired
     private RatingRepo ratingRepo;
+    @Autowired
+    private BookedTimeRepo bookedTimeRepo;
 }

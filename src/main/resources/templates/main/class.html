@@ -94,14 +94,14 @@
             <ul th:if="${!isTeacher}" class="nav navbar-nav navbar-left">
                 <li id="becometeacherbtn">
                     <a class="page-scroll navlabel"
-                       style="color: black;font-family: brixnorm!important;"
+                       style="color: white;font-family: brixnorm!important;"
                        th:text="${strings.main_become_a_teacher}" href="#"></a>
                 </li>
             </ul>
             <ul th:if="${!loggedIn}" class="nav navbar-nav navbar-right">
                 <li id="logisignbtn">
                     <a class="page-scroll navlabel"
-                       style="padding-right: 0px;color: black;font-family: brixnorm!important;"
+                       style="color:white;padding-right: 0px;font-family: brixnorm!important;"
                        th:text="${strings.main_login_signup}" href="#"></a>
                 </li>
                 <li class="dropdown" id="langbtn">
@@ -123,11 +123,12 @@
             <ul th:if="${loggedIn}" class="nav navbar-nav navbar-right">
                 <li class="dropdown" id="userBtn">
 
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                    <a href="#" class="dropdown-toggle navlabel" data-toggle="dropdown"
                        role="button" aria-haspopup="true"
-                       aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><span
+                       aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">-->
+                        <span class="navlabel"
                             th:text="${userNameSurname}"
-                            style="font-size: 18px;color: black;font-family: brixnorm!important;"></span></span></a>
+                            style="font-size: 18px;color: white;font-family: brixnorm!important;"></span></span></a>
                     <ul class="dropdown-menu">
                         <li class="profileBtn"><a href="#" th:text="${strings.main_menu_profile}"></a></li>
                         <li class="settingsBtn"><a href="#" th:text="${strings.main_menu_settings}"></a></li>
@@ -333,7 +334,12 @@
                                             <span class="starRatingClass">
                                             <img class="staricon" th:each="i : ${#numbers.sequence( 1, scoreMain)}"
                                                  src="png/search/v.png">
-                                        </span>
+                                            </span>
+                                            </td>
+                                            <td th:if="${canReview}">
+                                                <button class="btn bookButton addreview">
+                                                    add review
+                                                </button>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -358,7 +364,7 @@
                                                 <td>
                                                     <img alt="Bootstrap Image Preview"
                                                          class="img-circle reviewrImage"
-                                                         src="http://lorempixel.com/140/140/"/>
+                                                         th:src="${review.user.profilepicurl}"/>
                                                 </td>
                                                 <td class="reviewerNameTd" style=" ">
                                                     <span th:text="${review.user.name}" class="reviewerNameSpan">
@@ -436,7 +442,8 @@
                                                 <span class="classTypeLabel">
                                                 Individual
                                             </span>
-                                                    <input class="classTypeInput" checked="true"name="classType"  value="1" type="radio">
+                                                    <input class="classTypeInput" checked="true" name="classType"
+                                                           value="1" type="radio">
                                                 </div>
 
                                             </div>
@@ -447,7 +454,8 @@
                                                 <span class="classTypeLabel">
                                                 Group
                                             </span>
-                                                    <input class="classTypeInput" name="classType" value="2" type="radio">
+                                                    <input class="classTypeInput" name="classType" value="2"
+                                                           type="radio">
                                                 </div>
 
                                             </div>
@@ -500,7 +508,7 @@
                 </ul>
             </div>
             <div class="col-md-2">
-                <ul  class="list-inline socialFoot">
+                <ul class="list-inline socialFoot">
 
                     <li><a><i class="fa fa-facebook" aria-hidden="true"></i>
 
@@ -547,7 +555,7 @@
         <div style="padding-top: 10px" class="row">
 
             <div class="col-xs-4">
-                <ul  class="list-inline socialFoot">
+                <ul class="list-inline socialFoot">
 
                     <li><a><i class="fa fa-facebook" aria-hidden="true"></i>
 
@@ -565,7 +573,7 @@
                 <span style="font-family: brix!important;font-size: 1em">Copyright 2017 Allwitz</span>
             </div>
             <div class="col-xs-4">
-                <ul  class="list-inline socialFoot">
+                <ul class="list-inline socialFoot">
 
                     <li><a><i class="fa fa-cc-mastercard" aria-hidden="true"></i>
 
@@ -582,6 +590,8 @@
 
 <div id="duration" style="display: none" th:text="${duration}"></div>
 <div id="price" style="display: none" th:text="${#numbers.formatDecimal(price, 0, 0)}"></div>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.css">
+
 
 <!-- Bootstrap Core JavaScript -->
 <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -592,6 +602,13 @@
 
 <!-- Contact Form JavaScript -->
 <script src="/js/jqBootstrapValidation.js"></script>
+
+<script src="/assets/js/bootstrap3-typeahead.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.common.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+
 <script src="/js/contact_me.js"></script>
 
 <script src="/assets/js/moment-with-locales.min.js"></script>

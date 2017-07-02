@@ -263,10 +263,10 @@ public class UserCategoryJoin {
     }
 
     public int getRating(){
-        if(ratingNum>0&ratingSum>0){
-            return ratingSum/ratingSum;
+        if(ratingNum>0&&ratingSum>0){
+            return ratingSum/ratingNum;
         }else{
-            return 0;
+            return 5;
         }
     }
 

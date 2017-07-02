@@ -246,7 +246,7 @@ and (min-width : 1224px) {
     }
 
     .ratingStarsTable {
-        width: 300px;
+        width: 400px;
     }
 
     .ratingStarsTable > td {
@@ -360,7 +360,7 @@ and (min-width : 1224px) {
 
     .calendarBody {
 
-        height: 230px;
+
         display: flex;
     }
     .calendarBodyTimes {

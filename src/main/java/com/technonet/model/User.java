@@ -525,4 +525,8 @@ public class User {
     public void setSkill(String skill) {
         this.skill = skill;
     }
+
+    public String getProfilepicurl(){
+        return "/profilePic/"+id;
+    }
 }

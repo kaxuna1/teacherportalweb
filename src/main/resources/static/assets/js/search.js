@@ -12,7 +12,7 @@ $(document).ready(function () {
     $("#upper").val(199);
     $("#lower").val(0);
     if (city && clas) {
-        loadSearch(city, clas, 0,$("#lower").val(),$("#upper").val())
+        loadSearch(city, clas, 0, $("#lower").val(), $("#upper").val())
     }
 
 
@@ -21,33 +21,31 @@ $(document).ready(function () {
         if ($(this).val() > $("#upper").val()) {
             $("#upper").val($(this).val())
         }
-        loadSearch(city, clas, 0,$("#lower").val(),$("#upper").val())
-        drawPriceRange($("#lower").val(),$("#upper").val())
+        loadSearch(city, clas, 0, $("#lower").val(), $("#upper").val())
+        drawPriceRange($("#lower").val(), $("#upper").val())
     });
     $("#upper").change(function () {
         if ($(this).val() < $("#lower").val()) {
             $("#lower").val($(this).val())
         }
-        loadSearch(city, clas, 0,$("#lower").val(),$("#upper").val())
-        drawPriceRange($("#lower").val(),$("#upper").val())
+        loadSearch(city, clas, 0, $("#lower").val(), $("#upper").val())
+        drawPriceRange($("#lower").val(), $("#upper").val())
     });
-
 
 
     function drawPriceRange(lower, upper) {
-        $(".priceRangeClass").html(lower+"₾ - "+upper+"₾")
+        $(".priceRangeClass").html(lower + "₾ - " + upper + "₾")
     }
 
 
-
     $(".citySearchField").val(city).change(function () {
-        loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0,$("#lower").val(),$("#upper").val())
+        loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0, $("#lower").val(), $("#upper").val())
     });
     $(".categorySearchField").val(clas).change(function () {
-        loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0,$("#lower").val(),$("#upper").val())
+        loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0, $("#lower").val(), $("#upper").val())
     });
     $(".sortCheck").change(function () {
-        loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0,$("#lower").val(),$("#upper").val())
+        loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0, $("#lower").val(), $("#upper").val())
     });
 
     $(".dropMenu").click(function () {
@@ -103,20 +101,28 @@ $(document).ready(function () {
 
 
 });
-function loadSearch(city, clas, page,lower,upper,loadmore) {
+function loadSearch(city, clas, page, lower, upper, loadmore) {
     $.getJSON("/searchapi?city=" + city
         + "&category=" + clas
         + "&page=" + page
         + "&lower=" + lower
-        + "&sort="+$(".sortCheck").val()
+        + "&sort=" + $(".sortCheck").val()
         + "&upper=" + upper, function (result) {
         var data = result["content"]
 
-        if(!loadmore)
-        $(".searchResultDiv").html("");
+        if (!loadmore)
+            $(".searchResultDiv").html("");
+
+        var ratingStars = "";
+
 
         for (key in data) {
+
             var item = data[key];
+            var rating = item.rating;
+            for (var i = 0; i < rating; i++) {
+                ratingStars += '<img class="staricon" src="png/search/v.png">';
+            }
             var itemString = '<article class="searchResultItem">' +
                 '    <div class="searchResultItemTop">' +
                 '        <div class="searchResultItemTopImgDiv">' +
@@ -143,17 +149,13 @@ function loadSearch(city, clas, page,lower,upper,loadmore) {
                 '    <div class="searchResultItemBottom" style="">' +
                 '        <div class="starRatingDiv">' +
                 '                             <span class="starRating">' +
-                '                                 <img class="staricon" src="png/search/v.png">' +
-                '                                 <img class="staricon" src="png/search/v.png">' +
-                '                                 <img class="staricon" src="png/search/v.png">' +
-                '                                 <img class="staricon" src="png/search/v.png">' +
-                '                                 <img class="staricon" src="png/search/v.png">' +
+                ratingStars +
                 '                             </span>' +
                 '            <span class="reviewsLabel">' +
-                '                                '+item.ratingNum+' reviews' +
+                '                                ' + item.ratingNum + ' reviews' +
                 '                            </span>' +
                 '            <span class="viewsLabel">' +
-                '                                <img src="png/search/4.png">'+item.views +
+                '                                <img src="png/search/4.png">' + item.views +
                 '                            </span>' +
                 '            <a href="class?id=' + item.id + '"><button class="btn readMoreBtn">' +
                 '                Read More' +
@@ -170,7 +172,7 @@ function loadSearch(city, clas, page,lower,upper,loadmore) {
         $("#loadMore").unbind().click(function () {
             page++;
             $(this).remove();
-            loadSearch(city, clas, page,lower,upper,true);
+            loadSearch(city, clas, page, lower, upper, true);
         })
     })
 }
