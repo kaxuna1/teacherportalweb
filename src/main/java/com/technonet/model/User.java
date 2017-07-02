@@ -127,6 +127,8 @@ public class User {
     private String suc;
     @Column
     private String skill;
+    @Column
+    private String iban;
 
     public User(long id) {
         this.id = id;
@@ -205,6 +207,7 @@ public class User {
         this.googleId = "";
         this.about = "";
         this.ratings = new ArrayList<>();
+        this.iban = "";
     }
 
 
@@ -528,5 +531,13 @@ public class User {
 
     public String getProfilepicurl(){
         return "/profilePic/"+id;
+    }
+
+    public String getIban() {
+        return iban;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
     }
 }

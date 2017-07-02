@@ -155,6 +155,11 @@ public class Variables {
             return false;
         }
     }
+    public static boolean paymentFinish(String trans_id,int sum){
+        String sURL = "http://allwitz.com:88/finish.php?id="+trans_id+"&sum="+sum;
+        String response = HttpRequest.get(sURL).body();
+        return true;
+    }
 
 
 }

@@ -240,7 +240,7 @@ public class UsersController {
     }
 
     private Pageable constructPageSpecification(int pageIndex) {
-        Pageable pageSpecification = new PageRequest(pageIndex, 1);
+        Pageable pageSpecification = new PageRequest(pageIndex, 10);
         return pageSpecification;
     }
 

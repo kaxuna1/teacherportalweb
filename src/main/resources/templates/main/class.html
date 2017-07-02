@@ -128,7 +128,7 @@
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">-->
                         <span class="navlabel"
                             th:text="${userNameSurname}"
-                            style="font-size: 18px;color: white;font-family: brixnorm!important;"></span></span></a>
+                            style="color: white;font-family: brixnorm!important;"></span></span></a>
                     <ul class="dropdown-menu">
                         <li class="profileBtn"><a href="#" th:text="${strings.main_menu_profile}"></a></li>
                         <li class="settingsBtn"><a href="#" th:text="${strings.main_menu_settings}"></a></li>
@@ -590,7 +590,6 @@
 
 <div id="duration" style="display: none" th:text="${duration}"></div>
 <div id="price" style="display: none" th:text="${#numbers.formatDecimal(price, 0, 0)}"></div>
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.css">
 
 
 <!-- Bootstrap Core JavaScript -->
@@ -605,7 +604,7 @@
 
 <script src="/assets/js/bootstrap3-typeahead.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.js"></script>
-
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.common.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
 

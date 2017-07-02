@@ -212,7 +212,7 @@ public class SessionController {
                 "55995473742-00obqav5bir1au4qdn4l1jgdvf7kbmv2.apps.googleusercontent.com",
                 "qUPLRbRgZjm-wMJ_VBDWrEPC",
                 token,
-                "http://localhost:8081/oauthcall");
+                "http://allwitz.com/oauthcall");
 
 
         g.setScopes(Collections.singleton("https://www.googleapis.com/auth/calendar"));

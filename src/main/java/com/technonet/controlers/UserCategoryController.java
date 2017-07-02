@@ -78,20 +78,24 @@ public class UserCategoryController {
 
     @RequestMapping("/requestcategory")
     @ResponseBody
-    public JsonMessage addCategoryToUser(@CookieValue("projectSessionId") long sessionId,
+    public long addCategoryToUser(@CookieValue("projectSessionId") long sessionId,
                                          @RequestParam(value = "category", required = true, defaultValue = "0") long category,
                                          @RequestParam(value = "price", required = true, defaultValue = "0") float price,
-                                         @RequestParam(value = "duration", required = true, defaultValue = "0") int duration) {
+                                         @RequestParam(value = "duration", required = true, defaultValue = "0") int duration,
+                                         @RequestParam(value = "city", required = true, defaultValue = "0") long city,
+                                         @RequestParam(value = "iban", required = true, defaultValue = "0") String iban) {
 
         Session session = sessionRepository.findOne(sessionId);
         if (session.isIsactive()) {
             User user1 = session.getUser();
+            user1.setCity(cityRepo.findOne(city));
+            userRepository.save(user1);
             Category category1 = categoryRepo.findOne(category);
             UserCategoryJoin userCategoryJoin = new UserCategoryJoin(user1, category1, price, duration);
             userCategoryJoinRepo.save(userCategoryJoin);
-            return new JsonMessage(JsonReturnCodes.Ok);
+            return userCategoryJoin.getId();
         } else {
-            return new JsonMessage(JsonReturnCodes.DONTHAVEPERMISSION);
+            return 0;
         }
     }
 
@@ -130,6 +134,18 @@ public class UserCategoryController {
         Session session = sessionRepository.findOne(sessionId);
         List<Category> categories = categoryRepo.findByActiveAndVisible(true, true);
         User user = userRepository.findOne(id);
+        user.getUserCategoryJoins().stream().forEach(userCategoryJoin -> categories.remove(userCategoryJoin.getCategory()));
+        categories.forEach(category -> category.setLang(lang));
+        return categories;
+    }
+    @RequestMapping("/getcategoriesforuseradding")
+    @ResponseBody
+    public List<Category> getCategotiesForUserAdding(@CookieValue("projectSessionId") long sessionId,
+                                                     @CookieValue(value = "lang", defaultValue = "1") int lang) {
+        Variables.myThreadLocal.set(lang);
+        Session session = sessionRepository.findOne(sessionId);
+        List<Category> categories = categoryRepo.findByActiveAndVisible(true, true);
+        User user = session.getUser();
         user.getUserCategoryJoins().stream().forEach(userCategoryJoin -> categories.remove(userCategoryJoin.getCategory()));
         categories.forEach(category -> category.setLang(lang));
         return categories;

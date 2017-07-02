@@ -35,6 +35,17 @@ public class BackgroundTasks {
             }
         });
     }
+    @Transactional
+    @Scheduled(fixedRate = 5000)
+    public void finishTransactions(){
+        orderRepo.findFinished().forEach(o->{
+            Payment payment = o.getPayments().get(0);
+            int sum = Math.round(o.getOrderPrice());//*100+1000;
+            Variables.paymentFinish(payment.getTransaction(),sum);
+            o.setActive(false);
+            orderRepo.save(o);
+        });
+    }
 
 
 

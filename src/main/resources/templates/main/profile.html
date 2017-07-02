@@ -97,7 +97,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul th:if="${!isTeacher}" class="nav navbar-nav navbar-left">
                 <li id="becometeacherbtn">
-                    <a class="page-scroll" th:text="${strings.main_become_a_teacher}" href="#"
+                    <a class="page-scroll beteacher" href="#" th:text="${strings.main_become_a_teacher}"
                        style="font-size: 18px;color: black;font-family: brixnorm!important;"></a>
                 </li>
             </ul>
@@ -129,7 +129,7 @@
                        role="button" aria-haspopup="true"
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><span
                             th:text="${userNameSurname}"
-                            style="font-size: 18px;color: black;font-family: brixnorm!important;"></span></span></a>
+                            style="color: black;font-family: brixnorm!important;"></span></span></a>
                     <ul class="dropdown-menu">
                         <li class="profileBtn"><a href="#" th:text="${strings.main_menu_profile}"></a></li>
                         <li class="settingsBtn"><a href="#" th:text="${strings.main_menu_settings}"></a></li>

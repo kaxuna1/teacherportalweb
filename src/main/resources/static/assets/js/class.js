@@ -59,7 +59,7 @@ $(document).ready(function () {
             input: 'text',
             confirmButtonText: 'Next &rarr;',
             showCancelButton: true,
-            animation: false,
+            animation: true,
             progressSteps: ['1', '2']
 
         });

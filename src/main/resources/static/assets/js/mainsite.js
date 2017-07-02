@@ -20,7 +20,6 @@ String.prototype.replaceAll = function (search, replacement) {
 };
 $(document).ready(function () {
 
-
     $("#logisignbtn").click(function () {
         showModalWithTableInside(function (head, body, modal, random, footer) {
             //$(".modal-header").remove();
@@ -128,7 +127,6 @@ $(document).ready(function () {
                                 '</div>')
 
 
-
                             for (var i = 1; i < 13; i++) {
                                 $("#month").append("<option value='" + i + "'>" + moment().month(i).format('MMMM') + "</option>");
                             }
@@ -214,7 +212,7 @@ $(document).ready(function () {
                                                 $("#singUpWithEmailBtn").click();
                                                 name = result.name.split(" ")[0];
                                                 surname = result.name.split(" ")[1];
-                                                email= result.email;
+                                                email = result.email;
 
                                             }
                                         })
@@ -330,6 +328,200 @@ $(document).ready(function () {
             }
         }, 500, true)
     })
+    $("#becometeacherbtn").click(function () {
+        if (readCookie("projectSessionId")) {
+            $.getJSON("/getcategoriesforuseradding", function (result) {
+                var categoriesData = {};
+                for (var key in result) {
+                    var item = result[key];
+                    categoriesData[item.id] = item.name;
+                }
+
+
+                swal.setDefaults({
+                    input: 'text',
+                    confirmButtonColor: "#46c3bf",
+                    cancelButtonColor: "#218769",
+                    confirmButtonText: 'Next &rarr;',
+                    showCancelButton: true,
+                    animation: true,
+                    progressSteps: ['1', '2', '3', '4','']
+
+                });
+                var steps = [
+                    {
+                        title: "Become A Teacher",
+                        text: "Choose your city",
+                        input: 'select',
+                        inputOptions: {
+                            "1": "Tbilisi"
+                        }
+                    },
+                    {
+                        title: "Become A Teacher",
+                        text: "What do you want to teach?",
+                        input: 'select',
+                        inputOptions: categoriesData
+                    }, {
+                        title: "Become A Teacher",
+                        text: "How long your class will continue?",
+                        input: 'number',
+                        inputPlaceholder: "Minutes",
+                        inputValidator: function (value) {
+                            return new Promise(function (resolve, reject) {
+                                if (value) {
+                                    resolve()
+                                } else {
+                                    reject('You need to write something!')
+                                }
+                            })
+                        }
+                    }, {
+                        title: "Become A Teacher",
+                        text: "How much would you like to get paid?",
+                        input: 'number',
+                        inputPlaceholder: "Price in ₾",
+                        inputValidator: function (value) {
+                            return new Promise(function (resolve, reject) {
+                                if (value) {
+                                    resolve()
+                                } else {
+                                    reject('You need to write something!')
+                                }
+                            })
+                        }
+                    }, {
+                        title: "Become A Teacher",
+                        text: "Your IBAN account number <br/>",
+                        input: 'number',
+                        inputPlaceholder: "Price in ₾",
+                        inputValidator: function (value) {
+                            return new Promise(function (resolve, reject) {
+                                if (value) {
+                                    resolve()
+                                } else {
+                                    reject('You need to write something!')
+                                }
+                            })
+                        }
+                    }
+                ];
+                swal.queue(steps).then(function (result) {
+                    var selectedCategoryLocal = result[1];
+
+
+                    $.getJSON("/requestcategory", {
+                        city: result[0],
+                        category: result[1],
+                        duration: result[2],
+                        price: result[3],
+                        iban: result[4]
+                    }, function (result) {
+                        if (result) {
+                            var selectedCategory = result;
+
+                            swal.resetDefaults();
+                            swal.setDefaults({
+                                confirmButtonColor: "#46c3bf"
+                            });
+                            swal(
+                                'Good job!',
+                                'You are now registered as teacher!<br/> Now please upload required documents!',
+                                'success'
+                            ).then(function () {
+                                $.getJSON("/getcategorydocs/" + selectedCategoryLocal, function (result) {
+
+                                    var progres = [];
+                                    var pI = 1;
+                                    var iI = 0;
+                                    var docsData = {};
+                                    var steps = [];
+                                    var typeIdMap = {};
+                                    var uploadCount = 0;
+                                    for (var key in result) {
+                                        var item = result[key];
+                                        progres.push(pI);
+                                        pI++;
+                                        typeIdMap[iI] = item.id;
+                                        var localI = iI;
+                                        iI++;
+                                        steps.push(
+                                            {
+                                                title: item.name,
+                                                text: "Choose " + item.name + " document file",
+                                                inputValidator: function (value) {
+                                                    return new Promise(function (resolve, reject) {
+                                                        if (value) {
+                                                            resolve()
+                                                        } else {
+                                                            reject('You need to choose file!')
+                                                        }
+                                                    })
+                                                },
+                                                confirmButtonText: 'Upload',
+                                                showLoaderOnConfirm: true,
+                                                preConfirm: function (obj) {
+                                                    console.log(obj);
+                                                    return new Promise(function (resolve, reject) {
+
+
+                                                        if (obj) {
+
+                                                            uploadFileToUrl(obj,
+                                                                'upload?category=' + selectedCategory + "&docType=" + typeIdMap[uploadCount],
+                                                                function () {
+                                                                    uploadCount++;
+                                                                    resolve()
+                                                                });
+                                                        } else {
+                                                            reject('You need to choose file.')
+                                                        }
+                                                    })
+                                                },
+                                            }
+                                        );
+
+
+                                    }
+                                    swal.setDefaults({
+                                        input: 'file',
+                                        inputAttributes: {
+                                            accept: '*/*'
+                                        },
+                                        confirmButtonColor: "#46c3bf",
+                                        cancelButtonColor: "#218769",
+                                        confirmButtonText: 'Next &rarr;',
+                                        showCancelButton: true,
+                                        animation: true,
+                                        progressSteps: progres
+                                    });
+                                    swal.queue(steps).then(function (result) {
+                                        swal.resetDefaults();
+                                        swal({
+                                            type: 'success',
+                                            title: 'All files uploaded successfully!',
+                                            text: 'Please wait for confirmation!'
+
+                                        })
+                                    });
+
+                                })
+                            })
+                        }
+                    })
+                }).then(function () {
+
+                });
+
+
+            })
+        } else {
+            $("#logisignbtn").click()
+        }
+
+    });
+
+
     var cat = $(".categorySearchField");
     var city = $(".citySearchField");
     $.getJSON("/categories", function (result) {
@@ -689,9 +881,9 @@ $(".settingsBtn").click(function () {
                                 var valid = true;
                                 $.ajax({
                                     type: 'GET',
-                                    url: "emailexists?email="+val,
+                                    url: "emailexists?email=" + val,
                                     dataType: 'json',
-                                    success: function(result) {
+                                    success: function (result) {
                                         valid = !result;
                                     },
                                     data: {},
@@ -845,3 +1037,20 @@ $(".logoutBtn").click(function () {
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
+function uploadFileToUrl(obj, url, callback) {
+    var formData = new FormData();
+    var xhr = new XMLHttpRequest();
+
+    formData.append('file', obj);
+
+    //On successful upload response, parse JSON data
+    //TODO handle response from php server script
+    xhr.onload = function () {
+        var data = JSON.parse(this.responseText);
+        callback();
+    };
+
+    //Open an AJAX post request
+    xhr.open('post', url);
+    xhr.send(formData);
+}

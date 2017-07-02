@@ -23,4 +23,15 @@ public interface OrderRepo extends JpaRepository<Order,Long> {
     @Query("select o from  Order o where o.active=true and o.createDate<:date and o.confirmed = false")
     List<Order> findUnpaidOld(@Param("date") Date date);
 
+    @Query(value = "SELECT o.* FROM orders o " +
+            "RIGHT JOIN booked_time b ON o.order_id = b.order_id " +
+            "WHERE o.active = 1 AND o.confirmed = 1 " +
+            "AND b.end_date<NOW() " +
+            "AND o.order_id NOT IN " +
+            "(SELECT k.order_id FROM " +
+            "orders k JOIN booked_time bt " +
+            "on bt.order_id = k.order_id " +
+            "WHERE bt.end_date > NOW()) " +
+            "GROUP BY o.order_id",nativeQuery = true)
+    List<Order> findFinished();
 }
