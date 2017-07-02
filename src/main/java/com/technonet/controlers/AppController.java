@@ -54,7 +54,13 @@ public class AppController {
                 model.addAttribute("userId", sessiona.getUser().getId());
                 String profilePicUrl = "/profilePic/" + sessiona.getUser().getId() + "?" + Math.random();
 
-                isTeacher = PermisionChecks.teacher(sessiona);
+                List<Category> categories = categoryRepo.findByActiveAndVisible(true, true);
+                User user = sessiona.getUser();
+                user.getUserCategoryJoins().stream().forEach(userCategoryJoin -> categories.remove(userCategoryJoin.getCategory()));
+                categories.forEach(category -> category.setLang(lang));
+
+
+                isTeacher = categories.size()==0;
 
                 if (!sessiona.getUser().getFacebookId().isEmpty()) {
                     profilePicUrl = "http://graph.facebook.com/" + sessiona.getUser().getFacebookId() + "/picture?type=large";
@@ -95,7 +101,13 @@ public class AppController {
                     profilePicUrl = "http://graph.facebook.com/" + sessiona.getUser().getFacebookId() + "/picture?type=large";
                 }
 
-                isTeacher = PermisionChecks.teacher(sessiona);
+                List<Category> categories = categoryRepo.findByActiveAndVisible(true, true);
+                User user = sessiona.getUser();
+                user.getUserCategoryJoins().stream().forEach(userCategoryJoin -> categories.remove(userCategoryJoin.getCategory()));
+                categories.forEach(category -> category.setLang(lang));
+
+
+                isTeacher = categories.size()==0;
 
                 model.addAttribute("profilePicUrl", profilePicUrl);
 
@@ -242,7 +254,14 @@ public class AppController {
                 }
                 model.addAttribute("profilePicUrl", profilePicUrl);
 
-                isTeacher = PermisionChecks.teacher(sessiona);
+                List<Category> categories = categoryRepo.findByActiveAndVisible(true, true);
+                User user = sessiona.getUser();
+                user.getUserCategoryJoins().stream().forEach(userCategoryJoin2 -> categories.remove(userCategoryJoin2.getCategory()));
+                categories.forEach(category -> category.setLang(lang));
+
+
+                isTeacher = categories.size()==0;
+
                 model.addAttribute("loggedIn", true);
 
 
@@ -315,7 +334,14 @@ public class AppController {
                 model.addAttribute("email", sessiona.getUser().getEmail());
                 model.addAttribute("phone", sessiona.getUser().getMobile());
 
-                isTeacher = PermisionChecks.teacher(sessiona);
+
+                List<Category> categories = categoryRepo.findByActiveAndVisible(true, true);
+                User user = sessiona.getUser();
+                user.getUserCategoryJoins().stream().forEach(userCategoryJoin -> categories.remove(userCategoryJoin.getCategory()));
+                categories.forEach(category -> category.setLang(lang));
+
+
+                isTeacher = categories.size()==0;
 
 
                 model.addAttribute("profilePicUrl", profilePicUrl);
@@ -364,7 +390,14 @@ public class AppController {
                 model.addAttribute("email", sessiona.getUser().getEmail());
                 model.addAttribute("phone", sessiona.getUser().getMobile());
 
-                isTeacher = PermisionChecks.teacher(sessiona);
+
+                List<Category> categories = categoryRepo.findByActiveAndVisible(true, true);
+                User user = sessiona.getUser();
+                user.getUserCategoryJoins().stream().forEach(userCategoryJoin -> categories.remove(userCategoryJoin.getCategory()));
+                categories.forEach(category -> category.setLang(lang));
+
+
+                isTeacher = categories.size()==0;
 
                 model.addAttribute("profilePicUrl", profilePicUrl);
 
@@ -501,7 +534,16 @@ public class AppController {
                 model.addAttribute("sessionobj", sessiona);
                 model.addAttribute("userNameSurname", sessiona.getUser().getNameSurname());
                 model.addAttribute("userId", sessiona.getUser().getId());
-                isTeacher = PermisionChecks.teacher(sessiona);
+
+                List<Category> categories = categoryRepo.findByActiveAndVisible(true, true);
+                User user = sessiona.getUser();
+                user.getUserCategoryJoins().stream().forEach(userCategoryJoin2 -> categories.remove(userCategoryJoin2.getCategory()));
+                categories.forEach(category -> category.setLang(lang));
+
+
+                isTeacher = categories.size()==0;
+
+
                 String profilePicUrl = "/profilePic/" + sessiona.getUser().getId() + "?" + Math.random();
 
                 if (
@@ -570,4 +612,6 @@ public class AppController {
     private RatingRepo ratingRepo;
     @Autowired
     private BookedTimeRepo bookedTimeRepo;
+    @Autowired
+    private CategoryRepo categoryRepo;
 }

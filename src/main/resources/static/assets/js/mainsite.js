@@ -345,7 +345,7 @@ $(document).ready(function () {
                     confirmButtonText: 'Next &rarr;',
                     showCancelButton: true,
                     animation: true,
-                    progressSteps: ['1', '2', '3', '4','']
+                    progressSteps: ['1', '2', '3', '4','5']
 
                 });
                 var steps = [
@@ -392,9 +392,9 @@ $(document).ready(function () {
                         }
                     }, {
                         title: "Become A Teacher",
-                        text: "Your IBAN account number <br/>",
-                        input: 'number',
-                        inputPlaceholder: "Price in ₾",
+                        text: "Your IBAN account number",
+                        input: 'text',
+                        inputPlaceholder: "IBAN",
                         inputValidator: function (value) {
                             return new Promise(function (resolve, reject) {
                                 if (value) {
