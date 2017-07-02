@@ -312,8 +312,14 @@ public class UsersController {
                           @RequestParam(name = "name", defaultValue = "") String name,
                           @RequestParam(name = "surname", defaultValue = "") String surname,
                           @RequestParam(name = "email", defaultValue = "") String email,
+                          @RequestParam(name = "address", defaultValue = "") String address,
                           @RequestParam(name = "pn", defaultValue = "") String pn,
                           @RequestParam(name = "phone", defaultValue = "") String phone,
+                          @RequestParam(name = "about", defaultValue = "") String about,
+                          @RequestParam(name = "academic", defaultValue = "") String academic,
+                          @RequestParam(name = "current", defaultValue = "") String current,
+                          @RequestParam(name = "succeed", defaultValue = "") String succeed,
+                          @RequestParam(name = "skills", defaultValue = "") String skills,
                           @RequestParam(name = "cal", defaultValue = "") String cal,
                           @RequestParam(name = "birthDate", defaultValue = "0") long birthDate,
                           @RequestParam(name = "lang", defaultValue = "0") int lang,
@@ -323,6 +329,18 @@ public class UsersController {
         User user = session.getUser();
         if (!name.isEmpty())
             user.setName(name);
+        if (!about.isEmpty())
+            user.setAbout(about);
+        if (!address.isEmpty())
+            user.setAddress(address);
+        if (!academic.isEmpty())
+            user.setCred(academic);
+        if (!current.isEmpty())
+            user.setEmp(current);
+        if (!succeed.isEmpty())
+            user.setSuc(succeed);
+        if (!skills.isEmpty())
+            user.setSkill(skills);
         if (!surname.isEmpty())
             user.setSurname(surname);
         if (!email.isEmpty()) {

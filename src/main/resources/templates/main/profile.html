@@ -8,12 +8,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link rel="stylesheet" type="text/css" href="/assets/sweetalert-master/dist/sweetalert.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.css">
 
     <title>Allwitz</title>
 
     <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="/assets/sweetalert-master/dist/sweetalert-dev.js"></script>
+
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     <link type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
     <script>
@@ -118,7 +118,7 @@
                                 style="padding-left: 10px">English</span></a></li>
                         <li class="profileBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
                                                                                         src="png/us.png"><span
-                                style="padding-left: 10px">English</span></a></li>
+                                style="padding-left: 10px">Georgian</span></a></li>
                     </ul>
                 </li>
             </ul>
@@ -201,7 +201,7 @@
 
                                             </div>
                                             <div style="text-align: right" class="col-xs-1 noRightPadding">
-                                                <a class="profileEditButton">edit</a>
+                                                <a value="about" class="profileEditButton">edit</a>
                                             </div>
 
                                         </div>
@@ -222,7 +222,7 @@
 
                                             </div>
                                             <div style="text-align: right" class="col-xs-1 noRightPadding">
-                                                <a class="profileEditButton">edit</a>
+                                                <a value="city" class="profileEditButton">edit</a>
                                             </div>
 
                                         </div>
@@ -243,7 +243,7 @@
 
                                             </div>
                                             <div style="text-align: right" class="col-xs-1 noRightPadding">
-                                                <a class="profileEditButton">edit</a>
+                                                <a value="address" class="profileEditButton">edit</a>
                                             </div>
 
                                         </div>
@@ -271,17 +271,17 @@
                                     </div>
                                     <div  class="col-md-8 infoContentOrder noLeftPadding noRightPadding">
                                         <div class="row">
-                                            <div th:text="${address}" class="col-xs-11 noLeftPadding addressText">
+                                            <div th:text="${phone}" class="col-xs-11 noLeftPadding addressText">
 
                                             </div>
                                             <div style="text-align: right" class="col-xs-1 noRightPadding">
-                                                <a class="profileEditButton">edit</a>
+                                                <a value="phone" class="profileEditButton">edit</a>
                                             </div>
 
                                         </div>
                                     </div>
                                 </div>
-                                <div th:if="${isTeacher}" class="row infoRow">
+                                <div th:if="${isTeacher}" class="row infoRowOrder">
                                     <div class="col-md-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
@@ -289,38 +289,38 @@
                                         </span>
 
                                     </div>
-                                    <div class="col-md-8 infoContent noLeftPadding noRightPadding">
+                                    <div class="col-md-8 infoContentOrder noLeftPadding noRightPadding">
 
                                         <div class="row">
                                             <div th:text="${academicString}" class="col-xs-11 noLeftPadding academicStringText">
 
                                             </div>
                                             <div style="text-align: right" class="col-xs-1 noRightPadding">
-                                                <a class="profileEditButton">edit</a>
+                                                <a value="academic" class="profileEditButton">edit</a>
                                             </div>
 
                                         </div>
                                     </div>
                                 </div>
-                                <div th:if="${isTeacher}" class="row infoRow">
+                                <div th:if="${isTeacher}" class="row infoRowOrder">
                                     <div class="col-md-4 infoLogoName noLeftPadding">
                                         <span class="infoTitle">
                                             Current Employment
                                         </span>
                                     </div>
-                                    <div class="col-md-8 infoContent  noLeftPadding noRightPadding">
+                                    <div class="col-md-8 infoContentOrder  noLeftPadding noRightPadding">
                                         <div class="row">
-                                            <div th:text="${academicString}" class="col-xs-11 noLeftPadding academicStringText">
+                                            <div th:text="${employmentString}" class="col-xs-11 noLeftPadding academicStringText">
 
                                             </div>
-                                            <div style="text-align: right" class="col-xs-1 noRightPadding">
-                                                <a class="profileEditButton">edit</a>
+                                            <div  style="text-align: right" class="col-xs-1 noRightPadding">
+                                                <a value="current" class="profileEditButton">edit</a>
                                             </div>
 
                                         </div>
                                     </div>
                                 </div>
-                                <div th:if="${isTeacher}" class="row infoRow">
+                                <div th:if="${isTeacher}" class="row infoRowOrder">
                                     <div class="col-md-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
@@ -328,12 +328,21 @@
                                         </span>
 
                                     </div>
-                                    <div class="col-md-8 infoContent  noLeftPadding noRightPadding">
-                                        <ul th:utext="${succeedString}" class="infoP">
-                                        </ul>
+                                    <div class="col-md-8 infoContentOrder  noLeftPadding noRightPadding">
+
+                                        <div class="row">
+                                            <div th:text="${succeedString}" class="col-xs-11 noLeftPadding academicStringText">
+
+                                            </div>
+                                            <div  style="text-align: right" class="col-xs-1 noRightPadding">
+                                                <a value="succeed" class="profileEditButton">edit</a>
+                                            </div>
+
+                                        </div>
                                     </div>
+
                                 </div>
-                                <div th:if="${isTeacher}" class="row infoRow">
+                                <div th:if="${isTeacher}" class="row infoRowOrder">
                                     <div class="col-md-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
@@ -341,12 +350,20 @@
                                         </span>
 
                                     </div>
-                                    <div class="col-md-8 infoContent noLeftPadding noRightPadding">
-                                        <ul th:utext="${skillsString}" class="infoP">
-                                        </ul>
+                                    <div class="col-md-8 infoContentOrder noLeftPadding noRightPadding">
+
+                                        <div class="row">
+                                            <div th:text="${skillsString}" class="col-xs-11 noLeftPadding academicStringText">
+
+                                            </div>
+                                            <div  style="text-align: right" class="col-xs-1 noRightPadding">
+                                                <a value="skills" class="profileEditButton">edit</a>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
-                                <div th:if="${isTeacher}" class="row infoRow">
+                                <div th:if="${isTeacher}" class="row infoRowOrder">
                                     <div class="col-md-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
@@ -354,7 +371,7 @@
                                         </span>
 
                                     </div>
-                                    <div class="col-md-8 infoContent lastInfoContent noLeftPadding noRightPadding">
+                                    <div class="col-md-8 infoContentOrder  noLeftPadding noRightPadding">
                                         <ul th:utext="${attachmentsString}" class="infoP">
                                         </ul>
                                     </div>
@@ -496,6 +513,11 @@
 <!-- Bootstrap Core JavaScript -->
 <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
 <script src="/assets/js/bootstrap3-typeahead.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.common.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+
 <script src="/page/files/isotope.pkgd.min.js"></script>
 <!-- Plugin JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>

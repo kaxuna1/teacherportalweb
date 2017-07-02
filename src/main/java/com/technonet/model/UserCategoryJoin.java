@@ -35,6 +35,9 @@ public class UserCategoryJoin {
     @Column
     private boolean active;
 
+
+    private int views ;
+
     @JsonIgnore
     @OneToMany(mappedBy = "userCategoryJoin", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Document> documents;
@@ -88,6 +91,7 @@ public class UserCategoryJoin {
         this.schedules = new ArrayList<>();
         this.price = price;
         this.bookedTimes = new ArrayList<>();
+        this.views = 400 + (int)(Math.random() * 800);
         this.ratings = new ArrayList<>();
 
     }
@@ -258,11 +262,27 @@ public class UserCategoryJoin {
         return ratingSum;
     }
 
+    public int getRating(){
+        if(ratingNum>0&ratingSum>0){
+            return ratingSum/ratingSum;
+        }else{
+            return 0;
+        }
+    }
+
     public void setRatingSum(int ratingSum) {
         this.ratingSum = ratingSum;
     }
     public void giveRating(int rating){
         ratingSum+=rating;
         ratingNum++;
+    }
+
+    public int getViews() {
+        return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
     }
 }

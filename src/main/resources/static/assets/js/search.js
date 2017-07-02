@@ -150,10 +150,10 @@ function loadSearch(city, clas, page,lower,upper,loadmore) {
                 '                                 <img class="staricon" src="png/search/v.png">' +
                 '                             </span>' +
                 '            <span class="reviewsLabel">' +
-                '                                37 reviews' +
+                '                                '+item.ratingNum+' reviews' +
                 '                            </span>' +
                 '            <span class="viewsLabel">' +
-                '                                <img src="png/search/4.png">450' +
+                '                                <img src="png/search/4.png">'+item.views +
                 '                            </span>' +
                 '            <a href="class?id=' + item.id + '"><button class="btn readMoreBtn">' +
                 '                Read More' +

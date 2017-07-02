@@ -28,4 +28,91 @@ $(document).ready(function () {
         xhr.open('post', "uploadProfilePic/");
         xhr.send(formData);
     })
+    $(".profileEditButton").click(function () {
+
+
+        var title = "";
+        var text = "";
+        var sendUrl = "/editme?";
+        var inputType = "textarea";
+
+        var inputOptions = {};
+
+        var type = $(this).attr("value");
+
+        if (type === "about") {
+            title = "Enter";
+            text = "Information about you";
+        }
+        if (type === "academic") {
+            title = "Academic Credentials";
+        }
+        if (type === "current") {
+            title = "Current Employment";
+        }
+        if (type === "succeed") {
+            title = "Succeed";
+        }
+        if (type === "skills") {
+            title = "Skills";
+        }
+        if(type === "city"){
+            inputType = 'select';
+            title = "Choose";
+            text = "Your city!";
+            inputOptions = {
+                '1': 'Tbilisi'
+            }
+        }
+        if(type === "address"){
+            title = "Enter";
+            text = "Your address!";
+            inputType = "text";
+        }
+        if(type === "phone"){
+            title = "Enter";
+            text = "Your phone number!";
+            inputType = "text";
+        }
+        swal({
+            title: title,
+            text: text,
+            inputOptions: inputOptions,
+            input: inputType,
+            imageWidth: 400,
+            imageHeight: 200,
+            animation: false
+        }).then(function (val) {
+            if (val === "") {
+
+                swal(
+                    'Error',
+                    'You need to write something',
+                    'error'
+                )
+                return false
+            }
+            $.getJSON(sendUrl + type + "=" + val, function (result) {
+                var text2= "Changes saved!";
+                if(text){
+                    text2 = "You changed: " + text
+                }
+                if (result) {
+                    swal({
+                        title: "Nice!",
+                        text: text2,
+                        type: "success"
+                    }).then(
+                        function () {
+                            location.reload()
+                        }
+                    );
+
+                }
+            })
+        })
+
+
+
+    })
 });
