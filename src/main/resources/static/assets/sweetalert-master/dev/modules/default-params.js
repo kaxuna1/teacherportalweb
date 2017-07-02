@@ -23,4 +23,3 @@ var defaultParams = {
   showLoaderOnConfirm: false
 };
 
-export default defaultParams;

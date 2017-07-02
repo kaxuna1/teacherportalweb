@@ -19,7 +19,6 @@
 nbproject/private/
 build/
 nbbuild/
-dist/
 nbdist/
 .nb-gradle/
 .gitignore
@@ -33,3 +32,4 @@ out
 androidApp/Allwitz/app/libs/
 plugins/
 /src/main/resources/static/assets/plugins/
+src/main/webapp/
