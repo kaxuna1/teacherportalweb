@@ -83,7 +83,7 @@ $(document).ready(function () {
         }).done(function (result) {
             console.log(result);
             if (result.code == 100) {
-                openOrderGlobal(result.message)
+                openOrderGlobal(result)
             }else{
                 alert("Error Please Contact System Administration")
             }
@@ -102,10 +102,10 @@ function getParameterByName(name, url) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
-var openOrderGlobal = function (id) {
+var openOrderGlobal = function (data) {
 
     showModalWithTableInside(function (head, body, modal, rand) {
-        $.getJSON("/order/" + id, function (result) {
+        $.getJSON("/order/" + data.message, function (result) {
 
             modal.on('hidden.bs.modal', function () {
                window.location="/profile"
@@ -118,7 +118,10 @@ var openOrderGlobal = function (id) {
             body.append('<div class="row">' +
                 '<div class="col-xs-4">Status: </div>' +
                 '<div class="col-xs-4">' + (result.confirmed ? "Paid" : "Not Paid") + '</div>' +
-                '<div class="col-xs-4" style="padding: 0;">' + (result.canBePaid ? "<button style='float: right;background-color: #46c3bf;color: white;' class='btn'>Pay Now</button>" : "") + '</div>' +
+                '<div class="col-xs-4" style="padding: 0;">' + (result.canBePaid ?
+                    '<form name="returnform" action="https://securepay.ufc.ge/ecomm2/ClientHandler" method="POST">' +
+                        '<input type="hidden" name="trans_id" value="'+data.message2+'">'+
+                    "<button style='float: right;background-color: #46c3bf;color: white;' class='btn'>Pay Now</button></form>" : "") + '</div>' +
                 '</div>');
 
             body.append('<div class="row">' +

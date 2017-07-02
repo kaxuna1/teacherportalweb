@@ -10,6 +10,11 @@ public class JsonMessage {
         this.code = code;
         this.message = message;
     }
+    public JsonMessage(int code, String message,String message2) {
+        this.code = code;
+        this.message = message;
+        this.message2 = message2;
+    }
     public JsonMessage(JsonReturnCodes code) {
         this.code = code.getCODE();
         this.message = code.name();
@@ -20,6 +25,7 @@ public class JsonMessage {
 
     private int code;
     private String message;
+    private String message2;
 
     public int getCode() {
         return code;
@@ -35,5 +41,13 @@ public class JsonMessage {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getMessage2() {
+        return message2;
+    }
+
+    public void setMessage2(String message2) {
+        this.message2 = message2;
     }
 }

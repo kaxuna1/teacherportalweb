@@ -65,6 +65,8 @@ dependencies {
 // https://mvnrepository.com/artifact/net.sourceforge.nekohtml/nekohtml
 	compile group: 'net.sourceforge.nekohtml', name: 'nekohtml', version: '1.9.22'
 
+// https://mvnrepository.com/artifact/com.github.kevinsawicki/http-request
+	compile group: 'com.github.kevinsawicki', name: 'http-request', version: '6.0'
 
 
 

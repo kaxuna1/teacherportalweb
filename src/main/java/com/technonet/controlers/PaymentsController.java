@@ -1,5 +1,6 @@
 package com.technonet.controlers;
 
+import com.github.kevinsawicki.http.HttpRequest;
 import com.technonet.Repository.PaymentsRepo;
 import com.technonet.model.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,17 @@ public class PaymentsController {
         payment.confirm();
         paymentsRepo.save(payment);
         return true;
+    }
+    @RequestMapping("/paymentok")
+    @ResponseBody
+    public String payementOk(@RequestParam("trans_id")String trans_id){
+
+        String sURL = "http://allwitz.com:88/get.php?id="+trans_id; //just a string
+        String response = HttpRequest.get(sURL).body();
+        return response;
+
+
+        //return "redirect:/";
     }
     @Autowired
     PaymentsRepo paymentsRepo;

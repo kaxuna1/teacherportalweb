@@ -1,5 +1,6 @@
 package com.technonet.controlers;
 
+import com.github.kevinsawicki.http.HttpRequest;
 import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleRefreshTokenRequest;
@@ -17,11 +18,16 @@ import com.technonet.Repository.*;
 import com.technonet.model.*;
 import com.technonet.staticData.PermisionChecks;
 import com.technonet.staticData.Variables;
+import org.apache.tika.io.IOUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -114,7 +120,8 @@ public class BookingController {
         Payment payment = new Payment(order.getOrderPrice(), order);
         paymentsRepo.save(payment);
 
-        if (userCategoryJoin.getUser().getCalendarId() != null)
+        if (userCategoryJoin.getUser().getCalendarId() != null) {
+
             try {
 
                 Calendar client = Variables.getCalendarClient(userCategoryJoin.getUser());
@@ -137,7 +144,21 @@ public class BookingController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        return new JsonMessage(JsonReturnCodes.Ok.getCODE(), order.getUuid());
+        }
+        int sum = Math.round(order.getOrderPrice());//*100+1000;
+        String sURL = "http://allwitz.com:88/get.php?sum="+(sum); //just a string
+
+        try {
+            String response = HttpRequest.get(sURL).body();
+
+            return new JsonMessage(JsonReturnCodes.Ok.getCODE(), order.getUuid(),response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new JsonMessage(JsonReturnCodes.Ok.getCODE(), order.getUuid());
+        }
+
+
+
     }
 
 
