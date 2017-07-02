@@ -28,7 +28,7 @@ public class PaymentsController {
     @ResponseBody
     public String payementOk(@RequestParam("trans_id")String trans_id){
 
-        String sURL = "http://allwitz.com:88/get.php?id="+trans_id; //just a string
+        String sURL = "http://allwitz.com:88/check.php?id="+trans_id; //just a string
         String response = HttpRequest.get(sURL).body();
         return response;
 
