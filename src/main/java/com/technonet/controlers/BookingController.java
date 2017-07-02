@@ -151,6 +151,10 @@ public class BookingController {
         try {
             String response = HttpRequest.get(sURL).body();
 
+            payment.setTransaction(response);
+
+            paymentsRepo.save(payment);
+
             return new JsonMessage(JsonReturnCodes.Ok.getCODE(), order.getUuid(),response);
         } catch (Exception e) {
             e.printStackTrace();
