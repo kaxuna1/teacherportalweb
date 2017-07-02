@@ -98,11 +98,12 @@ public class BookingController {
     public JsonMessage book(@CookieValue("projectSessionId") long sessionId,
                             @PathVariable("usercat") long usercat,
                             @RequestParam(value = "comment", defaultValue = "") String comment,
-                            @RequestParam(value = "times") ArrayList<Long> times) {
+                            @RequestParam(value = "times") ArrayList<Long> times,
+                            @CookieValue(value = "lang", defaultValue = "1") int lang) {
 
         Session session = sessionRepository.findOne(sessionId);
         User user = session.getUser();
-
+        Variables.myThreadLocal.set(lang);
 
         List<BookedTime> bookedTimes = new ArrayList<>();
 

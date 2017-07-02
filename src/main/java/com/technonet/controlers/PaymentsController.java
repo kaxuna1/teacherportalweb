@@ -1,7 +1,9 @@
 package com.technonet.controlers;
 
 import com.github.kevinsawicki.http.HttpRequest;
+import com.technonet.Repository.OrderRepo;
 import com.technonet.Repository.PaymentsRepo;
+import com.technonet.model.Order;
 import com.technonet.model.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * Created by vakhtanggelashvili on 3/15/17.
@@ -27,14 +31,29 @@ public class PaymentsController {
     @RequestMapping("/paymentok")
     @ResponseBody
     public String payementOk(@RequestParam("trans_id")String trans_id){
-
-        String sURL = "http://allwitz.com:88/check.php?id="+trans_id; //just a string
+        String sURL = "http://allwitz.com:88/check.php?id="+trans_id;
         String response = HttpRequest.get(sURL).body();
-        return response;
+
+        if(response.contains("RESULT_CODE: 000")){
+            List<Payment> paymentList = paymentsRepo.findByTransaction(trans_id);
+            if(paymentList.size()==0){
+                return "Cant Find Transaction: "+trans_id;
+            }else{
+                Payment payment = paymentList.get(0);
+                Order order = payment.getOrder();
+                order.setConfirmed(true);
+                orderRepo.save(order);
+
+            }
+        }
+
+        return response+" "+trans_id;
 
 
         //return "redirect:/";
     }
     @Autowired
     PaymentsRepo paymentsRepo;
+    @Autowired
+    OrderRepo orderRepo;
 }
