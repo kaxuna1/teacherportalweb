@@ -20,7 +20,7 @@ public interface OrderRepo extends JpaRepository<Order,Long> {
 
     Page<Order> findByActiveOrderByCreateDateDesc(boolean active, Pageable pageable);
 
-    @Query("select o from  Order o where o.active=true and o.createDate<:date")
+    @Query("select o from  Order o where o.active=true and o.createDate<:date and o.confirmed = false")
     List<Order> findUnpaidOld(@Param("date") Date date);
 
 }

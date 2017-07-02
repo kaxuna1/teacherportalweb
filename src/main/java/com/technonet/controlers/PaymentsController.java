@@ -5,6 +5,7 @@ import com.technonet.Repository.OrderRepo;
 import com.technonet.Repository.PaymentsRepo;
 import com.technonet.model.Order;
 import com.technonet.model.Payment;
+import com.technonet.staticData.Variables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,12 +31,9 @@ public class PaymentsController {
         return true;
     }
     @RequestMapping("/paymentok")
-    @ResponseBody
     public String payementOk(@RequestParam("trans_id")String trans_id){
-        String sURL = "http://allwitz.com:88/check.php?id="+trans_id;
-        String response = HttpRequest.get(sURL).body();
-
-        if(response.contains("RESULT_CODE: 000")){
+        
+        if(Variables.paymentDone(trans_id)){
             List<Payment> paymentList = paymentsRepo.findByTransaction(trans_id);
             if(paymentList.size()==0){
                 return "Cant Find Transaction: "+trans_id;
@@ -42,12 +41,13 @@ public class PaymentsController {
                 Payment payment = paymentList.get(0);
                 Order order = payment.getOrder();
                 order.setConfirmed(true);
+                order.setConfirmDate(new Date());
                 orderRepo.save(order);
 
             }
         }
 
-        return response+" "+trans_id;
+        return "redirect:/profile";
 
 
         //return "redirect:/";

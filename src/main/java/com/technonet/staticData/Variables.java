@@ -1,5 +1,6 @@
 package com.technonet.staticData;
 
+import com.github.kevinsawicki.http.HttpRequest;
 import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleRefreshTokenRequest;
@@ -143,6 +144,17 @@ public class Variables {
     public static Map<Integer,Map<String,String>> stringsMap=new HashMap<>();
 
     public static final ThreadLocal<Integer> myThreadLocal = new ThreadLocal<Integer>();
+
+    public static boolean paymentDone(String trans_id){
+        String sURL = "http://allwitz.com:88/check.php?id="+trans_id;
+        String response = HttpRequest.get(sURL).body();
+
+        if(response.contains("RESULT_CODE: 000")){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 
 }
