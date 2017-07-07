@@ -21,14 +21,16 @@ public interface UserCategoryJoinRepo extends JpaRepository<UserCategoryJoin,Lon
     List<UserCategoryJoin> findByUserAndCategoryAndActive(User user, Category category, boolean active);
 
     @Query("select u from UserCategoryJoin u join u.user us " +
-            "where u.category.name in :category and us.city.name=:city and u.price>:lower and u.price<:upper order by u.ratingNum desc")
+            "where u.category.name in :category and us.city.name=:city and u.price>:lower " +
+            "and u.price<:upper and u.accepted = true order by u.ratingNum desc")
     Page<UserCategoryJoin> findByCategoryAndCityScoreNum(@Param("category") List<String> category,
                                                  @Param("city") String city,
                                                  @Param("upper") float upper,
                                                  @Param("lower") float lower,
                                                  Pageable pageable);
     @Query("select u from UserCategoryJoin u join u.user us " +
-            "where u.category.name in :category and us.city.name=:city and u.price>:lower and u.price<:upper order by u.ratingSum desc")
+            "where u.category.name in :category and us.city.name=:city and u.price>:lower " +
+            "and u.price<:upper and u.accepted = true order by u.ratingSum desc")
     Page<UserCategoryJoin> findByCategoryAndCityScoreSum(@Param("category") List<String> category,
                                                  @Param("city") String city,
                                                  @Param("upper") float upper,

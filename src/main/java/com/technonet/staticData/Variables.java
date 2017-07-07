@@ -96,13 +96,13 @@ public class Variables {
 
     public static HashMap<Integer, WeekDay> getWeekDays() {
         HashMap<Integer, WeekDay> hashMap = new HashMap<>();
-        hashMap.put(0, new WeekDay(0, "ორშაბათი"));
-        hashMap.put(1, new WeekDay(1, "სამშაბათი"));
-        hashMap.put(2, new WeekDay(2, "ოთხშაბათი"));
-        hashMap.put(3, new WeekDay(3, "ხუთშაბათი"));
-        hashMap.put(4, new WeekDay(4, "პარასკევი"));
-        hashMap.put(5, new WeekDay(5, "შაბათი"));
-        hashMap.put(6, new WeekDay(6, "კვირა"));
+        hashMap.put(0, new WeekDay(0, "Monday"));
+        hashMap.put(1, new WeekDay(1, "Tuesday"));
+        hashMap.put(2, new WeekDay(2, "Wednesday"));
+        hashMap.put(3, new WeekDay(3, "Thursday"));
+        hashMap.put(4, new WeekDay(4, "Friday"));
+        hashMap.put(5, new WeekDay(5, "Saturday"));
+        hashMap.put(6, new WeekDay(6, "Sunday"));
 
         return hashMap;
     }

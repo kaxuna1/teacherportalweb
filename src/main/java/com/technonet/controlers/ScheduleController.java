@@ -52,6 +52,31 @@ public class ScheduleController {
         }
     }
 
+    @RequestMapping("/createscheduledaymy")
+    @ResponseBody
+    public JsonMessage createCategoryForMe(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
+                                           @RequestParam(value = "category", required = true, defaultValue = "") long category,
+                                           @RequestParam(value = "day", required = true, defaultValue = "") int day
+    ) {
+        Session session = sessionRepository.findOne(sessionId);
+
+        try {
+            UserCategoryJoin category1 = userCategoryJoinRepo.findOne(category);
+            if (category1.getUser().getId() != session.getUser().getId()) {
+                return new JsonMessage(JsonReturnCodes.DONTHAVEPERMISSION);
+            }
+            List<Schedule> scheduleCheck = scheduleRepo.findByUserCategoryJoinAndActiveAndDayOfWeek(category1, true, day);
+            if (scheduleCheck.size() > 0) {
+                return new JsonMessage(JsonReturnCodes.ERROR);
+            }
+            Schedule schedule = new Schedule(category1, day);
+            scheduleRepo.save(schedule);
+            return new JsonMessage(JsonReturnCodes.Ok);
+        } catch (Exception e) {
+            return new JsonMessage(JsonReturnCodes.ERROR);
+        }
+    }
+
     @RequestMapping("/getweekdaysforcategorytoadd")
     @ResponseBody
     public List<WeekDay> getWeekDaysForAdding(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
@@ -97,14 +122,14 @@ public class ScheduleController {
     @RequestMapping("/scheduledtimes/{id}")
     @ResponseBody
     public List<ScheduleTime> getScheduledTimes(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
-                                                @PathVariable(value = "id", required = true) long id) {
+                                                @PathVariable(value = "id", required = true) long id,
+                                                @CookieValue(value = "lang", defaultValue = "1") int lang) {
+        Variables.myThreadLocal.set(lang);
         Session session = sessionRepository.findOne(sessionId);
-        if (PermisionChecks.isAdmin(session) || PermisionChecks.student(session)) {
-            Schedule schedule = scheduleRepo.findOne(id);
-            return scheduleTimeRepo.findByScheduleAndActiveOrderByStartTimeAsc(schedule, true);
-        } else {
-            return null;
-        }
+
+        Schedule schedule = scheduleRepo.findOne(id);
+        return scheduleTimeRepo.findByScheduleAndActiveOrderByStartTimeAsc(schedule, true);
+
     }
 
     @RequestMapping("createscheduletime/{id}")
@@ -289,11 +314,11 @@ public class ScheduleController {
     @RequestMapping("/mystudentschedule/{days}")
     @ResponseBody
     public List<BookedTime> getMyScheduleStudent(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
-                                          @PathVariable(value = "days") int days,
-                                          @CookieValue(value = "lang", defaultValue = "1") int lang) {
+                                                 @PathVariable(value = "days") int days,
+                                                 @CookieValue(value = "lang", defaultValue = "1") int lang) {
         Variables.myThreadLocal.set(lang);
         Session session = sessionRepository.findOne(sessionId);
-        if(PermisionChecks.teacher(session)){
+        if (PermisionChecks.teacher(session)) {
             return bookedTimeRepo.findInsideIntervalWithUser(new DateTime().minusDays(days).toDate(), new DateTime().plusDays(days).toDate(), session.getUser());
         }
         return bookedTimeRepo.findInsideIntervalWithStudent(new DateTime().minusDays(days).toDate(), new DateTime().plusDays(days).toDate(), session.getUser());

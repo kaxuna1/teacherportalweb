@@ -55,6 +55,15 @@ public class UserCategoryController {
 
     }
 
+    @RequestMapping("/usercategory/{id}")
+    @ResponseBody
+    public UserCategoryJoin getUserCategoryJoin(@CookieValue("projectSessionId") long sessionId,
+                                                @PathVariable("id") long id,
+                                                @CookieValue(value = "lang", defaultValue = "1") int lang){
+        Variables.myThreadLocal.set(lang);
+        return userCategoryJoinRepo.findOne(id);
+    }
+
 
     @RequestMapping("/addcategorytouser")
     @ResponseBody
@@ -107,6 +116,15 @@ public class UserCategoryController {
         Variables.myThreadLocal.set(lang);
         Session session = sessionRepository.findOne(sessionId);
         User user = userRepository.findOne(id);
+        return user.getUserCategoryJoins();
+    }
+    @RequestMapping("/usercategories")
+    @ResponseBody
+    public List<UserCategoryJoin> getUserCategoriesMy(@CookieValue("projectSessionId") long sessionId,
+                                                    @CookieValue(value = "lang", defaultValue = "1") int lang) {
+        Variables.myThreadLocal.set(lang);
+        Session session = sessionRepository.findOne(sessionId);
+        User user = session.getUser();
         return user.getUserCategoryJoins();
     }
 

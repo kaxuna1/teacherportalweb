@@ -1960,3 +1960,9 @@ input:focus {
     font-size: 18px;
     cursor: pointer;
 }
+.categoryButton {
+    color: #46c3bf;
+    font-family: brixLight !important;
+    font-size: 18px;
+    cursor: pointer;
+}

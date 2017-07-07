@@ -113,11 +113,12 @@ function loadSearch(city, clas, page, lower, upper, loadmore) {
         if (!loadmore)
             $(".searchResultDiv").html("");
 
-        var ratingStars = "";
+
 
 
         for (key in data) {
 
+            var ratingStars = "";
             var item = data[key];
             var rating = item.rating;
             for (var i = 0; i < rating; i++) {
