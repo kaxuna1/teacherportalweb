@@ -19,7 +19,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
 
     @Query("SELECT u FROM User u WHERE u.username LIKE CONCAT('%',:username,'%') OR u.email LIKE CONCAT('%',:email,'%') OR u.address LIKE CONCAT('%',:address,'%')")
-    Page<User> findByUsernameOrEmailOrAddress(@Param("username") String username, @Param("email") String email, @Param("address") String address, Pageable pageable);
+    Page<Object> findByUsernameOrEmailOrAddress(@Param("username") String username, @Param("email") String email, @Param("address") String address, Pageable pageable);
 
     List<User> findByFacebookIdAndActive(String facebookId, boolean active);
 

@@ -26,16 +26,15 @@ import java.util.List;
 public class UsersController {
 
 
-
     @RequestMapping("/getuserbyid/{page}")
     @ResponseBody
-    public Page<User> getUserById(@CookieValue("projectSessionId") long sessionId,@PathVariable("page") int page){
+    public Page<User> getUserById(@CookieValue("projectSessionId") long sessionId, @PathVariable("page") int page) {
 
         Session session = sessionDao.findOne(sessionId);
         boolean k = PermisionChecks.isAdmin(session);
-        if(k){
-            return userDao.findByActive(true,constructPageSpecification(page));
-        }else {
+        if (k) {
+            return userDao.findByActive(true, constructPageSpecification(page));
+        } else {
             return null;
         }
     }
@@ -127,17 +126,22 @@ public class UsersController {
         }
 
     }
+
     @RequestMapping("/getuserinforecords/{id}")
     @ResponseBody
-    public List<InfoRecord> getUserInfoRecords(@PathVariable("id") long id){
+    public List<InfoRecord> getUserInfoRecords(@PathVariable("id") long id) {
         return userDao.findOne(id).getInfoRecords();
     }
 
 
     @RequestMapping("/getusers")
     @ResponseBody
-    public Page<User> getusers(@CookieValue("projectSessionId") String sessionId, int index, String search) {
-        return userDao.findByUsernameOrEmailOrAddress(search, search, search, constructPageSpecification(index));
+    public Page<Object> getusers(@CookieValue("projectSessionId") String sessionId, int index, String search,
+                               @RequestParam(value = "fora", required = false, defaultValue = "1") int fora) {
+        if (fora == 1)
+            return userDao.findByUsernameOrEmailOrAddress(search, search, search, constructPageSpecification(index));
+        else
+            return userCategoryJoinRepo.findByLatestRequest(constructPageSpecification(index));
     }
 
     @RequestMapping("/giveuserpermission")
@@ -392,6 +396,8 @@ public class UsersController {
     }
 
 
+    @Autowired
+    private UserCategoryJoinRepo userCategoryJoinRepo;
     @Autowired
     private ConfirmationTokenRepo confirmationTokenRepo;
     @Autowired

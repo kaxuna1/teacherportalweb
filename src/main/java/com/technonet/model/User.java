@@ -130,6 +130,8 @@ public class User {
     @Column
     private String iban;
 
+    private String catname;
+
     public User(long id) {
         this.id = id;
     }
@@ -539,5 +541,13 @@ public class User {
 
     public void setIban(String iban) {
         this.iban = iban;
+    }
+
+    public String getCatname() {
+        return catname;
+    }
+
+    public void setCatname(String catname) {
+        this.catname = catname;
     }
 }

@@ -286,6 +286,7 @@ public class AppController {
 
 
         boolean isTeacher = false;
+        boolean hasClass = false;
 
 
         Map<String, String> stringMap = Variables.stringsMap.get(lang);
@@ -339,9 +340,11 @@ public class AppController {
                 User user = sessiona.getUser();
                 user.getUserCategoryJoins().stream().forEach(userCategoryJoin -> categories.remove(userCategoryJoin.getCategory()));
                 categories.forEach(category -> category.setLang(lang));
+                hasClass = user.getUserCategoryJoins().size()>0;
 
 
                 isTeacher = categories.size()==0;
+
 
 
                 model.addAttribute("profilePicUrl", profilePicUrl);
@@ -356,6 +359,7 @@ public class AppController {
             model.addAttribute("loggedIn", false);
         }
         model.addAttribute("isTeacher", isTeacher);
+        model.addAttribute("hasClass",hasClass);
         return "main/profile";
     }
 

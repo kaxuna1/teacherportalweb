@@ -8,8 +8,8 @@ var currentFileType = 0;
 var openUserGlobal = function () {
 
 };
-function loadUsersData(index, search) {
-    $.getJSON("getusers?index=" + index + "&search=" + search, function (result) {
+function loadUsersData(index, search,forAccept) {
+    $.getJSON("getusers?index=" + index + "&search=" + search+"&fora="+forAccept, function (result) {
         $("#dataGridHeader").html("");
         $("#dataGridBody").html("");
         $("#paginationUl").html("");
@@ -40,7 +40,7 @@ function loadUsersData(index, search) {
         }
         $(".paginate_button").click(function () {
             //console.log($(this).val())
-            loadUsersData($(this).val(), "")
+            loadUsersData($(this).val(), "",forAccept)
         });
 
         var gridRow = $('.gridRow');
@@ -101,7 +101,7 @@ function loadUsersData(index, search) {
                     }
                 }, function () {
                     modal.modal("hide");
-                    loadUsersData(index, search);
+                    loadUsersData(index, search,forAccept);
                 })
             })
         })
@@ -1370,4 +1370,10 @@ function loadUsersData(index, search) {
     }
 
 
+}
+
+function loadTeacherRequests() {
+    $.getJSON("",function (result) {
+
+    })
 }

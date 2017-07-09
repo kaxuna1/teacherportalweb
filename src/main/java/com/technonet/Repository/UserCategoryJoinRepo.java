@@ -36,4 +36,7 @@ public interface UserCategoryJoinRepo extends JpaRepository<UserCategoryJoin,Lon
                                                  @Param("upper") float upper,
                                                  @Param("lower") float lower,
                                                  Pageable pageable);
+    @Query("select distinct us from UserCategoryJoin u join u.user us " +
+            "where u.declined = false and u.accepted = false order by u.date desc")
+    Page<Object> findByLatestRequest(Pageable pageable);
 }

@@ -261,4 +261,6 @@ public class UserCategoryController {
     private CategoryRepo categoryRepo;
     @Autowired
     private RatingRepo ratingRepo;
+    @Autowired
+    private PermissionController permissionController;
 }
