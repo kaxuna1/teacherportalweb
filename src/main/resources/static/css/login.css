@@ -1842,6 +1842,10 @@ and (min-width: 1224px) {
         font-size: 20px !important;
 
     }
+    .profName  {
+        font-size: 20px !important;
+
+    }
 
     #logisignbtn a {
         font-size: 20px !important;

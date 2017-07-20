@@ -368,7 +368,8 @@ and (min-width : 1824px) {
 
 }
 .dropdown-menu > .active > a, .dropdown-menu > .active > a:focus, .dropdown-menu > .active > a:hover{
-    background-color:rgba(70, 195, 191, 0.69)!important;
+    background-color:white!important;
+    color: black;
 }
 .dropdown-menu a{
     font-family: brixLight!important;

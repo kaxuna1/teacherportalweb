@@ -108,6 +108,7 @@ function loadSearch(city, clas, page, lower, upper, loadmore) {
         + "&lower=" + lower
         + "&sort=" + $(".sortCheck").val()
         + "&upper=" + upper, function (result) {
+        $("#numberOfResult").html(result.numberOfElements+ " results");
         var data = result["content"]
 
         if (!loadmore)

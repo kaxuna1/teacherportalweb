@@ -128,7 +128,7 @@ $(document).ready(function () {
 
                 '   <div class="row">' +
                 '   <div class="col-xs-11 noLeftPadding academicStringText">' +
-                (item.accepted ? "Confirmed" : "Waiting confirmation") +
+                (item.accepted ? "Confirmed" : "Please wait for confirmation") +
                 '   </div>' +
                 '   <div  style="text-align: right" class="col-xs-1 noRightPadding">' +
                 '   <a  value="' + item.id + '" class="categoryButton">details</a>' +

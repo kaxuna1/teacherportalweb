@@ -119,7 +119,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                        role="button" aria-haspopup="true"
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><span
-                            th:text="${userNameSurname}"
+                            th:text="${userNameSurname}" class="profName"
                             style="color: black;font-family: brixnorm!important;"></span></span></a>
                     <ul class="dropdown-menu">
                         <li class="profileBtn"><a href="#" th:text="${strings.main_menu_profile}"></a></li>
@@ -238,8 +238,8 @@
     </div>
     <div class="mainCont">
         <div class="results">
-            <a style=""><p style="font-family: brix!important;color: black;padding-left: 5vw">
-                120 results
+            <a style=""><p id="numberOfResult" style="font-family: brix!important;color: black;padding-left: 5vw">
+
             </p>
             </a>
             <div style="display: grid" class="searchResultDiv">

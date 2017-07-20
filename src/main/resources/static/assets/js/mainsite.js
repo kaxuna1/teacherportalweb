@@ -212,7 +212,7 @@ $(document).ready(function () {
                                                 $("#singUpWithEmailBtn").click();
                                                 name = result.name.split(" ")[0];
                                                 surname = result.name.split(" ")[1];
-                                                email = result.email;
+                                                email = result.email?result.email:"";
 
                                             }
                                         })
