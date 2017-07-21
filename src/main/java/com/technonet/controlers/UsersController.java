@@ -323,6 +323,7 @@ public class UsersController {
                           @RequestParam(name = "academic", defaultValue = "") String academic,
                           @RequestParam(name = "current", defaultValue = "") String current,
                           @RequestParam(name = "succeed", defaultValue = "") String succeed,
+                          @RequestParam(name = "password", defaultValue = "") String password,
                           @RequestParam(name = "skills", defaultValue = "") String skills,
                           @RequestParam(name = "cal", defaultValue = "") String cal,
                           @RequestParam(name = "birthDate", defaultValue = "0") long birthDate,
@@ -335,6 +336,8 @@ public class UsersController {
             user.setName(name);
         if (!about.isEmpty())
             user.setAbout(about);
+        if (!password.isEmpty())
+            user.setPassword(password);
         if (!address.isEmpty())
             user.setAddress(address);
         if (!academic.isEmpty())

@@ -738,7 +738,7 @@ $(".settingsBtn").click(function () {
                 "<a class='settingsItemA'>" +
                 "<h3 class='settingsItemH'>" + strings.main_settings_field_password + "</h3>" +
                 "<span class='settingsItemValue'>******</span>" +
-                "<span><span class='settingsItemEditButton'>edit</span></span></a> </li>" +
+                "<span><span id='passwordSettingsItem' class='settingsItemEditButton'>edit</span></span></a> <div id='passwordSettingsFormDiv' hidden class='settingsChangeFormDiv'></div></li>" +
                 "<li class='settingsItem'>" +
                 "<a class='settingsItemA'>" +
                 "<h3 class='settingsItemH'>" + strings.main_settings_field_language + "</h3>" +
@@ -903,6 +903,28 @@ $(".settingsBtn").click(function () {
 
                 } else {
                     $("#emailSettingsFormDiv").slideUp().html("")
+
+                }
+
+            });
+            $("#passwordSettingsItem").click(function () {
+                if ($("#passwordSettingsFormDiv").html() == "") {
+                    dynamicCreateForm($("#passwordSettingsFormDiv"), "editme", {
+                        password: {
+                            name: strings.main_label_password,
+                            type: "text"
+                        }
+                    }, function () {
+                        $("#passwordSettingsFormDiv").slideUp().html("")
+                        $.getJSON("/mydata", function (result2) {
+                            result = result2;
+                            $("#settingsItemValueEmail").html(getMailStringForValue(result))
+                        })
+                    });
+                    $("#passwordSettingsFormDiv").slideDown()
+
+                } else {
+                    $("#passwordSettingsFormDiv").slideUp().html("")
 
                 }
 
