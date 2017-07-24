@@ -996,7 +996,7 @@ $(".profileBtn").click(function () {
 
 
 function getMailStringForValue(user) {
-    return user.email + (user.confirmedEmail ? "" : "(Not Confirmed)")
+    return user.email
 }
 function getFacebookFieldForSettings(user) {
     if (user.facebookConnected) {
