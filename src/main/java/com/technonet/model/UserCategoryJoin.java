@@ -61,6 +61,9 @@ public class UserCategoryJoin {
     private List<Schedule> schedules;
 
 
+    @Column
+    private int location;
+
 
     @Column
     private float price;
@@ -78,7 +81,7 @@ public class UserCategoryJoin {
     private String about;
 
 
-    public UserCategoryJoin(User user, Category categoryId, float price, int duration) {
+    public UserCategoryJoin(User user, Category categoryId, float price, int duration,int location) {
         this.user = user;
         this.category = categoryId;
         this.duration = duration;
@@ -93,6 +96,7 @@ public class UserCategoryJoin {
         this.bookedTimes = new ArrayList<>();
         this.views = 400 + (int)(Math.random() * 800);
         this.ratings = new ArrayList<>();
+        this.location = location;
 
     }
 
@@ -284,5 +288,13 @@ public class UserCategoryJoin {
 
     public void setViews(int views) {
         this.views = views;
+    }
+
+    public int getLocation() {
+        return location;
+    }
+
+    public void setLocation(int location) {
+        this.location = location;
     }
 }

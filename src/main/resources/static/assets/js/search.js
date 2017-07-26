@@ -11,9 +11,6 @@ $(document).ready(function () {
     console.log(city, clas);
     $("#upper").val(199);
     $("#lower").val(0);
-    if (city && clas) {
-        loadSearch(city, clas, 0, $("#lower").val(), $("#upper").val())
-    }
 
 
     $("#lower").change(function () {
@@ -30,6 +27,9 @@ $(document).ready(function () {
         }
         loadSearch(city, clas, 0, $("#lower").val(), $("#upper").val())
         drawPriceRange($("#lower").val(), $("#upper").val())
+    });
+    $(".meeting_point").change(function () {
+        loadSearch(city, clas, 0, $("#lower").val(), $("#upper").val())
     });
 
 
@@ -48,6 +48,7 @@ $(document).ready(function () {
         loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0, $("#lower").val(), $("#upper").val())
     });
 
+    loadSearch(city, clas, 0, $("#lower").val(), $("#upper").val())
     $(".dropMenu").click(function () {
         $(".dropMenu").removeClass("activeItem");
 
@@ -102,19 +103,18 @@ $(document).ready(function () {
 
 });
 function loadSearch(city, clas, page, lower, upper, loadmore) {
-    $.getJSON("/searchapi?city=" + city
-        + "&category=" + clas
+    $.getJSON("/searchapi?city=" + $(".citySearchField").val()
+        + "&category=" + $(".categorySearchField").val()
+        + "&location=" + $(".meeting_point").val()
         + "&page=" + page
         + "&lower=" + lower
         + "&sort=" + $(".sortCheck").val()
         + "&upper=" + upper, function (result) {
-        $("#numberOfResult").html(result.numberOfElements+ " results");
+        $("#numberOfResult").html(result.numberOfElements + " results");
         var data = result["content"]
 
         if (!loadmore)
             $(".searchResultDiv").html("");
-
-
 
 
         for (key in data) {

@@ -17,25 +17,29 @@ import java.util.List;
  * Created by kaxa on 3/8/17.
  */
 @Transactional
-public interface UserCategoryJoinRepo extends JpaRepository<UserCategoryJoin,Long> {
+public interface UserCategoryJoinRepo extends JpaRepository<UserCategoryJoin, Long> {
     List<UserCategoryJoin> findByUserAndCategoryAndActive(User user, Category category, boolean active);
 
     @Query("select u from UserCategoryJoin u join u.user us " +
             "where u.category.name in :category and us.city.name=:city and u.price>:lower " +
-            "and u.price<:upper and u.accepted = true order by u.ratingNum desc")
+            "and u.price<:upper and u.accepted = true and u.location = :location order by u.ratingNum desc")
     Page<UserCategoryJoin> findByCategoryAndCityScoreNum(@Param("category") List<String> category,
-                                                 @Param("city") String city,
-                                                 @Param("upper") float upper,
-                                                 @Param("lower") float lower,
-                                                 Pageable pageable);
+                                                         @Param("city") String city,
+                                                         @Param("upper") float upper,
+                                                         @Param("lower") float lower,
+                                                         @Param("location") int location,
+                                                         Pageable pageable);
+
     @Query("select u from UserCategoryJoin u join u.user us " +
-            "where u.category.name in :category and us.city.name=:city and u.price>:lower " +
-            "and u.price<:upper and u.accepted = true order by u.ratingSum desc")
+            "where u.category.name in :category and us.city.name LIKE CONCAT('%',:city,'%') and u.price>:lower " +
+            "and u.price<:upper and u.accepted = true and u.location = :location order by u.ratingSum desc")
     Page<UserCategoryJoin> findByCategoryAndCityScoreSum(@Param("category") List<String> category,
-                                                 @Param("city") String city,
-                                                 @Param("upper") float upper,
-                                                 @Param("lower") float lower,
-                                                 Pageable pageable);
+                                                         @Param("city") String city,
+                                                         @Param("upper") float upper,
+                                                         @Param("lower") float lower,
+                                                         @Param("location") int location,
+                                                         Pageable pageable);
+
     @Query("select distinct us from UserCategoryJoin u join u.user us " +
             "where u.declined = false and u.accepted = false order by u.date desc")
     Page<Object> findByLatestRequest(Pageable pageable);

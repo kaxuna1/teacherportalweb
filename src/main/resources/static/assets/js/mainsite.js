@@ -345,7 +345,7 @@ $(document).ready(function () {
                     confirmButtonText: 'Next &rarr;',
                     showCancelButton: true,
                     animation: true,
-                    progressSteps: ['1', '2', '3', '4','5']
+                    progressSteps: ['1', '2', '3', '4','5','6']
 
                 });
                 var steps = [
@@ -404,6 +404,14 @@ $(document).ready(function () {
                                 }
                             })
                         }
+                    }, {
+                        title: "Become A Teacher",
+                        text: "Meeting point",
+                        input: 'select',
+                        inputOptions: {
+                            "1": "Teacher's place",
+                            "2": "Student's place"
+                        }
                     }
                 ];
                 swal.queue(steps).then(function (result) {
@@ -415,7 +423,8 @@ $(document).ready(function () {
                         category: result[1],
                         duration: result[2],
                         price: result[3],
-                        iban: result[4]
+                        iban: result[4],
+                        location: result[5]
                     }, function (result) {
                         if (result) {
                             var selectedCategory = result;
