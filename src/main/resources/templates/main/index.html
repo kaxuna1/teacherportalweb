@@ -89,13 +89,13 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul th:if="${!isTeacher}" class="nav navbar-nav navbar-left">
+           <!-- <ul th:if="${!isTeacher}" class="nav navbar-nav navbar-left">
                 <li id="becometeacherbtn">
                     <a class="page-scroll navlabel"
                        style="color: white;font-family: brixnorm!important;"
                        th:text="${strings.main_become_a_teacher}" href="#"></a>
                 </li>
-            </ul>
+            </ul>-->
             <ul th:if="${!loggedIn}" class="nav navbar-nav navbar-right">
                 <li id="logisignbtn">
                     <a class="page-scroll navlabel" style="padding-right: 0px;color: white;font-family: brixnorm!important;"
@@ -107,13 +107,12 @@
                        role="button" aria-haspopup="true"
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><img
                             style="height: 20px" src="png/us.png"></span></a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" style="background-color:rgba(47, 113, 84, 1)">
                         <li class="profileBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
-                                                                                        src="png/us.png"><span
-                                style="padding-left: 10px">English</span></a></li>
-                        <li class="profileBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
-                                                                                        src="png/us.png"><span
-                                style="padding-left: 10px">English</span></a></li>
+                                                                                        src="png/us.png">
+                            <span style="padding-left: 10px;color: white;">English</span></a></li>
+                        <li class="profileBtn"><a href="#" style="font-size: 15px"><img style="height: 15px" src="png/us.png">
+                            <span style="padding-left: 10px;color: white;">English</span></a></li>
                     </ul>
                 </li>
             </ul>
@@ -124,26 +123,25 @@
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><span
                             th:text="${userNameSurname}" class="navlabel profName"
                             style="color: white;font-family: brixnorm!important;"></span></span></a>
-                    <ul class="dropdown-menu">
-                        <li class="profileBtn"><a href="#" th:text="${strings.main_menu_profile}"></a></li>
-                        <li class="settingsBtn"><a href="#" th:text="${strings.main_menu_settings}"></a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a class="logoutBtn" href="#" th:text="${strings.main_menu_log_out}"></a></li>
+                    <ul class="dropdown-menu" style="background-color: rgba(47, 113, 84, 1)">
+                        <li class="profileBtn"><a style="color: white;" href="#" th:text="${strings.main_menu_profile}"></a></li>
+                        <li class="settingsBtn"><a style="color: white;" href="#" th:text="${strings.main_menu_settings}"></a></li>
+
+                        <li><a style="color: white;" class="logoutBtn" href="#" th:text="${strings.main_menu_log_out}"></a></li>
                     </ul>
                 </li>
-                <li class="dropdown" id="langbtn">
+                <li class="dropdown" style="background-color:rgba(47, 113, 84, 1) " id="langbtn">
 
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                        role="button" aria-haspopup="true"
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><img
                             style="height: 20px" src="png/us.png"></span></a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" style="background-color:rgba(47, 113, 84, 1) ">
                         <li class="langBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
-                                                                                        src="png/us.png"><span
-                                style="padding-left: 10px">English</span></a></li>
-                        <li class="langBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
-                                                                                        src="png/us.png"><span
-                                style="padding-left: 10px">English</span></a></li>
+                                                                                        src="png/us.png">
+                            <span style="padding-left: 10px;color: white;">English</span></a></li>
+                        <li class="langBtn"><a href="#" style="font-size: 15px"><img style="height: 15px" src="png/us.png">
+                            <span  style="padding-left: 10px;color: white;">English</span></a></li>
                     </ul>
                 </li>
 
