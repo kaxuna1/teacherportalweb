@@ -4,6 +4,13 @@
 var sortMenu = false;
 var priceMenu = false;
 
+var educationMap = {
+    "2":"High School",
+    "3":"Bachelor’s Degree",
+    "4":"Master’s Degree",
+    "5":"PhD"
+};
+
 
 $(document).ready(function () {
     var city = getParameterByName('city');
@@ -47,20 +54,29 @@ $(document).ready(function () {
     $(".sortCheck").change(function () {
         loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0, $("#lower").val(), $("#upper").val())
     });
+    $(".educationCheck").change(function () {
+        loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0, $("#lower").val(), $("#upper").val())
+    });
+    $(".expirienceCheck").change(function () {
+        loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0, $("#lower").val(), $("#upper").val())
+    });
+    $(".ageCheck").change(function () {
+        loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0, $("#lower").val(), $("#upper").val())
+    });
 
     loadSearch(city, clas, 0, $("#lower").val(), $("#upper").val())
     $(".dropMenu").click(function () {
         $(".dropMenu").removeClass("activeItem");
 
         $(this).addClass("activeItem");
-        $(".results").addClass("hr");
+        $(".searchResultDiv").addClass("hr");
         var item = this;
         $(document).mouseup(function (e) {
             var container = $(item);
 
             // if the target of the click isn't the container nor a descendant of the container
             if (!container.is(e.target) && container.has(e.target).length === 0) {
-                $(".results").removeClass("hr")
+                $(".searchResultDiv").removeClass("hr")
                 container.removeClass("activeItem");
             }
         });
@@ -106,9 +122,12 @@ function loadSearch(city, clas, page, lower, upper, loadmore) {
     $.getJSON("/searchapi?city=" + $(".citySearchField").val()
         + "&category=" + $(".categorySearchField").val()
         + "&location=" + $(".meeting_point").val()
+        + "&education=" + $(".educationCheck:checked").val()
+        + "&exp=" + $(".expirienceCheck:checked").val()
+        + "&age=" + $(".ageCheck:checked").val()
         + "&page=" + page
         + "&lower=" + lower
-        + "&sort=" + $(".sortCheck").val()
+        + "&sort=" + $(".sortCheck:checked").val()
         + "&upper=" + upper, function (result) {
         $("#numberOfResult").html(result.numberOfElements + " results");
         var data = result["content"]
@@ -139,7 +158,7 @@ function loadSearch(city, clas, page, lower, upper, loadmore) {
                 '                   ' + item["categoryName"] +
                 '                </p>' +
                 '                <p class="degreeLabel">' +
-                '                   Bachelor Degree' +
+                '                   ' +educationMap[item.education]+
                 '                </p></div>' +
                 '            </div>' +
                 '        </div>' +

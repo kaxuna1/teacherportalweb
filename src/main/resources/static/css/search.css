@@ -19,6 +19,18 @@
     border-radius: 8px;
 
 }
+.revileMenuMore{
+    position: absolute;
+    display: none;
+    width: 90%;
+    left:5%;
+    max-width: 570px;
+    z-index: 100;
+    background: white;
+    border: 1px solid black;
+    border-radius: 8px;
+
+}
 .activeItem div{
     display: block!important;
 }
@@ -116,4 +128,12 @@ and (min-width : 481px) {
 .dropdown-menu a{
     font-family: brixnorm!important;
     font-size: 20px;
+}
+.list-group input{
+    float: right;
+}
+.list-group li{
+    margin-top: 5px;
+    font-family: brixLight!important;
+    font-size: 16px;
 }

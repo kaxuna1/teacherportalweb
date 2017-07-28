@@ -79,6 +79,10 @@ public class UserCategoryJoin {
 
     @Column
     private String about;
+    @Column
+    private int exp;
+    @Column
+    private int education;
 
 
     public UserCategoryJoin(User user, Category categoryId, float price, int duration,int location) {
@@ -296,5 +300,21 @@ public class UserCategoryJoin {
 
     public void setLocation(int location) {
         this.location = location;
+    }
+
+    public int getExp() {
+        return exp;
+    }
+
+    public void setExp(int exp) {
+        this.exp = exp;
+    }
+
+    public int getEducation() {
+        return education;
+    }
+
+    public void setEducation(int education) {
+        this.education = education;
     }
 }

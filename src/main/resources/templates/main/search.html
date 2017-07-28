@@ -76,7 +76,7 @@
         <div class="navbar-header page-scroll">
             <button style=";z-index: 100000;" type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                     data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-               <i class="fa fa-bars"></i>
+                <i class="fa fa-bars"></i>
             </button>
             <a class="navbar-brand page-scroll brand"
                style="padding-top: 5px;  padding:0;  font-size: 30px;font-size: 40px;font-family: brixnorm!important; "
@@ -86,12 +86,12 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-           <!-- <ul th:if="${!isTeacher}" class="nav navbar-nav navbar-left">
-                <li id="becometeacherbtn">
-                    <a class="page-scroll" th:text="${strings.main_become_a_teacher}" href="#"
-                       style="font-size: 18px;color: black;font-family: brixnorm!important;"></a>
-                </li>
-            </ul>-->
+            <!-- <ul th:if="${!isTeacher}" class="nav navbar-nav navbar-left">
+                 <li id="becometeacherbtn">
+                     <a class="page-scroll" th:text="${strings.main_become_a_teacher}" href="#"
+                        style="font-size: 18px;color: black;font-family: brixnorm!important;"></a>
+                 </li>
+             </ul>-->
             <ul th:if="${!loggedIn}" class="nav navbar-nav navbar-right">
                 <li id="logisignbtn">
                     <a class="page-scroll" th:text="${strings.main_login_signup}" href="#"
@@ -183,37 +183,44 @@
             </form>
         </div>
     </div>
-    <div style="padding-left: 10%;padding-top: 10px" class="row filtersDiv">
-        <ul class="list-inline quicklinks">
-            <li class="dropMenu"><a class="" id="sortByBtn" style="cursor:pointer;font-family: brix!important;font-size: 17px">Sort by<img
-                    style="width: 13px;padding-left: 4px"
-                    src="png/login/9.png"></a>
-                <div class="revileMenu ">
-                    <table style="margin: 20px">
-                        <tbody>
-                        <tr>
-                            <td style="font-size: 16px;width: 120px;font-family: brix!important;">
-                                Rating
-                            </td>
-                            <td style="padding-left: 20px">
-                                <input class="sortCheck" name="sort" checked="checked" value="1" type="radio">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="font-size: 16px;width: 120px;font-family: brix!important;">
-                                Most Reviewed
-                            </td>
-                            <td style="padding-left: 20px">
-                                <input class="sortCheck" name="sort" value="2" type="radio">
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </li>
-            <li class="dropMenu"><a id="priceFilterBtn" href="#" style="font-family: brix!important;font-size: 17px">Price range<img style="width: 13px;padding-left: 4px"
-                                                                                 src="png/login/9.png"></a>
-                <div class="revileMenuPrice ">
+
+    <div class="mainCont">
+        <div class="results">
+            <div style="padding-left: 10%;padding-top: 10px" class="row filtersDiv">
+                <ul class="list-inline quicklinks">
+                    <li class="dropMenu"><a class="" id="sortByBtn"
+                                            style="cursor:pointer;font-family: brix!important;font-size: 17px">Sort
+                        by<img
+                                style="width: 13px;padding-left: 4px"
+                                src="png/login/9.png"></a>
+                        <div class="revileMenu ">
+                            <table style="margin: 20px">
+                                <tbody>
+                                <tr>
+                                    <td style="font-size: 16px;width: 120px;font-family: brix!important;">
+                                        Rating
+                                    </td>
+                                    <td style="padding-left: 20px">
+                                        <input class="sortCheck" name="sort" checked="checked" value="1" type="radio">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size: 16px;width: 120px;font-family: brix!important;">
+                                        Most Reviewed
+                                    </td>
+                                    <td style="padding-left: 20px">
+                                        <input class="sortCheck" name="sort" value="2" type="radio">
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </li>
+                    <li class="dropMenu"><a id="priceFilterBtn" href="#"
+                                            style="font-family: brix!important;font-size: 17px">Price
+                        range<img style="width: 13px;padding-left: 4px"
+                                  src="png/login/9.png"></a>
+                        <div class="revileMenuPrice ">
                     <span style="width: 100%;height: 100%;display: grid;">
                         <span class="priceRangeClass" style="margin: 20px;font-family: brixLight!important;">
                         0₾ - 1000₾
@@ -227,15 +234,53 @@
                     </span>
                     </span>
 
-                </div>
-            </li>
-            <li><a href="#" style="font-family: brix!important;font-size: 17px">More filters<img style="width: 13px;padding-left: 4px"
-                                                                                  src="png/login/9.png"></a>
-            </li>
-        </ul>
-    </div>
-    <div class="mainCont">
-        <div class="results">
+                        </div>
+                    </li>
+                    <li class="dropMenu">
+                        <a href="#" style="font-family: brix!important;font-size: 17px">More filters
+                            <img style="width: 13px;padding-left: 4px" src="png/login/9.png"></a>
+                        <div style="overflow: scroll" class="revileMenuMore ">
+                            <div style="min-width: 560px" class="row">
+                                <div class="col-xs-4">
+                                    <ul class="list-group">
+                                        <li style="font-family: brixnorm!important;margin-bottom: 3px">Education</li>
+                                        <li><span>All</span><input class="educationCheck" name="education" checked="checked" value="1" type="radio"></li>
+                                        <li><span>High School</span><input class="educationCheck" name="education" value="2" type="radio"></li>
+                                        <li><span>Bachelor’s Degree</span><input class="educationCheck" name="education" value="3" type="radio"></li>
+                                        <li><span>Master’s Degree</span><input class="educationCheck" name="education" value="4" type="radio"></li>
+                                        <li><span>PhD</span><input class="educationCheck" name="education" value="5" type="radio"></li>
+                                    </ul>
+                                </div>
+                                <div class="col-xs-4">
+
+                                    <ul class="list-group">
+                                        <li style="font-family: brixnorm!important;margin-bottom: 3px"> Years of Experience</li>
+                                        <li><span>All</span><input class="expirienceCheck" name="expirienceCheck" checked="checked" value="1" type="radio"></li>
+                                        <li><span>0-1</span><input class="expirienceCheck" name="expirienceCheck" value="2" type="radio"></li>
+                                        <li><span>1-3</span><input class="expirienceCheck" name="expirienceCheck" value="3" type="radio"></li>
+                                        <li><span>3-5</span><input class="expirienceCheck" name="expirienceCheck" value="4" type="radio"></li>
+                                        <li><span>5-10</span><input class="expirienceCheck" name="expirienceCheck" value="5" type="radio"></li>
+                                        <li><span>10+</span><input class="expirienceCheck" name="expirienceCheck" value="6" type="radio"></li>
+                                    </ul>
+                                </div>
+                                <div class="col-xs-4">
+                                    <ul class="list-group">
+                                        <li style="font-family: brixnorm!important;margin-bottom: 3px">Age</li>
+                                        <li><span>All</span><input class="ageCheck" name="ageCheck" checked="checked" value="1" type="radio"></li>
+                                        <li><span>18-24 years old</span><input class="ageCheck" name="ageCheck" value="2" type="radio"></li>
+                                        <li><span>25-34 years old</span><input class="ageCheck" name="ageCheck" value="3" type="radio"></li>
+                                        <li><span>35-44 years old</span><input class="ageCheck" name="ageCheck" value="4" type="radio"></li>
+                                        <li><span>45-54 years old</span><input class="ageCheck" name="ageCheck" value="5" type="radio"></li>
+                                        <li><span>55-65 years old</span><input class="ageCheck" name="ageCheck" value="6" type="radio"></li>
+                                        <li><span>65 years or older</span><input class="ageCheck" name="ageCheck" value="7" type="radio"></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
             <a style=""><p id="numberOfResult" style="font-family: brix!important;color: black;padding-left: 5vw">
 
             </p>
@@ -248,76 +293,78 @@
             <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d33111.09406324017!2d44.77846125597866!3d41.725010699918016!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sge!4v1493398316680"
                     width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
         </div>
-    </div><footer class="footerLarge" style="padding-left: 4%;padding-right: 4%">
-    <div style="margin-right: auto;
-    margin-left: auto;">
-        <div class="row">
-            <div class="col-md-5">
-                <ul style="font-size: 18px;color:black;font-family:brix!important;margin-bottom: 0px;    padding-top: 2px;"
-                    class="list-inline footerLeft">
-                    <li>
-                        <a style="color: black">
-                            About Us
-                        </a>
-                    </li>
-                    <li>
-                        <a style="color: black">
-                            Terms & Conditions
-                        </a>
-                    </li>
-                    <li>
-                        <a style="color: black">
-                            Press
-                        </a>
-                    </li>
-                    <li>
-                        <a style="color: black">
-
-                            Contact
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-2">
-                <ul  class="list-inline socialFoot">
-
-                    <li><a><i class="fa fa-facebook" aria-hidden="true"></i>
-
-                    </a></li>
-                    <li style=""><a><i class="fa fa-twitter" aria-hidden="true"></i>
-
-                    </a></li>
-                    <li><a><i class="fa fa-instagram" aria-hidden="true"></i>
-                    </a></li>
-                    </a></li>
-
-                </ul>
-            </div>
-            <div class="col-md-5">
-                <ul class="list-inline quicklinks footerRight">
-                    <li><a href="#" style="font-family: font1"><i class="fa fa-cc-visa" aria-hidden="true"></i>
-                    </a>
-                    </li>
-                    <li><a href="#" style="font-family: font1"><i class="fa fa-cc-mastercard" aria-hidden="true"></i>
-                    </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div style="padding-top: 10px" class="row">
-            <div class="col-md-4">
-
-            </div>
-            <div class="col-md-4">
-                <span style="font-family: brix!important;font-size: 1em">Copyright 2017 Allwitz</span>
-            </div>
-            <div class="col-md-4">
-
-            </div>
-        </div>
     </div>
-</footer>
+    <footer class="footerLarge" style="padding-left: 4%;padding-right: 4%">
+        <div style="margin-right: auto;
+    margin-left: auto;">
+            <div class="row">
+                <div class="col-md-5">
+                    <ul style="font-size: 18px;color:black;font-family:brix!important;margin-bottom: 0px;    padding-top: 2px;"
+                        class="list-inline footerLeft">
+                        <li>
+                            <a style="color: black">
+                                About Us
+                            </a>
+                        </li>
+                        <li>
+                            <a style="color: black">
+                                Terms & Conditions
+                            </a>
+                        </li>
+                        <li>
+                            <a style="color: black">
+                                Press
+                            </a>
+                        </li>
+                        <li>
+                            <a style="color: black">
+
+                                Contact
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <ul class="list-inline socialFoot">
+
+                        <li><a><i class="fa fa-facebook" aria-hidden="true"></i>
+
+                        </a></li>
+                        <li style=""><a><i class="fa fa-twitter" aria-hidden="true"></i>
+
+                        </a></li>
+                        <li><a><i class="fa fa-instagram" aria-hidden="true"></i>
+                        </a></li>
+                        </a></li>
+
+                    </ul>
+                </div>
+                <div class="col-md-5">
+                    <ul class="list-inline quicklinks footerRight">
+                        <li><a href="#" style="font-family: font1"><i class="fa fa-cc-visa" aria-hidden="true"></i>
+                        </a>
+                        </li>
+                        <li><a href="#" style="font-family: font1"><i class="fa fa-cc-mastercard"
+                                                                      aria-hidden="true"></i>
+                        </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="padding-top: 10px" class="row">
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-4">
+                    <span style="font-family: brix!important;font-size: 1em">Copyright 2017 Allwitz</span>
+                </div>
+                <div class="col-md-4">
+
+                </div>
+            </div>
+        </div>
+    </footer>
     <footer class="footerMin" style="padding-left: 4%;padding-right: 4%">
         <div style="margin-right: auto;
     margin-left: auto;">
@@ -326,7 +373,7 @@
             <div style="padding-top: 10px" class="row">
 
                 <div class="col-xs-4">
-                    <ul  class="list-inline socialFoot">
+                    <ul class="list-inline socialFoot">
 
                         <li><a><i class="fa fa-facebook" aria-hidden="true"></i>
 
@@ -344,7 +391,7 @@
                     <span style="font-family: brix!important;font-size: 1em">Copyright 2017 Allwitz</span>
                 </div>
                 <div class="col-xs-4">
-                    <ul  class="list-inline socialFoot">
+                    <ul class="list-inline socialFoot">
 
                         <li><a><i class="fa fa-cc-mastercard" aria-hidden="true"></i>
 
@@ -379,7 +426,8 @@
 <script src="page/files/isotope.pkgd.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.css">
+<link rel="stylesheet" type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.common.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
 <!-- Plugin JavaScript -->

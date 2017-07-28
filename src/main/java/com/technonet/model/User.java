@@ -3,6 +3,8 @@ package com.technonet.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.technonet.Enums.Languages;
+import org.joda.time.DateTime;
+import org.joda.time.Interval;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -131,6 +133,10 @@ public class User {
     private String iban;
 
     private String catname;
+
+
+    @Column
+    private int age;
 
     public User(long id) {
         this.id = id;
@@ -369,6 +375,11 @@ public class User {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+
+        Interval interval = new Interval(birthDate.getTime(),new Date().getTime());
+
+        this.age = (int)interval.toDuration().getStandardDays()/365;
+
     }
 
     public boolean isConfirmedEmail() {
@@ -549,5 +560,13 @@ public class User {
 
     public void setCatname(String catname) {
         this.catname = catname;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 }

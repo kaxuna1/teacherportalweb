@@ -22,22 +22,36 @@ public interface UserCategoryJoinRepo extends JpaRepository<UserCategoryJoin, Lo
 
     @Query("select u from UserCategoryJoin u join u.user us " +
             "where u.category.name in :category and us.city.name=:city and u.price>:lower " +
-            "and u.price<:upper and u.accepted = true and u.location = :location order by u.ratingNum desc")
+            "and u.price<:upper and u.accepted = true and u.location = :location and " +
+            "u.exp >= :expStart and u.exp <= :expEnd and us.age >= :ageStart " +
+            "and us.age <= :ageEnd and (u.education = :edu or :edu = 1) order by u.ratingNum desc")
     Page<UserCategoryJoin> findByCategoryAndCityScoreNum(@Param("category") List<String> category,
                                                          @Param("city") String city,
                                                          @Param("upper") float upper,
                                                          @Param("lower") float lower,
                                                          @Param("location") int location,
+                                                         @Param("ageStart") int ageStart,
+                                                         @Param("ageEnd") int ageEnd,
+                                                         @Param("expStart") int expStart,
+                                                         @Param("expEnd") int expEnd,
+                                                         @Param("edu") int edu,
                                                          Pageable pageable);
 
     @Query("select u from UserCategoryJoin u join u.user us " +
             "where u.category.name in :category and us.city.name LIKE CONCAT('%',:city,'%') and u.price>:lower " +
-            "and u.price<:upper and u.accepted = true and u.location = :location order by u.ratingSum desc")
+            "and u.price<:upper and u.accepted = true and u.location = :location and " +
+            "u.exp >= :expStart and u.exp <= :expEnd and us.age >= :ageStart " +
+            "and us.age <= :ageEnd and (u.education = :edu or :edu = 1) order by u.ratingSum desc")
     Page<UserCategoryJoin> findByCategoryAndCityScoreSum(@Param("category") List<String> category,
                                                          @Param("city") String city,
                                                          @Param("upper") float upper,
                                                          @Param("lower") float lower,
                                                          @Param("location") int location,
+                                                         @Param("ageStart") int ageStart,
+                                                         @Param("ageEnd") int ageEnd,
+                                                         @Param("expStart") int expStart,
+                                                         @Param("expEnd") int expEnd,
+                                                         @Param("edu") int edu,
                                                          Pageable pageable);
 
     @Query("select distinct us from UserCategoryJoin u join u.user us " +

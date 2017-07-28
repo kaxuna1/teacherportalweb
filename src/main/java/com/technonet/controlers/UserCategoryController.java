@@ -37,8 +37,70 @@ public class UserCategoryController {
                                                           @RequestParam(value = "city", required = true) String city,
                                                           @CookieValue(value = "lang", defaultValue = "1") int lang,
                                                           @RequestParam(value = "location", defaultValue = "1") int location,
+                                                          @RequestParam(value = "education", defaultValue = "1") int education,
+                                                          @RequestParam(value = "exp", defaultValue = "1") int exp,
+                                                          @RequestParam(value = "age", defaultValue = "1") int age,
                                                           @RequestParam(value = "lower", defaultValue = "1") float lower,
                                                           @RequestParam(value = "upper", defaultValue = "1") float upper) {
+
+
+        int expStart = 0;
+        int expEnd = 99;
+
+        int ageStart = 0;
+        int ageEnd = 99;
+
+
+        switch (exp){
+            case 2:
+                expStart = 0;
+                expEnd = 1;
+                break;
+            case 3:
+                expStart = 1;
+                expEnd = 3;
+                break;
+            case 4:
+                expStart = 3;
+                expEnd = 5;
+                break;
+            case 5:
+                expStart = 5;
+                expEnd = 10;
+                break;
+            case 6:
+                expStart = 10;
+                expEnd = 99;
+                break;
+        }
+        switch (age){
+            case 2:
+                ageStart = 18;
+                ageEnd = 24;
+                break;
+            case 3:
+                expStart = 25;
+                expEnd = 34;
+                break;
+            case 4:
+                expStart = 35;
+                expEnd = 44;
+                break;
+            case 5:
+                expStart = 45;
+                expEnd = 54;
+                break;
+            case 6:
+                expStart = 55;
+                expEnd = 65;
+                break;
+            case 7:
+                expStart = 65;
+                expEnd = 99;
+                break;
+        }
+
+
 
         Variables.myThreadLocal.set(lang);
         List<String> categories = new ArrayList<>();
@@ -49,9 +111,9 @@ public class UserCategoryController {
                 }));
 
         if (sort == 1) {
-            return userCategoryJoinRepo.findByCategoryAndCityScoreSum(categories, city, upper, lower,location, constructPageSpecification(page, 10));
+            return userCategoryJoinRepo.findByCategoryAndCityScoreSum(categories, city, upper, lower,location, ageStart,ageEnd,expStart,expEnd,education,constructPageSpecification(page, 10));
         } else {
-            return userCategoryJoinRepo.findByCategoryAndCityScoreNum(categories, city, upper, lower,location, constructPageSpecification(page, 10));
+            return userCategoryJoinRepo.findByCategoryAndCityScoreNum(categories, city, upper, lower,location, ageStart,ageEnd,expStart,expEnd,education,constructPageSpecification(page, 10));
         }
 
     }
@@ -72,6 +134,8 @@ public class UserCategoryController {
                                          @RequestParam(value = "user", required = true, defaultValue = "0") long user,
                                          @RequestParam(value = "category", required = true, defaultValue = "0") long category,
                                          @RequestParam(value = "price", required = true, defaultValue = "0") float price,
+                                         @RequestParam(value = "exp", required = true, defaultValue = "0") int exp,
+                                         @RequestParam(value = "education", required = true, defaultValue = "0") int education,
                                          @RequestParam(value = "duration", required = true, defaultValue = "0") int duration,
                                          @RequestParam(value = "location", required = true, defaultValue = "0") int location) {
 
@@ -80,6 +144,8 @@ public class UserCategoryController {
             User user1 = userRepository.findOne(user);
             Category category1 = categoryRepo.findOne(category);
             UserCategoryJoin userCategoryJoin = new UserCategoryJoin(user1, category1, price, duration, location);
+            userCategoryJoin.setExp(exp);
+            userCategoryJoin.setEducation(education);
             userCategoryJoinRepo.save(userCategoryJoin);
             return new JsonMessage(JsonReturnCodes.Ok);
         } else {
@@ -93,6 +159,8 @@ public class UserCategoryController {
                                   @RequestParam(value = "category", required = true, defaultValue = "0") long category,
                                   @RequestParam(value = "price", required = true, defaultValue = "0") float price,
                                   @RequestParam(value = "duration", required = true, defaultValue = "0") int duration,
+                                  @RequestParam(value = "exp", required = true, defaultValue = "0") int exp,
+                                  @RequestParam(value = "education", required = true, defaultValue = "0") int education,
                                   @RequestParam(value = "city", required = true, defaultValue = "0") long city,
                                   @RequestParam(value = "iban", required = true, defaultValue = "0") String iban,
                                   @RequestParam(value = "location", required = true, defaultValue = "0") int location) {
@@ -105,6 +173,8 @@ public class UserCategoryController {
             userRepository.save(user1);
             Category category1 = categoryRepo.findOne(category);
             UserCategoryJoin userCategoryJoin = new UserCategoryJoin(user1, category1, price, duration,location);
+            userCategoryJoin.setExp(exp);
+            userCategoryJoin.setEducation(education);
             userCategoryJoinRepo.save(userCategoryJoin);
             return userCategoryJoin.getId();
         } else {

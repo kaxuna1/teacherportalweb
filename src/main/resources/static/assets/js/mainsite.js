@@ -157,7 +157,10 @@ $(document).ready(function () {
                                     surname: $("#surnameField").val().trim(),
                                     password: $("#passwordField").val().trim(),
                                     googleId: gid,
-                                    fbId: fbid
+                                    fbId: fbid,
+                                    year: $("#year").val(),
+                                    month: $("#month").val(),
+                                    day: $("#day").val()
                                 };
                                 $('.form-control').removeClass("reg-invalid");
                                 for (key in userModel) {
@@ -345,7 +348,7 @@ $(document).ready(function () {
                     confirmButtonText: 'Next &rarr;',
                     showCancelButton: true,
                     animation: true,
-                    progressSteps: ['1', '2', '3', '4','5','6']
+                    //progressSteps: ['1', '2', '3', '4','5','6','7']
 
                 });
                 var steps = [
@@ -412,6 +415,30 @@ $(document).ready(function () {
                             "1": "Teacher's place",
                             "2": "Student's place"
                         }
+                    }, {
+                        title: "Become A Teacher",
+                        text: "Education",
+                        input: 'select',
+                        inputOptions: {
+                            "2": "High School",
+                            "3": "Bachelor’s Degree",
+                            "4": "Master’s Degree",
+                            "5": "PhD"
+                        }
+                    }, {
+                        title: "Become A Teacher",
+                        text: " Years of Experience",
+                        input: 'number',
+                        inputPlaceholder: "Experience",
+                        inputValidator: function (value) {
+                            return new Promise(function (resolve, reject) {
+                                if (value) {
+                                    resolve()
+                                } else {
+                                    reject('You need to write something!')
+                                }
+                            })
+                        }
                     }
                 ];
                 swal.queue(steps).then(function (result) {
@@ -424,7 +451,9 @@ $(document).ready(function () {
                         duration: result[2],
                         price: result[3],
                         iban: result[4],
-                        location: result[5]
+                        location: result[5],
+                        education: result[6],
+                        exp: result[7]
                     }, function (result) {
                         if (result) {
                             var selectedCategory = result;

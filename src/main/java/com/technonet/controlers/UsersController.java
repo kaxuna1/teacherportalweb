@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -82,6 +83,9 @@ public class UsersController {
     public Session registerApi(@RequestParam(value = "password", required = true, defaultValue = "") String password,
                                @RequestParam(value = "email", required = true, defaultValue = "") String email,
                                @RequestParam(value = "name", required = false, defaultValue = "") String name,
+                               @RequestParam(value = "day", required = false, defaultValue = "") int day,
+                               @RequestParam(value = "month", required = false, defaultValue = "") int month,
+                               @RequestParam(value = "year", required = false, defaultValue = "") int year,
                                @RequestParam(value = "surname", required = false, defaultValue = "") String surname,
                                @RequestParam(value = "fbId", required = false, defaultValue = "") String fbId,
                                @RequestParam(value = "googleId", required = false, defaultValue = "") String googleId) {
@@ -89,6 +93,12 @@ public class UsersController {
             return new Session();
         }
         User user = new User(password, email, name, surname);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year,month,day);
+
+        user.setBirthDate(calendar.getTime());
+
+
         if (!fbId.isEmpty()) {
             user.setFacebookId(fbId);
         }
