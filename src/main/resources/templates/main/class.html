@@ -91,13 +91,13 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-           <!-- <ul th:if="${!isTeacher}" class="nav navbar-nav navbar-left">
+           <ul th:if="${!isTeacher}" class="nav navbar-nav navbar-left">
                 <li id="becometeacherbtn">
                     <a class="page-scroll navlabel"
                        style="color: white;font-family: brixnorm!important;"
                        th:text="${strings.main_become_a_teacher}" href="#"></a>
                 </li>
-            </ul>-->
+            </ul
             <ul th:if="${!loggedIn}" class="nav navbar-nav navbar-right">
                 <li id="logisignbtn">
                     <a class="page-scroll navlabel"
@@ -236,7 +236,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12 infoCol noLeftPadding noRightPadding">
-                                <div th:if="${academic}" class="row infoRow">
+                                <div  class="row infoRow">
                                     <div class="col-xs-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
@@ -250,7 +250,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div th:if="${employment}" class="row infoRow">
+                                <div  class="row infoRow">
                                     <div class="col-xs-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
@@ -264,7 +264,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div th:if="${succeed}" class="row infoRow">
+                                <div  class="row infoRow">
                                     <div class="col-xs-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
@@ -278,7 +278,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div th:if="${skills}" class="row infoRow">
+                                <div  class="row infoRow">
                                     <div class="col-xs-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
@@ -292,7 +292,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div th:if="${attachments}" class="row infoRow">
+                                <div  class="row infoRow">
                                     <div class="col-xs-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">

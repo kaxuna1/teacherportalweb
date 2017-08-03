@@ -11,6 +11,9 @@ and (min-width : 321px) {
 and (max-width : 320px) {
     /* Styles */
 }
+.infoP{
+    min-height: 75px;
+}
 
 /* iPads (portrait and landscape) ----------- */
 @media only screen

@@ -142,10 +142,12 @@ a.active, a:active, a:focus, a:hover {
 }
 
 .navbar-custom .nav li a:focus, .navbar-custom .nav li a:hover {
-    color: grey;
+    color: black;
     outline: 0
 }
-
+.navbar-custom .nav li a:focus, .navbar-custom .nav li a{
+    color: white;
+}
 .navbar-custom .navbar-nav > .active > a {
     border-radius: 0;
     color: #fff;

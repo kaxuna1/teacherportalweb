@@ -60,7 +60,7 @@ public class AppController {
                 categories.forEach(category -> category.setLang(lang));
 
 
-                isTeacher = categories.size()==0;
+                isTeacher =  user.getUserCategoryJoins().size()>0;
 
                 if (!sessiona.getUser().getFacebookId().isEmpty()) {
                     profilePicUrl = "http://graph.facebook.com/" + sessiona.getUser().getFacebookId() + "/picture?type=large";
@@ -107,7 +107,7 @@ public class AppController {
                 categories.forEach(category -> category.setLang(lang));
 
 
-                isTeacher = categories.size()==0;
+                isTeacher =  user.getUserCategoryJoins().size()>0;
 
                 model.addAttribute("profilePicUrl", profilePicUrl);
 
@@ -260,7 +260,7 @@ public class AppController {
                 categories.forEach(category -> category.setLang(lang));
 
 
-                isTeacher = categories.size()==0;
+                isTeacher =  user.getUserCategoryJoins().size()>0;
 
                 model.addAttribute("loggedIn", true);
 
@@ -343,7 +343,7 @@ public class AppController {
                 hasClass = user.getUserCategoryJoins().size()>0;
 
 
-                isTeacher = categories.size()==0;
+                isTeacher =  user.getUserCategoryJoins().size()>0;
 
 
 
@@ -401,7 +401,7 @@ public class AppController {
                 categories.forEach(category -> category.setLang(lang));
 
 
-                isTeacher = categories.size()==0;
+                isTeacher =  user.getUserCategoryJoins().size()>0;
 
                 model.addAttribute("profilePicUrl", profilePicUrl);
 
@@ -545,7 +545,7 @@ public class AppController {
                 categories.forEach(category -> category.setLang(lang));
 
 
-                isTeacher = categories.size()==0;
+                isTeacher = user.getUserCategoryJoins().size()>0;
 
 
                 String profilePicUrl = "/profilePic/" + sessiona.getUser().getId() + "?" + Math.random();

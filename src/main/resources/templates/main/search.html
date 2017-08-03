@@ -86,12 +86,12 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <!-- <ul th:if="${!isTeacher}" class="nav navbar-nav navbar-left">
+             <ul th:if="${!isTeacher}" class="nav navbar-nav navbar-left">
                  <li id="becometeacherbtn">
                      <a class="page-scroll" th:text="${strings.main_become_a_teacher}" href="#"
                         style="font-size: 18px;color: black;font-family: brixnorm!important;"></a>
                  </li>
-             </ul>-->
+             </ul>
             <ul th:if="${!loggedIn}" class="nav navbar-nav navbar-right">
                 <li id="logisignbtn">
                     <a class="page-scroll" th:text="${strings.main_login_signup}" href="#"
@@ -170,15 +170,10 @@
                 </div>
 
                 <div class="myCol25">
-                    <select style="font-family: brix!important; background-color: white;color: black"
-                            class="onSearchPage meeting_point">
-                        <option value="1">
-                            Teacher's place
-                        </option>
-                        <option value="2">
-                            Student's place
-                        </option>
-                    </select>
+                    <input style="padding-left: 30px;font-family: brix!important;color: black"
+                           class="placeSearchField onSearchPage classOnSearch" type="text"
+                           th:placeholder="${strings.main_search_placeholder_search}">
+
                 </div>
             </form>
         </div>
@@ -201,7 +196,7 @@
                                         Rating
                                     </td>
                                     <td style="padding-left: 20px">
-                                        <input class="sortCheck" name="sort" checked="checked" value="1" type="radio">
+                                        <input class="sortCheck radio" name="sort" checked="checked" value="1" type="radio">
                                     </td>
                                 </tr>
                                 <tr>
@@ -209,7 +204,8 @@
                                         Most Reviewed
                                     </td>
                                     <td style="padding-left: 20px">
-                                        <input class="sortCheck" name="sort" value="2" type="radio">
+
+                                        <input class="sortCheck radio" name="sort" value="2" type="radio">
                                     </td>
                                 </tr>
                                 </tbody>
@@ -244,35 +240,35 @@
                                 <div class="col-xs-4">
                                     <ul class="list-group">
                                         <li style="font-family: brixnorm!important;margin-bottom: 3px">Education</li>
-                                        <li><span>All</span><input class="educationCheck" name="education" checked="checked" value="1" type="radio"></li>
-                                        <li><span>High School</span><input class="educationCheck" name="education" value="2" type="radio"></li>
-                                        <li><span>Bachelor’s Degree</span><input class="educationCheck" name="education" value="3" type="radio"></li>
-                                        <li><span>Master’s Degree</span><input class="educationCheck" name="education" value="4" type="radio"></li>
-                                        <li><span>PhD</span><input class="educationCheck" name="education" value="5" type="radio"></li>
+                                        <li><span>All</span><input class="educationCheck radio" name="education" checked="checked" value="1" type="radio"></li>
+                                        <li><span>High School</span><input class="educationCheck radio" name="education" value="2" type="radio"></li>
+                                        <li><span>Bachelor’s Degree</span><input class="educationCheck radio" name="education" value="3" type="radio"></li>
+                                        <li><span>Master’s Degree</span><input class="educationCheck radio" name="education" value="4" type="radio"></li>
+                                        <li><span>PhD</span><input class="educationCheck radio" name="education" value="5" type="radio"></li>
                                     </ul>
                                 </div>
                                 <div class="col-xs-4">
 
                                     <ul class="list-group">
                                         <li style="font-family: brixnorm!important;margin-bottom: 3px"> Years of Experience</li>
-                                        <li><span>All</span><input class="expirienceCheck" name="expirienceCheck" checked="checked" value="1" type="radio"></li>
-                                        <li><span>0-1</span><input class="expirienceCheck" name="expirienceCheck" value="2" type="radio"></li>
-                                        <li><span>1-3</span><input class="expirienceCheck" name="expirienceCheck" value="3" type="radio"></li>
-                                        <li><span>3-5</span><input class="expirienceCheck" name="expirienceCheck" value="4" type="radio"></li>
-                                        <li><span>5-10</span><input class="expirienceCheck" name="expirienceCheck" value="5" type="radio"></li>
-                                        <li><span>10+</span><input class="expirienceCheck" name="expirienceCheck" value="6" type="radio"></li>
+                                        <li><span>All</span><input class="expirienceCheck radio" name="expirienceCheck" checked="checked" value="1" type="radio"></li>
+                                        <li><span>0-1</span><input class="expirienceCheck radio" name="expirienceCheck" value="2" type="radio"></li>
+                                        <li><span>1-3</span><input class="expirienceCheck radio" name="expirienceCheck" value="3" type="radio"></li>
+                                        <li><span>3-5</span><input class="expirienceCheck radio" name="expirienceCheck" value="4" type="radio"></li>
+                                        <li><span>5-10</span><input class="expirienceCheck radio" name="expirienceCheck" value="5" type="radio"></li>
+                                        <li><span>10+</span><input class="expirienceCheck radio" name="expirienceCheck" value="6" type="radio"></li>
                                     </ul>
                                 </div>
                                 <div class="col-xs-4">
                                     <ul class="list-group">
-                                        <li style="font-family: brixnorm!important;margin-bottom: 3px">Age</li>
-                                        <li><span>All</span><input class="ageCheck" name="ageCheck" checked="checked" value="1" type="radio"></li>
-                                        <li><span>18-24 years old</span><input class="ageCheck" name="ageCheck" value="2" type="radio"></li>
-                                        <li><span>25-34 years old</span><input class="ageCheck" name="ageCheck" value="3" type="radio"></li>
-                                        <li><span>35-44 years old</span><input class="ageCheck" name="ageCheck" value="4" type="radio"></li>
-                                        <li><span>45-54 years old</span><input class="ageCheck" name="ageCheck" value="5" type="radio"></li>
-                                        <li><span>55-65 years old</span><input class="ageCheck" name="ageCheck" value="6" type="radio"></li>
-                                        <li><span>65 years or older</span><input class="ageCheck" name="ageCheck" value="7" type="radio"></li>
+                                        <li style="font-family: brixnorm!important;margin-bottom: 3px" >Age</li>
+                                        <li><span>All</span><input class="ageCheck radio" name="ageCheck" checked="checked" value="1" type="radio"></li>
+                                        <li><span>18-24 years old</span><input class="ageCheck radio" name="ageCheck" value="2" type="radio"></li>
+                                        <li><span>25-34 years old</span><input class="ageCheck radio" name="ageCheck" value="3" type="radio"></li>
+                                        <li><span>35-44 years old</span><input class="ageCheck radio" name="ageCheck" value="4" type="radio"></li>
+                                        <li><span>45-54 years old</span><input class="ageCheck radio" name="ageCheck" value="5" type="radio"></li>
+                                        <li><span>55-65 years old</span><input class="ageCheck radio" name="ageCheck" value="6" type="radio"></li>
+                                        <li><span>65 years or older</span><input class="ageCheck radio" name="ageCheck" value="7" type="radio"></li>
 
                                     </ul>
                                 </div>

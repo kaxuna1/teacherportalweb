@@ -4,6 +4,8 @@
 var sortMenu = false;
 var priceMenu = false;
 
+var locationPoint  = 1;
+
 var educationMap = {
     "2":"High School",
     "3":"Bachelor’s Degree",
@@ -48,6 +50,8 @@ $(document).ready(function () {
     $(".citySearchField").val(city).change(function () {
         loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0, $("#lower").val(), $("#upper").val())
     });
+
+
     $(".categorySearchField").val(clas).change(function () {
         loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0, $("#lower").val(), $("#upper").val())
     });
@@ -78,8 +82,31 @@ $(document).ready(function () {
             if (!container.is(e.target) && container.has(e.target).length === 0) {
                 $(".searchResultDiv").removeClass("hr")
                 container.removeClass("activeItem");
+
             }
         });
+    });
+
+    $(".placeSearchField").val("Teacher's place");
+    $(".placeSearchField").typeahead({
+        source: [{
+            id:"1",
+            name:"Teacher's place"
+        },{
+            id: "2",
+            name:"Student's place"
+        }],
+        minLength:0,
+        highlight: true,
+        hint:true,
+        autoSelect: true,
+        afterSelect: function (selected) {
+            console.log(selected);
+            locationPoint = selected.id
+            loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0, $("#lower").val(), $("#upper").val())
+        },
+        fitToElement: true,
+        items: 5
     });
 
 
@@ -121,7 +148,7 @@ $(document).ready(function () {
 function loadSearch(city, clas, page, lower, upper, loadmore) {
     $.getJSON("/searchapi?city=" + $(".citySearchField").val()
         + "&category=" + $(".categorySearchField").val()
-        + "&location=" + $(".meeting_point").val()
+        + "&location=" + locationPoint
         + "&education=" + $(".educationCheck:checked").val()
         + "&exp=" + $(".expirienceCheck:checked").val()
         + "&age=" + $(".ageCheck:checked").val()

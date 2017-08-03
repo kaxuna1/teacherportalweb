@@ -951,39 +951,40 @@ ul {
         width: 10px;
     }
 }
+/*
 
 .checkbox, .checkbox-alt {
     background-color: #fff;
     display: inline-block;
-    height: 50px;
+    height: 15px;
     margin: 0 0.25em;
-    width: 50px;
+    width: 15px;
 }
 
 .checkbox label, .checkbox-alt label {
     display: block;
-    height: 50px;
+    height: 15px;
     position: relative;
-    width: 50px;
+    width: 15px;
 }
 
 .checkbox label:after, .checkbox-alt label:after {
-    /*
+    !*
     This element has a border on the right, and top. By rotating it looks like a check symbol, but the wrong way. That's why I'm flipping it with scaleX(-1)
-    */
+    *!
     -moz-transform: scaleX(-1) rotate(135deg);
     -ms-transform: scaleX(-1) rotate(135deg);
     -webkit-transform: scaleX(-1) rotate(135deg);
     transform: scaleX(-1) rotate(135deg);
-    /*
+    !*
     I want to position the symbol using the left top, because when increasing the width and height of an object, it expands from the top left corner as well. That is what makes it looks like it's being drawn.
-    */
+    *!
     -moz-transform-origin: left top;
     -ms-transform-origin: left top;
     -webkit-transform-origin: left top;
     transform-origin: left top;
-    border-right: 4px solid #cee;
-    border-top: 4px solid #cee;
+    border-right: 4px solid #23ee23;
+    border-top: 4px solid #23ee23;
     content: '';
     display: block;
     height: 20px;
@@ -1022,6 +1023,7 @@ ul {
     -o-animation: none;
     animation: none;
 }
+*/
 
 #searchview {
     height: 100vh;
@@ -1188,6 +1190,8 @@ ul {
         font-size: 11pt;
         float: right;
         padding-right: 30px;
+        width: 150px;
+
     }
 
     .priceTag {
@@ -1902,9 +1906,8 @@ and (min-width: 1824px) {
 
     }
 
-    #logisignbtn a {
+    #logisignbtn a,.profName {
         font-size: 25px !important;
-
     }
 
     .footerLeft li a {
@@ -1953,10 +1956,6 @@ and (min-width: 1824px) {
     margin: auto;
 }
 
-input:focus {
-    padding-left: 30px !important;
-    background-image: none;
-}
 
 .profileEditButton {
     color: #46c3bf;
@@ -1982,4 +1981,11 @@ input:focus {
 }
 .orderHeader h2 {
     text-transform: capitalize;
+}
+
+#userBtn a{
+    padding-right: 0;
+}
+.navbar-custom .nav li a :hover{
+    color: black!important;
 }
