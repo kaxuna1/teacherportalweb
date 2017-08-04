@@ -106,7 +106,10 @@ function loadSearch(city, clas, page, lower, upper, loadmore) {
            var id = $(this).attr("value");
            markerMap[id].setAnimation(null);
         });
-        $(".searchResultDiv").append("<a id='loadMore' style='cursor: pointer;margin: auto;font-family: brixLight;font-size: 18px'>Load more</a>")
+        if(!result.last){
+            $(".searchResultDiv")
+                .append("<a id='loadMore' style='cursor: pointer;margin: auto;font-family: brixLight;font-size: 18px'>Load more</a>");
+        }
         $("#loadMore").unbind().click(function () {
             page++;
             $(this).remove();
