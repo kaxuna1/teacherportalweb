@@ -3,7 +3,8 @@
  */
 var sortMenu = false;
 var priceMenu = false;
-
+var map;
+var geocoder;
 var locationPoint  = 1;
 
 var educationMap = {
@@ -14,137 +15,7 @@ var educationMap = {
 };
 
 
-$(document).ready(function () {
-    var city = getParameterByName('city');
-    var clas = getParameterByName('class');
-    console.log(city, clas);
-    $("#upper").val(199);
-    $("#lower").val(0);
 
-
-    $("#lower").change(function () {
-
-        if ($(this).val() > $("#upper").val()) {
-            $("#upper").val($(this).val())
-        }
-        loadSearch(city, clas, 0, $("#lower").val(), $("#upper").val())
-        drawPriceRange($("#lower").val(), $("#upper").val())
-    });
-    $("#upper").change(function () {
-        if ($(this).val() < $("#lower").val()) {
-            $("#lower").val($(this).val())
-        }
-        loadSearch(city, clas, 0, $("#lower").val(), $("#upper").val())
-        drawPriceRange($("#lower").val(), $("#upper").val())
-    });
-    $(".meeting_point").change(function () {
-        loadSearch(city, clas, 0, $("#lower").val(), $("#upper").val())
-    });
-
-
-    function drawPriceRange(lower, upper) {
-        $(".priceRangeClass").html(lower + "₾ - " + upper + "₾")
-    }
-
-
-    $(".citySearchField").val(city).change(function () {
-        loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0, $("#lower").val(), $("#upper").val())
-    });
-
-
-    $(".categorySearchField").val(clas).change(function () {
-        loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0, $("#lower").val(), $("#upper").val())
-    });
-    $(".sortCheck").change(function () {
-        loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0, $("#lower").val(), $("#upper").val())
-    });
-    $(".educationCheck").change(function () {
-        loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0, $("#lower").val(), $("#upper").val())
-    });
-    $(".expirienceCheck").change(function () {
-        loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0, $("#lower").val(), $("#upper").val())
-    });
-    $(".ageCheck").change(function () {
-        loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0, $("#lower").val(), $("#upper").val())
-    });
-
-    loadSearch(city, clas, 0, $("#lower").val(), $("#upper").val())
-    $(".dropMenu").click(function () {
-        $(".dropMenu").removeClass("activeItem");
-
-        $(this).addClass("activeItem");
-        $(".searchResultDiv").addClass("hr");
-        var item = this;
-        $(document).mouseup(function (e) {
-            var container = $(item);
-
-            // if the target of the click isn't the container nor a descendant of the container
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                $(".searchResultDiv").removeClass("hr")
-                container.removeClass("activeItem");
-
-            }
-        });
-    });
-
-    $(".placeSearchField").val("Teacher's place");
-    $(".placeSearchField").typeahead({
-        source: [{
-            id:"1",
-            name:"Teacher's place"
-        },{
-            id: "2",
-            name:"Student's place"
-        }],
-        minLength:0,
-        highlight: true,
-        hint:true,
-        autoSelect: true,
-        afterSelect: function (selected) {
-            console.log(selected);
-            locationPoint = selected.id
-            loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0, $("#lower").val(), $("#upper").val())
-        },
-        fitToElement: true,
-        items: 5
-    });
-
-
-    var lowerSlider = document.querySelector('#lower'),
-        upperSlider = document.querySelector('#upper'),
-        lowerVal = parseInt(lowerSlider.value);
-    upperVal = parseInt(upperSlider.value);
-
-    upperSlider.oninput = function () {
-        lowerVal = parseInt(lowerSlider.value);
-        upperVal = parseInt(upperSlider.value);
-
-        if (upperVal < lowerVal + 4) {
-            lowerSlider.value = upperVal - 4;
-
-            if (lowerVal == lowerSlider.min) {
-                upperSlider.value = 4;
-            }
-        }
-    };
-
-
-    lowerSlider.oninput = function () {
-        lowerVal = parseInt(lowerSlider.value);
-        upperVal = parseInt(upperSlider.value);
-
-        if (lowerVal > upperVal - 4) {
-            upperSlider.value = lowerVal + 4;
-
-            if (upperVal == upperSlider.max) {
-                lowerSlider.value = parseInt(upperSlider.max) - 4;
-            }
-
-        }
-    };
-
-
-});
 function loadSearch(city, clas, page, lower, upper, loadmore) {
     $.getJSON("/searchapi?city=" + $(".citySearchField").val()
         + "&category=" + $(".categorySearchField").val()
@@ -214,6 +85,7 @@ function loadSearch(city, clas, page, lower, upper, loadmore) {
                 '</article>';
             $(".searchResultDiv").append(itemString);
             console.log(item);
+            geocodeAddress(item.user.address)
 
         }
         $(".searchResultDiv").append("<a id='loadMore' style='cursor: pointer;margin: auto;font-family: brixLight;font-size: 18px'>Load more</a>")
@@ -232,4 +104,170 @@ function getParameterByName(name, url) {
     if (!results) return null;
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+function initMap() {
+
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 12,
+        center: {lat: -34.397, lng: 150.644}
+    });
+
+    geocoder = new google.maps.Geocoder();
+    $(document).ready(function () {
+        var city = getParameterByName('city');
+        var clas = getParameterByName('class');
+        console.log(city, clas);
+        $("#upper").val(199);
+        $("#lower").val(0);
+
+
+
+        $("#lower").change(function () {
+
+            if ($(this).val() > $("#upper").val()) {
+                $("#upper").val($(this).val())
+            }
+            loadSearch(city, clas, 0, $("#lower").val(), $("#upper").val())
+            drawPriceRange($("#lower").val(), $("#upper").val())
+        });
+        $("#upper").change(function () {
+            if ($(this).val() < $("#lower").val()) {
+                $("#lower").val($(this).val())
+            }
+            loadSearch(city, clas, 0, $("#lower").val(), $("#upper").val())
+            drawPriceRange($("#lower").val(), $("#upper").val())
+        });
+        $(".meeting_point").change(function () {
+            loadSearch(city, clas, 0, $("#lower").val(), $("#upper").val())
+        });
+
+
+        function drawPriceRange(lower, upper) {
+            $(".priceRangeClass").html(lower + "₾ - " + upper + "₾")
+        }
+
+
+        $(".citySearchField").val(city).change(function () {
+            loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0, $("#lower").val(), $("#upper").val())
+        });
+
+
+        $(".categorySearchField").val(clas).change(function () {
+            loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0, $("#lower").val(), $("#upper").val())
+        });
+        $(".sortCheck").change(function () {
+            loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0, $("#lower").val(), $("#upper").val())
+        });
+        $(".educationCheck").change(function () {
+            loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0, $("#lower").val(), $("#upper").val())
+        });
+        $(".expirienceCheck").change(function () {
+            loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0, $("#lower").val(), $("#upper").val())
+        });
+        $(".ageCheck").change(function () {
+            loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0, $("#lower").val(), $("#upper").val())
+        });
+
+        loadSearch(city, clas, 0, $("#lower").val(), $("#upper").val())
+        $(".dropMenu").click(function () {
+            $(".dropMenu").removeClass("activeItem");
+
+            $(this).addClass("activeItem");
+            $(".searchResultDiv").addClass("hr");
+            var item = this;
+            $(document).mouseup(function (e) {
+                var container = $(item);
+
+                // if the target of the click isn't the container nor a descendant of the container
+                if (!container.is(e.target) && container.has(e.target).length === 0) {
+                    $(".searchResultDiv").removeClass("hr")
+                    container.removeClass("activeItem");
+
+                }
+            });
+        });
+
+        $(".placeSearchField").val("Teacher's place");
+        $(".placeSearchField").typeahead({
+            source: [{
+                id:"1",
+                name:"Teacher's place"
+            },{
+                id: "2",
+                name:"Student's place"
+            }],
+            minLength:0,
+            highlight: true,
+            hint:true,
+            autoSelect: true,
+            afterSelect: function (selected) {
+                console.log(selected);
+                locationPoint = selected.id
+                loadSearch($(".citySearchField").val(), $(".categorySearchField").val(), 0, $("#lower").val(), $("#upper").val())
+            },
+            fitToElement: true,
+            items: 5
+        });
+
+
+        var lowerSlider = document.querySelector('#lower'),
+            upperSlider = document.querySelector('#upper'),
+            lowerVal = parseInt(lowerSlider.value);
+        upperVal = parseInt(upperSlider.value);
+
+        upperSlider.oninput = function () {
+            lowerVal = parseInt(lowerSlider.value);
+            upperVal = parseInt(upperSlider.value);
+
+            if (upperVal < lowerVal + 4) {
+                lowerSlider.value = upperVal - 4;
+
+                if (lowerVal == lowerSlider.min) {
+                    upperSlider.value = 4;
+                }
+            }
+        };
+
+
+        lowerSlider.oninput = function () {
+            lowerVal = parseInt(lowerSlider.value);
+            upperVal = parseInt(upperSlider.value);
+
+            if (lowerVal > upperVal - 4) {
+                upperSlider.value = lowerVal + 4;
+
+                if (upperVal == upperSlider.max) {
+                    lowerSlider.value = parseInt(upperSlider.max) - 4;
+                }
+
+            }
+        };
+
+
+    });
+}
+function geocodeAddress(address) {
+
+    var image = {
+        url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+        // This marker is 20 pixels wide by 32 pixels high.
+        size: new google.maps.Size(20, 32),
+        // The origin for this image is (0, 0).
+        origin: new google.maps.Point(0, 0),
+        // The anchor for this image is the base of the flagpole at (0, 32).
+        anchor: new google.maps.Point(0, 32)
+    };
+
+    geocoder.geocode({'address': address}, function(results, status) {
+        if (status === 'OK') {
+            map.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+                map: map,
+                icon: image,
+                position: results[0].geometry.location
+            });
+        } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+        }
+    });
 }

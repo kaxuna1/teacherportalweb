@@ -1,6 +1,9 @@
 /**
  * Created by vakhtanggelashvili on 5/12/17.
  */
+
+
+//google map api AIzaSyCQ3dsx4A353ZxftIJ7CkD2s9ZcFc_PTzg
 $(document).ready(function () {
     var id = getParameterByName("id")
     $.getJSON("schedulefordays/" + id + "/45", function (result) {

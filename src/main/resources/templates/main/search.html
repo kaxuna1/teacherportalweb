@@ -61,6 +61,7 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
     <![endif]-->
 
 </head>
@@ -286,8 +287,7 @@
             </div>
         </div>
         <div class="mapDiv">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d33111.09406324017!2d44.77846125597866!3d41.725010699918016!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sge!4v1493398316680"
-                    width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
+            <div id="map" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></div>
         </div>
     </div>
     <footer class="footerLarge" style="padding-left: 4%;padding-right: 4%">
@@ -444,6 +444,9 @@
 <script src="assets/js/widgets/dynamicCreateForm.js"></script>
 <script src="assets/js/mainsite.js"></script>
 <script src="assets/js/search.js"></script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ3dsx4A353ZxftIJ7CkD2s9ZcFc_PTzg&callback=initMap">
+</script>
 <script>
 
 

@@ -91,13 +91,13 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-           <ul th:if="${!isTeacher}" class="nav navbar-nav navbar-left">
+            <ul th:if="${!isTeacher}" class="nav navbar-nav navbar-left">
                 <li id="becometeacherbtn">
                     <a class="page-scroll navlabel"
                        style="color: white;font-family: brixnorm!important;"
                        th:text="${strings.main_become_a_teacher}" href="#"></a>
                 </li>
-            </ul
+            </ul>
             <ul th:if="${!loggedIn}" class="nav navbar-nav navbar-right">
                 <li id="logisignbtn">
                     <a class="page-scroll navlabel"
@@ -127,8 +127,8 @@
                        role="button" aria-haspopup="true"
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">-->
                         <span class="navlabel profName"
-                            th:text="${userNameSurname}"
-                            style="color: white;font-family: brixnorm!important;"></span></span></a>
+                              th:text="${userNameSurname}"
+                              style="color: white;font-family: brixnorm!important;"></span></span></a>
                     <ul class="dropdown-menu">
                         <li class="profileBtn"><a href="#" th:text="${strings.main_menu_profile}"></a></li>
                         <li class="settingsBtn"><a href="#" th:text="${strings.main_menu_settings}"></a></li>
@@ -194,9 +194,10 @@
                                         <span class="starRatingClass">
                                             <img class="staricon" th:each="i : ${#numbers.sequence( 1, scoreMain)}"
                                                  src="png/search/v.png">
-                                        </span>
+                                        </span><a style="color: white!important;" href="#rews">
                                         <span class="reviewsLabelClass" th:text="${scoreCount}">
-                                        </span>
+
+                                        </span></a>
                                         <span class="viewsLabelClass">
                                             <img src="png/class/tvali.png">450
                                         </span>
@@ -236,7 +237,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12 infoCol noLeftPadding noRightPadding">
-                                <div  class="row infoRow">
+                                <div class="row infoRow">
                                     <div class="col-xs-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
@@ -250,7 +251,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div  class="row infoRow">
+                                <div class="row infoRow">
                                     <div class="col-xs-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
@@ -264,7 +265,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div  class="row infoRow">
+                                <div class="row infoRow">
                                     <div class="col-xs-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
@@ -278,7 +279,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div  class="row infoRow">
+                                <div class="row infoRow">
                                     <div class="col-xs-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
@@ -292,7 +293,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div  class="row infoRow">
+                                <div class="row infoRow">
                                     <div class="col-xs-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">
@@ -604,7 +605,8 @@
 
 <script src="/assets/js/bootstrap3-typeahead.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.css">
+<link rel="stylesheet" type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.common.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
 
