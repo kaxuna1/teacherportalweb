@@ -29,6 +29,7 @@
             async: false
         });
     </script>
+
     <script src="js/templates.js"></script>
     <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
     <script src="https://apis.google.com/js/api.js"></script>
@@ -111,13 +112,13 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                        role="button" aria-haspopup="true"
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><img
-                            style="height: 20px" src="png/us.png"></span></a>
+                            style="height: 20px" id="curLang" src=""></span></a>
                     <ul class="dropdown-menu">
-                        <li class="profileBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
+                        <li value="1" class="langbtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
                                                                                         src="png/us.png"><span
                                 style="padding-left: 10px">English</span></a></li>
-                        <li class="profileBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
-                                                                                        src="png/us.png"><span
+                        <li value="2" class="langbtn" class="profileBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
+                                                                                        src="png/ge.png"><span
                                 style="padding-left: 10px">Georgian</span></a></li>
                     </ul>
                 </li>
@@ -142,14 +143,14 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                        role="button" aria-haspopup="true"
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><img
-                            style="height: 20px" src="png/us.png"></span></a>
+                            style="height: 20px" id="curLang" src=""></span></a>
                     <ul class="dropdown-menu">
-                        <li class="profileBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
+                        <li value="1" class="langbtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
                                                                                         src="png/us.png"><span
                                 style="padding-left: 10px">English</span></a></li>
-                        <li class="profileBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
-                                                                                        src="png/us.png"><span
-                                style="padding-left: 10px">English</span></a></li>
+                        <li value="2" class="langbtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
+                                                                                        src="png/ge.png"><span
+                                style="padding-left: 10px">Georgian</span></a></li>
                     </ul>
                 </li>
 
@@ -394,7 +395,7 @@
 
                                         </span>
                                     </div>
-                                    <div class="col-md-8 infoContentOrder lastInfoContent noLeftPadding noRightPadding">
+                                    <div th:if="${isTeacher}"  class="col-md-8 infoContentOrder lastInfoContent noLeftPadding noRightPadding">
                                         <button id="becometeacherbtn" class="btn myclassesbtn">Add a class</button>
                                     </div>
                                 </div>
@@ -524,6 +525,8 @@
 <!-- Bootstrap Core JavaScript -->
 <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
 <script src="/assets/js/bootstrap3-typeahead.js"></script>
+<link rel="stylesheet" href="assets/css/bootstrap-material-datetimepicker.css"/>
+<script type="text/javascript" src="assets/js/bootstrap-material-datetimepicker.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.js"></script>
 

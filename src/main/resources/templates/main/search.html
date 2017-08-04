@@ -103,14 +103,14 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                        role="button" aria-haspopup="true"
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><img
-                            style="height: 20px" src="png/us.png"></span></a>
+                            style="height: 20px" id="curLang" src=""></span></a>
                     <ul class="dropdown-menu">
-                        <li class="profileBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
+                        <li value="1" class="langbtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
                                                                                         src="png/us.png"><span
                                 style="padding-left: 10px">English</span></a></li>
-                        <li class="profileBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
-                                                                                        src="png/us.png"><span
-                                style="padding-left: 10px">English</span></a></li>
+                        <li value="2" class="langbtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
+                                                                                        src="png/ge.png"><span
+                                style="padding-left: 10px">Georgian</span></a></li>
                     </ul>
                 </li>
             </ul>
@@ -134,14 +134,14 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                        role="button" aria-haspopup="true"
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><img
-                            style="height: 20px" src="png/us.png"></span></a>
+                            style="height: 20px" id="curLang" src=""></span></a>
                     <ul class="dropdown-menu">
-                        <li class="profileBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
+                        <li value="1" class="langbtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
                                                                                         src="png/us.png"><span
                                 style="padding-left: 10px">English</span></a></li>
-                        <li class="profileBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
-                                                                                        src="png/us.png"><span
-                                style="padding-left: 10px">English</span></a></li>
+                        <li value="2" class="langbtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
+                                                                                        src="png/ge.png"><span
+                                style="padding-left: 10px">Georgian</span></a></li>
                     </ul>
                 </li>
 
@@ -239,7 +239,7 @@
                         <div style="overflow-x: scroll;-ms-overflow-x: scroll" class="revileMenuMore ">
                             <div style="min-width: 560px" class="row">
                                 <div class="col-xs-4">
-                                    <ul class="list-group">
+                                    <ul class="list-classType">
                                         <li style="font-family: brixnorm!important;margin-bottom: 3px">Education</li>
                                         <li><span>All</span><input class="educationCheck radio" name="education" checked="checked" value="1" type="radio"></li>
                                         <li><span>High School</span><input class="educationCheck radio" name="education" value="2" type="radio"></li>
@@ -250,7 +250,7 @@
                                 </div>
                                 <div class="col-xs-4">
 
-                                    <ul class="list-group">
+                                    <ul class="list-classType">
                                         <li style="font-family: brixnorm!important;margin-bottom: 3px"> Years of Experience</li>
                                         <li><span>All</span><input class="expirienceCheck radio" name="expirienceCheck" checked="checked" value="1" type="radio"></li>
                                         <li><span>0-1</span><input class="expirienceCheck radio" name="expirienceCheck" value="2" type="radio"></li>
@@ -261,7 +261,7 @@
                                     </ul>
                                 </div>
                                 <div class="col-xs-4">
-                                    <ul class="list-group">
+                                    <ul class="list-classType">
                                         <li style="font-family: brixnorm!important;margin-bottom: 3px" >Age</li>
                                         <li><span>All</span><input class="ageCheck radio" name="ageCheck" checked="checked" value="1" type="radio"></li>
                                         <li><span>18-24 years old</span><input class="ageCheck radio" name="ageCheck" value="2" type="radio"></li>

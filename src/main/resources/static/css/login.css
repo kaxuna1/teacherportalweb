@@ -1985,7 +1985,13 @@ and (min-width: 1824px) {
 
 #userBtn a{
     padding-right: 0;
-}
+}/*
 .navbar-custom .nav li a :hover{
     color: black!important;
+}*/
+.langbtn span:hover{
+    color: black;
+}
+.profName:hover{
+    color: white!important;
 }

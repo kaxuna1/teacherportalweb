@@ -439,6 +439,14 @@ $(document).ready(function () {
                                 }
                             })
                         }
+                    }, {
+                        title: "Class type",
+                        text: "Group or individual",
+                        input: 'select',
+                        inputOptions: {
+                            "0": "Individual",
+                            "1": "Group"
+                        }
                     }
                 ];
                 swal.queue(steps).then(function (result) {
@@ -453,7 +461,8 @@ $(document).ready(function () {
                         iban: result[4],
                         location: result[5],
                         education: result[6],
-                        exp: result[7]
+                        exp: result[7],
+                        group: result[8]
                     }, function (result) {
                         if (result) {
                             var selectedCategory = result;
@@ -559,6 +568,11 @@ $(document).ready(function () {
 
     });
 
+    if(readCookie("lang")==2){
+        $("#curLang").attr("src","png/ge.png")
+    }else{
+        $("#curLang").attr("src","png/us.png")
+    }
 
     var cat = $(".categorySearchField");
     var city = $(".citySearchField");
@@ -1031,6 +1045,12 @@ $(".profileBtn").click(function () {
     window.location = "/profile"
 
 });
+$(".langBtn").click(function () {
+    var val = $(this).attr("value");
+    createCookie("lang", val, 365);
+    location.reload()
+
+})
 
 
 function getMailStringForValue(user) {

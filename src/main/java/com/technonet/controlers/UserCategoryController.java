@@ -1,6 +1,5 @@
 package com.technonet.controlers;
 
-import com.google.common.base.Strings;
 import com.technonet.Enums.JsonReturnCodes;
 import com.technonet.Repository.*;
 import com.technonet.model.*;
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 /**
@@ -163,7 +161,8 @@ public class UserCategoryController {
                                   @RequestParam(value = "education", required = true, defaultValue = "0") int education,
                                   @RequestParam(value = "city", required = true, defaultValue = "0") long city,
                                   @RequestParam(value = "iban", required = true, defaultValue = "0") String iban,
-                                  @RequestParam(value = "location", required = true, defaultValue = "0") int location) {
+                                  @RequestParam(value = "location", required = true, defaultValue = "0") int location,
+                                  @RequestParam(value = "group", required = true, defaultValue = "0") int group) {
 
         Session session = sessionRepository.findOne(sessionId);
         if (session.isIsactive()) {
@@ -175,6 +174,9 @@ public class UserCategoryController {
             UserCategoryJoin userCategoryJoin = new UserCategoryJoin(user1, category1, price, duration,location);
             userCategoryJoin.setExp(exp);
             userCategoryJoin.setEducation(education);
+            if(group==1){
+                userCategoryJoin.setClassType(true);
+            }
             userCategoryJoinRepo.save(userCategoryJoin);
             return userCategoryJoin.getId();
         } else {

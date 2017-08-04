@@ -266,18 +266,9 @@ function loadCategoryDayHours(id) {
                 '<button style="width: 50px;height: 28px;font-size: 12px;margin-left: 10px" id="addTimeToSchedule" class="btn myclassesbtn ">' + strings["admin_button_add"] + '</button>' +
                 "</div>").insertAfter(createScheduleIntervalBtn.obj);
             createScheduleIntervalBtn.obj.hide()
-            var fromTime = $('#fromTime').bootstrapMaterialDatePicker
-            ({
-                date: false,
-                shortTime: false,
-                format: 'HH:mm'
-            });
-            var toTime = $('#toTime').bootstrapMaterialDatePicker
-            ({
-                date: false,
-                shortTime: false,
-                format: 'HH:mm'
-            });
+            var fromTime = $('#fromTime');
+            var toTime = $('#toTime');
+
             $("#addTimeToSchedule").unbind().click(function () {
 
                 if (toTime.val() && fromTime.val()) {

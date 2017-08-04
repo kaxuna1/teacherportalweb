@@ -83,6 +83,8 @@ public class UserCategoryJoin {
     private int exp;
     @Column
     private int education;
+    @Column
+    private boolean classType;
 
 
     public UserCategoryJoin(User user, Category categoryId, float price, int duration,int location) {
@@ -101,6 +103,7 @@ public class UserCategoryJoin {
         this.views = 400 + (int)(Math.random() * 800);
         this.ratings = new ArrayList<>();
         this.location = location;
+        this.classType = false;
 
     }
 
@@ -316,5 +319,13 @@ public class UserCategoryJoin {
 
     public void setEducation(int education) {
         this.education = education;
+    }
+
+    public boolean isClassType() {
+        return classType;
+    }
+
+    public void setClassType(boolean classType) {
+        this.classType = classType;
     }
 }
