@@ -13,6 +13,9 @@ var educationMap = {
     "4":"Master’s Degree",
     "5":"PhD"
 };
+var markerMap={
+
+}
 
 
 
@@ -30,8 +33,15 @@ function loadSearch(city, clas, page, lower, upper, loadmore) {
         $("#numberOfResult").html(result.numberOfElements + " results");
         var data = result["content"]
 
-        if (!loadmore)
+        if (!loadmore){
+
             $(".searchResultDiv").html("");
+            try{
+                map.clearOverlays();
+            }catch (e){
+                console.log(e);
+            }
+        }
 
 
         for (key in data) {
@@ -42,7 +52,7 @@ function loadSearch(city, clas, page, lower, upper, loadmore) {
             for (var i = 0; i < rating; i++) {
                 ratingStars += '<img class="staricon" src="png/search/v.png">';
             }
-            var itemString = '<article class="searchResultItem">' +
+            var itemString = '<article value="'+item.user.id+'" class="searchResultItem">' +
                 '    <div class="searchResultItemTop">' +
                 '        <div class="searchResultItemTopImgDiv">' +
                 '            <img class="img-circle searchResultItemTopImg" src="profilePic/' + item.user.id + '">' +
@@ -85,9 +95,17 @@ function loadSearch(city, clas, page, lower, upper, loadmore) {
                 '</article>';
             $(".searchResultDiv").append(itemString);
             console.log(item);
-            geocodeAddress(item.user.address)
+            geocodeAddress(item.user.city.name+" "+item.user.address,item.user.id)
 
         }
+        $(".searchResultItem").mouseenter(function () {
+           var id = $(this).attr("value");
+           markerMap[id].setAnimation(google.maps.Animation.BOUNCE);
+        });
+        $(".searchResultItem").mouseleave(function () {
+           var id = $(this).attr("value");
+           markerMap[id].setAnimation(null);
+        });
         $(".searchResultDiv").append("<a id='loadMore' style='cursor: pointer;margin: auto;font-family: brixLight;font-size: 18px'>Load more</a>")
         $("#loadMore").unbind().click(function () {
             page++;
@@ -246,12 +264,17 @@ function initMap() {
 
     });
 }
-function geocodeAddress(address) {
+function geocodeAddress(address,id) {
+
+    if(markerMap[id])
+        return;
+
+    markerMap[id] = 1;
 
     var image = {
-        url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+        url: '/p.png',
         // This marker is 20 pixels wide by 32 pixels high.
-        size: new google.maps.Size(20, 32),
+        size: new google.maps.Size(32, 32),
         // The origin for this image is (0, 0).
         origin: new google.maps.Point(0, 0),
         // The anchor for this image is the base of the flagpole at (0, 32).
@@ -263,11 +286,13 @@ function geocodeAddress(address) {
             map.setCenter(results[0].geometry.location);
             var marker = new google.maps.Marker({
                 map: map,
+                animation: google.maps.Animation.DROP,
                 icon: image,
                 position: results[0].geometry.location
             });
+            markerMap[id]=marker;
         } else {
-            alert('Geocode was not successful for the following reason: ' + status);
+
         }
     });
 }

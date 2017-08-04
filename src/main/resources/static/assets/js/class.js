@@ -106,7 +106,45 @@ $(document).ready(function () {
     })
 
 });
+function initMap() {
 
+    map = new google.maps.Map(document.getElementById('mapDiv'), {
+        zoom: 12,
+        center: {lat: -34.397, lng: 150.644}
+    });
+
+    geocoder = new google.maps.Geocoder();
+
+    geocodeAddress()
+}
+function geocodeAddress() {
+
+
+
+    var image = {
+        url: '/p.png',
+        // This marker is 20 pixels wide by 32 pixels high.
+        size: new google.maps.Size(32, 32),
+        // The origin for this image is (0, 0).
+        origin: new google.maps.Point(0, 0),
+        // The anchor for this image is the base of the flagpole at (0, 32).
+        anchor: new google.maps.Point(0, 32)
+    };
+
+    geocoder.geocode({'address': $("#address").html()}, function(results, status) {
+        if (status === 'OK') {
+            map.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+                map: map,
+                animation: google.maps.Animation.DROP,
+                icon: image,
+                position: results[0].geometry.location
+            });
+        } else {
+
+        }
+    });
+}
 
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;

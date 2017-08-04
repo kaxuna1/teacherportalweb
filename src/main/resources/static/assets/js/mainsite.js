@@ -367,7 +367,7 @@ $(document).ready(function () {
                         inputOptions: categoriesData
                     }, {
                         title: "Become A Teacher",
-                        text: "How long your class will continue?",
+                        text: "What will be the duration of your class?",
                         input: 'number',
                         inputPlaceholder: "Minutes",
                         inputValidator: function (value) {
@@ -381,7 +381,7 @@ $(document).ready(function () {
                         }
                     }, {
                         title: "Become A Teacher",
-                        text: "How much would you like to get paid?",
+                        text: "How much would you like to get paid per class?",
                         input: 'number',
                         inputPlaceholder: "Price in ₾",
                         inputValidator: function (value) {

@@ -51,6 +51,24 @@ public class ScheduleController {
             return new JsonMessage(JsonReturnCodes.DONTHAVEPERMISSION);
         }
     }
+    @RequestMapping("/removeday/{id}")
+    @ResponseBody
+    public boolean removeday(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,@PathVariable(value = "id", required = true) long id){
+
+
+        Session session = sessionRepository.findOne(sessionId);
+        Schedule day = scheduleRepo.getOne(id);
+
+        if(day.getCategory().getUser().getId()==session.getUser().getId()){
+            day.setActive(false);
+
+            scheduleRepo.save(day);
+        }
+
+
+
+        return true;
+    }
 
     @RequestMapping("/createscheduledaymy")
     @ResponseBody

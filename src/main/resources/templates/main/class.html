@@ -315,9 +315,9 @@
                                     Map
                                 </span>
                                 <div id="map" class="mapDivClass">
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d33111.09406324017!2d44.77846125597866!3d41.725010699918016!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sge!4v1493398316680"
-                                            width="100%" height="100%" frameborder="0" style="border:0"
-                                            allowfullscreen></iframe>
+                                    <div id="mapDiv"
+                                         style="height: 100%;width: 100%"
+                                         ></div>
                                 </div>
                             </div>
                         </div>
@@ -443,7 +443,7 @@
                                                 <span class="classTypeLabel">
                                                 Individual
                                             </span>
-                                                    <input class="classTypeInput" checked="true" name="classType"
+                                                    <input class="classTypeInput radio" checked="true" name="classType"
                                                            value="1" type="radio">
                                                 </div>
 
@@ -455,7 +455,7 @@
                                                 <span class="classTypeLabel">
                                                 Group
                                             </span>
-                                                    <input class="classTypeInput" name="classType" value="2"
+                                                    <input class="classTypeInput radio" name="classType" value="2"
                                                            type="radio">
                                                 </div>
 
@@ -591,6 +591,7 @@
 
 <div id="duration" style="display: none" th:text="${duration}"></div>
 <div id="price" style="display: none" th:text="${#numbers.formatDecimal(price, 0, 0)}"></div>
+<div id="address" style="display: none" th:text="${address}"> </div>
 
 
 <!-- Bootstrap Core JavaScript -->
@@ -624,6 +625,10 @@
 <script src="/assets/js/mainsite.js"></script>
 <script src="/assets/js/calendar.js"></script>
 <script src="/assets/js/class.js"></script>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ3dsx4A353ZxftIJ7CkD2s9ZcFc_PTzg&callback=initMap">
+</script>
 <script>
 
 

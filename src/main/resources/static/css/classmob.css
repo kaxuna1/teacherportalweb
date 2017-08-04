@@ -213,7 +213,8 @@ and (max-width : 480px) {
     }
 
     .infoLogoName img {
-        width: 70px;
+        width: 50px;
+        margin-top: 10px;
     }
 
     .noLeftPadding {

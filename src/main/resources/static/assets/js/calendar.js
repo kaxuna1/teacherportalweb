@@ -13,20 +13,15 @@ function calendarInit(data) {
     !function () {
 
         var today = moment();
+        today.startOf('isoweek');
 
         function Calendar(selector, events) {
             this.el = document.querySelector(selector);
             this.events = events;
-            this.current = moment().date(1);
+            this.current = moment().startOf('isoweek').date(1);
             this.draw();
             var current = document.querySelector('.today');
-            if (current) {
-                var self = this;
-                window.setTimeout(function () {
-                    //self.openDay(current);
-                    //$(".calendarTopDiv").height(parseInt($("#calendar").height()) + 60);
-                }, 500);
-            }
+
         }
 
         Calendar.prototype.draw = function () {
@@ -165,8 +160,12 @@ function calendarInit(data) {
             //Outer Day
             var outer = createElement('div', this.getDayClass(day) );
             outer.addEventListener('click', function () {
-                self.openDay(this);
 
+                var dontOpen = self.openDay(this);
+
+                if(dontOpen){
+                    return;
+                }
 
                 $(".calendarBodyTimes").removeClass("hide");
                 $(".calendarBody").addClass("hide");
@@ -226,6 +225,7 @@ function calendarInit(data) {
         }
 
         Calendar.prototype.openDay = function (el) {
+
             var self = this;
             var details, arrow;
             var dayNumber = +el.querySelectorAll('.day-number')[0].innerText || +el.querySelectorAll('.day-number')[0].textContent;
@@ -235,6 +235,7 @@ function calendarInit(data) {
             $("#dayname").html(day.format("ddd, MMM DD"));
 
             $(".timesPlaceTableBody").html("");
+            var size = 0;
             var todayDates = data.reduce(function (memo, item) {
                 if (moment(item.starting_time).isSame(day, 'day') && !timesForBook[item.starting_time]) {
                     $(".timesPlaceTableBody").append("<tr>" +
@@ -246,15 +247,20 @@ function calendarInit(data) {
                         "<td>" +
                         "<button value='"+item.starting_time+"' class='btn addTimeButton'>+" +
                         "</button></td>" +
-                        "</tr>")
+                        "</tr>");
+                    size++;
                 }
                 return memo;
             }, []);
+            if(size===0){
+                return true;
+            }
             $(".addTimeButton").click(function () {
                 timesForBook[$(this).attr("value")]=$(this).attr("value");
                 self.openDay(el);
                 drawItemsToBook()
             })
+            return false;
         };
 
         Calendar.prototype.renderEvents = function (events, ele) {

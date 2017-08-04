@@ -43,7 +43,7 @@ $(document).ready(function () {
     $(".numberOfClasses").html("<div class='numberOfClassesName'>" + numberOfTimes + " Classes</div>");
     $(".numberOfClasses").append("<div class='numberOfClassesAB'>" + firstLastDates.a + "-" + firstLastDates.b + "</div>")
     $(".numberOfClasses").append("<div style='margin-top: 25px;display: grid;'>" +
-        "<a style='cursor:pointer;float: right;margin-bottom: 15px;text-align: right;' class='expandDates'>See Detaials</a>" +
+        "<a style='cursor:pointer;float: right;margin-bottom: 15px;text-align: right;' class='expandDates'>See Details</a>" +
         "<table id='hiddenTimeTable' class='hideOrder' style='padding-top: 10px;    margin-bottom: 20px;'><tbody class='timesExpanded'></tbody></table></div>")
 
     for (var key in timesObject) {
@@ -136,12 +136,12 @@ var openOrderGlobal = function (data) {
                 '</div>');
             body.append('<div class="row">' +
                 '<div class="col-xs-4">Teacher: </div>' +
-                '<div class="col-xs-4">' + result.teacherName + '</div>' +
+                '<div class="col-xs-4" style="text-transform: capitalize;">' + result.teacherName + '</div>' +
                 '<div class="col-xs-4"></div>' +
                 '</div>');
             body.append('<div class="row">' +
                 '<div class="col-xs-4">Student: </div>' +
-                '<div class="col-xs-4">' + result.studentName + '</div>' +
+                '<div class="col-xs-4" style="text-transform: capitalize;">' + result.studentName + '</div>' +
                 '<div class="col-xs-4"></div>' +
                 '</div>');
             body.append('<div class="row">' +
@@ -166,9 +166,9 @@ var openOrderGlobal = function (data) {
                 for (var key in data) {
                     var item = data[key];
                     table.append("<tr>" +
-                        "<td>" + moment(item.startDate).locale("ka").format("dddd LL") + "</td>" +
-                        "<td>" + moment(item.startDate).locale("ka").format("HH:mm") + "</td>" +
-                        "<td>" + moment(item.endDate).locale("ka").format("HH:mm") + "</td>" +
+                        "<td>" + moment(item.startDate).locale("en").format("dddd LL") + "</td>" +
+                        "<td>" + moment(item.startDate).locale("en").format("HH:mm") + "</td>" +
+                        "<td>" + moment(item.endDate).locale("en").format("HH:mm") + "</td>" +
                         "</tr>")
                 }
             })

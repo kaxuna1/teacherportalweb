@@ -526,6 +526,8 @@ public class AppController {
         model.addAttribute("attachmentsString", attachmentsString);
 
         model.addAttribute("duration", userCategoryJoin.getDuration());
+        model.addAttribute("address", userCategoryJoin.getUser().getCity().getName()+" "+userCategoryJoin.getUser().getAddress());
+
 
         boolean isTeacher = false;
         Session sessiona;

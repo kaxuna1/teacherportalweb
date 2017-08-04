@@ -226,11 +226,17 @@ function loadCategory(id) {
                     for (key2 in result2){
                         var item2 = result2[key2];
                         table.append("<tr><td style='cursor: pointer;' value='"+item2.id+"' class='weekDayColumn'>"+item2.name+"" +
-                            "</td><td style='width: 10%'><button value='"+item2.id+
-                            "' class='btn myclassesbtn removeDay'>X</button>" +
+                            "</td><td style='width: 10%'><button value='"+item2.id+"' class='btn myclassesbtn removeDay'>X</button>" +
                             "</td></tr>")
 
                     }
+                    $(".removeDay").click(function () {
+                        var idSch = $(this).attr("value")
+                        $.getJSON("/removeday/"+idSch,function (result) {
+                            modal.modal("hide");
+                            loadCategory(id)
+                        })
+                    })
                     $(".weekDayColumn").click(function () {
                         var dayId = $(this).attr("value");
                         loadCategoryDayHours(dayId);

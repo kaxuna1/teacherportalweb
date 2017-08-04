@@ -128,3 +128,6 @@ and (max-width: 480px) {
         margin-top: 10px;
     }
 }
+.navbar-custom .nav li a:focus, .navbar-custom .nav li a{
+    color:black!important;
+}
