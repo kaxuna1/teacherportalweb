@@ -144,49 +144,61 @@ and (min-width : 481px) {
 .navbar-custom .nav li a{
     color: black!important;
 }
-
-.radio {
-    position: relative;
-    margin: 0 1rem 0 0;
-    cursor: pointer;
+.radio{
     float: right;
 }
-.radio:before {
-    -webkit-transition: -webkit-transform 0.4s cubic-bezier(0.45, 1.8, 0.5, 0.75);
-    -moz-transition: -moz-transform 0.4s cubic-bezier(0.45, 1.8, 0.5, 0.75);
-    transition: transform 0.4s cubic-bezier(0.45, 1.8, 0.5, 0.75);
-    -webkit-transform: scale(0, 0);
-    -moz-transform: scale(0, 0);
-    -ms-transform: scale(0, 0);
-    -o-transform: scale(0, 0);
-    transform: scale(0, 0);
-    content: "";
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    z-index: 1;
-    width: 9px;
-    height: 9px;
-    background: #16a085;
-    border-radius: 50%;
+.quicklinks li{
+    margin-top: 5px;
 }
-.radio:checked:before {
-    -webkit-transform: scale(1, 1);
-    -moz-transform: scale(1, 1);
-    -ms-transform: scale(1, 1);
-    -o-transform: scale(1, 1);
-    transform: scale(1, 1);
+.revileMenuMore .col-xs-4{
+    padding-left: 0;
 }
-.radio:after {
-    content: "";
-    position: absolute;
-
-    width: 13px;
-    height: 13px;
-    background: #fff;
-    border: 2px solid #f2f2f2;
-    border-radius: 50%;
+.list-classType{
+    padding-left: 5px!important;
 }
+    /*
+    .radio {
+        position: relative;
+        margin: 0 1rem 0 0;
+        cursor: pointer;
+        float: right;
+    }
+    .radio:before {
+        -webkit-transition: -webkit-transform 0.4s cubic-bezier(0.45, 1.8, 0.5, 0.75);
+        -moz-transition: -moz-transform 0.4s cubic-bezier(0.45, 1.8, 0.5, 0.75);
+        transition: transform 0.4s cubic-bezier(0.45, 1.8, 0.5, 0.75);
+        -webkit-transform: scale(0, 0);
+        -moz-transform: scale(0, 0);
+        -ms-transform: scale(0, 0);
+        -o-transform: scale(0, 0);
+        transform: scale(0, 0);
+        content: "";
+        position: absolute;
+        top: 0px;
+        left: -2px;
+        z-index: 1;
+        width: 15px;
+        height: 15px;
+        background: #16a085;
+        border-radius: 50%;
+    }
+    .radio:checked:before {
+        -webkit-transform: scale(1, 1);
+        -moz-transform: scale(1, 1);
+        -ms-transform: scale(1, 1);
+        -o-transform: scale(1, 1);
+        transform: scale(1, 1);
+    }
+    .radio:after {content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        top: -2.6px;
+        left: -5.0px;
+        background: #fff;
+        border: 2px solid #f2f2f2;
+        border-radius: 50%;
+    }*/
 #map{
     height: 100%;
 }

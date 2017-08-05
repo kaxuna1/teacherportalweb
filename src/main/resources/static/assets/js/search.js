@@ -135,6 +135,9 @@ function initMap() {
 
     geocoder = new google.maps.Geocoder();
     $(document).ready(function () {
+
+        $(".radio").kalypto({toggleClass: "toggleR"});
+
         var city = getParameterByName('city');
         var clas = getParameterByName('class');
         console.log(city, clas);
