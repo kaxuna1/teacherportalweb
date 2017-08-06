@@ -180,11 +180,6 @@ function loadCategory(id) {
                 '<div class="col-xs-4"></div>' +
                 '</div>');
             body.append('<div class="row">' +
-                '<div class="col-xs-4">Views: </div>' +
-                '<div class="col-xs-4">' + result.views + '</div>' +
-                '<div class="col-xs-4"></div>' +
-                '</div>');
-            body.append('<div class="row">' +
                 '<div class="col-xs-6"><h4>Available days: </h4></div>' +
                 '<div class="col-xs-3"></div>' +
                 '<div class="col-xs-3"><button class="btn myclassesbtn addDay">add</button></div>' +

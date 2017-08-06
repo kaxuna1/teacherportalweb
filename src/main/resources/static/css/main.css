@@ -94,6 +94,16 @@ and (max-width: 480px) {
     .footerLarge {
         display: none;
     }
+
+    .navlabelScroled:hover{
+        color: black!important;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a{
+        color: white;
+    }
+    .navlabelScroled a{
+        color: black!important;
+    }
 }
 
 /* Smartphones (landscape) ----------- */
@@ -417,7 +427,7 @@ and (min-width: 1824px) {
 }
 
 .dropdown-menu a {
-    font-family: brixLight !important;
+
     font-size: 20px;
 }
 

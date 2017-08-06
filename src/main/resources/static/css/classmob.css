@@ -529,4 +529,7 @@ and (max-width : 480px) {
         font-family: brix!important;
         font-size: 12pt;
     }
+    .profName{
+        color: black;
+    }
 }

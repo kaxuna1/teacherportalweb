@@ -40,7 +40,7 @@ $(document).ready(function () {
                 '<button style="margin-top: 10px;background-color: #46c3bf;color: white;" id="signInBtn" class="btn btn-block btn-social">  Log in </button>' +
                 '</form>');
 
-            $(".modal-cancele-btn").remove()
+
             footer.prepend("<div style='float: left;font-family: brixNorm;color: dimgrey;font-size: 1.2em;padding-top: 5px'>Don't have an account?</div>")
 
             $("#signInGoogle").click(function () {
@@ -93,10 +93,10 @@ $(document).ready(function () {
                     $("#singUpWithEmailBtn").unbind().click(function () {
                         modal.modal("hide")
                         showModalWithTableInside(function (head, body, modal, random, footer) {
-                            $(".modal-cancele-btn").remove()
+
                             footer.prepend("<div style='float: left;font-family: brixNorm;color: dimgrey;font-size: 1.2em;padding-top: 5px'>Already have an Allwitz account?</div>")
 
-                            $(".modal-cancele-btn").remove()
+
                             body.append(
                                 '<div style="padding-top: 30px;" method="" class="form-signin">' +
                                 '<div style="text-align: center" class="row"><span style="text-align: center;font-family: brixnorm!important;">Sign up with <a style="color:#218769;font-family: brixNorm!important;" href="#">Facebook</a> or <a style="color:#218769;font-family: brixNorm!important;" href="#">Google</a></span></div>' +
@@ -274,7 +274,7 @@ $(document).ready(function () {
                      '<div id="errorMessage"></div>' +
                      '</form>');*/
 
-                    $(".modal-cancele-btn").remove()
+
                     footer.prepend("<div style='float: left;font-family: brixNorm;color: dimgrey;font-size: 1.2em;padding-top: 5px'>Already have an Allwitz account?</div>")
 
                     $("#emailReg").change(function () {
