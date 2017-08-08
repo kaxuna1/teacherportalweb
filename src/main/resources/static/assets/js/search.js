@@ -211,7 +211,7 @@ function initMap() {
             });
         });
 
-        $(".placeSearchField").val("Teacher's place");
+        $(".placeSearchField").val("");
         $(".placeSearchField").typeahead({
             source: [{
                 id:"1",
@@ -231,6 +231,12 @@ function initMap() {
             },
             fitToElement: true,
             items: 5
+        });
+        $(".placeSearchField").on("click", function () {
+            ev = $.Event("keydown")
+            ev.keyCode = ev.which = 40
+            $(this).trigger(ev)
+            return true
         });
 
 

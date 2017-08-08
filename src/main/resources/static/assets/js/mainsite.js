@@ -583,8 +583,11 @@ $(document).ready(function () {
             afterSelect: function (selected) {
 
             },
-            fitToElement: true,
-            items: 5
+            hint:true,
+            highlight: true,
+            minLength: 0,
+            limit:10,
+            fitToElement: true
         });
         cat.change(function () {
             var current = cat.typeahead("getActive");
@@ -600,6 +603,12 @@ $(document).ready(function () {
                 // Nothing is active so it is a new value (or maybe empty value)
             }
         });
+        cat.on("click", function () {
+            ev = $.Event("keydown")
+            ev.keyCode = ev.which = 40
+            $(this).trigger(ev)
+            return true
+        });
     });
     $.getJSON("/cities", function (result) {
         city.typeahead({
@@ -608,8 +617,11 @@ $(document).ready(function () {
             afterSelect: function (selected) {
 
             },
-            fitToElement: true,
-            items: 5,
+            hint:true,
+            highlight: true,
+            minLength: 0,
+            limit:10,
+            fitToElement: true
         });
         city.change(function () {
             var current = cat.typeahead("getActive");
@@ -626,6 +638,12 @@ $(document).ready(function () {
             } else {
                 // Nothing is active so it is a new value (or maybe empty value)
             }
+        });
+        city.on("click", function () {
+            ev = $.Event("keydown")
+            ev.keyCode = ev.which = 40
+            $(this).trigger(ev)
+            return true
         });
     });
 
