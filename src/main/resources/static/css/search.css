@@ -109,13 +109,22 @@ and (max-width : 480px) {
         display: none;
     }
 }
+
 @media only screen
-and (min-width : 481px) {
+and (min-width: 993px) {
     /* Styles */
-    .footerMin{
+    .footerMin {
         display: none;
     }
 }
+@media only screen
+and (max-width: 992px) {
+    /* Styles */
+    .footerLarge {
+        display: none;
+    }
+}
+
 .footerLeft{
     display: flex;
 }

@@ -1512,7 +1512,7 @@ p {
     line-height: 1.4
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .lead {
         font-size: 21px
     }
@@ -1693,7 +1693,7 @@ dd {
     margin-left: 0
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .dl-horizontal dt {
         float: left;
         width: 160px;
@@ -1828,7 +1828,7 @@ pre code {
     margin-left: auto
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .container {
         width: 750px
     }
@@ -2073,7 +2073,7 @@ pre code {
     margin-left: 0
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9 {
         float: left
     }
@@ -3280,7 +3280,7 @@ select[multiple].input-lg, textarea.input-lg {
     color: #737373
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .form-inline .form-group {
         display: inline-block;
         margin-bottom: 0;
@@ -3351,7 +3351,7 @@ select[multiple].input-lg, textarea.input-lg {
     margin-left: -15px
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .form-horizontal .control-label {
         padding-top: 7px;
         margin-bottom: 0;
@@ -3363,14 +3363,14 @@ select[multiple].input-lg, textarea.input-lg {
     right: 15px
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .form-horizontal .form-group-lg .control-label {
         padding-top: 11px;
         font-size: 18px
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .form-horizontal .form-group-sm .control-label {
         padding-top: 6px;
         font-size: 12px
@@ -3939,7 +3939,7 @@ tbody.collapse.in {
     margin-bottom: 2px
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .navbar-right .dropdown-menu {
         right: 0;
         left: auto
@@ -4371,7 +4371,7 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
     left: auto
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .nav-tabs.nav-justified > li {
         display: table-cell;
         width: 1%
@@ -4391,7 +4391,7 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
     border: 1px solid #ddd
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .nav-tabs.nav-justified > li > a {
         border-bottom: 1px solid #ddd;
         border-radius: 4px 4px 0 0
@@ -4446,7 +4446,7 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
     left: auto
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .nav-justified > li {
         display: table-cell;
         width: 1%
@@ -4470,7 +4470,7 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
     border: 1px solid #ddd
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .nav-tabs-justified > li > a {
         border-bottom: 1px solid #ddd;
         border-radius: 4px 4px 0 0
@@ -4502,13 +4502,13 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
     border: 1px solid transparent
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .navbar {
         border-radius: 4px
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .navbar-header {
         float: left
     }
@@ -4528,7 +4528,7 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
     overflow-y: auto
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .navbar-collapse {
         width: auto;
         border-top: 0;
@@ -4568,7 +4568,7 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
     margin-left: -15px
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .container-fluid > .navbar-collapse, .container-fluid > .navbar-header, .container > .navbar-collapse, .container > .navbar-header {
         margin-right: 0;
         margin-left: 0
@@ -4580,7 +4580,7 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
     border-width: 0 0 1px
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .navbar-static-top {
         border-radius: 0
     }
@@ -4593,7 +4593,7 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
     z-index: 1030
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .navbar-fixed-bottom, .navbar-fixed-top {
         border-radius: 0
     }
@@ -4626,7 +4626,7 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
     display: block
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
         margin-left: -15px
     }
@@ -4660,7 +4660,7 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
     margin-top: 4px
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .navbar-toggle {
         display: none
     }
@@ -4701,7 +4701,7 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .navbar-nav {
         float: left;
         margin: 0
@@ -4729,7 +4729,7 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 1px 0 rgba(255, 255, 255, .1)
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .navbar-form .form-group {
         display: inline-block;
         margin-bottom: 0;
@@ -4795,7 +4795,7 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .navbar-form {
         width: auto;
         padding-top: 0;
@@ -4842,7 +4842,7 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
     margin-bottom: 15px
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .navbar-text {
         float: left;
         margin-right: 15px;
@@ -4850,7 +4850,7 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .navbar-left {
         float: left !important
     }
@@ -5379,7 +5379,7 @@ a.badge:focus, a.badge:hover {
     max-width: 100%
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 480px) {
     .jumbotron {
         padding-top: 48px;
         padding-bottom: 48px
@@ -6380,7 +6380,7 @@ button.close {
     overflow: scroll
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .modal-dialog {
         width: 600px;
         margin: 30px auto
@@ -6892,7 +6892,7 @@ button.close {
     text-shadow: none
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 480px) {
     .carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right, .carousel-control .icon-next, .carousel-control .icon-prev {
         width: 30px;
         height: 30px;
@@ -7018,7 +7018,7 @@ button.close {
     }
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 480px) and (max-width: 991px) {
     .visible-sm {
         display: block !important
     }
@@ -7036,19 +7036,19 @@ button.close {
     }
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 480px) and (max-width: 991px) {
     .visible-sm-block {
         display: block !important
     }
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 480px) and (max-width: 991px) {
     .visible-sm-inline {
         display: inline !important
     }
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 480px) and (max-width: 991px) {
     .visible-sm-inline-block {
         display: inline-block !important
     }
@@ -7132,7 +7132,7 @@ button.close {
     }
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 480px) and (max-width: 991px) {
     .hidden-sm {
         display: none !important
     }
