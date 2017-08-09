@@ -7,27 +7,86 @@ $(document).ready(function () {
         $("#profilePick").click();
     });
     $("#profilePick").change(function (e) {
-        console.log(this.files);
-        var formData = new FormData();
-        var xhr = new XMLHttpRequest();
 
-        for (var i = 0; i < this.files.length; i++) {
-            //TODO Append in php files array
-            formData.append('file', this.files[i]);
-            console.log('Looping trough passed data', this.files[i]);
-        }
+        var globalThis = this;
+        var $uploadCrop;
+        showModalWithTableInside(function (head, body, modal, rand) {
 
-        //On successful upload response, parse JSON data
-        //TODO handle response from php server script
-        xhr.onload = function () {
-            var data = JSON.parse(this.responseText);
-            window.location.reload()
-        };
+            body.append('<div style="height: 300px"><div id="upload-demo" style="height: 100%"></div></div>');
 
-        //Open an AJAX post request
-        xhr.open('post', "uploadProfilePic/");
-        xhr.send(formData);
-    })
+
+            $uploadCrop = $('#upload-demo').croppie({
+                viewport: {
+                    width: 100,
+                    height: 100,
+                    type: 'circle'
+                },
+                enableExif: true
+            });
+
+            function readFile(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('.upload-demo').addClass('ready');
+                        $uploadCrop.croppie('bind', {
+                            url: e.target.result
+                        }).then(function(){
+                            console.log('jQuery bind complete');
+                        });
+
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+                else {
+                    swal("Sorry - you're browser doesn't support the FileReader API");
+                }
+            }
+            readFile(globalThis);
+
+
+        },{"Crop and Upload":function () {
+            $uploadCrop.croppie('result', {
+                type: 'base64',
+                size: 'viewport'
+            }).then(function (result) {
+                console.log(result);
+                $.post({
+                    url:"profilepicupdate",
+                    data:{pic:result}
+                }).then(function (res) {
+                    console.log(res)
+                    window.location.reload()
+                })
+            })
+
+            /*
+            console.log(this.files);
+            var formData = new FormData();
+            var xhr = new XMLHttpRequest();
+
+            for (var i = 0; i < this.files.length; i++) {
+                //TODO Append in php files array
+                formData.append('file', this.files[i]);
+                console.log('Looping trough passed data', this.files[i]);
+            }
+
+            //On successful upload response, parse JSON data
+            //TODO handle response from php server script
+            xhr.onload = function () {
+                var data = JSON.parse(this.responseText);
+                window.location.reload()
+            };
+
+            //Open an AJAX post request
+            xhr.open('post', "uploadProfilePic/");
+            xhr.send(formData);*/
+        }},400);
+
+
+    });
     $(".profileEditButton").click(function () {
 
 

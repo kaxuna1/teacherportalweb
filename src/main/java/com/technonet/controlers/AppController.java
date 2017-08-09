@@ -529,6 +529,8 @@ public class AppController {
         model.addAttribute("address", userCategoryJoin.getUser().getCity().getName()+" "+userCategoryJoin.getUser().getAddress());
 
 
+        model.addAttribute("views",userCategoryJoin.getViews());
+
         boolean isTeacher = false;
         Session sessiona;
         Variables.myThreadLocal.set(lang);

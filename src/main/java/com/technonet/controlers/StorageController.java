@@ -104,6 +104,49 @@ public class StorageController {
         }
         return true;
     }
+    @RequestMapping("/profilepicupdate")
+    @ResponseBody
+    public boolean profilepicupdate(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,
+                                    @RequestParam("pic") String pic){
+
+
+        Session session = sessionRepository.findOne(sessionId);
+        if (!session.isIsactive())
+            return false;
+        if (pic.isEmpty()) {
+            return false;
+        } else {
+            try{
+                User user = session.getUser();
+
+                UUID uuid = UUID.randomUUID();
+                String base64Image = pic.split(",")[1];
+                byte[] imageBytes = javax.xml.bind.DatatypeConverter.parseBase64Binary(base64Image);
+                BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imageBytes));
+                int w = bufferedImage.getWidth();
+                int h = bufferedImage.getHeight();
+                if(w>500){
+                    int newWidth=500;
+                    float scale=((float)w/(float)newWidth);
+                    float newHeight=  (h/scale);
+                    bufferedImage=Variables.resize(bufferedImage,newWidth,(int)newHeight);
+                }
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ImageIO.write(bufferedImage, "png", baos);
+                InputStream is = new ByteArrayInputStream(baos.toByteArray());
+
+                Files.copy(is, Paths.get(Variables.appDir + "/images/profilePics", uuid.toString()));
+                user.setProfilePic(uuid.toString());
+                userRepository.save(user);
+            }catch (Exception e){
+
+            }
+
+        }
+
+        return true;
+    }
+
     @RequestMapping("uploadProfilePic")
     @ResponseBody
     public boolean uploadProfilePic(@CookieValue(value = "projectSessionId", defaultValue = "0") long sessionId,

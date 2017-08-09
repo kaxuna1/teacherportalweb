@@ -1,6 +1,6 @@
 @media only screen
 and (min-width : 320px)
-and (max-width : 480px) {
+and (max-width : 860px) {
     /* Styles */
 
     .rightContainer{
@@ -146,7 +146,7 @@ and (max-width : 480px) {
 
     .profilePicContainerClass {
         max-width: 140px;
-        min-width: 110px;
+
     }
 
     .classAbout {

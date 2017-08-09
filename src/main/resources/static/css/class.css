@@ -17,7 +17,7 @@ and (max-width : 320px) {
 
 /* iPads (portrait and landscape) ----------- */
 @media only screen
-and (min-width : 768px)
+and (min-width : 481px)
 and (max-width : 1224px) {
 
     /* Styles */
@@ -129,7 +129,7 @@ and (max-width : 1224px) {
 
     .profilePicContainerClass {
         max-width: 140px;
-        min-width: 110px;
+
     }
 
     .classAbout {
@@ -630,7 +630,7 @@ and (orientation : landscape) {
 
     .profilePicContainerClass {
         max-width: 140px;
-        min-width: 110px;
+
     }
 
     .classAbout {
@@ -1038,7 +1038,7 @@ and (orientation : landscape) {
 
 /* iPads (portrait) ----------- */
 @media only screen
-and (min-width : 768px)
+and (min-width : 481px)
 and (max-width : 1224px)
 and (orientation : portrait) {
     /* Styles */
@@ -1149,7 +1149,7 @@ and (orientation : portrait) {
 
     .profilePicContainerClass {
         max-width: 140px;
-        min-width: 110px;
+
     }
 
     .classAbout {
