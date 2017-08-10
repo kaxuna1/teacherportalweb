@@ -4676,7 +4676,7 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
     line-height: 20px
 }
 
-@media (max-width: 767px) {
+@media (max-width: 480px) {
     .navbar-nav .open .dropdown-menu {
         position: static;
         float: none;

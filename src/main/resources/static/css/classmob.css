@@ -1,13 +1,18 @@
 @media only screen
-and (min-width : 480px)
-and (max-width : 860px){
-
+and (min-width : 320px)
+and (max-width : 480px){
+    .profName{
+        color: black;
+    }
+    #langbtn{
+        display: none;
+    }
 }
 
 
     @media only screen
 and (min-width : 320px)
-and (max-width : 768px) {
+and (max-width : 992px) {
     /* Styles */
 
     .rightContainer{
@@ -93,7 +98,7 @@ and (max-width : 768px) {
     }
 
     .starRatingDivClass span{
-        width: 33%;
+        width: 40%;
     }
     .starRatingDivClass {
         width: 50%;
@@ -544,7 +549,5 @@ and (max-width : 768px) {
         font-family: brix!important;
         font-size: 12pt;
     }
-    .profName{
-        color: black;
-    }
+
 }
