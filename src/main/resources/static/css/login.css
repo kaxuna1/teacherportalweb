@@ -1761,6 +1761,13 @@ div.bhoechie-tab-content {
 /*global header*/
 
 @media only screen
+and (max-width: 319px){
+    body{
+        display: none;
+    }
+}
+
+@media only screen
 and (min-width: 320px)
 and (max-width: 480px) {
     /* Styles */
@@ -2014,6 +2021,10 @@ and (max-width: 480px) {
     }
 
 }
+.toggleR{
+    font-size: 5px;
+    padding-right: 20px;
+}
 @media only screen
 and (min-width : 320px)
 and (max-width : 480px){
@@ -2022,5 +2033,17 @@ and (max-width : 480px){
     }
     #langbtn{
         display: none;
+    }
+}
+@media only screen
+and (min-width : 480px)
+and (max-width : 991px){
+    .imgDivLeft{
+        display: flex;
+        height: 100%;
+    }
+    .imgDivRight{
+        display: flex;
+        height: 100%;
     }
 }

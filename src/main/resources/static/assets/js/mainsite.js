@@ -114,9 +114,9 @@ $(document).ready(function () {
                                 '<div style="width: 30%;float: left;text-align: center"><select id="day" class="form-custom"  style="width: 80%"></select></div>' +
                                 '<div style="width: 35%;float: left;text-align: right"><select id="year" class="form-custom"  style="width: 80%"></select></div>' +
                                 '</div>' +
-                                '<div class="row" style="padding-top: 10px">' +
-                                '<input type="checkbox" value="value1" />' +
-                                '<span style="font-size: 0.9em;font-family: brixnorm">' +
+                                '<div class="row" style="padding-top: 10px;display: flex">' +
+                                '<input id="promotions" type="checkbox" value="value1" />' +
+                                '<span style="font-size: 0.9em;font-family: brixnorm;padding-left: 5px">' +
                                 'I’d like to receive coupons, promotions, surveys, and updates via email aboutAllwitz and its partners </span></div>' +
                                 '<button style="margin-top: 10px;background-color: #46c3bf;color: white;" id="singUpWithEmailBtn1" class="btn btn-block btn-social">Sign up</button>    ' +
                                 '<div class="row"><p style="    line-height: 17px;font-size: 0.87em;padding-top: 10px;font-family: brixNorm;">' +
@@ -125,15 +125,15 @@ $(document).ready(function () {
                                 'Payments Terms of Service, Privacy Policy, ' +
                                 'Guest Refund Policy, and Host            Guarantee Terms.</a></p></div>' +
                                 '</div>')
-
-
-                            for (var i = 1; i < 13; i++) {
+                            $("#promotions").kalypto({toggleClass: "toggleR"});
+                            $("#month").append("<option value='" + 0 + "'>" + moment().month(12).format('MMMM') + "</option>");
+                            for (var i = 1; i < 12; i++) {
                                 $("#month").append("<option value='" + i + "'>" + moment().month(i).format('MMMM') + "</option>");
                             }
                             for (var i = 1; i < 32; i++) {
                                 $("#day").append("<option value='" + i + "'>" + i + "</option>");
                             }
-                            for (var i = 1940; i < 2010; i++) {
+                            for (var i = 2010; i > 1940; i--) {
                                 $("#year").append("<option value='" + i + "'>" + i + "</option>");
                             }
 
@@ -1065,6 +1065,8 @@ $(".profileBtn").click(function () {
 });
 $(".langBtn").click(function () {
     var val = $(this).attr("value");
+
+    console.log(val);
     createCookie("lang", val, 365);
     location.reload()
 

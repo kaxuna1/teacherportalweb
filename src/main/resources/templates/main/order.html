@@ -9,8 +9,9 @@
     <meta name="author" content="">
 
     <title>Allwitz</title>
-
+    <link rel="stylesheet" href="radio/kalypto.css">
     <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="radio/kalypto.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     <link type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
     <script>
@@ -109,10 +110,10 @@
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><img
                             style="height: 20px"id="curLang" src=""></span></a>
                     <ul class="dropdown-menu">
-                        <li value="1" class="langbtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
+                        <li value="1" class="langBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
                                                                                         src="png/us.png"><span
                                 style="padding-left: 10px">English</span></a></li>
-                        <li value="2" class="langbtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
+                        <li value="2" class="langBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
                                                                                         src="png/ge.png"><span
                                 style="padding-left: 10px">Georgian</span></a></li>
                     </ul>
@@ -140,10 +141,10 @@
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><img
                             style="height: 20px" id="curLang" src=""></span></a>
                     <ul class="dropdown-menu">
-                        <li value="1" class="langbtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
+                        <li value="1" class="langBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
                                                                                         src="png/us.png"><span
                                 style="padding-left: 10px">English</span></a></li>
-                        <li value="2" class="langbtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
+                        <li value="2" class="langBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
                                                                                         src="png/ge.png"><span
                                 style="padding-left: 10px">Georgian</span></a></li>
                     </ul>
@@ -222,9 +223,7 @@
                                                         <td>
                                                             Total
                                                         </td>
-                                                        <td class="totalPlace" style="text-align: right;font-family: brixnorm!important;">
-                                                            400 ₾
-                                                        </td>
+                                                        <td class="totalPlace" style="text-align: right;font-family: brixnorm!important;"></td>
 
                                                     </tr>
                                                     </tbody>

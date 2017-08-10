@@ -7,9 +7,9 @@ import java.util.Map;
  * Created by vakhtanggelashvili on 3/26/17.
  */
 public enum Languages {
-    ENG(1),
-    GEO(2),
-    RUS(3);
+    English(1),
+    Georgian(2),
+    Russian(3);
 
     private int CODE;
 

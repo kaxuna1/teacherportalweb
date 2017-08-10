@@ -11,8 +11,9 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.css">
 
     <title>Allwitz</title>
-
+    <link rel="stylesheet" href="radio/kalypto.css">
     <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="radio/kalypto.js"></script>
     <link rel="stylesheet" href="crop/croppie.css" />
     <script src="crop/croppie.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
@@ -117,10 +118,10 @@
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><img
                             style="height: 20px" id="curLang" src=""></span></a>
                     <ul class="dropdown-menu">
-                        <li value="1" class="langbtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
+                        <li value="1" class="langBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
                                                                                         src="png/us.png"><span
                                 style="padding-left: 10px">English</span></a></li>
-                        <li value="2" class="langbtn" class="profileBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
+                        <li value="2" class="langBtn" class="profileBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
                                                                                         src="png/ge.png"><span
                                 style="padding-left: 10px">Georgian</span></a></li>
                     </ul>
@@ -148,10 +149,10 @@
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><img
                             style="height: 20px" id="curLang" src=""></span></a>
                     <ul class="dropdown-menu">
-                        <li value="1" class="langbtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
+                        <li value="1" class="langBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
                                                                                         src="png/us.png"><span
                                 style="padding-left: 10px">English</span></a></li>
-                        <li value="2" class="langbtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
+                        <li value="2" class="langBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
                                                                                         src="png/ge.png"><span
                                 style="padding-left: 10px">Georgian</span></a></li>
                     </ul>
@@ -275,7 +276,7 @@
                                     </div>
                                     <div  class="col-md-8 infoContentOrder noLeftPadding noRightPadding">
                                         <div class="row">
-                                            <div th:text="${phone}" class="col-xs-11 noLeftPadding addressText">
+                                            <div th:text="${phone}" class="col-xs-11 noLeftPadding phoneText">
 
                                             </div>
                                             <div style="text-align: right" class="col-xs-1 noRightPadding">
@@ -314,7 +315,7 @@
                                     </div>
                                     <div class="col-md-8 infoContentOrder  noLeftPadding noRightPadding">
                                         <div class="row">
-                                            <div th:text="${employmentString}" class="col-xs-11 noLeftPadding academicStringText">
+                                            <div th:text="${employmentString}" class="col-xs-11 noLeftPadding currentText">
 
                                             </div>
                                             <div  style="text-align: right" class="col-xs-1 noRightPadding">
@@ -335,7 +336,7 @@
                                     <div class="col-md-8 infoContentOrder  noLeftPadding noRightPadding">
 
                                         <div class="row">
-                                            <div th:text="${succeedString}" class="col-xs-11 noLeftPadding academicStringText">
+                                            <div th:text="${succeedString}" class="col-xs-11 noLeftPadding succeedStringText">
 
                                             </div>
                                             <div  style="text-align: right" class="col-xs-1 noRightPadding">
@@ -357,7 +358,7 @@
                                     <div class="col-md-8 infoContentOrder noLeftPadding noRightPadding">
 
                                         <div class="row">
-                                            <div th:text="${skillsString}" class="col-xs-11 noLeftPadding academicStringText">
+                                            <div th:text="${skillsString}" class="col-xs-11 noLeftPadding skillsStringText">
 
                                             </div>
                                             <div  style="text-align: right" class="col-xs-1 noRightPadding">
@@ -367,7 +368,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div th:if="${hasClass}" class="lastInfoItemrow infoRowOrder">
+                                <div style="display: none" th:if="${hasClass}" class="lastInfoItemrow infoRowOrder">
                                     <div class="col-md-4 infoLogoName noLeftPadding">
 
                                         <span class="infoTitle">

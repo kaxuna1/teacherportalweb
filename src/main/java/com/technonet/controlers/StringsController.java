@@ -74,7 +74,7 @@ public class StringsController {
     public List<IdNameData> getLangsAddableToSysString(@CookieValue("projectSessionId") long sessionId,
                                                        @PathVariable("uuid") String uuid) {
         List<SysStringTranslations> translations = this.translationsFor(sessionId, uuid);
-        return new UsersController().getLanguages().stream().filter(idNameData -> idNameData.getId() != Languages.ENG.getCODE() && translations.stream().noneMatch(sysStringTranslations -> sysStringTranslations.getLang() == idNameData.getId())).collect(Collectors.toList());
+        return new UsersController().getLanguages().stream().filter(idNameData -> idNameData.getId() != Languages.English.getCODE() && translations.stream().noneMatch(sysStringTranslations -> sysStringTranslations.getLang() == idNameData.getId())).collect(Collectors.toList());
     }
     @RequestMapping("/addtranslation")
     @ResponseBody

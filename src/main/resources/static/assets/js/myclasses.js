@@ -17,7 +17,7 @@ $(document).ready(function () {
             header: {
                 left: 'prev',
                 center: 'title',
-                right: 'agendaWeek,listMonth   next'
+                right: 'today   agendaWeek,listMonth   next'
             },
             defaultView: "agendaWeek",
             height: 500,
@@ -36,11 +36,18 @@ $(document).ready(function () {
         $(".fc-agendaWeek-button").addClass("myBtn")
         $(".fc-agendaWeek-button").addClass("btn")
 
+
+        $(".fc-today-button").addClass("myBtn")
+        $(".fc-today-button").addClass("btn")
+
+
+
         $(".fc-listMonth-button").addClass("myBtn")
         $(".fc-listMonth-button").addClass("btn")
 
         $(".fc-prev-button").attr("style","background-color:transparent;")
         $(".fc-agendaWeek-button").attr("style","background-color:transparent;")
+        $(".fc-today-button").attr("style","background-color:transparent;")
         $(".fc-listMonth-button").attr("style","background-color:transparent;")
 
 
@@ -61,6 +68,12 @@ $(document).ready(function () {
         $(".fc-agendaWeek-button").removeClass("fc-corner-left")
         $(".fc-agendaWeek-button").removeClass("fc-corner-right")
         $(".fc-agendaWeek-button").removeClass("fc-state-active")
+
+        $(".fc-today-button").removeClass("fc-button")
+        $(".fc-today-button").removeClass("fc-state-default")
+        $(".fc-today-button").removeClass("fc-corner-left")
+        $(".fc-today-button").removeClass("fc-corner-right")
+        $(".fc-today-button").removeClass("fc-state-active")
 
         $(".fc-listMonth-button").removeClass("fc-button")
         $(".fc-listMonth-button").removeClass("fc-state-default")

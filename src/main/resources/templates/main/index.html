@@ -17,7 +17,9 @@
 
     <title>Allwitz</title>
 
+    <link rel="stylesheet" href="radio/kalypto.css">
     <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="radio/kalypto.js"></script>
     <script>
         var strings;
         $.ajax({
@@ -107,11 +109,11 @@
                        role="button" aria-haspopup="true"
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><img
                             style="height: 20px" id="curLang" src=""></span></a>
-                    <ul class="dropdown-menu" style="background-color:rgba(47, 113, 84, 1)">
-                        <li value="1" class="langbtn" ><a href="#" style="font-size: 15px"><img style="height: 15px"
+                    <ul class="dropdown-menu" style="">
+                        <li value="1" class="langBtn" ><a href="#" style="font-size: 15px"><img style="height: 15px"
                                                                                         src="png/us.png">
                             <span style="padding-left: 10px;">English</span></a></li>
-                        <li value="2" class="langbtn"><a href="#" style="font-size: 15px"><img style="height: 15px" src="png/ge.png">
+                        <li value="2" class="langBtn"><a href="#" style="font-size: 15px"><img style="height: 15px" src="png/ge.png">
                             <span style="padding-left: 10px;">Georgian</span></a></li>
                     </ul>
                 </li>
@@ -136,7 +138,7 @@
                        role="button" aria-haspopup="true"
                        aria-expanded="false"><span style="display: flex"><!--<img class="profilePicInHeader" th:src="${profilePicUrl}">--><img
                             style="height: 20px" id="curLang" src=""></span></a>
-                    <ul class="dropdown-menu" style="background-color:rgba(47, 113, 84, 1) ">
+                    <ul class="dropdown-menu" style=" ">
                         <li value="1" class="langBtn"><a href="#" style="font-size: 15px"><img style="height: 15px"
                                                                                         src="png/us.png">
                             <span style="padding-left: 10px;">English</span></a></li>

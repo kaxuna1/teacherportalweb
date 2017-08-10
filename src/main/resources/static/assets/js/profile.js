@@ -94,6 +94,7 @@ $(document).ready(function () {
         var text = "";
         var sendUrl = "/editme?";
         var inputType = "textarea";
+        var value = "";
 
         var inputOptions = {};
 
@@ -102,18 +103,23 @@ $(document).ready(function () {
         if (type === "about") {
             title = "Enter";
             text = "Information about you";
+            value = $(".aboutText").html();
         }
         if (type === "academic") {
             title = "Academic Credentials";
+            value = $(".academicStringText").html();
         }
         if (type === "current") {
             title = "Current Employment";
+            value = $(".currentText").html();
         }
         if (type === "succeed") {
             title = "Succeed";
+            value = $(".succeedStringText").html();
         }
         if (type === "skills") {
             title = "Skills";
+            value = $(".skillsStringText").html();
         }
         if (type === "city") {
             inputType = 'select';
@@ -127,15 +133,18 @@ $(document).ready(function () {
             title = "Enter";
             text = "Your address!";
             inputType = "text";
+            value = $(".addressText").html();
         }
         if (type === "phone") {
             title = "Enter";
             text = "Your phone number!";
             inputType = "text";
+            value = $(".phoneText").html();
         }
         swal({
             title: title,
             text: text,
+            inputValue:value,
             inputOptions: inputOptions,
             input: inputType,
             imageWidth: 400,

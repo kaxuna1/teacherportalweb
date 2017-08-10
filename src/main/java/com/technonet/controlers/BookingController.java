@@ -110,7 +110,7 @@ public class BookingController {
         UserCategoryJoin userCategoryJoin = userCategoryJoinRepo.findOne(usercat);
         Order order = new Order(user);
         order.setComment(comment);
-        order.setPrice(userCategoryJoin.getPrice() * times.size());
+        order.setPrice( userCategoryJoin.getPrice() * times.size()+(float)Math.ceil((userCategoryJoin.getPrice() * times.size())/100*4d));
         orderRepo.save(order);
         for (Long time : times) {
             BookedTime bookedTime = new BookedTime(new DateTime(time).withSecondOfMinute(0).withMillisOfSecond(0).toDate(),

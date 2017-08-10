@@ -11,7 +11,7 @@ $(document).ready(function () {
 
 
     var price = $("#price").html();
-    var fee = 10;
+    var fee = 4;
     var firstLastDates = {
         a: "",
         b: ""
@@ -63,12 +63,12 @@ $(document).ready(function () {
 
     var sum = (parseInt(price) * numberOfTimes);
 
-    var total = sum + fee;
+    var total = (parseFloat(sum) + parseFloat(((sum/100)*fee).toPrecision(3))).toPrecision(3);
 
     $(".pricextimes").html(price + " ₾ x " + numberOfTimes + " classes");
     $(".pricextimesSum").html(sum + " ₾");
-    $(".feePlace").html(fee + " ₾");
-    $(".totalPlace").html(total + " ₾")
+    $(".feePlace").html(fee + "%");
+    $(".totalPlace").html(total + " ₾");
 
     $(".bookButton").click(function () {
         var url = "/bookforuser/" + id;
