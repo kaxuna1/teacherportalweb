@@ -1,6 +1,13 @@
 @media only screen
+and (min-width : 480px)
+and (max-width : 860px){
+
+}
+
+
+    @media only screen
 and (min-width : 320px)
-and (max-width : 860px) {
+and (max-width : 768px) {
     /* Styles */
 
     .rightContainer{
@@ -19,6 +26,10 @@ and (max-width : 860px) {
         text-align: left;
         padding: 0;
         display: flex;
+        width: 50%;
+        max-width: 480px;
+        min-width: 320px;
+        margin: auto;
 
     }
     .classBodyCol  .col-md-9{
@@ -85,11 +96,15 @@ and (max-width : 860px) {
         width: 33%;
     }
     .starRatingDivClass {
-        width: 100%;
+        width: 50%;
+        min-width: 320px;
+        max-width: 480px;
+        margin: auto;
         height: 100%;
         /* text-align: center; */
         text-align: left;
         display: flex;
+
     }
 
     .classPageContainer {

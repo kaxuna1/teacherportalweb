@@ -55,13 +55,13 @@ function loadSearch(city, clas, page, lower, upper, loadmore) {
             var itemString = '<article value="'+item.user.id+'" class="searchResultItem">' +
                 '    <div class="searchResultItemTop">' +
                 '        <div class="searchResultItemTopImgDiv">' +
-                '            <img class="img-circle searchResultItemTopImg" src="profilePic/' + item.user.id + '">' +
+                '            <a href="class?id=' + item.id + '"><img class="img-circle searchResultItemTopImg" src="profilePic/' + item.user.id + '"></a>' +
                 '        </div>' +
                 '        <div class="searchResultItemTopTextDiv">' +
                 '            <div class="searchResultItemTopTextDivChild">' +
-                '                <p class="nameLabel">' +
+                '                <a href="class?id=' + item.id + '"><p class="nameLabel">' +
                 '                    ' + item.user.name +
-                '                </p>' +
+                '                </p></a>' +
                 '                <div class="degreeAndClass"><p class="classLabel">' +
                 '                   ' + item["categoryName"] +
                 '                </p>' +
@@ -148,15 +148,17 @@ function initMap() {
 
         $("#lower").change(function () {
 
+            console.log($(this).val())
             if ($(this).val() > $("#upper").val()) {
-                $("#upper").val($(this).val())
+                $("#upper").val($(this).val()+1)
             }
             loadSearch(city, clas, 0, $("#lower").val(), $("#upper").val())
             drawPriceRange($("#lower").val(), $("#upper").val())
         });
         $("#upper").change(function () {
+            console.log($(this).val())
             if ($(this).val() < $("#lower").val()) {
-                $("#lower").val($(this).val())
+                $("#lower").val($(this).val()-1)
             }
             loadSearch(city, clas, 0, $("#lower").val(), $("#upper").val())
             drawPriceRange($("#lower").val(), $("#upper").val())
