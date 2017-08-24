@@ -304,7 +304,7 @@ and (max-width : 992px) {
     }
 
     .ratingStarsTable {
-        width: 400px;
+        max-width: 400px;
     }
 
     .ratingStarsTable > td {
