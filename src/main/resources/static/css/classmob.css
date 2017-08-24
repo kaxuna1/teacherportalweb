@@ -98,7 +98,7 @@ and (max-width : 992px) {
     }
 
     .starRatingDivClass span{
-        width: 40%;
+        width: 30%;
     }
     .starRatingDivClass {
         width: 50%;
@@ -123,6 +123,10 @@ and (max-width : 992px) {
         font-family: brix !important;
         text-align: center;
         font-size: 20px;
+    }
+    .starRatingDivClass a{
+        width: 40%;
+        text-align: center;
     }
 
     .viewsLabelClass {
